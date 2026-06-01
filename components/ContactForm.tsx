@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useState} from 'react';
+import {FormEvent, useState} from 'react';
 import {serviceOption} from "@/lib/contact/services";
 import {createdLead} from "@/features/contact/contactApi";
 import {leadSchema} from "@/lib/validators/lead";
@@ -17,9 +17,13 @@ const initialState = {
 const ContactForm = () => {
     const [form, setForm] = useState(initialState)
 
-const handelSubmit = async (e) => {
+const handelSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
     const parsData = leadSchema.safeParse(form)
+    if(!parsData.success) {
+        console.log("valid err", parsData.error)
+        return
+    }
         try {
 
              await  createdLead(parsData.data)

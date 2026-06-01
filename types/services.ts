@@ -7,5 +7,5 @@ export  const serviceTypes = [
     'AI_AUTOMATION',
     'SEO',
     'OTHER',
-]
+] as const
 

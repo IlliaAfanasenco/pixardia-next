@@ -9,3 +9,5 @@ export const leadSchema = z.object({
     serviceType: z.enum(serviceTypes),
     serviceSlug: z.string().min(1, "Slug is required"),
 })
+
+export type LeadInput = z.infer<typeof leadSchema>
