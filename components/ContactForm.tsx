@@ -1,7 +1,7 @@
 "use client"
 
 import {FormEvent, useState} from 'react';
-import {serviceOption} from "@/lib/contact/services";
+import {serviceOptions , type ServiceType} from "@/content/services";
 import {createdLead} from "@/features/contact/contactApi";
 import {leadSchema} from "@/lib/validators/lead";
 
@@ -10,8 +10,8 @@ const initialState = {
     email: "",
     message: "",
     phone: "",
-    serviceType: serviceOption[0].serviceType,
-    serviceSlug: serviceOption[0].serviceSlug,
+    serviceType: serviceOptions[0].serviceType,
+    serviceSlug: serviceOptions[0].serviceSlug,
 }
 
 const ContactForm = () => {
