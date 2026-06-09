@@ -3,7 +3,7 @@ export  const services = [
         slug: "website",
         serviceType: "WEBSITE",
         title: 'text',
-        shortDesc: 'text',
+        desc: 'text',
         seoTitle: 'text',
         setDesc: 'desc'
     },

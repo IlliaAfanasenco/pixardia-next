@@ -1,11 +1,22 @@
 import React from 'react';
+import {serviceBySlug} from "@/content/services";
 
-const ServiceBySlug = () => {
+type ServiceSlugProps = {
+    params: Promise<{
+        slug: string
+    }>
+}
+
+const ServiceSlug = async ({params}: ServiceSlugProps) => {
+    const {slug} = await params
+    console.log(slug)
+    const service = serviceBySlug(slug)
     return (
         <div>
-
+        <p>{service?.serviceType}</p>
+            <p>{service?.title}</p>
         </div>
     );
 };
 
-export default ServiceBySlug;
+export default ServiceSlug;
