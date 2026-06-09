@@ -5,7 +5,7 @@ export  const services = [
         title: 'text',
         desc: 'text',
         seoTitle: 'text',
-        setDesc: 'desc'
+        seoDesc: 'desc'
     },
 ] as const
 
