@@ -7,6 +7,14 @@ export  const services = [
         seoTitle: 'text',
         seoDesc: 'desc'
     },
+    {
+        slug: "website2",
+        serviceType: "WEBSITE2",
+        title: 'text2',
+        desc: 'text2',
+        seoTitle: 'text2',
+        seoDesc: 'desc2'
+    },
 ] as const
 
 export  type Service = (typeof services)[number]
