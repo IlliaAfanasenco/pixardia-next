@@ -1,6 +1,8 @@
 import React from 'react';
 import {projectBySlug, projects} from "@/content/projects";
 import {notFound} from "next/navigation";
+import {Metadata} from "next";
+import {serviceBySlug} from "@/content/services";
 
 type ProjectSlugProps = {
     params: Promise<{
@@ -12,6 +14,22 @@ export function generateStaticParams(){
     return projects.map((project)=>({
         slug: project.slug
     }))
+}
+
+export async function generateMetadata({params}: ProjectSlugProps): Promise<Metadata> {
+    const {slug} = await params
+    const project = projectBySlug(slug)
+
+    if(!project) {
+        return {
+            title: 'projects not found'
+        }
+    }
+
+    return {
+        title: project.seoTitle,
+        description: project.seoDesc
+    }
 }
 
 async function ProjectSlug({params}: ProjectSlugProps) {
