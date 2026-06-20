@@ -33,7 +33,7 @@ export const siteConfig = {
     links: {
         home: "/",
         services: "/services",
-        portfolio: "/portfolio",
+        projects: "/projects",
         contact: "/contact"
     },
 
