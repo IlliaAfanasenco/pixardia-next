@@ -5,6 +5,7 @@ import CraftingStructureSection from "@/components/CraftingStructureSection";
 import ProductSection from "@/components/ProductSection";
 import ArchiveSection from "@/components/ArchiveSection";
 import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/layout/Footer";
 
 const Home = () => {
     return (
@@ -15,6 +16,7 @@ const Home = () => {
             <ProductSection/>
             <ArchiveSection/>
             <ContactSection/>
+            <Footer/>
         </div>
     );
 };
