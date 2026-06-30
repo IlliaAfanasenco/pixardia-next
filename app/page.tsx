@@ -4,6 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import CraftingStructureSection from "@/components/CraftingStructureSection";
 import ProductSection from "@/components/ProductSection";
 import ArchiveSection from "@/components/ArchiveSection";
+import ContactSection from "@/components/ContactSection";
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <CraftingStructureSection/>
             <ProductSection/>
             <ArchiveSection/>
+            <ContactSection/>
         </div>
     );
 };
