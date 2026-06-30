@@ -3,6 +3,7 @@ import Header from "@/components/layout/Header";
 import HeroSection from "@/components/HeroSection";
 import CraftingStructureSection from "@/components/CraftingStructureSection";
 import ProductSection from "@/components/ProductSection";
+import ArchiveSection from "@/components/ArchiveSection";
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
             <HeroSection/>
             <CraftingStructureSection/>
             <ProductSection/>
+            <ArchiveSection/>
         </div>
     );
 };
