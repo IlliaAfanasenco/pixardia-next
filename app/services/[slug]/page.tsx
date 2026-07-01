@@ -27,7 +27,7 @@ export async function generateMetadata({params}: ServiceSlugProps): Promise<Meta
 
     return {
         title: service.seoTitle,
-        description: service.seoDesc
+        description: service.seoDescription
     }
 }
 

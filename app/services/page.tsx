@@ -8,9 +8,9 @@ const Services = () => {
             {services.map((service)=> (
                 <div key={service.slug}>
                     <h2>{service.title}</h2>
-                    <p>{service.desc}</p>
+                    <p>{service.description}</p>
 
-                    <Link href={`/services/${service.slug}`}>linl</Link>
+                    <Link href={`/services/${service.slug}`}>link</Link>
                 </div>
             ))}
         </div>
