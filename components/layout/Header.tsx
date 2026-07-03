@@ -2,30 +2,25 @@ import Image from "next/image";
 
 const HeaderSection = () => {
     return (
-        <header
-            className="mx-auto flex w-full max-w-[var(--container)] flex-col items-start justify-between gap-6 px-5 py-5 sm:flex-row sm:items-center sm:gap-4 sm:px-8 lg:gap-6 lg:px-10"
-        >
+        <header className="mx-auto flex w-full max-w-[var(--container)] items-center justify-between gap-4 px-5 py-5 sm:px-8 lg:gap-6 lg:px-10">
             <div className="flex flex-col items-start gap-1.5 sm:flex-row sm:items-center sm:gap-3">
-                <div
-                    className="font-['REM',sans-serif] text-[clamp(24px,3vw,32px)] font-bold leading-none tracking-[-0.03em]">
+                <div className="font-['REM',sans-serif] text-[clamp(24px,3vw,32px)] font-bold leading-none tracking-[-0.03em]">
                     PIXARDIA
                 </div>
 
-                <div
-                    className="font-['REM',sans-serif] text-[clamp(12px,1.5vw,16px)] font-bold uppercase leading-none text-[#C0BEBE]">
+                <div className="font-['REM',sans-serif] text-[clamp(12px,1.5vw,16px)] font-bold uppercase leading-none text-[#C0BEBE]">
                     web-product
                 </div>
             </div>
 
-            <div
-                className="flex w-full items-center justify-between gap-3 sm:w-auto sm:justify-start sm:gap-4 lg:gap-6">
+            <div className="flex w-auto shrink-0 items-center justify-end gap-3 sm:gap-4 lg:gap-6">
                 <Image
                     src="/icons/star.svg"
                     alt=""
                     width={36}
                     height={36}
                     aria-hidden="true"
-                    className="size-7 shrink-0 sm:size-9"
+                    className="hidden lg:block lg:size-9"
                     priority
                 />
 
@@ -35,7 +30,7 @@ const HeaderSection = () => {
                     width={70}
                     height={1}
                     aria-hidden="true"
-                    className="w-10 shrink-0 sm:w-[50px] lg:w-[70px]"
+                    className="hidden lg:block lg:w-[70px]"
                 />
 
                 <button

@@ -28,23 +28,23 @@ const contacts = [
 
 const Footer = () => {
     return (
-        <footer className="mt-10 w-full overflow-visible py-16 md:py-20">
+        <footer className="w-full overflow-visible py-5 md:py-5">
             <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8">
-                <div className="grid grid-cols-1 justify-items-center gap-10 text-center md:grid-cols-2 md:gap-x-8 md:gap-y-12 xl:grid-cols-[1.5fr_0.8fr_0.8fr_1.2fr] xl:justify-items-stretch xl:gap-20 xl:text-left">
-                    <div className="flex w-full max-w-[430px] flex-col items-center xl:max-w-none xl:min-h-[230px] xl:items-start">
+                <div className="grid grid-cols-1 justify-items-center gap-10 text-center md:grid-cols-2 md:items-start md:gap-x-8 md:gap-y-12 xl:grid-cols-[1.5fr_0.8fr_0.8fr_1.2fr] xl:justify-items-stretch xl:gap-20 xl:text-left">
+                    <div className="flex w-full max-w-[280px] flex-col items-center md:max-w-[300px] xl:max-w-none xl:min-h-[230px] xl:items-start">
                         <Link href="/" aria-label="Pixardia home">
                             <Image
                                 src="/images/pixardia-logo-footer.png"
                                 alt="Pixardia logo"
-                                width={101}
-                                height={29}
-                                className="h-auto w-[101px]"
+                                width={202}
+                                height={58}
+                                className="h-auto w-[101px] sm:w-[202px] md:w-[101px]"
                             />
                         </Link>
 
                         <p className="mt-6 max-w-[430px] text-sm font-medium uppercase leading-[1.3] tracking-[0.03em] text-[#DBDADA] md:text-base md:leading-[1.2]">
-                            Engineering studio of a full cycle we design, develop, and scale
-                            digital artifacts for the global market
+                            Engineering studio of a full cycle we design, develop, and scale digital
+                            artifacts for the global market
                         </p>
 
                         <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row xl:mt-auto xl:gap-10">
@@ -63,33 +63,34 @@ const Footer = () => {
                     </div>
 
                     <FooterNav title="Sections" items={sections} />
+
                     <FooterNav title="Archives" items={archives} />
 
-                    <div className="w-full max-w-[520px] md:col-span-2 xl:col-span-1 xl:max-w-none">
+                    <div className="w-full max-w-[280px] md:col-span-1 md:max-w-[300px] xl:col-span-1 xl:max-w-none">
                         <h3 className="text-base font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA]">
                             Communication Nodes
                         </h3>
 
-                        <div className="mt-[34px] grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+                        <div className="mt-6 grid grid-cols-1 gap-2 sm:mt-7 sm:gap-2 md:mt-8 lg:gap-3 xl:mt-[34px] xl:grid-cols-2">
                             {contacts.map((item) => (
                                 <div
                                     key={item.label}
-                                    className="flex h-[58px] min-w-0 flex-col gap-1 border border-[#1E1E1E] px-2 py-[7px] text-left"
+                                    className="flex h-[46px] min-w-0 flex-col justify-center gap-0.5 border border-[#1E1E1E] px-1.5 py-1 text-center sm:h-[48px] md:h-[50px] lg:h-[52px] xl:h-[58px] xl:gap-1 xl:px-2 xl:py-[7px]"
                                 >
-                  <span className="text-sm font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA]">
-                    {item.label}
-                  </span>
+            <span className="text-[11px] font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA] sm:text-xs xl:text-sm">
+                {item.label}
+            </span>
 
                                     {item.href ? (
                                         <a
                                             href={item.href}
-                                            className="truncate text-sm font-bold leading-[1.2] tracking-[0.03em] text-black no-underline"
+                                            className="truncate text-[11px] font-bold leading-[1.2] tracking-[0.03em] text-black no-underline sm:text-xs xl:text-sm"
                                         >
                                             {item.value}
                                         </a>
                                     ) : (
                                         <strong
-                                            className={`truncate text-sm font-bold leading-[1.2] tracking-[0.03em] ${
+                                            className={`truncate text-[11px] font-bold leading-[1.2] tracking-[0.03em] sm:text-xs xl:text-sm ${
                                                 item.isStatus ? "capitalize text-[#49DF23]" : "text-black"
                                             }`}
                                         >
@@ -140,19 +141,7 @@ const Footer = () => {
                         aria-hidden="true"
                         width={70}
                         height={70}
-                        className="
-    pointer-events-none
-    absolute
-    hidden
-    h-auto
-    object-contain
-
-    xl:block
-    xl:left-1/2
-    xl:top-[9%]
-    xl:-translate-x-[440px]
-    xl:w-[clamp(38px,5vw,70px)]
-  "
+                        className="pointer-events-none absolute hidden h-auto object-contain xl:block xl:left-1/2 xl:top-[9%] xl:-translate-x-[440px] xl:w-[clamp(38px,5vw,70px)]"
                     />
 
                     <h2 className="text-[clamp(52px,17vw,200px)] font-black uppercase leading-[1.2] tracking-[-0.03em] text-[#1E1E1E]">
@@ -165,7 +154,7 @@ const Footer = () => {
                         aria-hidden="true"
                         width={230}
                         height={230}
-                        className="pointer-events-none absolute right-[-35px] top-[35%] -z-10 h-auto w-[120px] object-contain md:right-[-30px] md:top-[25%] md:w-[clamp(120px,16vw,190px)] xl:right-0 xl:top-[20%] xl:w-[clamp(100px,16vw,230px)]"
+                        className="pointer-events-none absolute hidden h-auto object-contain -z-10 min-[1261px]:block min-[1261px]:right-0 min-[1261px]:top-[20%] min-[1261px]:w-[clamp(100px,16vw,230px)]"
                     />
                 </div>
 
@@ -185,12 +174,12 @@ type FooterNavProps = {
 
 const FooterNav = ({ title, items }: FooterNavProps) => {
     return (
-        <nav className="flex flex-col items-center gap-[34px] xl:items-start">
+        <nav className="flex w-full max-w-[280px] flex-col items-center gap-8 md:max-w-[300px] xl:max-w-none xl:items-start xl:gap-[34px]">
             <h3 className="text-base font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA]">
                 {title}
             </h3>
 
-            <ul className="flex flex-col gap-[17px] text-base font-bold uppercase leading-[1.2] tracking-[0.03em] text-[#1E1E1E]">
+            <ul className="flex flex-col gap-4 text-base font-bold uppercase leading-[1.2] tracking-[0.03em] text-[#1E1E1E]">
                 {items.map((item) => (
                     <li key={item}>
                         <Link href="#" className="text-inherit no-underline">
