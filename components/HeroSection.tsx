@@ -10,7 +10,7 @@ const archivo = Archivo({
 const HeroSection = () => {
     return (
         <section
-            className={`${archivo.variable} relative min-h-[100svh] overflow-hidden py-7 sm:py-8 lg:py-10`}
+            className={`${archivo.variable} relative overflow-hidden py-4 sm:py-6 lg:py-8`}
         >
             <div className="relative z-10 mx-auto w-full max-w-[var(--container)]  px-5 sm:px-8 lg:px-10">
                 <p className="max-w-[280px] font-[var(--font-archivo)] text-[11px] font-black uppercase leading-[1.2] tracking-[0.2em] text-[#C5C6C8] sm:max-w-[500px] sm:text-[clamp(12px,1.2vw,16px)] sm:leading-none">
