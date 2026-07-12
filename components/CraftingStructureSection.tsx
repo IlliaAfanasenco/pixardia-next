@@ -8,24 +8,24 @@ const tags = [
 
 const CraftingStructureSection = () => {
     return (
-        <section className="relative overflow-hidden py-16 md:py-24">
-            <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center gap-10 px-5 text-center md:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:text-left">
-                <div className="flex w-full flex-col items-center gap-5 md:gap-6 lg:items-start">
+        <section className="relative overflow-hidden y-4 sm:py-6 lg:py-8">
+            <div className="mx-auto flex w-full max-w-[1440px] flex-col items-start gap-10 px-5 text-center md:px-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12 lg:text-center">
+                <div className="flex w-full flex-col items-start gap-5 md:gap-6 lg:items-start">
                     <p className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]">
                         DEPLOYMENTPROTOCOL02
                     </p>
 
-                    <h2 className="flex flex-col text-[clamp(44px,8vw,104px)] font-black uppercase leading-[0.88] tracking-[-0.03em] md:leading-[0.85]">
+                    <h2 className="flex flex-col items-start text-center text-[clamp(44px,8vw,104px)] font-black uppercase leading-[0.88] tracking-[-0.03em] md:leading-[0.85]">
                         <span className="text-[#1E1E1E]">crafting</span>
                         <span className="text-[#C5C6C8]">structure</span>
                     </h2>
 
-                    <p className="max-w-[620px] text-lg font-bold uppercase leading-[1.2] tracking-[-0.03em] text-[#1E1E1E] md:text-[clamp(18px,2vw,24px)]">
+                    <p className="items-start text-center max-w-[620px] text-lg font-bold uppercase leading-[1.2] tracking-[-0.03em] text-[#1E1E1E] md:text-[clamp(18px,2vw,24px)]">
                         We create websites that don’t just look good — they work, convert
                         and grow your business.
                     </p>
 
-                    <div className="flex flex-col items-center gap-5 md:flex-row md:gap-10 lg:items-start">
+                    <div className="flex text-center items-center gap-5 md:flex-row  sm: flex-row sm: items-center md:gap-10 lg:items-start">
                         <div>
                             <p className="text-[32px] font-black uppercase leading-none tracking-[0.03em] md:text-4xl">
                                 99.9%
