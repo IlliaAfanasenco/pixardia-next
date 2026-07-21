@@ -1,23 +1,25 @@
 import { siteConfig } from "@/config/site";
 import { projects } from "@/content/projects";
 import { services } from "@/content/services";
+import {
+    type LocalizedText,
+    type Project,
+    type Service,
+} from "@/types/services";
 
-type UnknownRecord = Record<string, unknown>;
+import { type TerminalLanguage } from "./terminalContract";
 
-const MAX_CONTEXT_LENGTH = 4_500;
-const MAX_SERVICES = 10;
-const MAX_PROJECTS = 6;
-const MAX_FIELD_LENGTH = 420;
+const MAX_CONTEXT_LENGTH = 7_000;
+const MAX_FIELD_LENGTH = 500;
 
-function isRecord(value: unknown): value is UnknownRecord {
-    return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function normalizeText(value: string) {
+function normalizeText(value: string): string {
     return value.replace(/\s+/g, " ").trim();
 }
 
-function truncateText(value: string, maxLength = MAX_FIELD_LENGTH) {
+function truncateText(
+    value: string,
+    maxLength = MAX_FIELD_LENGTH,
+): string {
     const normalizedValue = normalizeText(value);
 
     if (normalizedValue.length <= maxLength) {
@@ -27,176 +29,105 @@ function truncateText(value: string, maxLength = MAX_FIELD_LENGTH) {
     return `${normalizedValue.slice(0, maxLength).trim()}...`;
 }
 
-function getStringField(record: UnknownRecord, keys: string[]) {
-    for (const key of keys) {
-        const value = record[key];
-
-        if (typeof value === "string" && value.trim().length > 0) {
-            return truncateText(value);
-        }
-
-        if (typeof value === "number") {
-            return String(value);
-        }
-    }
-
-    return undefined;
+function localize(
+    value: LocalizedText,
+    language: TerminalLanguage,
+): string {
+    return truncateText(value[language]);
 }
 
-function getStringListField(record: UnknownRecord, keys: string[], maxItems = 6) {
-    for (const key of keys) {
-        const value = record[key];
+function compactService(
+    service: Service,
+    language: TerminalLanguage,
+): string {
+    const deliverables = service.deliverables[language]
+        .slice(0, 6)
+        .map((item) => truncateText(item, 120))
+        .join("; ");
 
-        if (Array.isArray(value)) {
-            const items = value
-                .filter((item): item is string => typeof item === "string")
-                .map((item) => truncateText(item, 120))
-                .filter(Boolean)
-                .slice(0, maxItems);
+    const technologies = service.technologies
+        .slice(0, 8)
+        .join("; ");
 
-            if (items.length > 0) {
-                return items;
-            }
-        }
-    }
+    const priceNote =
+        service.priceFrom === null
+            ? "custom estimate after project review"
+            : `from ${service.priceFrom} EUR, indicative only`;
 
-    return [];
+    return [
+        `- code: ${service.code}`,
+        `  slug: ${service.slug}`,
+        `  title: ${localize(service.title, language)}`,
+        `  summary: ${localize(service.shortDescription, language)}`,
+        `  description: ${localize(service.description, language)}`,
+        `  timeline: ${localize(service.timeline, language)}`,
+        `  price: ${priceNote}`,
+        `  deliverables: ${deliverables}`,
+        `  technologies: ${technologies}`,
+    ].join("\n");
 }
 
-function compactService(service: unknown, index: number) {
-    if (!isRecord(service)) {
-        return `service_${index + 1}: unavailable`;
-    }
-
-    const slug = getStringField(service, ["slug"]) ?? `service-${index + 1}`;
-    const title = getStringField(service, ["title", "name"]) ?? slug;
-
-    const summary =
-        getStringField(service, [
-            "short",
-            "shortDesc",
-            "summary",
-            "description",
-            "seoDesc",
-        ]) ?? "No short description provided.";
-
-    const timeline = getStringField(service, ["timeline", "duration"]);
-    const priceFrom = getStringField(service, ["priceFrom", "price", "startingPrice"]);
-
-    const includes = getStringListField(service, [
-        "includes",
-        "features",
-        "deliverables",
-    ]);
-
-    const lines = [
-        `- slug: ${slug}`,
-        `  title: ${title}`,
-        `  summary: ${summary}`,
-    ];
-
-    if (timeline) {
-        lines.push(`  timeline_note: ${timeline}`);
-    }
-
-    if (priceFrom) {
-        lines.push(
-            `  price_note: ${priceFrom} is indicative only; exact pricing requires project details.`,
-        );
-    }
-
-    if (includes.length > 0) {
-        lines.push(`  includes: ${includes.join("; ")}`);
-    }
-
-    return lines.join("\n");
+function compactProject(
+    project: Project,
+    language: TerminalLanguage,
+): string {
+    return [
+        `- slug: ${project.slug}`,
+        `  title: ${project.title}`,
+        `  type: ${project.type}`,
+        `  status: ${project.status}`,
+        `  summary: ${localize(project.summary, language)}`,
+        `  services: ${project.serviceCodes.join("; ")}`,
+        `  technologies: ${project.technologies.slice(0, 8).join("; ")}`,
+    ].join("\n");
 }
 
-function compactProject(project: unknown, index: number) {
-    if (!isRecord(project)) {
-        return `project_${index + 1}: unavailable`;
+function limitContext(value: string): string {
+    const normalizedValue = value.trim();
+
+    if (normalizedValue.length <= MAX_CONTEXT_LENGTH) {
+        return normalizedValue;
     }
 
-    const slug = getStringField(project, ["slug"]) ?? `project-${index + 1}`;
-    const title = getStringField(project, ["title", "name"]) ?? slug;
-    const category = getStringField(project, ["category", "type"]);
-
-    const summary =
-        getStringField(project, [
-            "short",
-            "shortDesc",
-            "summary",
-            "description",
-            "seoDesc",
-            "problem",
-            "solution",
-            "result",
-        ]) ?? "No short project summary provided.";
-
-    const technologies = getStringListField(project, [
-        "technologies",
-        "stack",
-        "tools",
-    ]);
-
-    const lines = [
-        `- slug: ${slug}`,
-        `  title: ${title}`,
-        `  summary: ${summary}`,
-    ];
-
-    if (category) {
-        lines.push(`  category: ${category}`);
-    }
-
-    if (technologies.length > 0) {
-        lines.push(`  technologies: ${technologies.join("; ")}`);
-    }
-
-    return lines.join("\n");
+    return `${normalizedValue
+        .slice(0, MAX_CONTEXT_LENGTH)
+        .trim()}\n<context_truncated>true</context_truncated>`;
 }
 
-function limitFinalContext(context: string) {
-    const normalizedContext = context.trim();
-
-    if (normalizedContext.length <= MAX_CONTEXT_LENGTH) {
-        return normalizedContext;
-    }
-
-    return `${normalizedContext.slice(0, MAX_CONTEXT_LENGTH).trim()}\n<context_truncated>true</context_truncated>`;
-}
-
-export function buildPixardiaAiContext() {
+export function buildPixardiaAiContext(
+    language: TerminalLanguage,
+): string {
     const servicesContext = services
-        .slice(0, MAX_SERVICES)
-        .map((service, index) => compactService(service, index))
+        .map((service) => compactService(service, language))
         .join("\n");
 
     const projectsContext = projects
-        .slice(0, MAX_PROJECTS)
-        .map((project, index) => compactProject(project, index))
+        .map((project) => compactProject(project, language))
         .join("\n");
 
-    return limitFinalContext(`
+    return limitContext(`
 <pixardia_context>
 <brand>
 name: ${siteConfig.name}
 description: ${truncateText(siteConfig.description, 600)}
+service_areas: ${siteConfig.serviceAreas.join("; ")}
 </brand>
 
 <routes>
 home: ${siteConfig.links.home}
 services: ${siteConfig.links.services}
 projects: ${siteConfig.links.projects}
-contact_form: ${siteConfig.links.contact}
+contact: ${siteConfig.links.contact}
+privacy: ${siteConfig.links.privacy}
+imprint: ${siteConfig.links.imprint}
 </routes>
 
 <business_rules>
-exact_price_available_in_terminal: false
-exact_deadline_available_in_terminal: false
-contact_details_allowed_in_terminal: false
-contact_details_destination: contact_form
-manager_review_required_for_exact_estimate: true
+exact_price_in_terminal: false
+exact_deadline_in_terminal: false
+contact_details_in_terminal: false
+manager_review_for_estimate: true
+contact_destination: ${siteConfig.links.contact}
 </business_rules>
 
 <services>

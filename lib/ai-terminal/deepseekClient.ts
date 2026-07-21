@@ -1,105 +1,165 @@
-import {buildPixardiaSystemPrompt} from "@/lib/ai-terminal/systemPromt";
+import { terminalResultSchema } from "@/lib/validators/terminal";
 
-export type TerminalCategory = | "service" | "price" | "timeline" | "contact" | "off_topic"
+import { buildPixardiaSystemPrompt} from "@/lib/ai-terminal/systemPromt";
+import {
+    type DeepSeekMessage,
+    type TerminalLanguage,
+    type TerminalRequest,
+    type TerminalResult,
+} from "./terminalContract";
 
+const DEEPSEEK_API_URL =
+    "https://api.deepseek.com/chat/completions";
 
-export type TerminalResult = {
-    answer: string
-    category: string
-    leadToContact: boolean
-}
+const DEFAULT_DEEPSEEK_MODEL = "deepseek-v4-flash";
+const REQUEST_TIMEOUT_MS = 12_000;
 
-export type TerminalHistory = {
-    role: "user" | "assistant"
-    content: string
-}
+type DeepSeekResponse = {
+    choices?: Array<{
+        finish_reason?: string;
+        message?: {
+            content?: string | null;
+        };
+    }>;
+};
 
-export type DeepseekMessage = {
-    role: "system" | "user" | "assistant"
-    content: string
-}
+const fallbackAnswers: Record<TerminalLanguage, string> = {
+    en: "The AI terminal is temporarily unavailable. You can review the services or use the contact form to describe your project.",
+    de: "Das KI-Terminal ist vorübergehend nicht verfügbar. Sie können die Dienstleistungen ansehen oder Ihr Projekt über das Kontaktformular beschreiben.",
+};
 
-export type TerminalAnswer = {
-    message: string
-    history: TerminalHistory[]
-    language: "en" | "de"
-}
-
-const DEEPSEEK_API_URL = 'https://api.deepseek.com'
-const DEEPSEEK_MODEL = 'deepseek-v4-flash'
-
-
-function fallAnswer(): TerminalResult {
+function fallbackResult(
+    language: TerminalLanguage,
+): TerminalResult {
     return {
-        answer: 'err ai',
-        category: 'contact',
-        leadToContact: true,
-    }
+        answer: fallbackAnswers[language],
+        category: "contact",
+        shouldLeadToContact: true,
+    };
 }
 
-function terminalCategory(value: unknown): value is TerminalCategory {
-    return (
-        value === "service" ||
-            value === 'price'||
-            value === "timeline" ||
-            value === "contact" ||
-            value === "off_topic"
-
-
-    )
-}
-
-
-function parseResult(content: string): TerminalResult {
+function parseResult(
+    content: string,
+    language: TerminalLanguage,
+): TerminalResult {
     try {
-         const parsed = JSON.parse(content) as Partial<TerminalResult>
+        const parsedJson = JSON.parse(content) as unknown;
+        const parsedResult =
+            terminalResultSchema.safeParse(parsedJson);
 
-        if(typeof parsed.answer !== 'string' || parsed.answer.trim().length === 0) {
-            return fallAnswer()
+        if (!parsedResult.success) {
+            return fallbackResult(language);
         }
 
-        return  {
-            answer: parsed.answer.trim().slice(0, 800),
-            category: terminalCategory(parsed.category) ? parsed.category : 'unknown',
-            leadToContact: parsed.leadToContact === true
-        }
-    } catch (err) {
-        return fallAnswer()
+        return parsedResult.data;
+    } catch {
+        return fallbackResult(language);
     }
 }
 
-export  async function terminalAnswer ({message, history, language}: TerminalAnswer) {
-const apiKey = process.env.NODE_ENV // api key change
-
-    if(!apiKey) {
-        return fallAnswer()
+function getResponseContent(
+    value: unknown,
+): string | null {
+    if (
+        typeof value !== "object" ||
+        value === null ||
+        !("choices" in value)
+    ) {
+        return null;
     }
 
-    const messages = [
-        {
-            role : "system",
-            content: buildPixardiaSystemPrompt()
-        },
-        ...history.slice(-5),
+    const response = value as DeepSeekResponse;
+    const content = response.choices?.[0]?.message?.content;
 
+    if (typeof content !== "string" || !content.trim()) {
+        return null;
+    }
+
+    return content.trim();
+}
+
+export async function getTerminalAnswer(
+    input: TerminalRequest,
+): Promise<TerminalResult> {
+    const apiKey = process.env.DEEPSEEK_API_KEY?.trim();
+
+    if (!apiKey) {
+        return fallbackResult(input.language);
+    }
+
+    const model =
+        process.env.DEEPSEEK_MODEL?.trim() ||
+        DEFAULT_DEEPSEEK_MODEL;
+
+    const messages: DeepSeekMessage[] = [
+        {
+            role: "system",
+            content: buildPixardiaSystemPrompt(input.language),
+        },
+        ...input.history.slice(-6),
         {
             role: "user",
-            content: message
-        }
-    ]
+            content: input.message,
+        },
+    ];
 
-    const controller = new AbortController()
+    const controller = new AbortController();
 
     const timeoutId = setTimeout(() => {
-        controller.abort()
-    }, 12000)
+        controller.abort();
+    }, REQUEST_TIMEOUT_MS);
 
     try {
+        const response = await fetch(DEEPSEEK_API_URL, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${apiKey}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                model,
+                messages,
+                thinking: {
+                    type: "disabled",
+                },
+                response_format: {
+                    type: "json_object",
+                },
+                temperature: 0.2,
+                max_tokens: 350,
+                stream: false,
+            }),
+            cache: "no-store",
+            signal: controller.signal,
+        });
 
+        if (!response.ok) {
+            console.error(
+                "deepseek request failed",
+                response.status,
+            );
+
+            return fallbackResult(input.language);
+        }
+
+        const responseBody = (await response.json()) as unknown;
+        const content = getResponseContent(responseBody);
+
+        if (!content) {
+            return fallbackResult(input.language);
+        }
+
+        return parseResult(content, input.language);
+    } catch (error) {
+        if (
+            !(error instanceof Error) ||
+            error.name !== "AbortError"
+        ) {
+            console.error("deepseek request error", error);
+        }
+
+        return fallbackResult(input.language);
+    } finally {
+        clearTimeout(timeoutId);
     }
 }
-
-
-
-
-
