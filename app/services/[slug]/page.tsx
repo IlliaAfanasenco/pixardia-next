@@ -1,50 +1,58 @@
-import React from 'react';
-import {serviceBySlug, services} from "@/content/services";
-import {Metadata} from "next";
-import {notFound} from "next/navigation";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-type ServiceSlugProps = {
+import {
+    getServiceBySlug,
+    services,
+} from "@/content/services";
+
+type ServicePageProps = {
     params: Promise<{
-        slug: string
-    }>
-}
+        slug: string;
+    }>;
+};
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
     return services.map((service) => ({
-        slug: service.slug
-    }))
+        slug: service.slug,
+    }));
 }
 
-export async function generateMetadata({params}: ServiceSlugProps): Promise<Metadata> {
-    const {slug} = await params
-    const service = serviceBySlug(slug)
+export async function generateMetadata({
+                                           params,
+                                       }: ServicePageProps): Promise<Metadata> {
+    const { slug } = await params;
+    const service = getServiceBySlug(slug);
 
-    if(!service) {
+    if (!service) {
         return {
-            title: 'services not found'
-        }
+            title: "Service not found | Pixardia",
+        };
     }
 
     return {
-        title: service.seoTitle,
-        description: service.seoDescription
-    }
+        title: `${service.title.en} | Pixardia`,
+        description: service.shortDescription.en,
+    };
 }
 
-const ServiceSlug = async ({params}: ServiceSlugProps) => {
-    const {slug} = await params
-    console.log(slug)
-    const service = serviceBySlug(slug)
+export default async function ServicePage({
+                                              params,
+                                          }: ServicePageProps) {
+    const { slug } = await params;
+    const service = getServiceBySlug(slug);
 
-    if(!service) {
-        notFound()
+    if (!service) {
+        notFound();
     }
+
     return (
         <div>
-        <p>{service.serviceType}</p>
-            <p>{service.title}</p>
+            <p>{service.code}</p>
+            <p>{service.title.en}</p>
+            <p>{service.description.en}</p>
         </div>
     );
-};
-
-export default ServiceSlug;
+}
