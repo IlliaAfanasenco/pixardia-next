@@ -1,18 +1,21 @@
-import React from 'react';
-import {projects} from "@/content/projects";
+import Link from "next/link";
 
-const Projects = () => {
+import { projects } from "@/content/projects";
+
+export default function ProjectsPage() {
     return (
         <div>
-            {projects.map((project)=>(
+            {projects.map((project) => (
                 <div key={project.slug}>
                     <h2>{project.title}</h2>
-                    <p>{project.category}</p>
-                    <p>{project.result}</p>
+                    <p>{project.type}</p>
+                    <p>{project.summary.en}</p>
+
+                    <Link href={`/projects/${project.slug}`}>
+                        link
+                    </Link>
                 </div>
             ))}
         </div>
     );
-};
-
-export default Projects;
+}

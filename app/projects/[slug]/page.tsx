@@ -1,50 +1,58 @@
-import React from 'react';
-import {projectBySlug, projects} from "@/content/projects";
-import {notFound} from "next/navigation";
-import {Metadata} from "next";
-import {serviceBySlug} from "@/content/services";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-type ProjectSlugProps = {
+import {
+    getProjectBySlug,
+    projects,
+} from "@/content/projects";
+
+type ProjectPageProps = {
     params: Promise<{
-        slug:string
-    }>
+        slug: string;
+    }>;
+};
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+    return projects.map((project) => ({
+        slug: project.slug,
+    }));
 }
 
-export function generateStaticParams(){
-    return projects.map((project)=>({
-        slug: project.slug
-    }))
-}
+export async function generateMetadata({
+                                           params,
+                                       }: ProjectPageProps): Promise<Metadata> {
+    const { slug } = await params;
+    const project = getProjectBySlug(slug);
 
-export async function generateMetadata({params}: ProjectSlugProps): Promise<Metadata> {
-    const {slug} = await params
-    const project = projectBySlug(slug)
-
-    if(!project) {
+    if (!project) {
         return {
-            title: 'projects not found'
-        }
+            title: "Project not found | Pixardia",
+        };
     }
 
     return {
-        title: project.seoTitle,
-        description: project.seoDesc
-    }
+        title: `${project.title} | Pixardia`,
+        description: project.summary.en,
+    };
 }
 
-async function ProjectSlug({params}: ProjectSlugProps) {
-    const{slug} = await params
-    const project = projectBySlug(slug)
+export default async function ProjectPage({
+                                              params,
+                                          }: ProjectPageProps) {
+    const { slug } = await params;
+    const project = getProjectBySlug(slug);
 
-    if (!project){
-        notFound()
+    if (!project) {
+        notFound();
     }
+
     return (
         <div>
-            <p>{project.title}</p>
-            <p>{project.category}</p>
+            <h1>{project.title}</h1>
+            <p>{project.type}</p>
+            <p>{project.summary.en}</p>
         </div>
     );
-};
-
-export default ProjectSlug;
+}
