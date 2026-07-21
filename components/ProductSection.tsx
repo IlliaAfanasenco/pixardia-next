@@ -1,103 +1,61 @@
 import Image from "next/image";
+import Link from "next/link";
+
+import { siteConfig } from "@/config/site";
 
 const cards = [
     {
-        label: "EFFICIENCY",
-        code: "Gx801",
-        title: "ULTRA",
-        titleSecond: "SPEED",
-        text: "ОПТИМИЗАЦИЯ CORE VITALS ДЛЯ МГНОВЕННОЙ ЗАГРУЗКИ В ЛЮБОЙ ТОЧКЕ МИРА.",
-        bottom: "LCP<1.2s",
+        label: "DISCOVERY",
+        code: "PX101",
+        title: "CLEAR",
+        titleSecond: "DIRECTION",
+        text: "We define the business goal, audience, product scope and technical requirements before development begins.",
+        bottom: "SCOPE FIRST",
     },
     {
-        label: "SCALING",
-        code: "Nx404",
-        title: "SMART",
-        titleSecond: "GROWTH",
-        text: "ГИБКАЯ АРХИТЕКТУРА, КОТОРАЯ ГОТОВА РАСТИ ВМЕСТЕ С ВАШИМ ПРОДУКТОМ.",
-        bottom: "AUTO SCALE",
+        label: "DESIGN",
+        code: "PX202",
+        title: "USEFUL",
+        titleSecond: "INTERFACE",
+        text: "Every screen and interaction is designed around real user actions, accessibility and conversion goals.",
+        bottom: "USER FOCUSED",
     },
     {
-        label: "SYSTEM",
-        code: "Px209",
+        label: "ENGINEERING",
+        code: "PX303",
         title: "CLEAN",
-        titleSecond: "CODE",
-        text: "ПРОДУМАННАЯ СТРУКТУРА, ЧИСТЫЙ КОД И ПОЛНЫЙ КОНТРОЛЬ НАД ПРОЕКТОМ.",
-        bottom: "NO BUILDER",
+        titleSecond: "SYSTEM",
+        text: "The product is built with a maintainable architecture, typed code and room for future functionality.",
+        bottom: "SCALABLE CORE",
         withAstronaut: true,
     },
     {
-        label: "SUPPORT",
-        code: "Rx117",
+        label: "DELIVERY",
+        code: "PX404",
         title: "LONG",
         titleSecond: "TERM",
-        text: "МЫ СОЗДАЕМ НЕ РАЗОВУЮ СТРАНИЦУ, А ОСНОВУ ДЛЯ ДАЛЬНЕЙШЕГО РАЗВИТИЯ.",
-        bottom: "STABLE CORE",
+        text: "Testing, deployment and ongoing support turn the initial release into a foundation for future growth.",
+        bottom: "READY TO GROW",
     },
-];
+] as const;
 
-const logs = [
+const systemChecks = [
     {
         icon: "/icons/arrowGreenProd.svg",
-        text: "Проверка систем экосистемы...",
-        className: "text-[#2C6842]",
+        text: "Product scope and business goals aligned.",
+        className: "text-[#5E9D72]",
     },
     {
         icon: "/icons/arrowBlueProd.svg",
-        text: "Нодули оптимизации подключены.",
-        className: "text-[#2D4773]",
+        text: "Architecture and technology route prepared.",
+        className: "text-[#7770D8]",
     },
     {
         icon: "/icons/arrowGreyProd.svg",
-        text: "Ожидание запроса на анализ стратегии...",
-        className: "text-[#414141]",
+        text: "Delivery, testing and support path available.",
+        className: "text-[#9A9A9A]",
     },
-];
-
-const ProductSection = () => {
-    return (
-        <section className="w-full overflow-visible py-16 md:py-24">
-            <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8">
-                <p className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]">
-                    DEPLOYMENTPROTOCOL04
-                </p>
-
-                <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-                    <h2 className="flex flex-col text-[clamp(44px,7vw,94px)] font-black uppercase leading-[0.9] tracking-[-0.03em]">
-                        <span className="text-[#1E1E1E]">PRODUCT</span>
-                        <span className="text-[#C5C6C8]">LIFECYCLE</span>
-                    </h2>
-
-                    <p className="max-w-[470px] text-sm font-bold uppercase leading-[1.25] text-[#C5C6C8]">
-                        МЫ СОЗДАЕМ НЕ ПРОСТО ИНТЕРФЕЙС, А МОЩНУЮ ЭКОСИСТЕМУ, КОТОРАЯ РАСТЕТ
-                        ВМЕСТЕ С ВАШИМ БИЗНЕСОМ, ОБЕСПЕЧИВАЯ СКОРОСТЬ И СТАБИЛЬНОСТЬ.
-                    </p>
-                </div>
-
-                <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:mt-16 xl:grid-cols-4">
-                    {cards.map((card) => (
-                        <ProductCard key={`${card.code}-${card.title}`} {...card} />
-                    ))}
-
-                    <ProductTerminal />
-
-                    <ProductStats />
-                </div>
-
-                <div className="mt-10 flex flex-col gap-4 md:mt-16 md:flex-row md:justify-between">
-                    <div className="flex gap-2 text-xs font-bold uppercase leading-none text-[#C1C2C4]">
-                        <p>END</p>
-                        <p>OFPHASE04</p>
-                    </div>
-
-                    <p className="text-xs font-bold uppercase leading-none text-[#C1C2C4]">
-                        PIXARDIA ECOSYSTEM
-                    </p>
-                </div>
-            </div>
-        </section>
-    );
-};
+] as const;
 
 type ProductCardProps = {
     label: string;
@@ -109,7 +67,7 @@ type ProductCardProps = {
     withAstronaut?: boolean;
 };
 
-const ProductCard = ({
+function ProductCard({
                          label,
                          code,
                          title,
@@ -117,28 +75,17 @@ const ProductCard = ({
                          text,
                          bottom,
                          withAstronaut = false,
-                     }: ProductCardProps) => {
+                     }: ProductCardProps) {
     return (
-        <div className="relative min-w-0 border border-[#808181] p-5 md:p-6">
+        <article className="relative min-w-0 border border-[#808181] p-5 md:p-6">
             {withAstronaut && (
                 <Image
                     src="/images/astronautProd.png"
                     alt=""
+                    aria-hidden="true"
                     width={150}
                     height={150}
-                    className="
-                               pointer-events-none
-                               absolute
-                               hidden
-                               h-auto
-                               object-contain
-
-                               xl:block
-                               xl:left-[calc(0%-12%)]
-                               xl:top-[calc(0%-43%)]
-                               xl:w-[52%]
-                               xl:max-w-[150px]
-                             "
+                    className="pointer-events-none absolute -left-12 -top-20 hidden h-auto w-[120px] object-contain 2xl:block"
                 />
             )}
 
@@ -147,89 +94,176 @@ const ProductCard = ({
                     {label}
                 </p>
 
-                <p className="text-xs font-bold leading-none text-[#DDDDDD]">{code}</p>
+                <p className="text-xs font-bold leading-none text-[#CFCFCF]">
+                    {code}
+                </p>
             </div>
 
-            <h5 className="pt-6 text-2xl font-black uppercase leading-[1.05] text-[#1E1E1E]">
+            <h3 className="pt-6 text-2xl font-black uppercase leading-[1.05] text-[#1E1E1E]">
                 {title}
                 <br />
                 {titleSecond}
-            </h5>
+            </h3>
 
-            <p className="pt-5 text-xs font-bold uppercase leading-[1.2] text-[#C5C6C8]">
+            <p className="pt-5 text-xs font-bold uppercase leading-[1.35] text-[#A7A7AA]">
                 {text}
             </p>
 
             <div className="flex items-center justify-between gap-4 pt-11">
-                <p className="text-xs font-bold leading-none text-[#969696]">
+                <p className="text-xs font-bold leading-none text-[#777779]">
                     {bottom}
                 </p>
 
                 <Image
                     src="/icons/lineProd.svg"
                     alt=""
+                    aria-hidden="true"
                     width={72}
                     height={8}
                     className="h-auto max-w-[40%]"
                 />
             </div>
-        </div>
+        </article>
     );
-};
+}
 
-const ProductTerminal = () => {
+function ProductSystemPanel() {
     return (
-        <div className="border-r-[10px] border-b-[5px] border-[#4F46E5] bg-black md:col-span-2 xl:col-span-3">
-            <div className="flex flex-col gap-[15px] px-5 py-6 md:px-8">
-                {logs.map((log) => (
-                    <div
-                        key={log.text}
-                        className={`flex items-center gap-2 text-xs font-bold leading-[1.3] md:text-sm ${log.className}`}
-                    >
-                        <Image src={log.icon} alt="" width={14} height={14} />
-                        <p>{log.text}</p>
+        <div className="border-b-[5px] border-r-[10px] border-[#4F46E5] bg-[#101111] md:col-span-2 xl:col-span-3">
+            <div className="flex h-full flex-col px-5 py-6 md:px-8">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
+                    <div>
+                        <p className="font-mono text-xs font-bold uppercase tracking-[0.08em] text-white">
+                            Product delivery system
+                        </p>
+
+                        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.08em] text-white/35">
+                            PX lifecycle / operational route
+                        </p>
                     </div>
-                ))}
 
-                <form className="flex flex-col gap-4 py-5 sm:flex-row sm:items-end">
-                    <input
-                        type="text"
-                        placeholder="Напишите сферу вашего бизнеса..."
-                        className="w-full border-0 border-b-2 border-[#58537B] bg-transparent px-0 py-2.5 text-xs font-bold leading-none text-[#EDEDED] outline-none placeholder:text-[#58537B] sm:px-5"
-                    />
+                    <span className="border border-[#5E9D72] px-3 py-1.5 font-mono text-[9px] font-bold uppercase tracking-[0.08em] text-[#78B58C]">
+                        system ready
+                    </span>
+                </div>
 
-                    <button
-                        type="button"
-                        className="bg-[#F7F9FA] px-8 py-2 text-xs font-bold uppercase text-[#1E1E1E] transition hover:bg-[#EDEDED]"
+                <div className="mt-5 grid gap-4">
+                    {systemChecks.map((check) => (
+                        <div
+                            key={check.text}
+                            className={`flex items-start gap-3 font-mono text-xs font-bold leading-5 md:text-sm ${check.className}`}
+                        >
+                            <Image
+                                src={check.icon}
+                                alt=""
+                                aria-hidden="true"
+                                width={14}
+                                height={14}
+                                className="mt-0.5 shrink-0"
+                            />
+
+                            <p>{check.text}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="mt-auto grid gap-3 pt-8 sm:grid-cols-2">
+                    <Link
+                        href={siteConfig.links.services}
+                        className="border border-white/25 px-5 py-3 text-center text-xs font-bold uppercase tracking-[0.08em] text-white transition hover:border-white"
                     >
-                        Submit
-                    </button>
-                </form>
+                        explore services →
+                    </Link>
+
+                    <Link
+                        href={siteConfig.links.contact}
+                        className="bg-[#F7F9FA] px-5 py-3 text-center text-xs font-bold uppercase tracking-[0.08em] text-[#1E1E1E] transition hover:bg-[#4F46E5] hover:text-white"
+                    >
+                        start a project →
+                    </Link>
+                </div>
             </div>
         </div>
     );
-};
+}
 
-const ProductStats = () => {
+function ProductStatus() {
     return (
         <div className="flex min-h-[220px] flex-col items-center justify-center border-2 border-[#E1DED6] p-6 text-center md:col-span-2 xl:col-span-1">
             <Image
                 src="/icons/statisticsProd.svg"
                 alt=""
+                aria-hidden="true"
                 width={160}
                 height={120}
                 className="h-auto max-w-full"
             />
 
-            <h6 className="mt-2 text-xs font-bold uppercase leading-none text-[#1E1E1E]">
-                MARKET READY
-            </h6>
+            <h3 className="mt-3 text-xs font-bold uppercase leading-none text-[#1E1E1E]">
+                Delivery ready
+            </h3>
 
-            <p className="mt-2 text-[8px] font-bold uppercase leading-none text-[#DEDEDE]">
-                BALJNPOEKT TOTOR K MACSITAGNIPOSANSO
+            <p className="mt-3 max-w-[210px] text-[9px] font-bold uppercase leading-[1.4] tracking-[0.08em] text-[#B8B8BA]">
+                One structured process from discovery to release and support
             </p>
         </div>
     );
-};
+}
 
-export default ProductSection;
+export default function ProductSection() {
+    return (
+        <section
+            id="process"
+            className="w-full overflow-visible py-16 md:py-24"
+            aria-labelledby="product-lifecycle-title"
+        >
+            <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8">
+                <p className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]">
+                    DEPLOYMENTPROTOCOL04
+                </p>
+
+                <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+                    <h2
+                        id="product-lifecycle-title"
+                        className="flex flex-col text-[clamp(44px,7vw,94px)] font-black uppercase leading-[0.9] tracking-[-0.03em]"
+                    >
+                        <span className="text-[#1E1E1E]">
+                            Product
+                        </span>
+
+                        <span className="text-[#C5C6C8]">
+                            Lifecycle
+                        </span>
+                    </h2>
+
+                    <p className="max-w-[500px] text-sm font-bold uppercase leading-[1.3] text-[#A7A7AA]">
+                        We build more than interfaces. Each product moves through a clear process covering strategy, design, engineering, delivery and continued development.
+                    </p>
+                </div>
+
+                <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:mt-16 xl:grid-cols-4">
+                    {cards.map((card) => (
+                        <ProductCard
+                            key={card.code}
+                            {...card}
+                        />
+                    ))}
+
+                    <ProductSystemPanel />
+                    <ProductStatus />
+                </div>
+
+                <div className="mt-10 flex flex-col gap-4 md:mt-16 md:flex-row md:justify-between">
+                    <div className="flex gap-2 text-xs font-bold uppercase leading-none text-[#C1C2C4]">
+                        <p>End</p>
+                        <p>of phase 04</p>
+                    </div>
+
+                    <p className="text-xs font-bold uppercase leading-none text-[#C1C2C4]">
+                        Pixardia product ecosystem
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+}
