@@ -1,26 +1,23 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
+  provider     = "prisma-client"
+  output       = "../lib/generated/prisma"
+  runtime      = "nodejs"
+  moduleFormat = "esm"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-enum ServiceType {
-  WEBSITE
-  WEB_APP
-  MOBILE_APP
+enum ServiceCode {
+  BUSINESS_WEBSITE
+  LANDING_PAGE
+  WEB_APPLICATION
+  ECOMMERCE
+  WEBSITE_REDESIGN
   UI_UX_DESIGN
-  TELEGRAM_MINI_APP
   AI_AUTOMATION
-  SEO
-  OTHER
+  MAINTENANCE_SUPPORT
 }
 
 enum LeadStatus {
@@ -31,26 +28,26 @@ enum LeadStatus {
 }
 
 model Lead {
-  id      String @id @default(cuid())
-  name    String
-  email   String
-  phone   String
-  message String
+  id       String  @id @default(cuid())
+  name     String
+  email    String
+  phone    String?
+  message  String
+  language String  @default("en")
 
-  serviceType ServiceType?
+  serviceCode ServiceCode
+  serviceSlug String
 
-  serviceSlug String?
+  sourcePage String?
+  status     LeadStatus @default(NEW)
 
-  page      String?
-  status    LeadStatus @default(NEW)
-  ipAddress String?
-
-  userAgent String?
-  serviceId String?
+  privacyAcceptedAt DateTime
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([email])
-  @@index([createdAt])
+  @@index([serviceCode])
   @@index([status])
+  @@index([createdAt])
 }
