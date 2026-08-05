@@ -13,17 +13,30 @@ const archivo = Archivo({
 export default function HeroSection() {
     return (
         <section
+            id="hero"
             className={`${archivo.variable} relative overflow-hidden py-4 sm:py-6 lg:py-8`}
             aria-labelledby="hero-title"
+            data-story-section="hero"
+            data-story-step="1"
+            data-cinematic-scene="hero"
+            data-motion="fade-up"
+            data-motion-state="pending"
         >
-            <div className="relative z-10 mx-auto w-full max-w-[var(--container)] px-5 sm:px-8 lg:px-10">
-                <p className="max-w-[280px] font-[var(--font-archivo)] text-[11px] font-black uppercase leading-[1.2] tracking-[0.2em] text-[#C5C6C8] sm:max-w-[500px] sm:text-[clamp(12px,1.2vw,16px)] sm:leading-none">
+            <div
+                className="relative z-10 mx-auto w-full max-w-[var(--container)] px-5 sm:px-8 lg:px-10"
+                data-cinematic-layer=""
+            >
+                <p
+                    className="max-w-[280px] font-[var(--font-archivo)] text-[11px] font-black uppercase leading-[1.2] tracking-[0.2em] text-[#C5C6C8] sm:max-w-[500px] sm:text-[clamp(12px,1.2vw,16px)] sm:leading-none"
+                    data-cinematic-element="hero-eyebrow"
+                >
                     creative digital studio / ai augmented
                 </p>
 
                 <h1
                     id="hero-title"
                     className="relative z-20 mt-6 font-[var(--font-archivo)] font-black uppercase leading-[0.85] text-[#C5C6C8] sm:mt-0"
+                    data-cinematic-element="hero-title"
                 >
                     <span className="block whitespace-normal text-[clamp(58px,18vw,90px)] tracking-[-0.03em] sm:whitespace-nowrap sm:text-[clamp(70px,15vw,150px)] lg:text-[clamp(80px,16vw,212px)]">
                         <span className="-ml-[0.05em] inline-block">
@@ -36,13 +49,17 @@ export default function HeroSection() {
                     </span>
                 </h1>
 
-                <p className="mt-7 max-w-[300px] font-[var(--font-archivo)] text-lg font-bold uppercase leading-none tracking-[0.03em] text-[#1E1E1E] sm:mt-[clamp(30px,6vw,90px)] sm:text-[clamp(18px,2vw,24px)] lg:max-w-[360px]">
+                <p
+                    className="mt-7 max-w-[300px] font-[var(--font-archivo)] text-lg font-bold uppercase leading-none tracking-[0.03em] text-[#1E1E1E] sm:mt-[clamp(30px,6vw,90px)] sm:text-[clamp(18px,2vw,24px)] lg:max-w-[360px]"
+                    data-cinematic-element="hero-copy"
+                >
                     We design and build digital products that solve real business problems
                 </p>
 
                 <Link
                     href={siteConfig.links.services}
                     className="flex w-fit items-center gap-5 py-6 text-[#1E1E1E] no-underline transition-opacity hover:opacity-70 sm:py-[30px]"
+                    data-cinematic-element="hero-cta"
                 >
                     <Image
                         src="/icons/arrow.svg"
@@ -58,7 +75,10 @@ export default function HeroSection() {
                     </span>
                 </Link>
 
-                <div className="mt-5 flex flex-col items-start gap-6 sm:mt-[2%] sm:flex-row sm:justify-between sm:gap-[30px]">
+                <div
+                    className="mt-5 flex flex-col items-start gap-6 sm:mt-[2%] sm:flex-row sm:justify-between sm:gap-[30px]"
+                    data-cinematic-element="hero-meta"
+                >
                     <div>
                         <p className="font-[var(--font-archivo)] text-xs uppercase leading-none tracking-[0.03em] text-[#C5C6C8] sm:text-base">
                             scroll to begin
@@ -83,7 +103,10 @@ export default function HeroSection() {
                     </div>
                 </div>
 
-                <div className="relative mt-5 flex justify-center sm:absolute sm:bottom-0 sm:left-1/2 sm:z-20 sm:mt-0 sm:-translate-x-1/2">
+                <div
+                    className="relative mt-5 flex justify-center sm:absolute sm:bottom-0 sm:left-1/2 sm:z-20 sm:mt-0 sm:-translate-x-1/2"
+                    data-cinematic-element="hero-character"
+                >
                     <Image
                         src="/images/AlienExtraterrestrial.png"
                         alt=""

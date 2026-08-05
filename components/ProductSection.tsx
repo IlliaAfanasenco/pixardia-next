@@ -77,7 +77,10 @@ function ProductCard({
                          withAstronaut = false,
                      }: ProductCardProps) {
     return (
-        <article className="relative min-w-0 border border-[#808181] p-5 md:p-6">
+        <article
+            className="relative min-w-0 border border-[#808181] p-5 md:p-6"
+            data-cinematic-product-card=""
+        >
             {withAstronaut && (
                 <Image
                     src="/images/astronautProd.png"
@@ -129,7 +132,10 @@ function ProductCard({
 
 function ProductSystemPanel() {
     return (
-        <div className="border-b-[5px] border-r-[10px] border-[#4F46E5] bg-[#101111] md:col-span-2 xl:col-span-3">
+        <div
+            className="border-b-[5px] border-r-[10px] border-[#4F46E5] bg-[#101111] md:col-span-2 xl:col-span-3"
+            data-cinematic-element="product-system"
+        >
             <div className="flex h-full flex-col px-5 py-6 md:px-8">
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
                     <div>
@@ -189,7 +195,10 @@ function ProductSystemPanel() {
 
 function ProductStatus() {
     return (
-        <div className="flex min-h-[220px] flex-col items-center justify-center border-2 border-[#E1DED6] p-6 text-center md:col-span-2 xl:col-span-1">
+        <div
+            className="flex min-h-[220px] flex-col items-center justify-center border-2 border-[#E1DED6] p-6 text-center md:col-span-2 xl:col-span-1"
+            data-cinematic-element="product-status"
+        >
             <Image
                 src="/icons/statisticsProd.svg"
                 alt=""
@@ -216,13 +225,27 @@ export default function ProductSection() {
             id="process"
             className="w-full overflow-visible py-16 md:py-24"
             aria-labelledby="product-lifecycle-title"
+            data-story-section="product-process"
+            data-story-step="3"
+            data-cinematic-scene="product"
+            data-motion="fade-up"
+            data-motion-state="pending"
         >
-            <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8">
-                <p className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]">
+            <div
+                className="mx-auto w-full max-w-[1440px] px-5 md:px-8"
+                data-cinematic-layer=""
+            >
+                <p
+                    className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]"
+                    data-cinematic-element="product-kicker"
+                >
                     DEPLOYMENTPROTOCOL04
                 </p>
 
-                <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+                <div
+                    className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10"
+                    data-cinematic-element="product-heading"
+                >
                     <h2
                         id="product-lifecycle-title"
                         className="flex flex-col text-[clamp(44px,7vw,94px)] font-black uppercase leading-[0.9] tracking-[-0.03em]"
@@ -241,7 +264,10 @@ export default function ProductSection() {
                     </p>
                 </div>
 
-                <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:mt-16 xl:grid-cols-4">
+                <div
+                    className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:mt-16 xl:grid-cols-4"
+                    data-cinematic-element="product-grid"
+                >
                     {cards.map((card) => (
                         <ProductCard
                             key={card.code}

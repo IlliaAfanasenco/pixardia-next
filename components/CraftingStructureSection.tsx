@@ -45,9 +45,23 @@ export default function CraftingStructureSection() {
     }
 
     return (
-        <section className="relative overflow-x-clip py-10 sm:py-14 lg:py-20">
-            <div className="mx-auto grid w-full max-w-[1440px] gap-12 px-5 md:px-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-[clamp(40px,6vw,92px)]">
-                <div className="flex min-w-0 flex-col items-start">
+        <section
+            id="crafting-structure"
+            className="relative overflow-x-clip py-10 sm:py-14 lg:py-20"
+            data-story-section="crafting-structure"
+            data-story-step="2"
+            data-cinematic-scene="crafting"
+            data-motion="fade-up"
+            data-motion-state="pending"
+        >
+            <div
+                className="mx-auto grid w-full max-w-[1440px] gap-12 px-5 md:px-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-[clamp(40px,6vw,92px)]"
+                data-cinematic-layer=""
+            >
+                <div
+                    className="flex min-w-0 flex-col items-start"
+                    data-cinematic-element="crafting-copy"
+                >
                     <p className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]">
                         DEPLOYMENTPROTOCOL02
                     </p>
@@ -92,7 +106,10 @@ export default function CraftingStructureSection() {
                         </div>
                     </div>
 
-                    <div className="mt-9 w-full max-w-[500px] border-b-4 border-r-4 border-[#1B1B1B] bg-white text-left">
+                    <div
+                        className="mt-9 w-full max-w-[500px] border-b-4 border-r-4 border-[#1B1B1B] bg-white text-left"
+                        data-cinematic-element="crafting-card"
+                    >
                         <div className="p-4 sm:p-[18px_20px_20px]">
                             <div className="flex items-center justify-between gap-4">
                                 <div className="flex min-w-0 items-center gap-4">
@@ -211,7 +228,10 @@ export default function CraftingStructureSection() {
                     </div>
                 </div>
 
-                <div className="min-w-0">
+                <div
+                    className="min-w-0"
+                    data-cinematic-element="crafting-terminal"
+                >
                     <div className="relative mx-auto w-full max-w-[760px]">
                         <div className="relative min-[1800px]:pl-28">
                             <AiTerminal

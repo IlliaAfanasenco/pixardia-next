@@ -169,9 +169,9 @@ export default function Footer() {
                     />
 
                     <div className="w-full max-w-[280px] md:col-span-1 md:max-w-[300px] xl:col-span-1 xl:max-w-none">
-                        <h3 className="text-base font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA]">
+                        <p className="text-base font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA]">
                             Communication Nodes
-                        </h3>
+                        </p>
 
                         <div className="mt-6 grid grid-cols-1 gap-2 sm:mt-7 sm:gap-2 md:mt-8 lg:gap-3 xl:mt-[34px] xl:grid-cols-2">
                             {contacts.map((item) => (
@@ -299,9 +299,9 @@ function FooterNav({
             className="flex w-full max-w-[280px] flex-col items-center gap-8 md:max-w-[300px] xl:max-w-none xl:items-start xl:gap-[34px]"
             aria-label={title}
         >
-            <h3 className="text-base font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA]">
+            <p className="text-base font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA]">
                 {title}
-            </h3>
+            </p>
 
             <ul className="flex flex-col gap-4 text-base font-bold uppercase leading-[1.2] tracking-[0.03em] text-[#1E1E1E]">
                 {items.map((item) => (

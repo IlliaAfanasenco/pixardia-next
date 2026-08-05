@@ -279,8 +279,13 @@ export default function ContactSection({
 
     return (
         <section
+            id="contact"
             className="w-full py-16 md:py-24"
             aria-labelledby="contact-title"
+            data-story-section="contact"
+            data-story-step="5"
+            data-motion="fade-up"
+            data-motion-state="pending"
         >
             <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8">
                 <div className="flex justify-center gap-3 xl:justify-start">
@@ -431,6 +436,7 @@ export default function ContactSection({
                                         className={inputFieldClass}
                                         id="client-name"
                                         name="name"
+                                        required
                                         type="text"
                                         placeholder={
                                             text.namePlaceholder
@@ -477,6 +483,7 @@ export default function ContactSection({
                                         className={inputFieldClass}
                                         id="contact-email"
                                         name="email"
+                                        required
                                         type="email"
                                         placeholder={
                                             text.emailPlaceholder
@@ -524,6 +531,15 @@ export default function ContactSection({
                                     className={inputFieldClass}
                                     id="project-service"
                                     name="serviceCode"
+                                    aria-invalid={Boolean(
+                                        errors.serviceCode,
+                                    )}
+                                    aria-describedby={
+                                        errors.serviceCode
+                                            ? "project-service-error"
+                                            : undefined
+                                    }
+                                    required
                                     value={
                                         form.serviceCode
                                     }
@@ -570,6 +586,7 @@ export default function ContactSection({
 
                                 {errors.serviceCode && (
                                     <p
+                                        id="project-service-error"
                                         role="alert"
                                         className="text-xs font-bold text-red-600"
                                     >
@@ -594,6 +611,7 @@ export default function ContactSection({
                                     className={`${inputFieldClass} min-h-[60px] resize-y leading-[1.2]`}
                                     id="additional-briefing"
                                     name="message"
+                                    required
                                     placeholder={
                                         text.messagePlaceholder
                                     }
@@ -649,6 +667,17 @@ export default function ContactSection({
                                 <label className="flex cursor-pointer items-start gap-3 text-left text-xs font-bold leading-5 text-[#777779]">
                                     <input
                                         type="checkbox"
+                                        id="privacy-accepted"
+                                        name="privacyAccepted"
+                                        aria-invalid={Boolean(
+                                            errors.privacyAccepted,
+                                        )}
+                                        aria-describedby={
+                                            errors.privacyAccepted
+                                                ? "privacy-accepted-error"
+                                                : undefined
+                                        }
+                                        required
                                         className="mt-0.5 h-4 w-4 shrink-0 accent-[#5149DA]"
                                         checked={
                                             form.privacyAccepted
@@ -684,6 +713,11 @@ export default function ContactSection({
                                                     .links
                                                     .privacy
                                             }
+                                            aria-label={
+                                                language === "de"
+                                                    ? "Datenschutzerklärung öffnen"
+                                                    : "Open privacy policy"
+                                            }
                                             className="underline transition hover:text-black"
                                         >
                                             ↗
@@ -693,6 +727,7 @@ export default function ContactSection({
 
                                 {errors.privacyAccepted && (
                                     <p
+                                        id="privacy-accepted-error"
                                         role="alert"
                                         className="mt-2 text-left text-xs font-bold text-red-600"
                                     >
