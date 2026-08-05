@@ -48,7 +48,74 @@ export const projectStatuses = [
     "completed",
 ] as const;
 
-export type ProjectStatus = (typeof projectStatuses)[number];
+export type ProjectStatus =
+    (typeof projectStatuses)[number];
+
+export const projectEvidenceStates = [
+    "verified",
+    "target",
+    "not_measured",
+] as const;
+
+export type ProjectEvidenceState =
+    (typeof projectEvidenceStates)[number];
+
+export const projectPanelDirections = [
+    "left",
+    "right",
+] as const;
+
+export type ProjectPanelDirection =
+    (typeof projectPanelDirections)[number];
+
+export type ProjectFact = {
+    label: LocalizedText;
+    value: LocalizedText;
+};
+
+export type ProjectTechnologyGroup = {
+    label: LocalizedText;
+    items: readonly string[];
+};
+
+export type ProjectColorToken = {
+    label: LocalizedText;
+    value: `#${string}`;
+};
+
+export type ProjectQualitySignal = {
+    label: LocalizedText;
+    value: LocalizedText;
+    evidence: ProjectEvidenceState;
+};
+
+export type ProjectMediaAsset = {
+    src: string;
+    alt: LocalizedText;
+    width: number;
+    height: number;
+    caption?: LocalizedText;
+};
+
+export type ProjectCaseStudy = {
+    identifier: string;
+    subtitle: LocalizedText;
+    role: LocalizedText;
+    client: string | null;
+    engagement: LocalizedText;
+    architecture: LocalizedText;
+    facts: readonly ProjectFact[];
+    technologyGroups: readonly ProjectTechnologyGroup[];
+    visualSystem: {
+        colors: readonly ProjectColorToken[];
+        typeface: string;
+    };
+    qualitySignals: readonly ProjectQualitySignal[];
+    presentation: {
+        desktopDirection: ProjectPanelDirection;
+        centerLabel: LocalizedText;
+    };
+};
 
 export type Project = {
     slug: string;
@@ -59,15 +126,16 @@ export type Project = {
     description: LocalizedText;
     challenge: LocalizedText;
     solution: LocalizedText;
-    serviceCodes: ServiceCode[];
-    technologies: string[];
+    serviceCodes: readonly ServiceCode[];
+    technologies: readonly string[];
     year: number;
-    coverImage: string | null;
-    images: string[];
+    coverImage: ProjectMediaAsset | null;
+    images: readonly ProjectMediaAsset[];
     liveUrl: string | null;
     repositoryUrl: string | null;
     featured: boolean;
     order: number;
+    caseStudy: ProjectCaseStudy;
 };
 
 export type ServiceOption = {

@@ -97,7 +97,6 @@ export const siteConfig = {
     defaultLocale: "en" satisfies SiteLocale,
     locales: siteLocales,
 
-    ogImage: "/og-image.jpg",
 
     keywords: [
         "web development studio",
