@@ -3,31 +3,39 @@ import { z } from "zod";
 import {
     terminalCategories,
     terminalLanguages,
+    terminalLimits,
 } from "@/lib/ai-terminal/terminalContract";
 
-export const terminalHistoryMessageSchema = z
-    .object({
-        role: z.enum(["user", "assistant"]),
-        content: z.string().trim().min(1).max(800),
-    })
-    .strict();
+const unsupportedControlCharacterRegex =
+    /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/u;
+
+const terminalMessageSchema = z
+    .string()
+    .trim()
+    .min(terminalLimits.messageMinLength)
+    .max(terminalLimits.messageMaxLength)
+    .refine(
+        (value) =>
+            !unsupportedControlCharacterRegex.test(value),
+        {
+            message: "unsupported_control_characters",
+        },
+    );
 
 export const terminalRequestSchema = z
     .object({
-        message: z.string().trim().min(2).max(800),
-        history: z
-            .array(terminalHistoryMessageSchema)
-            .max(6)
-            .default([]),
+        message: terminalMessageSchema,
         language: z.enum(terminalLanguages).default("en"),
     })
     .strict();
 
-export const terminalResultSchema = z.object({
-    answer: z.string().trim().min(1).max(1000),
-    category: z.enum(terminalCategories),
-    shouldLeadToContact: z.boolean(),
-});
+export const terminalResultSchema = z
+    .object({
+        answer: z.string().trim().min(1).max(1000),
+        category: z.enum(terminalCategories),
+        shouldLeadToContact: z.boolean(),
+    })
+    .strict();
 
 export type TerminalRequestInput = z.input<
     typeof terminalRequestSchema
