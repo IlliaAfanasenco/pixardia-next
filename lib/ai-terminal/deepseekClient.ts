@@ -1,9 +1,10 @@
 import { terminalResultSchema } from "@/lib/validators/terminal";
 
-import { buildPixardiaSystemPrompt} from "@/lib/ai-terminal/systemPromt";
+import { buildPixardiaSystemPrompt } from "@/lib/ai-terminal/systemPromt";
 import {
     type DeepSeekMessage,
     type TerminalLanguage,
+    terminalLimits,
     type TerminalRequest,
     type TerminalResult,
 } from "./terminalContract";
@@ -78,6 +79,50 @@ function getResponseContent(
     return content.trim();
 }
 
+async function readResponseTextWithLimit(
+    response: Response,
+    maxBytes: number,
+): Promise<string | null> {
+    if (!response.body) {
+        return null;
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let totalBytes = 0;
+    let result = "";
+
+    try {
+        while (true) {
+            const chunk = await reader.read();
+
+            if (chunk.done) {
+                break;
+            }
+
+            totalBytes += chunk.value.byteLength;
+
+            if (totalBytes > maxBytes) {
+                await reader.cancel().catch(() => undefined);
+
+                return null;
+            }
+
+            result += decoder.decode(chunk.value, {
+                stream: true,
+            });
+        }
+
+        result += decoder.decode();
+
+        return result;
+    } catch {
+        return null;
+    } finally {
+        reader.releaseLock();
+    }
+}
+
 export async function getTerminalAnswer(
     input: TerminalRequest,
 ): Promise<TerminalResult> {
@@ -96,7 +141,6 @@ export async function getTerminalAnswer(
             role: "system",
             content: buildPixardiaSystemPrompt(input.language),
         },
-        ...input.history.slice(-6),
         {
             role: "user",
             content: input.message,
@@ -134,15 +178,31 @@ export async function getTerminalAnswer(
         });
 
         if (!response.ok) {
-            console.error(
-                "deepseek request failed",
-                response.status,
-            );
+            console.error("deepseek request failed", {
+                status: response.status,
+            });
 
             return fallbackResult(input.language);
         }
 
-        const responseBody = (await response.json()) as unknown;
+        const responseText =
+            await readResponseTextWithLimit(
+                response,
+                terminalLimits.providerResponseMaxBytes,
+            );
+
+        if (!responseText) {
+            return fallbackResult(input.language);
+        }
+
+        let responseBody: unknown;
+
+        try {
+            responseBody = JSON.parse(responseText) as unknown;
+        } catch {
+            return fallbackResult(input.language);
+        }
+
         const content = getResponseContent(responseBody);
 
         if (!content) {
@@ -152,10 +212,12 @@ export async function getTerminalAnswer(
         return parseResult(content, input.language);
     } catch (error) {
         if (
-            !(error instanceof Error) ||
-            error.name !== "AbortError"
+            error instanceof Error &&
+            error.name === "AbortError"
         ) {
-            console.error("deepseek request error", error);
+            console.error("deepseek request timed out");
+        } else {
+            console.error("deepseek request failed");
         }
 
         return fallbackResult(input.language);

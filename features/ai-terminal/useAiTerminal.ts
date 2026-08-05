@@ -12,8 +12,8 @@ import {
     requestTerminalAnswer,
 } from "@/features/ai-terminal/terminalApi";
 import {
+    terminalLimits,
     type TerminalCategory,
-    type TerminalHistoryMessage,
     type TerminalLanguage,
 } from "@/lib/ai-terminal/terminalContract";
 
@@ -30,8 +30,8 @@ type TerminalStatus =
     | "submitting"
     | "error";
 
-const MAX_INPUT_LENGTH = 800;
-const MAX_HISTORY_LENGTH = 6;
+const MAX_INPUT_LENGTH =
+    terminalLimits.messageMaxLength;
 const MAX_MESSAGES_LENGTH = 12;
 
 const errorMessages: Record<TerminalLanguage, string> = {
@@ -140,7 +140,10 @@ export function useAiTerminal(
 
         const message = input.trim();
 
-        if (message.length < 2) {
+        if (
+            message.length <
+            terminalLimits.messageMinLength
+        ) {
             setError(validationMessages[language].short);
             setStatus("error");
 
@@ -153,15 +156,6 @@ export function useAiTerminal(
 
             return;
         }
-
-        const history: TerminalHistoryMessage[] =
-            messages
-                .slice(-MAX_HISTORY_LENGTH)
-                .map((item) => ({
-                    role: item.role,
-                    content: item.content,
-                }));
-
         const userMessage: TerminalUiMessage = {
             id: createMessageId(),
             role: "user",
@@ -184,7 +178,6 @@ export function useAiTerminal(
                 await requestTerminalAnswer(
                     {
                         message,
-                        history,
                         language,
                     },
                     controller.signal,

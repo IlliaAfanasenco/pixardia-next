@@ -3,17 +3,27 @@ import { Redis } from "@upstash/redis";
 
 const LIMIT = 8;
 const WINDOW_MS = 60_000;
+const MAX_MEMORY_ENTRIES = 1_000;
+const MAX_DEDICATED_MEMORY_ENTRIES =
+    MAX_MEMORY_ENTRIES - 1;
+const OVERFLOW_MEMORY_KEY = "__overflow__";
 
 type MemoryEntry = {
     count: number;
     reset: number;
 };
 
+export type RateLimitSource =
+    | "distributed"
+    | "memory"
+    | "memory-fallback";
+
 export type RateLimitResult = {
     success: boolean;
     limit: number;
     remaining: number;
     reset: number;
+    source: RateLimitSource;
 };
 
 const memoryStore = new Map<string, MemoryEntry>();
@@ -38,10 +48,6 @@ const distributedRateLimit =
         : null;
 
 function cleanupMemoryStore(now: number): void {
-    if (memoryStore.size < 1_000) {
-        return;
-    }
-
     for (const [key, entry] of memoryStore) {
         if (entry.reset <= now) {
             memoryStore.delete(key);
@@ -49,19 +55,49 @@ function cleanupMemoryStore(now: number): void {
     }
 }
 
+function getMemoryIdentifier(
+    identifier: string,
+    now: number,
+): string {
+    if (
+        memoryStore.size >=
+        MAX_DEDICATED_MEMORY_ENTRIES
+    ) {
+        cleanupMemoryStore(now);
+    }
+
+    if (memoryStore.has(identifier)) {
+        return identifier;
+    }
+
+    if (
+        memoryStore.size <
+        MAX_DEDICATED_MEMORY_ENTRIES
+    ) {
+        return identifier;
+    }
+
+    return OVERFLOW_MEMORY_KEY;
+}
+
 function checkMemoryRateLimit(
     identifier: string,
+    source: Extract<
+        RateLimitSource,
+        "memory" | "memory-fallback"
+    >,
 ): RateLimitResult {
     const now = Date.now();
+    const memoryIdentifier =
+        getMemoryIdentifier(identifier, now);
 
-    cleanupMemoryStore(now);
-
-    const currentEntry = memoryStore.get(identifier);
+    const currentEntry =
+        memoryStore.get(memoryIdentifier);
 
     if (!currentEntry || currentEntry.reset <= now) {
         const reset = now + WINDOW_MS;
 
-        memoryStore.set(identifier, {
+        memoryStore.set(memoryIdentifier, {
             count: 1,
             reset,
         });
@@ -71,6 +107,7 @@ function checkMemoryRateLimit(
             limit: LIMIT,
             remaining: LIMIT - 1,
             reset,
+            source,
         };
     }
 
@@ -79,8 +116,12 @@ function checkMemoryRateLimit(
     return {
         success: currentEntry.count <= LIMIT,
         limit: LIMIT,
-        remaining: Math.max(0, LIMIT - currentEntry.count),
+        remaining: Math.max(
+            0,
+            LIMIT - currentEntry.count,
+        ),
         reset: currentEntry.reset,
+        source,
     };
 }
 
@@ -88,7 +129,10 @@ export async function checkRateLimit(
     identifier: string,
 ): Promise<RateLimitResult> {
     if (!distributedRateLimit) {
-        return checkMemoryRateLimit(identifier);
+        return checkMemoryRateLimit(
+            identifier,
+            "memory",
+        );
     }
 
     try {
@@ -98,12 +142,21 @@ export async function checkRateLimit(
         return {
             success: result.success,
             limit: result.limit,
-            remaining: Math.max(0, result.remaining),
+            remaining: Math.max(
+                0,
+                result.remaining,
+            ),
             reset: result.reset,
+            source: "distributed",
         };
-    } catch (error) {
-        console.error("distributed rate limit failed", error);
+    } catch {
+        console.error(
+            "distributed rate limit unavailable",
+        );
 
-        return checkMemoryRateLimit(identifier);
+        return checkMemoryRateLimit(
+            identifier,
+            "memory-fallback",
+        );
     }
 }
