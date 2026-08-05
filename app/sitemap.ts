@@ -1,16 +1,17 @@
-import type {MetadataRoute} from "next";
+import type { MetadataRoute } from "next";
 
-import {siteConfig} from "@/config/site";
-import {projects} from "@/content/projects";
-import {services} from "@/content/services";
+import { siteConfig } from "@/config/site";
+import { projects } from "@/content/projects";
+import { services } from "@/content/services";
 
-type SitemapRoute = {
+type SitemapRoute = Readonly<{
     path: string;
     priority: number;
-    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
-};
+    changeFrequency:
+        MetadataRoute.Sitemap[number]["changeFrequency"];
+}>;
 
-const staticRoutes: SitemapRoute[] = [
+const staticRoutes: readonly SitemapRoute[] = [
     {
         path: siteConfig.links.home,
         priority: 1,
@@ -34,25 +35,33 @@ const staticRoutes: SitemapRoute[] = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const lastModified = new Date();
+    const serviceRoutes: SitemapRoute[] = services.map(
+        (service) => ({
+            path: `/services/${service.slug}`,
+            priority: 0.85,
+            changeFrequency: "monthly",
+        }),
+    );
 
-    const serviceRoutes: SitemapRoute[] = services.map((service) => ({
-        path: `/services/${service.slug}`,
-        priority: 0.85,
-        changeFrequency: "monthly",
-    }));
+    const projectRoutes: SitemapRoute[] = projects.map(
+        (project) => ({
+            path: `/projects/${project.slug}`,
+            priority: 0.75,
+            changeFrequency: "monthly",
+        }),
+    );
 
-    const projectRoutes: SitemapRoute[] = projects.map((project) => ({
-        path: `/projects/${project.slug}`,
-        priority: 0.75,
-        changeFrequency: "monthly",
-    }));
-
-    const routes = [...staticRoutes, ...serviceRoutes, ...projectRoutes];
+    const routes = [
+        ...staticRoutes,
+        ...serviceRoutes,
+        ...projectRoutes,
+    ];
 
     return routes.map((route) => ({
-        url: new URL(route.path, siteConfig.url).toString(),
-        lastModified,
+        url: new URL(
+            route.path,
+            siteConfig.url,
+        ).toString(),
         changeFrequency: route.changeFrequency,
         priority: route.priority,
     }));

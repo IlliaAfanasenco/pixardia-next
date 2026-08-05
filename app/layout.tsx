@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 
 import "./globals.css";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -18,57 +21,48 @@ export const metadata: Metadata = {
     creator: siteConfig.creator,
     publisher: siteConfig.creator,
 
-    alternates: {
-        canonical: "/",
-    },
-
-    openGraph: {
-        type: "website",
-        locale: "en_US",
-        url: siteConfig.url,
-        siteName: siteConfig.name,
-        title: siteConfig.title,
-        description: siteConfig.description,
-        images: [
-            {
-                url: siteConfig.ogImage,
-                width: 1200,
-                height: 630,
-                alt: `${siteConfig.name} — Web & App Development Studio`,
-            },
-        ],
-    },
-
-    twitter: {
-        card: "summary_large_image",
-        title: siteConfig.title,
-        description: siteConfig.description,
-        images: [siteConfig.ogImage],
-    },
-
-    robots: {
-        index: true,
-        follow: true,
-        googleBot: {
-            index: true,
-            follow: true,
-            "max-image-preview": "large",
-            "max-snippet": -1,
-            "max-video-preview": -1,
-        },
-    },
-
     category: "technology",
 };
 
+type RootLayoutProps = Readonly<{
+    children: ReactNode;
+    projectModal: ReactNode;
+}>;
+
 export default function RootLayout({
                                        children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
+                                       projectModal,
+                                   }: RootLayoutProps) {
     return (
         <html lang="en">
-        <body>{children}</body>
+        <body>
+        <div
+            id="top"
+            className="flex min-h-screen flex-col"
+            data-site-shell=""
+        >
+            <a
+                className="skip-link"
+                href="#main-content"
+            >
+                Skip to main content
+            </a>
+
+            <Header />
+
+            <main
+                id="main-content"
+                className="flex-1"
+                tabIndex={-1}
+            >
+                {children}
+            </main>
+
+            <Footer />
+        </div>
+
+        {projectModal ?? null}
+        </body>
         </html>
     );
 }
