@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import ProjectCaseStudy from "@/components/projects/ProjectCaseStudy";
 import {
     getProjectBySlug,
     projects,
 } from "@/content/projects";
+import { createPageMetadata } from "@/lib/seo";
 
 type ProjectPageProps = {
     params: Promise<{
@@ -28,14 +30,19 @@ export async function generateMetadata({
 
     if (!project) {
         return {
-            title: "Project not found | Pixardia",
+            title: "Project not found",
+            robots: {
+                index: false,
+                follow: false,
+            },
         };
     }
 
-    return {
-        title: `${project.title} | Pixardia`,
+    return createPageMetadata({
+        title: project.title,
         description: project.summary.en,
-    };
+        path: `/projects/${project.slug}`,
+    });
 }
 
 export default async function ProjectPage({
@@ -49,10 +56,11 @@ export default async function ProjectPage({
     }
 
     return (
-        <div>
-            <h1>{project.title}</h1>
-            <p>{project.type}</p>
-            <p>{project.summary.en}</p>
-        </div>
+        <ProjectCaseStudy
+            project={project}
+            titleId="project-page-title"
+            summaryId="project-page-summary"
+            variant="page"
+        />
     );
 }
