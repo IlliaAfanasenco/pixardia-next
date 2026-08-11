@@ -88,12 +88,12 @@ function ProductCard({
                     aria-hidden="true"
                     width={150}
                     height={150}
-                    className="pointer-events-none absolute -left-12 -top-20 hidden h-auto w-[120px] object-contain 2xl:block"
+                    className="pointer-events-none absolute -left-6 -top-23 hidden h-auto w-[120px] object-contain 2xl:block"
                 />
             )}
 
             <div className="flex items-center justify-between gap-3">
-                <p className="border-2 border-[#E1DED6] px-1.5 py-[3px] text-xs font-bold leading-none text-[#878787]">
+                <p className="inline-flex items-center justify-center border-2 border-[#E1DED6] p-1.5 text-center text-xs font-bold leading-none text-[#878787]">
                     {label}
                 </p>
 
@@ -279,7 +279,10 @@ export default function ProductSection() {
                     <ProductStatus />
                 </div>
 
-                <div className="mt-10 flex flex-col gap-4 md:mt-16 md:flex-row md:justify-between">
+                <div
+                    className="mt-10 flex flex-col gap-4 md:mt-16 md:flex-row md:justify-between"
+                    data-cinematic-element="product-footer"
+                >
                     <div className="flex gap-2 text-xs font-bold uppercase leading-none text-[#C1C2C4]">
                         <p>End</p>
                         <p>of phase 04</p>
