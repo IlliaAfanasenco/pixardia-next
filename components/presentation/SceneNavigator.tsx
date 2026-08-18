@@ -2,27 +2,27 @@ const nodes = [
     {
         id: "hero",
         target: "hero",
-        label: "Hero",
+        label: "Signal",
     },
     {
         id: "crafting",
         target: "crafting",
-        label: "Crafting",
+        label: "Structure",
     },
     {
         id: "product",
         target: "product",
-        label: "Product",
+        label: "Lifecycle",
     },
     {
         id: "archive",
         target: "archive",
-        label: "Archive",
+        label: "Evidence",
     },
     {
         id: "contact",
         target: "contact",
-        label: "Contact",
+        label: "Connection",
     },
 ] as const;
 
