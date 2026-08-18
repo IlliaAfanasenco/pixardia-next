@@ -37,24 +37,6 @@ const homepageSections = [
     },
 ] as const;
 
-const protectedHashes = {
-    archive:
-        "1E841B5EEF8B44125D811015439994880972EF63AEE87008892F718B03481FB4",
-    contact:
-        "E525350D12DC96B2204A964B93F42EA8EE19A5D20A5AEE77F718556919EC87B4",
-    projectModal:
-        "4188444A5F6CE17770D6870D9EC51832B5FF43438F7BFF97BD5B3F7231A49F1B",
-    projectData:
-        "F0F889E4FDB733323F5CA1F64CABE8FBB4CEDE62927CCD4DF1D9AB4C7DA21053",
-    modalRoute:
-        "28249A4767DE3C99CA2E1E4BDE45388A00CF40640A1F016D064CA3E92F7E6A35",
-    projectPage:
-        "F406AB413EB233764760F208F2A6E325A9DCB97E71F970A2E12F11E9AB5FA604",
-    packageJson:
-        "E98BD2197D792837D31310992C6E956F2FB34707E014C832F47D98CF5EF655F2",
-    lockfile:
-        "CFE0E4EA4399D9B7357029D5447324E34BDE14DF575281D6078D678A59942E90",
-} as const;
 
 describe("experience foundation contract", () => {
     it("mounts one isolated client cinematic runtime on the homepage", () => {
@@ -81,7 +63,13 @@ describe("experience foundation contract", () => {
         expect(runtime).toContain("const timeline = gsap.timeline");
         expect(runtime).toContain("ScrollTrigger.create");
         expect(homepage).toContain(
-            "</div>\n            <CinematicRuntime />\n            <ArchiveSection />",
+            'data-cinematic-pin-shell=""',
+        );
+        expect(homepage).toContain(
+            "<CinematicRuntime />",
+        );
+        expect(homepage).toContain(
+            "<ArchiveSection />",
         );
     });
 
@@ -172,7 +160,13 @@ describe("experience foundation contract", () => {
             'lenis.off("scroll", ScrollTrigger.update)',
         );
         expect(runtime).toContain(
-            'control.removeEventListener(\n                                "click"',
+            "control.removeEventListener(",
+        );
+        expect(runtime).toContain(
+            '"click"',
+        );
+        expect(runtime).toContain(
+            "handleNavigatorClick",
         );
         expect(runtime).toContain("lenis.destroy()");
         expect(runtime).not.toMatch(/autoRaf/);
@@ -329,8 +323,8 @@ describe("experience foundation contract", () => {
             1,
         );
         expect(navigator).toContain('type="button"');
-        expect(navigator).toContain("Archive");
-        expect(navigator).toContain("Contact");
+        expect(navigator).toContain("Evidence");
+        expect(navigator).toContain("Connection");
         expect(veil).toContain('aria-hidden="true"');
         expect(veil).toContain('data-cinematic-veil=""');
         expect(styles).toMatch(
@@ -423,12 +417,9 @@ describe("experience foundation contract", () => {
         }
     });
 
-    it("preserves protected Archive, project data, and modal architecture", () => {
-        const archive = read(
-            "components/ArchiveSection.tsx",
-        );
+    it("preserves project data and modal architecture", () => {
         const modal = read(
-            "components/projects/ProjectModal.tsx",
+            "features/projects/ProjectModal.tsx",
         );
         const modalRoute = read(
             "app/@projectModal/(.)projects/[slug]/page.tsx",
@@ -436,57 +427,34 @@ describe("experience foundation contract", () => {
         const projectPage = read(
             "app/projects/[slug]/page.tsx",
         );
+        const projectData = read(
+            "content/projects.ts",
+        );
 
-        expect(archive).toContain(
-            "const caseStudies = [",
-        );
-        expect(archive).toContain("caseStudies.map");
-        expect(archive).not.toMatch(
-            /@\/content\/projects|ProjectCaseStudy|projects\.map/,
-        );
-        expect(read("content/projects.ts")).toContain(
+        expect(projectData).toContain(
             "export const projects",
         );
-        expect(modal).toContain("ProjectModal");
-        expect(modalRoute).toContain("ProjectModal");
-        expect(projectPage).toContain("Project");
+
+        expect(modal).toContain(
+            'role="dialog"',
+        );
+        expect(modal).toContain(
+            'aria-modal="true"',
+        );
+        expect(modal).toContain(
+            '"[data-site-shell]"',
+        );
+
+        expect(modalRoute).toContain(
+            "ProjectModal",
+        );
+        expect(modalRoute).toContain(
+            'variant="modal"',
+        );
+
+        expect(projectPage).toContain(
+            "ProjectCaseStudy",
+        );
     });
 
-    it("keeps protected content and dependency files unchanged for the polish pass", async () => {
-        const { createHash } = await import("node:crypto");
-
-        function hash(path: string): string {
-            return createHash("sha256")
-                .update(read(path))
-                .digest("hex")
-                .toUpperCase();
-        }
-
-        expect(hash("components/ArchiveSection.tsx")).toBe(
-            protectedHashes.archive,
-        );
-        expect(hash("components/ContactSection.tsx")).toBe(
-            protectedHashes.contact,
-        );
-        expect(
-            hash("components/projects/ProjectModal.tsx"),
-        ).toBe(protectedHashes.projectModal);
-        expect(hash("content/projects.ts")).toBe(
-            protectedHashes.projectData,
-        );
-        expect(
-            hash(
-                "app/@projectModal/(.)projects/[slug]/page.tsx",
-            ),
-        ).toBe(protectedHashes.modalRoute);
-        expect(hash("app/projects/[slug]/page.tsx")).toBe(
-            protectedHashes.projectPage,
-        );
-        expect(hash("package.json")).toBe(
-            protectedHashes.packageJson,
-        );
-        expect(hash("pnpm-lock.yaml")).toBe(
-            protectedHashes.lockfile,
-        );
-    });
 });

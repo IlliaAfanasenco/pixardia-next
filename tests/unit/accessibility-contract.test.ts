@@ -115,7 +115,7 @@ describe("accessibility source contract", () => {
     it("preserves the project modal contract", () => {
         const modal =
             read(
-                "components/projects/ProjectModal.tsx",
+                "features/projects/ProjectModal.tsx",
             );
 
         expect(modal).toContain(
