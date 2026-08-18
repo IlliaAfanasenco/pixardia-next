@@ -8,6 +8,7 @@ import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import EvidenceInterlude from "@/components/presentation/EvidenceInterlude";
 import SceneNavigator from "@/components/presentation/SceneNavigator";
 import SignalRoute from "@/components/presentation/SignalRoute";
 import TransitionVeil from "@/components/presentation/TransitionVeil";
@@ -65,8 +66,8 @@ function setActiveScene(
             index < activeIndex
                 ? "past"
                 : index === activeIndex
-                  ? "active"
-                  : "future";
+                    ? "active"
+                    : "future";
         scene.toggleAttribute("aria-hidden", inactive);
         scene.inert = inactive;
     });
@@ -118,28 +119,6 @@ function clearSceneState(scenes: HTMLElement[]): void {
 
     delete document.documentElement.dataset.cinematicActive;
     delete document.documentElement.dataset.cinematicSignal;
-}
-
-const cinematicAnimationProperties = [
-    "transform",
-    "translate",
-    "rotate",
-    "scale",
-    "clip-path",
-    "opacity",
-    "visibility",
-    "stroke-dasharray",
-    "stroke-dashoffset",
-] as const;
-
-function clearCinematicAnimationStyles(
-    elements: Array<HTMLElement | SVGElement>,
-): void {
-    elements.forEach((element) => {
-        cinematicAnimationProperties.forEach((property) => {
-            element.style.removeProperty(property);
-        });
-    });
 }
 
 function clampProgress(progress: number): number {
@@ -228,6 +207,18 @@ export default function CinematicRuntime() {
                         stage,
                         '[data-cinematic-scene="product"] [data-cinematic-layer]',
                     );
+                    const evidenceInterlude = select<HTMLElement>(
+                        document,
+                        "[data-cinematic-evidence-interlude]",
+                    );
+                    const evidenceFrame = select<HTMLElement>(
+                        document,
+                        "[data-cinematic-evidence-frame]",
+                    );
+                    const evidenceLine = select<HTMLElement>(
+                        document,
+                        "[data-cinematic-evidence-line]",
+                    );
 
                     if (
                         !veil ||
@@ -238,7 +229,10 @@ export default function CinematicRuntime() {
                         !contactSection ||
                         !heroLayer ||
                         !craftingLayer ||
-                        !productLayer
+                        !productLayer ||
+                        !evidenceInterlude ||
+                        !evidenceFrame ||
+                        !evidenceLine
                     ) {
                         clearSceneState(scenes);
 
@@ -265,12 +259,19 @@ export default function CinematicRuntime() {
                         );
                     };
                     const updateScene = (progress: number) => {
+                        if (
+                            root.dataset.projectModalOpen ===
+                            "true"
+                        ) {
+                            return;
+                        }
+
                         const nextIndex =
                             progress < craftingSceneProgress
                                 ? 0
                                 : progress < productSceneProgress
-                                  ? 1
-                                  : 2;
+                                    ? 1
+                                    : 2;
 
                         setNavigatorProgress(progress * 0.5);
 
@@ -283,13 +284,20 @@ export default function CinematicRuntime() {
                             );
                             setSignalState(
                                 sceneOrder[nextIndex] ??
-                                    "hero",
+                                "hero",
                             );
                         }
                     };
                     const setFlowChapter = (
                         section: FlowSection,
                     ) => {
+                        if (
+                            root.dataset.projectModalOpen ===
+                            "true"
+                        ) {
+                            return;
+                        }
+
                         setFlowSectionActive(
                             scenes,
                             section,
@@ -343,6 +351,12 @@ export default function CinematicRuntime() {
                     });
                     gsap.set(signalRoute, {
                         autoAlpha: 0,
+                    });
+                    gsap.set(evidenceInterlude, {
+                        autoAlpha: 0,
+                    });
+                    gsap.set(evidenceLine, {
+                        scaleX: 0,
                     });
                     gsap.set(signalPaths, {
                         strokeDasharray: 1,
@@ -579,26 +593,102 @@ export default function CinematicRuntime() {
                             duration: 0.8,
                         })
                         .addLabel("product-deconstruct")
-                        .to(createHold(), {
-                            progress: 1,
-                            duration: 0.24,
-                        })
-                        .addLabel("product-to-archive-signal")
                         .to(
-                            '[data-cinematic-signal-path="secondary"]',
+                            "[data-cinematic-product-card]",
                             {
-                                strokeDashoffset: 0.12,
-                                duration: 0.24,
+                                autoAlpha: 0.28,
+                                y: -12,
+                                scale: 0.99,
+                                stagger: 0.02,
+                                duration: 0.32,
                             },
+                        )
+                        .to(
+                            [
+                                '[data-cinematic-element="product-system"]',
+                                '[data-cinematic-element="product-status"]',
+                            ],
+                            {
+                                autoAlpha: 0.22,
+                                y: -10,
+                                duration: 0.28,
+                            },
+                            "<+=0.04",
+                        )
+                        .addLabel("product-to-archive-signal")
+                        .set(signalRoute, {
+                            autoAlpha: 0.34,
+                        })
+                        .fromTo(
+                            '[data-cinematic-signal-path="convergence"]',
+                            {
+                                strokeDashoffset: 1,
+                            },
+                            {
+                                strokeDashoffset: 0,
+                                duration: 0.4,
+                            },
+                            "<",
+                        )
+                        .to(
+                            veil,
+                            {
+                                autoAlpha: 0.06,
+                                duration: 0.16,
+                            },
+                            "<",
+                        )
+                        .to(
+                            productLayer,
+                            {
+                                autoAlpha: 0.12,
+                                yPercent: -2,
+                                scale: 0.992,
+                                duration: 0.38,
+                            },
+                            "<",
+                        )
+                        .set(
+                            evidenceInterlude,
+                            {
+                                autoAlpha: 1,
+                            },
+                            "<+=0.12",
+                        )
+                        .fromTo(
+                            evidenceFrame,
+                            {
+                                autoAlpha: 0,
+                                y: 24,
+                                scale: 0.985,
+                            },
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                scale: 1,
+                                duration: 0.42,
+                            },
+                            "<",
+                        )
+                        .fromTo(
+                            evidenceLine,
+                            {
+                                scaleX: 0,
+                            },
+                            {
+                                scaleX: 1,
+                                duration: 0.36,
+                            },
+                            "<+=0.06",
                         )
                         .addLabel("product-to-archive")
                         .to(createHold(), {
                             progress: 1,
-                            duration: 0.22,
+                            duration: 0.5,
                         })
                         .addLabel("product-clean-release")
-                        .to(createHold(), {
-                            progress: 1,
+                        .to(productLayer, {
+                            autoAlpha: 0,
                             duration: 0.18,
                         });
 
@@ -684,14 +774,14 @@ export default function CinematicRuntime() {
                             "<",
                         )
                         .to(
-                            productLayer,
+                            evidenceInterlude,
                             {
-                                autoAlpha: 0.08,
-                                yPercent: -3,
-                                scale: 0.99,
+                                autoAlpha: 0,
+                                y: -18,
+                                scale: 0.992,
                                 duration: 0.46,
                             },
-                            "<",
+                            "<+=0.04",
                         )
                         .to(
                             '[data-cinematic-signal-path="primary"]',
@@ -857,21 +947,33 @@ export default function CinematicRuntime() {
                         ScrollTrigger.create({
                             trigger: archiveSection,
                             animation:
-                                productArchiveHandoffTimeline,
-                            start: "top 102%",
-                            end: "top 76%",
+                            productArchiveHandoffTimeline,
+                            start: "top 108%",
+                            end: "top 72%",
                             scrub: 0.22,
                             invalidateOnRefresh: true,
                             onUpdate: (self) => {
                                 setNavigatorProgress(
                                     0.5 +
-                                        self.progress * 0.12,
+                                    self.progress * 0.12,
                                 );
                             },
                             onEnter: () => {
+                                root.dataset.cinematicActive =
+                                    "archive";
+                                updateCurrentControl(
+                                    navControls,
+                                    "archive",
+                                );
                                 setSignalState("archive");
                             },
                             onEnterBack: () => {
+                                root.dataset.cinematicActive =
+                                    "archive";
+                                updateCurrentControl(
+                                    navControls,
+                                    "archive",
+                                );
                                 setSignalState("archive");
                             },
                             onLeaveBack: () => {
@@ -888,14 +990,14 @@ export default function CinematicRuntime() {
                         ScrollTrigger.create({
                             trigger: archiveSection,
                             animation: archiveEntryTimeline,
-                            start: "top 92%",
+                            start: "top 100%",
                             end: "top 42%",
                             scrub: 0.24,
                             invalidateOnRefresh: true,
                             onUpdate: (self) => {
                                 setNavigatorProgress(
                                     0.62 +
-                                        self.progress * 0.13,
+                                    self.progress * 0.13,
                                 );
                             },
                             onEnter: () => {
@@ -931,7 +1033,7 @@ export default function CinematicRuntime() {
                         ScrollTrigger.create({
                             trigger: contactSection,
                             animation:
-                                archiveContactHandoffTimeline,
+                            archiveContactHandoffTimeline,
                             start: "top 96%",
                             end: "top 46%",
                             scrub: 0.22,
@@ -939,7 +1041,7 @@ export default function CinematicRuntime() {
                             onUpdate: (self) => {
                                 setNavigatorProgress(
                                     0.75 +
-                                        self.progress * 0.25,
+                                    self.progress * 0.25,
                                 );
                             },
                             onEnter: () => {
@@ -991,13 +1093,13 @@ export default function CinematicRuntime() {
                         const progress =
                             timeline.duration() > 0
                                 ? labelTime /
-                                  timeline.duration()
+                                timeline.duration()
                                 : 0;
 
                         return (
                             trigger.start +
                             progress *
-                                (trigger.end - trigger.start)
+                            (trigger.end - trigger.start)
                         );
                     };
 
@@ -1166,28 +1268,36 @@ export default function CinematicRuntime() {
                         });
                         trigger.kill();
                         timeline.kill();
-                        gsap.ticker.remove(tickLenis);
-                        lenis.off("scroll", ScrollTrigger.update);
-                        lenis.destroy();
-                        clearCinematicAnimationStyles([
+
+                        const runtimeStyledElements = [
                             ...scenes,
                             heroLayer,
                             craftingLayer,
                             productLayer,
-                            ...selectAll<HTMLElement>(
-                                stage,
-                                "[data-cinematic-element], [data-cinematic-product-card]",
-                            ),
-                            archiveSection,
-                            ...archiveHeadingElements,
-                            ...archiveCards,
-                            contactInner,
-                            ...contactHeadingElements,
                             veil,
                             navigator,
                             signalRoute,
+                            evidenceInterlude,
+                            evidenceFrame,
+                            evidenceLine,
                             ...signalPaths,
-                        ]);
+                            ...selectAll<Element>(
+                                stage,
+                                "[data-cinematic-element]",
+                            ),
+                        ];
+
+                        gsap.set(
+                            runtimeStyledElements,
+                            {
+                                clearProps:
+                                    "transform,opacity,visibility,clipPath",
+                            },
+                        );
+
+                        gsap.ticker.remove(tickLenis);
+                        lenis.off("scroll", ScrollTrigger.update);
+                        lenis.destroy();
                         root.removeAttribute(
                             "data-cinematic-runtime",
                         );
@@ -1214,6 +1324,7 @@ export default function CinematicRuntime() {
             aria-hidden="false"
         >
             <SignalRoute />
+            <EvidenceInterlude />
             <TransitionVeil />
             <SceneNavigator />
         </div>

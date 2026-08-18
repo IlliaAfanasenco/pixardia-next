@@ -19,13 +19,15 @@ export const metadata: Metadata = createPageMetadata({
 export default function HomePage() {
     return (
         <>
-            <div
-                className="cinematic-stage"
-                data-cinematic-stage=""
-            >
-                <HeroSection />
-                <CraftingStructureSection />
-                <ProductSection />
+            <div data-cinematic-pin-shell="">
+                <div
+                    className="cinematic-stage"
+                    data-cinematic-stage=""
+                >
+                    <HeroSection />
+                    <CraftingStructureSection />
+                    <ProductSection />
+                </div>
             </div>
             <CinematicRuntime />
             <ArchiveSection />
