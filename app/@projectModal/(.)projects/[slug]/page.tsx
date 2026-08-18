@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import ProjectCaseStudy from "@/components/projects/ProjectCaseStudy";
-import ProjectModal from "@/components/projects/ProjectModal";
+import ProjectCaseStudy from "@/features/projects/ProjectCaseStudy";
+import ProjectModal from "@/features/projects/ProjectModal";
 import { getProjectBySlug } from "@/content/projects";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -13,8 +13,8 @@ type ProjectModalPageProps = {
 };
 
 export async function generateMetadata({
-    params,
-}: ProjectModalPageProps): Promise<Metadata> {
+                                           params,
+                                       }: ProjectModalPageProps): Promise<Metadata> {
     const { slug } = await params;
     const project = getProjectBySlug(slug);
 
@@ -36,8 +36,8 @@ export async function generateMetadata({
 }
 
 export default async function ProjectModalPage({
-    params,
-}: ProjectModalPageProps) {
+                                                   params,
+                                               }: ProjectModalPageProps) {
     const { slug } = await params;
     const project = getProjectBySlug(slug);
 

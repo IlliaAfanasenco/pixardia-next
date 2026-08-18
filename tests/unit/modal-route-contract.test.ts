@@ -98,10 +98,45 @@ describe("project modal route contract", () => {
         );
     });
 
+    it("opens canonical project routes from the homepage archive", () => {
+        const archive =
+            read(
+                "components/ArchiveSection.tsx",
+            );
+
+        expect(archive).toContain(
+            "getFeaturedProjects",
+        );
+
+        expect(archive).toContain(
+            'href={`/projects/${project.slug}`}',
+        );
+
+        expect(archive).toContain(
+            'id={`project-modal-trigger-${project.slug}`}',
+        );
+
+        expect(archive).toContain(
+            'scroll={false}',
+        );
+
+        expect(archive).toContain(
+            'aria-haspopup="dialog"',
+        );
+
+        expect(archive).not.toContain(
+            'href="#"',
+        );
+
+        expect(archive).not.toContain(
+            "NexusPaySystem",
+        );
+    });
+
     it("makes the complete site shell inert", () => {
         const modal =
             read(
-                "components/projects/ProjectModal.tsx",
+                "features/projects/ProjectModal.tsx",
             );
 
         expect(modal).toContain(

@@ -47,11 +47,11 @@ function getFocusableElements(
 }
 
 export default function ProjectModal({
-    children,
-    titleId,
-    summaryId,
-    triggerId,
-}: ProjectModalProps) {
+                                         children,
+                                         titleId,
+                                         summaryId,
+                                         triggerId,
+                                     }: ProjectModalProps) {
     const router = useRouter();
 
     const dialogRef =
@@ -79,6 +79,7 @@ export default function ProjectModal({
             dialogRef.current;
 
         const body = document.body;
+        const root = document.documentElement;
 
         if (!currentDialog) {
             return;
@@ -94,13 +95,21 @@ export default function ProjectModal({
             trigger instanceof HTMLElement
                 ? trigger
                 : document.activeElement instanceof HTMLElement
-                  ? document.activeElement
-                  : null;
+                    ? document.activeElement
+                    : null;
 
         const scrollY = window.scrollY;
         const scrollbarWidth =
             window.innerWidth -
             document.documentElement.clientWidth;
+        const preserveCinematicScroll =
+            root.dataset.cinematicRuntime === "ready";
+        const previousModalOpen =
+            root.dataset.projectModalOpen;
+        const previousRootOverflow =
+            root.style.overflow;
+
+        root.dataset.projectModalOpen = "true";
 
         const previousBodyStyles = {
             position: body.style.position,
@@ -112,12 +121,17 @@ export default function ProjectModal({
             paddingRight: body.style.paddingRight,
         };
 
-        body.style.position = "fixed";
-        body.style.top = `-${scrollY}px`;
-        body.style.left = "0";
-        body.style.right = "0";
-        body.style.width = "100%";
-        body.style.overflow = "hidden";
+        if (preserveCinematicScroll) {
+            root.style.overflow = "hidden";
+            body.style.overflow = "hidden";
+        } else {
+            body.style.position = "fixed";
+            body.style.top = `-${scrollY}px`;
+            body.style.left = "0";
+            body.style.right = "0";
+            body.style.width = "100%";
+            body.style.overflow = "hidden";
+        }
 
         if (scrollbarWidth > 0) {
             body.style.paddingRight =
@@ -189,8 +203,8 @@ export default function ProjectModal({
 
             const lastElement =
                 focusableElements[
-                    focusableElements.length - 1
-                ];
+                focusableElements.length - 1
+                    ];
 
             const activeElement =
                 document.activeElement;
@@ -254,6 +268,16 @@ export default function ProjectModal({
                 }
             }
 
+            if (previousModalOpen === undefined) {
+                delete root.dataset.projectModalOpen;
+            } else {
+                root.dataset.projectModalOpen =
+                    previousModalOpen;
+            }
+
+            root.style.overflow =
+                previousRootOverflow;
+
             body.style.position =
                 previousBodyStyles.position;
 
@@ -275,11 +299,13 @@ export default function ProjectModal({
             body.style.paddingRight =
                 previousBodyStyles.paddingRight;
 
-            window.scrollTo({
-                top: scrollY,
-                left: 0,
-                behavior: "auto",
-            });
+            if (!preserveCinematicScroll) {
+                window.scrollTo({
+                    top: scrollY,
+                    left: 0,
+                    behavior: "auto",
+                });
+            }
 
             const focusTarget =
                 triggerRef.current;
