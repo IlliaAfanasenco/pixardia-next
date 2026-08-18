@@ -267,12 +267,12 @@ export default function Footer() {
                     </Link>
 
                     <Image
-                        src="/images/astronautFooter.png"
+                        src="/images/astronautNewFooter.png"
                         alt=""
                         aria-hidden="true"
                         width={230}
                         height={230}
-                        className="pointer-events-none absolute -z-10 hidden h-auto object-contain min-[1261px]:right-0 min-[1261px]:top-[20%] min-[1261px]:block min-[1261px]:w-[clamp(100px,16vw,230px)]"
+                        className="pointer-events-none absolute -z-10 hidden h-auto object-contain min-[1261px]:right-0 min-[1261px]:top-[1%] min-[1261px]:block min-[1261px]:w-[clamp(100px,16vw,230px)]"
                     />
                 </div>
 

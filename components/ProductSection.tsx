@@ -78,7 +78,7 @@ function ProductCard({
                      }: ProductCardProps) {
     return (
         <article
-            className="relative min-w-0 border border-[#808181] p-5 md:p-6"
+            className="relative min-w-0 border border-[#808181] p-5 md:min-h-[270px] md:p-6 xl:min-h-[300px] xl:p-[clamp(24px,1.6vw,32px)]"
             data-cinematic-product-card=""
         >
             {withAstronaut && (
@@ -88,7 +88,7 @@ function ProductCard({
                     aria-hidden="true"
                     width={150}
                     height={150}
-                    className="pointer-events-none absolute -left-6 -top-23 hidden h-auto w-[120px] object-contain 2xl:block"
+                    className="pointer-events-none absolute -left-8 -top-26.5 hidden h-auto w-[clamp(140px,8vw,180px)] object-contain 2xl:block"
                 />
             )}
 
@@ -102,17 +102,17 @@ function ProductCard({
                 </p>
             </div>
 
-            <h3 className="pt-6 text-2xl font-black uppercase leading-[1.05] text-[#1E1E1E]">
+            <h3 className="pt-6 text-2xl font-black uppercase leading-[1.05] text-[#1E1E1E] md:text-[26px] xl:pt-8 xl:text-[clamp(28px,1.55vw,30px)]">
                 {title}
                 <br />
                 {titleSecond}
             </h3>
 
-            <p className="pt-5 text-xs font-bold uppercase leading-[1.35] text-[#A7A7AA]">
+            <p className="pt-5 text-xs font-bold uppercase leading-[1.35] text-[#A7A7AA] md:text-[13px] xl:pt-6 xl:text-[clamp(14px,0.76vw,15px)]">
                 {text}
             </p>
 
-            <div className="flex items-center justify-between gap-4 pt-11">
+            <div className="flex items-center justify-between gap-4 pt-11 xl:pt-14">
                 <p className="text-xs font-bold leading-none text-[#777779]">
                     {bottom}
                 </p>
@@ -133,10 +133,10 @@ function ProductCard({
 function ProductSystemPanel() {
     return (
         <div
-            className="border-b-[5px] border-r-[10px] border-[#4F46E5] bg-[#101111] md:col-span-2 xl:col-span-3"
+            className="border-b-[5px] border-r-[10px] border-[#4F46E5] bg-[#101111] md:col-span-2 md:min-h-[240px] xl:col-span-3 xl:min-h-[280px]"
             data-cinematic-element="product-system"
         >
-            <div className="flex h-full flex-col px-5 py-6 md:px-8">
+            <div className="flex h-full flex-col px-5 py-6 md:px-8 xl:px-10 xl:py-8">
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
                     <div>
                         <p className="font-mono text-xs font-bold uppercase tracking-[0.08em] text-white">
@@ -196,7 +196,7 @@ function ProductSystemPanel() {
 function ProductStatus() {
     return (
         <div
-            className="flex min-h-[220px] flex-col items-center justify-center border-2 border-[#E1DED6] p-6 text-center md:col-span-2 xl:col-span-1"
+            className="flex min-h-[220px] flex-col items-center justify-center border-2 border-[#E1DED6] p-6 text-center md:col-span-2 md:min-h-[240px] xl:col-span-1 xl:min-h-[280px] xl:p-8"
             data-cinematic-element="product-status"
         >
             <Image
@@ -205,7 +205,7 @@ function ProductStatus() {
                 aria-hidden="true"
                 width={160}
                 height={120}
-                className="h-auto max-w-full"
+                className="h-auto w-[clamp(160px,11vw,210px)] max-w-full"
             />
 
             <h3 className="mt-3 text-xs font-bold uppercase leading-none text-[#1E1E1E]">
@@ -223,7 +223,7 @@ export default function ProductSection() {
     return (
         <section
             id="process"
-            className="w-full overflow-visible py-16 md:py-24"
+            className="w-full overflow-visible py-16 md:py-16 lg:py-12"
             aria-labelledby="product-lifecycle-title"
             data-story-section="product-process"
             data-story-step="3"
@@ -232,11 +232,11 @@ export default function ProductSection() {
             data-motion-state="pending"
         >
             <div
-                className="mx-auto w-full max-w-[1440px] px-5 md:px-8"
+                className="mx-auto w-full max-w-[var(--container)] px-5 md:px-8 lg:px-10"
                 data-cinematic-layer=""
             >
                 <p
-                    className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]"
+                    className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8] md:text-sm"
                     data-cinematic-element="product-kicker"
                 >
                     DEPLOYMENTPROTOCOL04
@@ -248,7 +248,7 @@ export default function ProductSection() {
                 >
                     <h2
                         id="product-lifecycle-title"
-                        className="flex flex-col text-[clamp(44px,7vw,94px)] font-black uppercase leading-[0.9] tracking-[-0.03em]"
+                        className="flex flex-col text-[clamp(44px,7vw,94px)] font-black uppercase leading-[0.9] tracking-[-0.03em] md:text-[clamp(68px,8vw,100px)] xl:text-[clamp(88px,6vw,110px)]"
                     >
                         <span className="text-[#1E1E1E]">
                             Product
@@ -259,13 +259,13 @@ export default function ProductSection() {
                         </span>
                     </h2>
 
-                    <p className="max-w-[500px] text-sm font-bold uppercase leading-[1.3] text-[#A7A7AA]">
+                    <p className="max-w-[560px] text-sm font-bold uppercase leading-[1.3] text-[#A7A7AA] md:text-base xl:text-lg">
                         We build more than interfaces. Each product moves through a clear process covering strategy, design, engineering, delivery and continued development.
                     </p>
                 </div>
 
                 <div
-                    className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:mt-16 xl:grid-cols-4"
+                    className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:mt-12 xl:grid-cols-4 xl:gap-[clamp(20px,1.4vw,28px)]"
                     data-cinematic-element="product-grid"
                 >
                     {cards.map((card) => (
@@ -280,7 +280,7 @@ export default function ProductSection() {
                 </div>
 
                 <div
-                    className="mt-10 flex flex-col gap-4 md:mt-16 md:flex-row md:justify-between"
+                    className="mt-10 flex flex-col gap-4 md:mt-12 md:flex-row md:justify-between xl:mt-10"
                     data-cinematic-element="product-footer"
                 >
                     <div className="flex gap-2 text-xs font-bold uppercase leading-none text-[#C1C2C4]">

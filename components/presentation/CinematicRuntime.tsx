@@ -120,6 +120,28 @@ function clearSceneState(scenes: HTMLElement[]): void {
     delete document.documentElement.dataset.cinematicSignal;
 }
 
+const cinematicAnimationProperties = [
+    "transform",
+    "translate",
+    "rotate",
+    "scale",
+    "clip-path",
+    "opacity",
+    "visibility",
+    "stroke-dasharray",
+    "stroke-dashoffset",
+] as const;
+
+function clearCinematicAnimationStyles(
+    elements: Array<HTMLElement | SVGElement>,
+): void {
+    elements.forEach((element) => {
+        cinematicAnimationProperties.forEach((property) => {
+            element.style.removeProperty(property);
+        });
+    });
+}
+
 function clampProgress(progress: number): number {
     return Math.min(1, Math.max(0, progress));
 }
@@ -1147,6 +1169,25 @@ export default function CinematicRuntime() {
                         gsap.ticker.remove(tickLenis);
                         lenis.off("scroll", ScrollTrigger.update);
                         lenis.destroy();
+                        clearCinematicAnimationStyles([
+                            ...scenes,
+                            heroLayer,
+                            craftingLayer,
+                            productLayer,
+                            ...selectAll<HTMLElement>(
+                                stage,
+                                "[data-cinematic-element], [data-cinematic-product-card]",
+                            ),
+                            archiveSection,
+                            ...archiveHeadingElements,
+                            ...archiveCards,
+                            contactInner,
+                            ...contactHeadingElements,
+                            veil,
+                            navigator,
+                            signalRoute,
+                            ...signalPaths,
+                        ]);
                         root.removeAttribute(
                             "data-cinematic-runtime",
                         );

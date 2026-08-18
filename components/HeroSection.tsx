@@ -104,7 +104,7 @@ export default function HeroSection() {
                 </div>
 
                 <div
-                    className="relative mt-5 flex justify-center sm:absolute sm:bottom-0 sm:left-1/2 sm:z-20 sm:mt-0 sm:-translate-x-1/2"
+                    className="relative mt-3 flex justify-center"
                     data-cinematic-element="hero-character"
                 >
                     <Image
@@ -114,8 +114,8 @@ export default function HeroSection() {
                         width={697}
                         height={694}
                         priority
-                        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 42vw"
-                        className="h-auto w-[min(90vw,360px)] object-contain sm:w-[clamp(300px,45vw,520px)] lg:w-[clamp(320px,42vw,697px)]"
+                        sizes="(max-width: 640px) 82vw, (max-width: 1024px) 45vw, 42vw"
+                        className="h-auto w-[min(82vw,320px)] object-contain sm:w-[clamp(300px,45vw,520px)] lg:w-[clamp(320px,42vw,697px)]"
                     />
                 </div>
             </div>
