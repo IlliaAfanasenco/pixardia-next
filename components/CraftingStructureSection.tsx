@@ -248,7 +248,7 @@ export default function CraftingStructureSection() {
                                 aria-hidden="true"
                                 width={104}
                                 height={104}
-                                className="pointer-events-none absolute left-0 top-[58%] z-20 hidden h-auto w-[104px] -translate-y-1/2 object-contain min-[1800px]:block"
+                                className="pointer-events-none absolute left-6 top-[58%] z-20 hidden h-auto w-[104px] -translate-y-1/2 object-contain min-[1800px]:block"
                             />
                         </div>
 

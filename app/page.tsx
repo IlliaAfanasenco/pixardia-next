@@ -8,6 +8,7 @@ import CinematicRuntime from "@/components/presentation/CinematicRuntime";
 import ProductSection from "@/components/ProductSection";
 import { siteConfig } from "@/config/site";
 import { createPageMetadata } from "@/lib/seo";
+import NeuralSystemSection from "@/components/NeuralSection";
 
 export const metadata: Metadata = createPageMetadata({
     title: siteConfig.title,
@@ -27,6 +28,7 @@ export default function HomePage() {
                     <HeroSection />
                     <CraftingStructureSection />
                     <ProductSection />
+                    <NeuralSystemSection/>
                 </div>
             </div>
             <CinematicRuntime />

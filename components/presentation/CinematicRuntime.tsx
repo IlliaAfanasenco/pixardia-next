@@ -18,6 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
 const sceneOrder = [
     "hero",
     "crafting",
+    'neural',
     "product",
 ] as const;
 const cinematicDesktopQuery =
@@ -32,9 +33,10 @@ const navigatorProgressByChapter: Record<
     number
 > = {
     hero: 0,
-    crafting: 0.25,
-    product: 0.5,
-    archive: 0.75,
+    crafting: 0.2,
+    neural: 0.4,
+    product: 0.6,
+    archive: 0.8,
     contact: 1,
 };
 
