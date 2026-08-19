@@ -10,10 +10,14 @@
     "typecheck": "tsc --noEmit",
     "prisma:generate": "prisma generate",
     "prisma:validate": "prisma validate",
-    "verify": "pnpm prisma:generate && pnpm prisma:validate && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "verify": "pnpm env:check:example && pnpm prisma:generate && pnpm prisma:validate && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "dev:turbopack": "next dev --turbopack",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "vitest run --exclude \"tests/e2e/**\"",
+    "test:watch": "vitest",
+    "env:check:example": "node scripts/check-env.mjs --example",
+    "env:check:production": "node scripts/check-env.mjs --production",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -32,6 +36,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@playwright/test": "1.61.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
