@@ -295,7 +295,7 @@ export default function ContactSection({
                     />
 
                     <p className="text-xs font-bold uppercase leading-none text-[#C5C6C8]">
-                        DEPLOYMENTPROTOCOL05
+                        05 / CONNECTION
                     </p>
                 </div>
 
@@ -304,7 +304,7 @@ export default function ContactSection({
                         id="contact-title"
                         className="max-w-[720px] text-[clamp(40px,7vw,94px)] font-black uppercase leading-[0.86] tracking-[-0.03em] text-[#202021]"
                     >
-                        Ready for Archive
+                        Initialize Your Project
                     </h2>
 
                     <Image
