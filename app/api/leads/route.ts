@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { isIP } from "node:net";
 
 import {
+    after,
     NextResponse,
     type NextRequest,
 } from "next/server";
@@ -10,6 +11,8 @@ import { getServiceByCode } from "@/content/services";
 import { prisma } from "@/lib/prisma";
 import { checkRateLimit } from "@/lib/readLimit";
 import { leadSchema } from "@/lib/validators/lead";
+
+import { sendLeadNotification } from "@/lib/leads/sendLeadNotification";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -399,7 +402,7 @@ export async function POST(
     }
 
     try {
-        await prisma.lead.create({
+        const lead = await prisma.lead.create({
             data: {
                 name: parsed.data.name,
                 email: parsed.data.email,
@@ -415,6 +418,48 @@ export async function POST(
                 privacyAcceptedAt: new Date(),
             },
         });
+
+        after(async () => {
+            try {
+                const notification =
+                    await sendLeadNotification({
+                        id: lead.id,
+                        name: lead.name,
+                        email: lead.email,
+                        phone: lead.phone,
+                        message: lead.message,
+                        language: lead.language,
+                        serviceCode:
+                        lead.serviceCode,
+                        serviceSlug:
+                        lead.serviceSlug,
+                        sourcePage:
+                        lead.sourcePage,
+                        createdAt:
+                        lead.createdAt,
+                    });
+
+                if (
+                    notification.status ===
+                    "skipped"
+                ) {
+                    console.error(
+                        "lead notification not configured",
+                        {
+                            leadId: lead.id,
+                        },
+                    );
+                }
+            } catch {
+                console.error(
+                    "lead notification failed",
+                    {
+                        leadId: lead.id,
+                    },
+                );
+            }
+        });
+
 
         return response(
             {
