@@ -242,6 +242,115 @@
     }
 
     .cinematic-stage[data-cinematic-mode="desktop"]
+    > [data-cinematic-scene="neural"] {
+        align-items: flex-start;
+        justify-content: center;
+        padding-block-start: calc(
+                var(--cinematic-compact-header-offset) +
+                clamp(0.5rem, 1svh, 0.9rem)
+        );
+        padding-block-end:
+                clamp(0.5rem, 1svh, 0.9rem);
+        background: #f5f8fa;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-cinematic-scene="neural"]
+    [data-neural-layer] {
+        width: min(
+                calc(100vw - 9rem),
+                calc(
+                        (
+                        100svh -
+                        var(--cinematic-compact-header-offset) -
+                        2rem
+                        ) *
+                        1.449
+                )
+        );
+        max-inline-size: 1814px;
+        padding-inline: 0;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-network]
+    path {
+        fill: none;
+        stroke: rgb(36 106 229 / 34%);
+        stroke-linecap: round;
+        stroke-width: 1.15;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-network]
+    path:nth-child(even) {
+        stroke: rgb(30 30 30 / 18%);
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    .neural-core {
+        box-shadow:
+                0 0 0 1px
+                rgb(36 106 229 / 10%),
+                0 24px 80px
+                rgb(36 106 229 / 12%);
+    }
+
+    .neural-core__orbit {
+        position: absolute;
+        inset: -7%;
+        border:
+                1px solid
+                rgb(36 106 229 / 22%);
+        border-radius: 999px;
+        pointer-events: none;
+    }
+
+    .neural-core__orbit::after {
+        position: absolute;
+        top: 50%;
+        left: -4px;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #246ae5;
+        box-shadow:
+                0 0 18px
+                rgb(36 106 229 / 62%);
+        content: "";
+        transform: translateY(-50%);
+    }
+
+    .neural-core__orbit--outer {
+        animation:
+                neural-core-orbit
+                13s
+                linear
+                infinite;
+    }
+
+    .neural-core__orbit--inner {
+        inset: -3.5%;
+        border-color:
+                rgb(30 30 30 / 12%);
+        animation:
+                neural-core-orbit-reverse
+                9s
+                linear
+                infinite;
+    }
+
+    .neural-core__orbit--inner::after {
+        right: -3px;
+        left: auto;
+        width: 6px;
+        height: 6px;
+        background: #1e1e1e;
+        box-shadow: none;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
     > [data-cinematic-scene="product"] {
         align-items: flex-start;
         padding-block-start: calc(
@@ -548,6 +657,9 @@
     html[data-cinematic-active="crafting"]
     [data-cinematic-nav-node="crafting"]
     .cinematic-navigator__link,
+    html[data-cinematic-active="neural"]
+    [data-cinematic-nav-node="neural"]
+    .cinematic-navigator__link,
     html[data-cinematic-active="product"]
     [data-cinematic-nav-node="product"]
     .cinematic-navigator__link,
@@ -566,6 +678,9 @@
     html[data-cinematic-active="crafting"]
     [data-cinematic-nav-node="crafting"]
     .cinematic-navigator__dot,
+    html[data-cinematic-active="neural"]
+    [data-cinematic-nav-node="neural"]
+    .cinematic-navigator__dot,
     html[data-cinematic-active="product"]
     [data-cinematic-nav-node="product"]
     .cinematic-navigator__dot,
@@ -577,6 +692,26 @@
     .cinematic-navigator__dot {
         background: #5e56e7;
         transform: scale(1.28);
+    }
+
+    @keyframes neural-core-orbit {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes neural-core-orbit-reverse {
+        from {
+            transform: rotate(360deg);
+        }
+
+        to {
+            transform: rotate(0deg);
+        }
     }
 }
 
@@ -650,5 +785,275 @@
     .cinematic-transition-veil,
     .cinematic-signal-route {
         display: none !important;
+    }
+}
+
+
+/* neural-cinematic-polish-v2 */
+@media (
+min-width: 1200px
+) and (
+min-height: 800px
+) and (
+hover: hover
+) and (
+pointer: fine
+) and (
+prefers-reduced-motion: no-preference
+) {
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    > [data-cinematic-scene="neural"] {
+        padding-block-start:
+                calc(
+                        var(--cinematic-compact-header-offset) +
+                        clamp(0.4rem, 0.7svh, 0.65rem)
+                );
+        padding-block-end:
+                clamp(0.4rem, 0.7svh, 0.65rem);
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-cinematic-scene="neural"]
+    [data-neural-layer] {
+        width:
+                min(
+                        calc(100vw - 5rem),
+                        calc(
+                                (
+                                100svh -
+                                var(--cinematic-compact-header-offset) -
+                                1rem
+                                ) * 1.449
+                        ),
+                        1660px
+                ) !important;
+
+        height: auto !important;
+        min-height: 0;
+        max-inline-size: 1660px !important;
+        aspect-ratio: 1814 / 1252 !important;
+        padding: 0 !important;
+        overflow: visible;
+        contain: layout style;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-header] {
+        left: 1.2%;
+        top: 1%;
+        width: 49%;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-core] {
+        left: 37.4%;
+        top: 28%;
+        width: 25.4%;
+        max-width: 470px;
+
+        will-change:
+                transform,
+                opacity;
+
+        backface-visibility: hidden;
+        transform: translateZ(0);
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-node] {
+        aspect-ratio: auto !important;
+
+        will-change:
+                transform,
+                opacity;
+
+        backface-visibility: hidden;
+        transform: translateZ(0);
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-node="frontend"] {
+        left: 65%;
+        top: 7.5%;
+        width: 20.5%;
+        height: 27%;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-node="integration"] {
+        left: 6.8%;
+        top: 40.5%;
+        width: 19.2%;
+        height: 22.5%;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-node="backend"] {
+        left: 18%;
+        top: 63.5%;
+        width: 18.4%;
+        height: 28%;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-node="security"] {
+        left: 61.8%;
+        top: 63%;
+        width: 17.4%;
+        height: 29%;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-insight] {
+        left: 72%;
+        top: 36.5%;
+        width: 24.2%;
+        max-width: 440px;
+
+        will-change:
+                transform,
+                opacity;
+
+        backface-visibility: hidden;
+        transform: translateZ(0);
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-stats] {
+        bottom: 4.5%;
+        left: 1.25%;
+
+        will-change:
+                transform,
+                opacity;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-network] {
+        opacity: 0.9;
+
+        will-change: opacity;
+        transform: translateZ(0);
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-network]
+    path {
+        stroke-width: 1.35;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    .neural-core__orbit {
+        animation-play-state: paused;
+    }
+
+    html[data-cinematic-active="neural"]
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    .neural-core__orbit {
+        animation-play-state: running;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-node-card] {
+        transition-duration: 220ms;
+    }
+}
+
+@media (
+min-width: 1200px
+) and (
+max-height: 899px
+) {
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-cinematic-scene="neural"]
+    [data-neural-layer] {
+        width:
+                min(
+                        calc(100vw - 4rem),
+                        calc(
+                                (
+                                100svh -
+                                var(--cinematic-compact-header-offset) -
+                                0.65rem
+                                ) * 1.449
+                        ),
+                        1460px
+                ) !important;
+
+        height: auto !important;
+        min-height: 0;
+        aspect-ratio: 1814 / 1252 !important;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-core] {
+        width: 24.5%;
+        left: 37.75%;
+        top: 28.5%;
+    }
+}
+
+@media (
+prefers-reduced-motion: reduce
+) {
+    .neural-core__orbit {
+        animation: none !important;
+    }
+}
+
+
+/* =========================================================
+   NEURAL DIRECTORS PASS V3
+   Restore authored 1814x1252 geometry and reduce paint cost.
+   ========================================================= */
+
+@media (
+min-width: 1200px
+) and (
+min-height: 800px
+) and (
+hover: hover
+) and (
+pointer: fine
+) {
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-cinematic-scene="neural"]
+    [data-neural-layer] {
+        width:
+                min(
+                        calc(100vw - 4rem),
+                        calc(
+                                (
+                                100svh
+                                - var(--cinematic-compact-header-offset)
+                                - 1rem
+                                )
+                                * 1.449
+                        ),
+                        1660px
+                );
+        max-inline-size: 1660px;
+        aspect-ratio: 1814 / 1252;
+        padding-inline: 0;
+        backface-visibility: hidden;
+        transform: translateZ(0);
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-core] {
+        filter: none;
+        backface-visibility: hidden;
+        transform: translateZ(0);
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-node-card] {
+        min-height: 0;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-neural-node-card]
+    > span {
+        overflow-wrap: normal;
     }
 }
