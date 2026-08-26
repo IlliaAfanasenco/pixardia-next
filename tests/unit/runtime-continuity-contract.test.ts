@@ -67,7 +67,7 @@ describe("runtime continuity contract", () => {
         );
 
         expect(interlude).toContain(
-            "04 / EVIDENCE",
+            "05 / EVIDENCE",
         );
 
         expect(interlude).toContain(
@@ -79,21 +79,25 @@ describe("runtime continuity contract", () => {
         );
     });
 
-    it("uses one five-chapter narrative", () => {
+    it("uses one six-chapter narrative", () => {
         expect(
             read("components/CraftingStructureSection.tsx"),
         ).toContain("02 / STRUCTURE");
 
         expect(
+            read("components/NeuralSection.tsx"),
+        ).toContain("03 / INTELLIGENCE");
+
+        expect(
             read("components/ProductSection.tsx"),
-        ).toContain("03 / LIFECYCLE");
+        ).toContain("04 / LIFECYCLE");
 
         expect(
             read("components/ArchiveSection.tsx"),
-        ).toContain("04 / EVIDENCE");
+        ).toContain("05 / EVIDENCE");
 
         expect(
             read("components/ContactSection.tsx"),
-        ).toContain("05 / CONNECTION");
+        ).toContain("06 / CONNECTION");
     });
 });

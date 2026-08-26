@@ -18,7 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
 const sceneOrder = [
     "hero",
     "crafting",
-    'neural',
+    "neural",
     "product",
 ] as const;
 const cinematicDesktopQuery =
@@ -205,9 +205,37 @@ export default function CinematicRuntime() {
                         stage,
                         '[data-cinematic-scene="crafting"] [data-cinematic-layer]',
                     );
+                    const neuralLayer = select<HTMLElement>(
+                        stage,
+                        '[data-cinematic-scene="neural"] [data-cinematic-layer]',
+                    );
                     const productLayer = select<HTMLElement>(
                         stage,
                         '[data-cinematic-scene="product"] [data-cinematic-layer]',
+                    );
+                    const neuralCore = select<HTMLElement>(
+                        stage,
+                        "[data-neural-core]",
+                    );
+                    const neuralNetwork = select<SVGSVGElement>(
+                        stage,
+                        "[data-neural-network]",
+                    );
+                    const neuralNetworkPaths = selectAll<SVGPathElement>(
+                        stage,
+                        "[data-neural-network-path]",
+                    );
+                    const neuralNodes = selectAll<HTMLElement>(
+                        stage,
+                        "[data-neural-node]",
+                    );
+                    const neuralInsight = select<HTMLElement>(
+                        stage,
+                        "[data-neural-insight]",
+                    );
+                    const neuralStats = select<HTMLElement>(
+                        stage,
+                        "[data-neural-stats]",
                     );
                     const evidenceInterlude = select<HTMLElement>(
                         document,
@@ -231,6 +259,13 @@ export default function CinematicRuntime() {
                         !contactSection ||
                         !heroLayer ||
                         !craftingLayer ||
+                        !neuralLayer ||
+                        !neuralCore ||
+                        !neuralNetwork ||
+                        neuralNetworkPaths.length === 0 ||
+                        neuralNodes.length === 0 ||
+                        !neuralInsight ||
+                        !neuralStats ||
                         !productLayer ||
                         !evidenceInterlude ||
                         !evidenceFrame ||
@@ -242,8 +277,9 @@ export default function CinematicRuntime() {
                     }
 
                     let activeIndex = -1;
-                    let craftingSceneProgress = 0.34;
-                    let productSceneProgress = 0.68;
+                    let craftingSceneProgress = 0.24;
+                    let neuralSceneProgress = 0.48;
+                    let productSceneProgress = 0.72;
                     const setProgress = gsap.quickSetter(
                         root,
                         "--cinematic-progress",
@@ -271,11 +307,16 @@ export default function CinematicRuntime() {
                         const nextIndex =
                             progress < craftingSceneProgress
                                 ? 0
-                                : progress < productSceneProgress
+                                : progress < neuralSceneProgress
                                     ? 1
-                                    : 2;
+                                    : progress < productSceneProgress
+                                        ? 2
+                                        : 3;
 
-                        setNavigatorProgress(progress * 0.5);
+                        setNavigatorProgress(
+                            progress *
+                            navigatorProgressByChapter.product,
+                        );
 
                         if (nextIndex !== activeIndex) {
                             activeIndex = nextIndex;
@@ -341,10 +382,39 @@ export default function CinematicRuntime() {
                     gsap.set(scenes[0], {
                         autoAlpha: 1,
                     });
-                    gsap.set([craftingLayer, productLayer], {
-                        y: 72,
-                        clipPath: "inset(10% 0% 0% 0%)",
-                    });
+                    gsap.set(
+                        [
+                            craftingLayer,
+                            neuralLayer,
+                            productLayer,
+                        ],
+                        {
+                            y: 72,
+                            clipPath:
+                                "inset(10% 0% 0% 0%)",
+                        },
+                    );
+
+                    gsap.set(
+                        neuralNetworkPaths,
+                        {
+                            strokeDasharray: 1,
+                            strokeDashoffset: 1,
+                        },
+                    );
+
+                    gsap.set(
+                        [
+                            "[data-neural-header]",
+                            neuralCore,
+                            ...neuralNodes,
+                            neuralInsight,
+                            neuralStats,
+                        ],
+                        {
+                            autoAlpha: 0,
+                        },
+                    );
                     gsap.set(veil, {
                         autoAlpha: 0,
                     });
@@ -396,68 +466,81 @@ export default function CinematicRuntime() {
                             duration: 1.28,
                         })
                         .addLabel("hero-to-crafting")
-                        .set(signalRoute, {
-                            autoAlpha: 0.42,
-                        })
-                        .fromTo(
-                            '[data-cinematic-signal-path="primary"]',
+                        .set(
+                            veil,
                             {
-                                strokeDashoffset: 1,
+                                autoAlpha: 0,
                             },
+                        )
+                        .set(
+                            signalRoute,
                             {
-                                strokeDashoffset: 0,
-                                duration: 0.46,
+                                autoAlpha: 0.16,
+                            },
+                            "<",
+                        )
+                        .set(
+                            craftingLayer,
+                            {
+                                autoAlpha: 0,
+                                y: 44,
+                                scale: 0.994,
+                                clipPath:
+                                    "inset(0% 0% 0% 0%)",
                             },
                             "<",
                         )
                         .to(
-                            veil,
+                            scenes[1],
                             {
-                                autoAlpha: 0.09,
-                                duration: 0.1,
+                                autoAlpha: 1,
+                                duration: 0.72,
                             },
                             "<",
+                        )
+                        .to(
+                            craftingLayer,
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                scale: 1,
+                                duration: 0.64,
+                            },
+                            "<+=0.06",
                         )
                         .to(
                             heroLayer,
                             {
-                                autoAlpha: 0,
-                                yPercent: -5,
-                                scale: 0.982,
+                                yPercent: -2.5,
+                                scale: 0.991,
+                                duration: 0.58,
                             },
                             "<",
                         )
                         .to(
                             '[data-cinematic-element="hero-character"]',
                             {
-                                y: -58,
-                                scale: 0.94,
-                                duration: 0.46,
+                                y: -34,
+                                scale: 0.97,
+                                duration: 0.56,
                             },
                             "<",
                         )
-                        .set(scenes[1], { autoAlpha: 1 }, "<")
-                        .fromTo(
-                            craftingLayer,
+                        .to(
+                            scenes[0],
                             {
                                 autoAlpha: 0,
-                                y: 58,
-                                clipPath: "inset(7% 0% 0% 0%)",
+                                duration: 0.54,
                             },
-                            {
-                                autoAlpha: 1,
-                                y: 0,
-                                clipPath: "inset(0% 0% 0% 0%)",
-                            },
-                            "<+=0.08",
+                            "<+=0.10",
                         )
                         .to(
-                            [veil, signalRoute],
+                            signalRoute,
                             {
                                 autoAlpha: 0,
-                                duration: 0.16,
+                                duration: 0.18,
                             },
-                            "-=0.16",
+                            "<+=0.08",
                         )
                         .addLabel("crafting")
                         .fromTo(
@@ -481,119 +564,389 @@ export default function CinematicRuntime() {
                             progress: 1,
                             duration: 0.72,
                         })
-                        .addLabel("crafting-to-product")
-                        .set(signalRoute, {
-                            autoAlpha: 0.4,
-                        })
-                        .fromTo(
-                            '[data-cinematic-signal-path="secondary"]',
+                        .addLabel("crafting-to-neural")
+                        .set(
+                            veil,
                             {
-                                strokeDashoffset: 1,
+                                autoAlpha: 0,
                             },
+                        )
+                        .set(
+                            neuralLayer,
                             {
-                                strokeDashoffset: 0,
-                                duration: 0.44,
+                                autoAlpha: 1,
+                                y: 24,
+                                scale: 0.995,
+                                clipPath:
+                                    "inset(0% 0% 0% 0%)",
+                            },
+                            "<",
+                        )
+                        .set(
+                            signalRoute,
+                            {
+                                autoAlpha: 0.12,
                             },
                             "<",
                         )
                         .to(
-                            veil,
+                            '[data-cinematic-signal-path="secondary"]',
                             {
-                                autoAlpha: 0.09,
-                                duration: 0.1,
+                                strokeDashoffset: 0.28,
+                                duration: 0.52,
+                            },
+                            "<",
+                        )
+                        .to(
+                            scenes[2],
+                            {
+                                autoAlpha: 0.56,
+                                duration: 0.48,
                             },
                             "<",
                         )
                         .to(
                             craftingLayer,
                             {
-                                autoAlpha: 0,
-                                yPercent: -4,
-                                scale: 0.986,
+                                autoAlpha: 0.72,
+                                yPercent: -1,
+                                scale: 0.997,
+                                duration: 0.48,
                             },
                             "<",
                         )
-                        .set(scenes[2], { autoAlpha: 1 }, "<")
-                        .fromTo(
-                            productLayer,
+                        .to(
+                            "[data-neural-header]",
                             {
-                                autoAlpha: 0,
-                                y: 56,
-                                clipPath: "inset(7% 0% 0% 0%)",
-                            },
-                            {
-                                autoAlpha: 1,
-                                y: 0,
-                                clipPath: "inset(0% 0% 0% 0%)",
+                                autoAlpha: 0.46,
+                                y: 10,
+                                duration: 0.34,
                             },
                             "<+=0.08",
                         )
                         .to(
-                            [veil, signalRoute],
+                            neuralCore,
+                            {
+                                autoAlpha: 0.46,
+                                scale: 0.92,
+                                rotation: -2,
+                                duration: 0.36,
+                            },
+                            "<",
+                        )
+
+                        .addLabel("neural")
+
+                        .to(
+                            scenes[2],
+                            {
+                                autoAlpha: 1,
+                                duration: 0.44,
+                            },
+                            "<",
+                        )
+                        .to(
+                            scenes[1],
                             {
                                 autoAlpha: 0,
-                                duration: 0.16,
+                                duration: 0.46,
                             },
-                            "-=0.16",
+                            "<",
                         )
-                        .addLabel("product")
-                        .fromTo(
+                        .to(
+                            neuralLayer,
+                            {
+                                y: 0,
+                                scale: 1,
+                                duration: 0.46,
+                            },
+                            "<",
+                        )
+                        .to(
+                            "[data-neural-header]",
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                duration: 0.38,
+                            },
+                            "<",
+                        )
+                        .to(
+                            "[data-neural-title-line]",
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                clipPath:
+                                    "inset(0 0 0% 0)",
+                                stagger: 0.065,
+                                duration: 0.42,
+                            },
+                            "<+=0.03",
+                        )
+                        .to(
+                            neuralCore,
+                            {
+                                autoAlpha: 1,
+                                scale: 1,
+                                rotation: 0,
+                                duration: 0.48,
+                            },
+                            "<",
+                        )
+                        .to(
+                            neuralNetwork,
+                            {
+                                autoAlpha: 1,
+                                duration: 0.18,
+                            },
+                            "<+=0.08",
+                        )
+                        .to(
+                            neuralNetworkPaths,
+                            {
+                                strokeDashoffset: 0,
+                                stagger: 0.05,
+                                duration: 0.48,
+                            },
+                            "<",
+                        )
+                        .to(
+                            neuralNodes,
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                scale: 1,
+                                stagger: 0.065,
+                                duration: 0.4,
+                            },
+                            "<+=0.07",
+                        )
+                        .to(
+                            neuralInsight,
+                            {
+                                autoAlpha: 1,
+                                x: 0,
+                                duration: 0.36,
+                            },
+                            "<+=0.04",
+                        )
+                        .to(
+                            neuralStats,
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                duration: 0.3,
+                            },
+                            "<",
+                        )
+                        .to(
+                            signalRoute,
+                            {
+                                autoAlpha: 0,
+                                duration: 0.2,
+                            },
+                            "<",
+                        )
+                        .to(
+                            createHold(),
+                            {
+                                progress: 1,
+                                duration: 1.38,
+                            },
+                        )
+
+                        .addLabel("neural-to-product")
+                        .set(
+                            veil,
+                            {
+                                autoAlpha: 0,
+                            },
+                        )
+                        .set(
+                            productLayer,
+                            {
+                                autoAlpha: 1,
+                                y: 24,
+                                scale: 0.996,
+                                clipPath:
+                                    "inset(0% 0% 0% 0%)",
+                            },
+                            "<",
+                        )
+                        .set(
                             [
                                 '[data-cinematic-element="product-kicker"]',
                                 '[data-cinematic-element="product-heading"]',
                             ],
                             {
                                 autoAlpha: 0,
-                                y: 28,
-                            },
-                            {
-                                autoAlpha: 1,
-                                y: 0,
-                                stagger: 0.12,
+                                y: 24,
                             },
                             "<",
                         )
-                        .fromTo(
+                        .set(
                             "[data-cinematic-product-card]",
                             {
                                 autoAlpha: 0,
-                                y: 38,
+                                y: 30,
+                                scale: 0.99,
                             },
-                            {
-                                autoAlpha: 1,
-                                y: 0,
-                                stagger: 0.08,
-                            },
-                            "-=0.18",
+                            "<",
                         )
-                        .fromTo(
+                        .set(
                             [
                                 '[data-cinematic-element="product-system"]',
                                 '[data-cinematic-element="product-status"]',
                             ],
                             {
                                 autoAlpha: 0,
-                                y: 28,
-                            },
-                            {
-                                autoAlpha: 1,
-                                y: 0,
-                                stagger: 0.12,
-                            },
-                            "-=0.06",
-                        )
-                        .to(
-                            '[data-cinematic-signal-path="secondary"]',
-                            {
-                                strokeDashoffset: 0,
-                                duration: 0.84,
+                                y: 22,
                             },
                             "<",
                         )
-                        .to(createHold(), {
-                            progress: 1,
-                            duration: 0.8,
-                        })
+                        .set(
+                            '[data-cinematic-element="product-footer"]',
+                            {
+                                autoAlpha: 0,
+                                y: 12,
+                            },
+                            "<",
+                        )
+                        .set(
+                            signalRoute,
+                            {
+                                autoAlpha: 0.10,
+                            },
+                            "<",
+                        )
+                        .to(
+                            '[data-cinematic-signal-path="convergence"]',
+                            {
+                                strokeDashoffset: 0.3,
+                                duration: 0.5,
+                            },
+                            "<",
+                        )
+                        .to(
+                            scenes[3],
+                            {
+                                autoAlpha: 0.52,
+                                duration: 0.48,
+                            },
+                            "<",
+                        )
+                        .to(
+                            [
+                                '[data-cinematic-element="product-kicker"]',
+                                '[data-cinematic-element="product-heading"]',
+                            ],
+                            {
+                                autoAlpha: 0.58,
+                                y: 10,
+                                stagger: 0.05,
+                                duration: 0.38,
+                            },
+                            "<+=0.08",
+                        )
+                        .to(
+                            neuralLayer,
+                            {
+                                yPercent: -0.8,
+                                scale: 0.997,
+                                duration: 0.46,
+                            },
+                            "<",
+                        )
+
+                        .addLabel("product")
+
+                        .to(
+                            scenes[3],
+                            {
+                                autoAlpha: 1,
+                                duration: 0.44,
+                            },
+                            "<",
+                        )
+                        .to(
+                            scenes[2],
+                            {
+                                autoAlpha: 0,
+                                duration: 0.48,
+                            },
+                            "<",
+                        )
+                        .to(
+                            productLayer,
+                            {
+                                y: 0,
+                                scale: 1,
+                                duration: 0.46,
+                            },
+                            "<",
+                        )
+                        .to(
+                            [
+                                '[data-cinematic-element="product-kicker"]',
+                                '[data-cinematic-element="product-heading"]',
+                            ],
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                stagger: 0.07,
+                                duration: 0.38,
+                            },
+                            "<",
+                        )
+                        .to(
+                            "[data-cinematic-product-card]",
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                scale: 1,
+                                stagger: 0.065,
+                                duration: 0.42,
+                            },
+                            "<+=0.04",
+                        )
+                        .to(
+                            [
+                                '[data-cinematic-element="product-system"]',
+                                '[data-cinematic-element="product-status"]',
+                            ],
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                stagger: 0.08,
+                                duration: 0.38,
+                            },
+                            "<+=0.02",
+                        )
+                        .to(
+                            '[data-cinematic-element="product-footer"]',
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                duration: 0.28,
+                            },
+                            "<+=0.04",
+                        )
+                        .to(
+                            signalRoute,
+                            {
+                                autoAlpha: 0,
+                                duration: 0.18,
+                            },
+                            "<",
+                        )
+                        .to(
+                            createHold(),
+                            {
+                                progress: 1,
+                                duration: 0.92,
+                            },
+                        )
+
                         .addLabel("product-deconstruct")
                         .to(
                             "[data-cinematic-product-card]",
@@ -700,6 +1053,11 @@ export default function CinematicRuntime() {
                         craftingSceneProgress =
                             (timeline.labels.crafting ?? 0) /
                             timelineDuration;
+
+                        neuralSceneProgress =
+                            (timeline.labels.neural ?? 0) /
+                            timelineDuration;
+
                         productSceneProgress =
                             (timeline.labels.product ?? 0) /
                             timelineDuration;
@@ -711,9 +1069,9 @@ export default function CinematicRuntime() {
                         start: "top top",
                         end: () =>
                             `+=${Math.round(
-                                window.innerHeight * 3.8,
+                                window.innerHeight * 6.2,
                             )}`,
-                        scrub: 0.18,
+                        scrub: 0.28,
                         pin: true,
                         pinSpacing: true,
                         invalidateOnRefresh: true,
@@ -956,8 +1314,8 @@ export default function CinematicRuntime() {
                             invalidateOnRefresh: true,
                             onUpdate: (self) => {
                                 setNavigatorProgress(
-                                    0.5 +
-                                    self.progress * 0.12,
+                                    0.6 +
+                                    self.progress * 0.08,
                                 );
                             },
                             onEnter: () => {
@@ -981,11 +1339,11 @@ export default function CinematicRuntime() {
                             onLeaveBack: () => {
                                 setActiveScene(
                                     scenes,
-                                    2,
+                                    3,
                                     navControls,
                                 );
                                 setSignalState("product");
-                                setNavigatorProgress(0.5);
+                                setNavigatorProgress(0.6);
                             },
                         });
                     const archiveEntryTrigger =
@@ -998,8 +1356,8 @@ export default function CinematicRuntime() {
                             invalidateOnRefresh: true,
                             onUpdate: (self) => {
                                 setNavigatorProgress(
-                                    0.62 +
-                                    self.progress * 0.13,
+                                    0.68 +
+                                    self.progress * 0.12,
                                 );
                             },
                             onEnter: () => {
@@ -1011,11 +1369,11 @@ export default function CinematicRuntime() {
                             onLeaveBack: () => {
                                 setActiveScene(
                                     scenes,
-                                    2,
+                                    3,
                                     navControls,
                                 );
                                 setSignalState("product");
-                                setNavigatorProgress(0.5);
+                                setNavigatorProgress(0.6);
                             },
                         });
                     const archiveActiveTrigger =
@@ -1042,8 +1400,8 @@ export default function CinematicRuntime() {
                             invalidateOnRefresh: true,
                             onUpdate: (self) => {
                                 setNavigatorProgress(
-                                    0.75 +
-                                    self.progress * 0.25,
+                                    0.8 +
+                                    self.progress * 0.2,
                                 );
                             },
                             onEnter: () => {
@@ -1275,6 +1633,13 @@ export default function CinematicRuntime() {
                             ...scenes,
                             heroLayer,
                             craftingLayer,
+                            neuralLayer,
+                            neuralCore,
+                            neuralNetwork,
+                            ...neuralNetworkPaths,
+                            ...neuralNodes,
+                            neuralInsight,
+                            neuralStats,
                             productLayer,
                             veil,
                             navigator,
