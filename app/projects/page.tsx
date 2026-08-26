@@ -1,66 +1,67 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import Link from "next/link";
 
-import ProjectCaseStudy from "@/features/projects/ProjectCaseStudy";
 import {
-    getProjectBySlug,
     projects,
 } from "@/content/projects";
-import { createPageMetadata } from "@/lib/seo";
+import {
+    createPageMetadata,
+} from "@/lib/seo";
 
-type ProjectPageProps = {
-    params: Promise<{
-        slug: string;
-    }>;
-};
-
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-    return projects.map((project) => ({
-        slug: project.slug,
-    }));
-}
-
-export async function generateMetadata({
-                                           params,
-                                       }: ProjectPageProps): Promise<Metadata> {
-    const { slug } = await params;
-    const project = getProjectBySlug(slug);
-
-    if (!project) {
-        return {
-            title: "Project not found",
-            robots: {
-                index: false,
-                follow: false,
-            },
-        };
-    }
-
-    return createPageMetadata({
-        title: project.title,
-        description: project.summary.en,
-        path: `/projects/${project.slug}`,
+export const metadata: Metadata =
+    createPageMetadata({
+        title: "Projects",
+        description:
+            "Explore selected Pixardia digital products, platforms and web experiences.",
+        path: "/projects",
     });
-}
 
-export default async function ProjectPage({
-                                              params,
-                                          }: ProjectPageProps) {
-    const { slug } = await params;
-    const project = getProjectBySlug(slug);
-
-    if (!project) {
-        notFound();
-    }
-
+export default function ProjectsPage() {
     return (
-        <ProjectCaseStudy
-            project={project}
-            titleId="project-page-title"
-            summaryId="project-page-summary"
-            variant="page"
-        />
+        <section
+            className="container-custom py-12 sm:py-16"
+            aria-labelledby="projects-page-title"
+        >
+            <h1
+                id="projects-page-title"
+                className="text-4xl font-black uppercase tracking-tight text-[#1E1E1E]"
+            >
+                Projects
+            </h1>
+
+            <div className="mt-10">
+                <h2 className="text-2xl font-bold uppercase tracking-tight text-[#1E1E1E]">
+                    Selected work
+                </h2>
+
+                <div className="mt-6 grid gap-6 md:grid-cols-2">
+                    {projects.map((project) => (
+                        <article
+                            key={project.slug}
+                            className="border-t border-[#1E1E1E] pt-5"
+                        >
+                            <p className="text-sm font-bold uppercase tracking-[0.08em] text-[#777777]">
+                                {project.type}
+                            </p>
+
+                            <h3 className="mt-2 text-2xl font-black uppercase tracking-tight text-[#1E1E1E]">
+                                {project.title}
+                            </h3>
+
+                            <p className="mt-3 max-w-xl">
+                                {project.summary.en}
+                            </p>
+
+                            <Link
+                                href={`/projects/${project.slug}`}
+                                className="mt-4 inline-flex font-bold underline underline-offset-4"
+                            >
+                                View project
+                            </Link>
+                        </article>
+                    ))}
+                </div>
+            </div>
+        </section>
     );
 }
