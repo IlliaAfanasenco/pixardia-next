@@ -29,10 +29,17 @@ const homepageSections = [
         cinematicScene: "crafting",
     },
     {
+        file: "components/NeuralSection.tsx",
+        id: "neural-system",
+        storySection: "neural",
+        step: "3",
+        cinematicScene: "neural",
+    },
+    {
         file: "components/ProductSection.tsx",
         id: "process",
         storySection: "product-process",
-        step: "3",
+        step: "4",
         cinematicScene: "product",
     },
 ] as const;
@@ -124,7 +131,7 @@ describe("experience foundation contract", () => {
         expect(runtime).toContain("pin: true");
         expect(runtime.match(/pin:\s*true/g)).toHaveLength(1);
         expect(runtime).toContain("pinSpacing: true");
-        expect(runtime).toContain("scrub: 0.18");
+        expect(runtime).toContain("scrub: 0.28");
         expect(runtime).toContain("invalidateOnRefresh: true");
         expect(runtime).toContain('start: "top top"');
         expect(runtime).toContain("end: () =>");
@@ -184,7 +191,9 @@ describe("experience foundation contract", () => {
             "hero",
             "hero-to-crafting",
             "crafting",
-            "crafting-to-product",
+            "crafting-to-neural",
+            "neural",
+            "neural-to-product",
             "product",
             "product-deconstruct",
             "product-to-archive-signal",
@@ -323,6 +332,7 @@ describe("experience foundation contract", () => {
             1,
         );
         expect(navigator).toContain('type="button"');
+        expect(navigator).toContain("Intelligence");
         expect(navigator).toContain("Evidence");
         expect(navigator).toContain("Connection");
         expect(veil).toContain('aria-hidden="true"');
@@ -349,7 +359,10 @@ describe("experience foundation contract", () => {
             "components/presentation/CinematicRuntime.tsx",
         );
 
-        expect(runtime).toContain("autoAlpha: 0.09");
+        expect(runtime).toMatch(
+            /\.set\(\s*veil,\s*\{\s*autoAlpha:\s*0,/,
+        );
+        expect(runtime).toContain("autoAlpha: 0.10");
         expect(runtime).not.toContain("autoAlpha: 0.15");
         expect(runtime).not.toContain("autoAlpha: 0.14");
         expect(runtime).not.toContain("autoAlpha: 0.13");
@@ -366,9 +379,9 @@ describe("experience foundation contract", () => {
         expect(runtime).not.toMatch(/useState|setState/);
         expect(runtime).toContain("gsap.quickSetter");
         expect(runtime).toContain("navigatorProgressByChapter");
-        expect(runtime).toContain("archive: 0.75");
+        expect(runtime).toContain("archive: 0.8");
         expect(runtime).toContain("contact: 1");
-        expect(runtime).toContain("self.progress * 0.25");
+        expect(runtime).toContain("self.progress * 0.2");
         expect(runtime).not.toMatch(
             /timeline\.to\(\s*navigatorFill/,
         );
@@ -381,6 +394,7 @@ describe("experience foundation contract", () => {
         const componentOrder = [
             "<HeroSection />",
             "<CraftingStructureSection />",
+            "<NeuralSystemSection />",
             "<ProductSection />",
             "<CinematicRuntime />",
             "<ArchiveSection />",
