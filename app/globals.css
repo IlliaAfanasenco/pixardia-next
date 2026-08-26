@@ -29,6 +29,28 @@
         padding-inline: 40px;
     }
 }
+.neural-canvas {
+    container-type: inline-size;
+}
+
+@media (min-width: 1280px) {
+    .neural-canvas {
+        /*
+         * 1.4489 — это соотношение 1814 / 1252.
+         * 100dvh — реальная доступная высота браузера.
+         * 100px — место под Header и небольшой нижний отступ.
+         */
+        width: min(
+                100%,
+                var(--cinematic-content-max),
+                calc((100dvh - 100px) * 1.4489)
+        );
+
+        max-width: none;
+        aspect-ratio: 1814 / 1252;
+    }
+}
+
 
 /* SHELL-001: accessible skip link */
 .skip-link {
@@ -1006,6 +1028,7 @@ prefers-reduced-motion: reduce
    NEURAL DIRECTORS PASS V3
    Restore authored 1814x1252 geometry and reduce paint cost.
    ========================================================= */
+
 
 @media (
 min-width: 1200px

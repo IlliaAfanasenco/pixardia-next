@@ -40,7 +40,7 @@ export default function Header() {
 
     return (
         <header
-            className={`${archivo.variable} sticky top-0 z-[60] w-full border-b border-black/[0.04] bg-white/95`}
+            className={`${archivo.variable} sticky top-0 z-[60] w-full border-b border-black/[0.04] bg-white/95 `}
             data-site-header=""
             data-compact={isCompact ? "true" : "false"}
         >

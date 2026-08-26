@@ -4,11 +4,11 @@ import ArchiveSection from "@/components/ArchiveSection";
 import ContactSection from "@/components/ContactSection";
 import CraftingStructureSection from "@/components/CraftingStructureSection";
 import HeroSection from "@/components/HeroSection";
+import NeuralSystemSection from "@/components/NeuralSection";
 import CinematicRuntime from "@/components/presentation/CinematicRuntime";
 import ProductSection from "@/components/ProductSection";
 import { siteConfig } from "@/config/site";
 import { createPageMetadata } from "@/lib/seo";
-import NeuralSystemSection from "@/components/NeuralSection";
 
 export const metadata: Metadata = createPageMetadata({
     title: siteConfig.title,
@@ -27,8 +27,8 @@ export default function HomePage() {
                 >
                     <HeroSection />
                     <CraftingStructureSection />
+                    <NeuralSystemSection />
                     <ProductSection />
-                    <NeuralSystemSection/>
                 </div>
             </div>
             <CinematicRuntime />
