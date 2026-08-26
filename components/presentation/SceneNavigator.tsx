@@ -10,6 +10,11 @@ const nodes = [
         label: "Structure",
     },
     {
+        id: "neural",
+        target: "neural",
+        label: "Intelligence",
+    },
+    {
         id: "product",
         target: "product",
         label: "Lifecycle",
