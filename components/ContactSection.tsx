@@ -283,7 +283,7 @@ export default function ContactSection({
             className="w-full py-16 md:py-24"
             aria-labelledby="contact-title"
             data-story-section="contact"
-            data-story-step="5"
+            data-story-step="6"
             data-motion="fade-up"
             data-motion-state="pending"
         >
@@ -295,7 +295,7 @@ export default function ContactSection({
                     />
 
                     <p className="text-xs font-bold uppercase leading-none text-[#C5C6C8]">
-                        05 / CONNECTION
+                        06 / CONNECTION
                     </p>
                 </div>
 

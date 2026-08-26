@@ -226,7 +226,7 @@ export default function ProductSection() {
             className="w-full overflow-visible py-16 md:py-24"
             aria-labelledby="product-lifecycle-title"
             data-story-section="product-process"
-            data-story-step="3"
+            data-story-step="4"
             data-cinematic-scene="product"
             data-motion="fade-up"
             data-motion-state="pending"
@@ -239,7 +239,7 @@ export default function ProductSection() {
                     className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]"
                     data-cinematic-element="product-kicker"
                 >
-                    03 / LIFECYCLE
+                    04 / LIFECYCLE
                 </p>
 
                 <div
@@ -285,7 +285,7 @@ export default function ProductSection() {
                 >
                     <div className="flex gap-2 text-xs font-bold uppercase leading-none text-[#C1C2C4]">
                         <p>End</p>
-                        <p>of phase 03</p>
+                        <p>of phase 04</p>
                     </div>
 
                     <p className="text-xs font-bold uppercase leading-none text-[#C1C2C4]">

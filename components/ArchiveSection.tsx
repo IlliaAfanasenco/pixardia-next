@@ -20,14 +20,14 @@ export default function ArchiveSection() {
             className="mt-10 w-full overflow-visible py-16 md:py-24"
             aria-labelledby="archive-title"
             data-story-section="archive"
-            data-story-step="4"
+            data-story-step="5"
             data-motion="fade-up"
             data-motion-state="pending"
         >
             <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-[clamp(28px,4vw,40px)] px-5 md:px-8">
                 <div className="flex flex-col gap-2">
                     <p className="text-xs font-bold uppercase leading-none text-[#C5C6C8]">
-                        04 / EVIDENCE
+                        05 / EVIDENCE
                     </p>
 
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
