@@ -116,7 +116,7 @@ export default function Footer() {
 
     return (
         <footer className="w-full overflow-visible py-5 md:py-5">
-            <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8">
+            <div className="site-container">
                 <div className="grid grid-cols-1 justify-items-center gap-10 text-center md:grid-cols-2 md:items-start md:gap-x-8 md:gap-y-12 xl:grid-cols-[1.5fr_0.8fr_0.8fr_1.2fr] xl:justify-items-stretch xl:gap-20 xl:text-left">
                     <div className="flex w-full max-w-[280px] flex-col items-center md:max-w-[300px] xl:min-h-[230px] xl:max-w-none xl:items-start">
                         <Link

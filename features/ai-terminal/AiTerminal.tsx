@@ -505,7 +505,10 @@ export default function AiTerminal({
                     </p>
                 </div>
 
-                <div className="relative flex min-h-[520px] flex-col p-4 font-mono text-[11px] leading-[1.55] sm:min-h-[590px] sm:p-6 sm:text-xs lg:min-h-[620px]">
+                <div
+                    className="relative flex min-h-[520px] flex-col p-4 font-mono text-[11px] leading-[1.55] sm:min-h-[590px] sm:p-6 sm:text-xs lg:min-h-[620px]"
+                    data-ai-terminal-body=""
+                >
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.025] via-transparent to-white/[0.015]" />
 
                     <div className="relative">

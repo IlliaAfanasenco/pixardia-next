@@ -287,7 +287,7 @@ export default function ContactSection({
             data-motion="fade-up"
             data-motion-state="pending"
         >
-            <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8">
+            <div className="site-container">
                 <div className="flex justify-center gap-3 xl:justify-start">
                     <div
                         className="h-2 w-2 bg-[#5149DA]"

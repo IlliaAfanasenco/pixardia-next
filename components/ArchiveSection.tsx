@@ -24,7 +24,7 @@ export default function ArchiveSection() {
             data-motion="fade-up"
             data-motion-state="pending"
         >
-            <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-[clamp(28px,4vw,40px)] px-5 md:px-8">
+            <div className="site-container flex flex-col gap-[clamp(28px,4vw,40px)]">
                 <div className="flex flex-col gap-2">
                     <p className="text-xs font-bold uppercase leading-none text-[#C5C6C8]">
                         05 / EVIDENCE

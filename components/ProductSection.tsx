@@ -232,7 +232,7 @@ export default function ProductSection() {
             data-motion-state="pending"
         >
             <div
-                className="mx-auto w-full max-w-[1440px] px-5 md:px-8"
+                className="site-container"
                 data-cinematic-layer=""
             >
                 <p

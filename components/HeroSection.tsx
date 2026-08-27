@@ -23,7 +23,7 @@ export default function HeroSection() {
             data-motion-state="pending"
         >
             <div
-                className="relative z-10 mx-auto w-full max-w-[var(--container)] px-5 sm:px-8 lg:px-10"
+                className="site-container relative z-10"
                 data-cinematic-layer=""
             >
                 <p
@@ -50,7 +50,7 @@ export default function HeroSection() {
                 </h1>
 
                 <p
-                    className="mt-7 max-w-[300px] font-[var(--font-archivo)] text-lg font-bold uppercase leading-none tracking-[0.03em] text-[#1E1E1E] sm:mt-[clamp(30px,6vw,90px)] sm:text-[clamp(18px,2vw,24px)] lg:max-w-[360px]"
+                    className="mt-7 max-w-[300px] font-[var(--font-archivo)] text-lg py-5 font-bold uppercase leading-none tracking-[0.03em] text-[#1E1E1E] sm:mt-[clamp(30px,6vw,90px)] sm:text-[clamp(18px,2vw,24px)] lg:max-w-[360px]"
                     data-cinematic-element="hero-copy"
                 >
                     We design and build digital products that solve real business problems
@@ -70,7 +70,7 @@ export default function HeroSection() {
                         className="size-16 shrink-0 sm:size-20 lg:size-24"
                     />
 
-                    <span className="font-[var(--font-archivo)] text-lg font-black uppercase leading-none tracking-[0.03em] sm:text-[clamp(18px,2vw,24px)]">
+                    <span className="font-[var(--font-archivo)] text-lg py-20 font-black uppercase leading-none tracking-[0.03em] sm:text-[clamp(18px,2vw,24px)]">
                         explore services
                     </span>
                 </Link>

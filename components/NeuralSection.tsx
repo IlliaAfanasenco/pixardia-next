@@ -36,8 +36,7 @@ const nodes: NeuralNode[] = [
         ],
         indicatorClassName: "bg-black",
         shadowClassName: "bg-black",
-        layoutClassName:
-            "aspect-[400/330] min-[1200px]:absolute min-[1200px]:left-[60.95%] min-[1200px]:top-[11.6%] min-[1200px]:w-[20.35%]",
+        layoutClassName: "sm:aspect-[400/330]",
     },
     {
         id: "backend",
@@ -48,8 +47,7 @@ const nodes: NeuralNode[] = [
             "built for resilience.",
         ],
         indicatorClassName: "bg-black",
-        layoutClassName:
-            "aspect-[350/300] min-[1200px]:absolute min-[1200px]:left-[18.25%] min-[1200px]:top-[67.1%] min-[1200px]:w-[17.6%]",
+        layoutClassName: "sm:aspect-[350/300]",
     },
     {
         id: "integration",
@@ -60,8 +58,7 @@ const nodes: NeuralNode[] = [
             "and generation.",
         ],
         indicatorClassName: "border border-[#1853b4] bg-[#276ce0]",
-        layoutClassName:
-            "aspect-[355/245] min-[1200px]:absolute min-[1200px]:left-[10.9%] min-[1200px]:top-[43.25%] min-[1200px]:w-[17.85%]",
+        layoutClassName: "sm:aspect-[355/245]",
     },
     {
         id: "security",
@@ -72,8 +69,7 @@ const nodes: NeuralNode[] = [
             "layered threat protection.",
         ],
         indicatorClassName: "border border-[#b81919] bg-[#f21e1e]",
-        layoutClassName:
-            "aspect-[306/318] min-[1200px]:absolute min-[1200px]:left-[60.45%] min-[1200px]:top-[67.65%] min-[1200px]:w-[15.4%]",
+        layoutClassName: "sm:aspect-[306/318]",
     },
 ];
 
@@ -96,7 +92,7 @@ function NodeCard({
         <div
             data-neural-node={node.id}
             className={cx(
-                "relative z-10 mx-auto w-full max-w-[430px] min-[1200px]:mx-0 min-[1200px]:max-w-none",
+                "relative z-10 mx-auto min-w-0 w-full max-w-[430px]",
                 node.layoutClassName,
             )}
         >
@@ -116,7 +112,7 @@ function NodeCard({
                 aria-pressed={active}
                 onClick={onSelect}
                 className={cx(
-                    "group flex w-full flex-col border border-[#494949] bg-white p-5 text-left sm:p-7 min-[1200px]:p-[clamp(18px,calc(3vw_-_20px),34px)]",
+                    "group flex min-h-[220px] w-full min-w-0 flex-col border border-[#494949] bg-white p-5 text-left sm:min-h-0 sm:p-7",
                     "transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#246ae5]",
                     active &&
                     "border-[#246ae5] shadow-[0_18px_50px_rgba(36,106,229,0.12)]",
@@ -125,8 +121,8 @@ function NodeCard({
                         : "h-full",
                 )}
             >
-                <span className="flex w-full items-center justify-between gap-5">
-                    <span className="whitespace-nowrap text-sm font-bold uppercase leading-none tracking-[-0.02em] text-[#909090] sm:text-base min-[1200px]:text-[clamp(12px,calc(1.12vw_-_2px),18px)]">
+                <span className="flex w-full min-w-0 items-center justify-between gap-3 sm:gap-5">
+                    <span className="min-w-0 text-sm font-bold uppercase leading-none tracking-[-0.02em] text-[#909090] sm:text-base">
                         {node.code}
                     </span>
                     <span
@@ -140,13 +136,13 @@ function NodeCard({
                     />
                 </span>
 
-                <span className="mt-6 flex flex-col text-[clamp(24px,5vw,34px)] font-black uppercase leading-[0.96] tracking-[-0.035em] text-[#3f3f3f] min-[1200px]:mt-[clamp(14px,calc(2.43vw_-_17px),27px)] min-[1200px]:text-[clamp(22px,calc(2.25vw_-_7px),34px)]">
+                <span className="mt-6 flex min-w-0 flex-col text-[clamp(24px,5vw,34px)] font-black uppercase leading-[0.96] tracking-[-0.035em] text-[#3f3f3f]">
                     {node.title.map((line) => (
-                        <span key={line}>{line}</span>
+                        <span key={line} className="break-words">{line}</span>
                     ))}
                 </span>
 
-                <span className="mt-auto max-w-[96%] pt-3 text-[13px] font-bold leading-[1.18] text-[#c3c3c3] sm:text-[15px] min-[1200px]:pt-[clamp(8px,0.8vw,14px)] min-[1200px]:text-[clamp(10px,0.82vw,15px)]">
+                <span className="mt-auto min-w-0 max-w-[96%] pt-3 text-[13px] font-bold leading-[1.2] text-[#c3c3c3] sm:text-[15px]">
                     {node.description.map((line) => (
                         <span key={line} className="block">
                             {line}
@@ -176,15 +172,18 @@ export default function NeuralSystemSection({
             data-motion="fade-up"
             data-motion-state="pending"
             className={cx(
-                "overflow-hidden bg-[#f5f8fa] [font-family:var(--font-archivo)]",
+                "overflow-x-clip bg-white [font-family:var(--font-archivo)]",
                 className,
             )}
         >
             <div
-                className="relative mx-auto w-full max-w-[1814px] px-5 py-12 sm:px-8 sm:py-16 lg:px-10 min-[1200px]:aspect-[1814/1252] min-[1200px]:px-0 min-[1200px]:py-0"
+                className="site-container"
                 data-cinematic-layer=""
-                data-neural-layer=""
             >
+                <div
+                    className="relative w-full py-12 sm:py-16"
+                    data-neural-layer=""
+                >
                 <svg
                     className="pointer-events-none absolute inset-0 z-0 hidden size-full overflow-visible min-[1200px]:block"
                     viewBox="0 0 1814 1252"
@@ -220,7 +219,7 @@ export default function NeuralSystemSection({
                     />
                 </svg>
                 <header
-                    className="relative z-10 min-[1200px]:absolute min-[1200px]:left-[1.55%] min-[1200px]:top-[1.55%] min-[1200px]:w-[53%]"
+                    className="relative z-10 min-w-0"
                     data-neural-header=""
                     data-cinematic-element="neural-header"
                 >
@@ -233,7 +232,7 @@ export default function NeuralSystemSection({
 
                     <h2
                         id="neural-system-title"
-                        className="mt-5 flex flex-col text-[clamp(3rem,10vw,8rem)] font-black uppercase leading-[0.98] tracking-[-0.045em] min-[1200px]:mt-[1.2vw] min-[1200px]:text-[clamp(5rem,7.1vw,8rem)]"
+                        className="mt-5 flex min-w-0 flex-col text-[clamp(2.75rem,10vw,8rem)] font-black uppercase leading-[0.98] tracking-[-0.045em]"
                     >
                         <span
                             className="whitespace-nowrap text-[#1e1e1e]"
@@ -252,7 +251,7 @@ export default function NeuralSystemSection({
                 </header>
 
                 <div
-                    className="neural-core relative z-10 mx-auto mt-14 aspect-square w-full max-w-[484px] rounded-full border-[1.5px] border-[#2472ef] p-[clamp(10px,1vw,18px)] min-[1200px]:absolute min-[1200px]:left-[38.25%] min-[1200px]:top-[29.9%] min-[1200px]:mt-0 min-[1200px]:w-[24.4%]"
+                    className="neural-core relative z-10 mx-auto mt-14 aspect-square w-full max-w-[484px] rounded-full border-[1.5px] border-[#2472ef] p-[clamp(10px,1vw,18px)]"
                     data-neural-core=""
                     data-cinematic-element="neural-core"
                 >
@@ -290,7 +289,7 @@ export default function NeuralSystemSection({
                     </div>
                 </div>
 
-                <div className="mt-14 grid gap-7 sm:grid-cols-2 min-[1200px]:contents">
+                <div className="mt-14 grid items-stretch gap-7 sm:grid-cols-2" data-neural-nodes="">
                     {nodes.map((node) => (
                         <NodeCard
                             key={node.id}
@@ -302,7 +301,7 @@ export default function NeuralSystemSection({
                 </div>
 
                 <aside
-                    className="relative z-10 mx-auto mt-10 aspect-[468/366] w-full max-w-[468px] min-[1200px]:absolute min-[1200px]:left-[66.5%] min-[1200px]:top-[37.45%] min-[1200px]:mt-0 min-[1200px]:w-[21.8%] min-[1200px]:max-w-none"
+                    className="relative z-10 mx-auto mt-10 min-h-[330px] w-full max-w-[468px] sm:aspect-[468/366] sm:min-h-0"
                     data-neural-insight=""
                     data-cinematic-element="neural-insight"
                 >
@@ -310,7 +309,7 @@ export default function NeuralSystemSection({
                         aria-hidden="true"
                         className="absolute inset-0 translate-x-[3%] translate-y-[4%] bg-[#4a83dd]"
                     />
-                    <div className="absolute bottom-[4%] right-[3%] top-0 flex w-[97%] flex-col border-2 border-[#5274a7] bg-white p-[clamp(22px,1.8vw,32px)]">
+                    <div className="absolute bottom-[4%] right-[3%] top-0 flex w-[97%] min-w-0 flex-col border-2 border-[#5274a7] bg-white p-[clamp(22px,1.8vw,32px)]" data-neural-insight-card="">
                         <div className="flex items-center gap-3">
                             <span className="size-[clamp(8px,0.62vw,11px)] shrink-0 border border-[#1853b4] bg-[#246ae5]" />
                             <h3 className="text-[clamp(15px,1.1vw,20px)] font-extrabold uppercase leading-none text-[#686868]">
@@ -334,7 +333,7 @@ export default function NeuralSystemSection({
                 </aside>
 
                 <div
-                    className="relative z-10 mt-14 flex items-start gap-8 sm:gap-10 min-[1200px]:absolute min-[1200px]:bottom-[3.7%] min-[1200px]:left-[1.35%] min-[1200px]:mt-0"
+                    className="relative z-10 mt-14 flex flex-wrap items-start gap-8 sm:gap-10"
                     data-neural-stats=""
                     data-cinematic-element="neural-stats"
                 >
@@ -354,6 +353,7 @@ export default function NeuralSystemSection({
                             Verified
                         </p>
                     </div>
+                </div>
                 </div>
             </div>
         </section>

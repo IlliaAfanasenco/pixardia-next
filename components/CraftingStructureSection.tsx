@@ -55,7 +55,7 @@ export default function CraftingStructureSection() {
             data-motion-state="pending"
         >
             <div
-                className="mx-auto grid w-full max-w-[1440px] gap-12 px-5 md:px-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-[clamp(40px,6vw,92px)]"
+                className="site-container grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-[clamp(40px,6vw,92px)]"
                 data-cinematic-layer=""
             >
                 <div

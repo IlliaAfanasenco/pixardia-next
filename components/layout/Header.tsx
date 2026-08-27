@@ -45,7 +45,7 @@ export default function Header() {
             data-compact={isCompact ? "true" : "false"}
         >
             <div
-                className={`mx-auto flex w-full max-w-[var(--container)] items-center justify-between px-5 transition-[padding,gap] duration-300 ease-out sm:px-8 lg:px-10 ${
+                className={`site-container flex items-center justify-between transition-[padding,gap] duration-300 ease-out ${
                     isCompact
                         ? "gap-3 py-2 sm:py-2.5 lg:gap-4"
                         : "gap-4 py-5 lg:gap-6"
