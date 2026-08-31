@@ -332,9 +332,9 @@ describe("experience foundation contract", () => {
             1,
         );
         expect(navigator).toContain('type="button"');
-        expect(navigator).toContain("Intelligence");
-        expect(navigator).toContain("Evidence");
-        expect(navigator).toContain("Connection");
+        expect(navigator).toContain("Expertise");
+        expect(navigator).toContain("Work");
+        expect(navigator).toContain("Contact");
         expect(veil).toContain('aria-hidden="true"');
         expect(veil).toContain('data-cinematic-veil=""');
         expect(styles).toMatch(

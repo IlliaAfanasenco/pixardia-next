@@ -91,7 +91,7 @@ describe("responsive cinematic cleanup contract", () => {
         expect(
             runtime,
         ).toContain(
-            "(min-width: 1200px)",
+            "(min-width: 1280px)",
         );
 
         expect(

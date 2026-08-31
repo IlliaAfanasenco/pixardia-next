@@ -53,7 +53,7 @@ export default function HeroSection() {
                     className="mt-7 max-w-[300px] font-[var(--font-archivo)] text-lg py-5 font-bold uppercase leading-none tracking-[0.03em] text-[#1E1E1E] sm:mt-[clamp(30px,6vw,90px)] sm:text-[clamp(18px,2vw,24px)] lg:max-w-[360px]"
                     data-cinematic-element="hero-copy"
                 >
-                    We design and build digital products that solve real business problems
+                    We design, build and scale digital products that move businesses forward.
                 </p>
 
                 <Link
@@ -81,7 +81,7 @@ export default function HeroSection() {
                 >
                     <div>
                         <p className="font-[var(--font-archivo)] text-xs uppercase leading-none tracking-[0.03em] text-[#C5C6C8] sm:text-base">
-                            scroll to begin
+                            scroll to explore
                         </p>
 
                         <div
@@ -98,7 +98,7 @@ export default function HeroSection() {
                         </p>
 
                         <p className="font-[var(--font-archivo)] text-xs uppercase leading-none tracking-[0.03em] text-[#C5C6C8] sm:text-base">
-                            service area: Germany / Europe / Remote
+                            Germany / Europe / Worldwide
                         </p>
                     </div>
                 </div>

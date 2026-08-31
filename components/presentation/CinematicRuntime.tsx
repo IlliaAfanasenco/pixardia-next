@@ -22,7 +22,7 @@ const sceneOrder = [
     "product",
 ] as const;
 const cinematicDesktopQuery =
-    "(min-width: 1200px) and (min-height: 800px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
+    "(min-width: 1280px) and (min-height: 800px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
 
 type CinematicScene = (typeof sceneOrder)[number];
 type FlowSection = "archive" | "contact";

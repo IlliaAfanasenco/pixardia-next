@@ -25,7 +25,7 @@ type DeepSeekResponse = {
 };
 
 const fallbackAnswers: Record<TerminalLanguage, string> = {
-    en: "The AI terminal is temporarily unavailable. You can review the services or use the contact form to describe your project.",
+    en: "The project advisor is temporarily unavailable. Review our capabilities or use the contact form to describe your project and required outcome.",
     de: "Das KI-Terminal ist vorübergehend nicht verfügbar. Sie können die Dienstleistungen ansehen oder Ihr Projekt über das Kontaktformular beschreiben.",
 };
 

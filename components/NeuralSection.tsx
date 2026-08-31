@@ -28,11 +28,11 @@ type NeuralSystemSectionProps = {
 const nodes: NeuralNode[] = [
     {
         id: "frontend",
-        code: "01 // UI_ENGINE",
-        title: ["Frontend", "Manifest"],
+        code: "01 // STRATEGY",
+        title: ["Product", "Strategy"],
         description: [
-            "Fluid interfaces",
-            "built for interaction.",
+            "Clear priorities and technical direction",
+            "aligned with business goals.",
         ],
         indicatorClassName: "bg-black",
         shadowClassName: "bg-black",
@@ -40,33 +40,33 @@ const nodes: NeuralNode[] = [
     },
     {
         id: "backend",
-        code: "02 // DATA_CORE",
-        title: ["Scalable", "Backend"],
+        code: "02 // EXPERIENCE",
+        title: ["UX & UI", "Systems"],
         description: [
-            "Scalable services",
-            "built for resilience.",
+            "Intuitive interfaces and design systems",
+            "built for real users and tasks.",
         ],
         indicatorClassName: "bg-black",
         layoutClassName: "sm:aspect-[350/300]",
     },
     {
         id: "integration",
-        code: "03 // INTEL_LAYER",
-        title: ["AI INTEGRATION"],
+        code: "03 // ENGINEERING",
+        title: ["Product", "Engineering"],
         description: [
-            "Applied AI for analysis",
-            "and generation.",
+            "Scalable frontend and backend systems",
+            "built for performance and growth.",
         ],
         indicatorClassName: "border border-[#1853b4] bg-[#276ce0]",
         layoutClassName: "sm:aspect-[355/245]",
     },
     {
         id: "security",
-        code: "04 // SEC_SHIELD",
+        code: "04 // SECURITY",
         title: ["Security", "Protocol"],
         description: [
-            "Encrypted data",
-            "layered threat protection.",
+            "Secure architecture and protected data flows",
+            "for dependable production delivery.",
         ],
         indicatorClassName: "border border-[#b81919] bg-[#f21e1e]",
         layoutClassName: "sm:aspect-[306/318]",
@@ -100,7 +100,7 @@ function NodeCard({
                 <span
                     aria-hidden="true"
                     className={cx(
-                        "absolute inset-0 translate-x-[7.5%] translate-y-[10.5%]",
+                        "absolute inset-y-0 left-0 w-[92.5%] translate-x-[3%] translate-y-[4%]",
                         node.shadowClassName,
                     )}
                 />
@@ -113,11 +113,11 @@ function NodeCard({
                 onClick={onSelect}
                 className={cx(
                     "group flex min-h-[220px] w-full min-w-0 flex-col border border-[#494949] bg-white p-5 text-left sm:min-h-0 sm:p-7",
-                    "transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#246ae5]",
+                    "transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1",
                     active &&
                     "border-[#246ae5] shadow-[0_18px_50px_rgba(36,106,229,0.12)]",
                     hasShadow
-                        ? "relative z-10 h-full w-[92.5%]"
+                        ? "relative z-10 w-full sm:absolute sm:inset-y-0 sm:left-0 sm:w-[92.5%]"
                         : "h-full",
                 )}
             >
@@ -185,7 +185,7 @@ export default function NeuralSystemSection({
                     data-neural-layer=""
                 >
                 <svg
-                    className="pointer-events-none absolute inset-0 z-0 hidden size-full overflow-visible min-[1200px]:block"
+                    className="pointer-events-none absolute inset-0 z-0 hidden size-full overflow-visible min-[1280px]:block"
                     viewBox="0 0 1814 1252"
                     preserveAspectRatio="none"
                     aria-hidden="true"
@@ -224,10 +224,10 @@ export default function NeuralSystemSection({
                     data-cinematic-element="neural-header"
                 >
                     <p
-                        className="text-xs font-bold uppercase leading-none text-[#c5c6c8] min-[1200px]:text-[clamp(12px,0.78vw,15px)]"
+                        className="text-xs font-bold uppercase leading-none text-[#c5c6c8] min-[1280px]:text-[clamp(12px,0.78vw,15px)]"
                         data-neural-kicker=""
                     >
-                        03 / INTELLIGENCE
+                        03 / CONNECTED DIGITAL CAPABILITIES
                     </p>
 
                     <h2
@@ -238,7 +238,7 @@ export default function NeuralSystemSection({
                             className="whitespace-nowrap text-[#1e1e1e]"
                             data-neural-title-line=""
                         >
-                            The Neural
+                            Neural
                         </span>
 
                         <span
@@ -251,7 +251,7 @@ export default function NeuralSystemSection({
                 </header>
 
                 <div
-                    className="neural-core relative z-10 mx-auto mt-14 aspect-square w-full max-w-[484px] rounded-full border-[1.5px] border-[#2472ef] p-[clamp(10px,1vw,18px)]"
+                    className="neural-core relative z-10 mx-auto mt-10 aspect-square w-full max-w-[340px] rounded-full border-[1.5px] border-[#2472ef] p-[clamp(10px,1vw,18px)] md:mt-12 md:max-w-[520px]"
                     data-neural-core=""
                     data-cinematic-element="neural-core"
                 >
@@ -271,7 +271,7 @@ export default function NeuralSystemSection({
                     >
                         <div className="relative size-full overflow-hidden rounded-full bg-[#181818]">
                             <p className="absolute left-1/2 top-[11%] z-10 -translate-x-1/2 whitespace-nowrap text-[clamp(11px,0.82vw,15px)] font-extrabold uppercase tracking-[-0.02em] text-[#5f5f5f]">
-                                Core_Status
+                                Connected_System
                             </p>
                             <p className="absolute left-1/2 top-[20%] z-10 -translate-x-1/2 whitespace-nowrap text-[clamp(30px,2.55vw,46px)] font-black uppercase leading-none tracking-[0.02em] text-[#f4f4f4]">
                                 Pixardia
@@ -281,7 +281,7 @@ export default function NeuralSystemSection({
                                 alt="Pixardia system core"
                                 width={500}
                                 height={500}
-                                sizes="(min-width: 1200px) 440px, (min-width: 768px) 484px, 90vw"
+                                sizes="(min-width: 1280px) 440px, (min-width: 768px) 520px, 340px"
                                 className="absolute inset-0 size-full object-cover opacity-90"
                                 data-neural-character=""
                             />
@@ -289,7 +289,7 @@ export default function NeuralSystemSection({
                     </div>
                 </div>
 
-                <div className="mt-14 grid items-stretch gap-7 sm:grid-cols-2" data-neural-nodes="">
+                <div className="mt-10 grid items-stretch gap-6 md:mt-12 md:grid-cols-2 md:gap-8" data-neural-nodes="">
                     {nodes.map((node) => (
                         <NodeCard
                             key={node.id}
@@ -301,13 +301,13 @@ export default function NeuralSystemSection({
                 </div>
 
                 <aside
-                    className="relative z-10 mx-auto mt-10 min-h-[330px] w-full max-w-[468px] sm:aspect-[468/366] sm:min-h-0"
+                    className="relative z-10 mx-auto mt-10 min-h-[320px] w-full max-w-[468px] md:mt-12 md:min-h-[330px]"
                     data-neural-insight=""
                     data-cinematic-element="neural-insight"
                 >
                     <span
                         aria-hidden="true"
-                        className="absolute inset-0 translate-x-[3%] translate-y-[4%] bg-[#4a83dd]"
+                        className="absolute inset-0 translate-x-[1%] translate-y-[2%] bg-[#4a83dd]"
                     />
                     <div className="absolute bottom-[4%] right-[3%] top-0 flex w-[97%] min-w-0 flex-col border-2 border-[#5274a7] bg-white p-[clamp(22px,1.8vw,32px)]" data-neural-insight-card="">
                         <div className="flex items-center gap-3">
@@ -318,8 +318,8 @@ export default function NeuralSystemSection({
                         </div>
 
                         <p className="mt-[clamp(22px,2vw,36px)] text-[clamp(14px,1vw,18px)] font-bold leading-[1.5] text-[#969696]">
-                            Select any system node to explore how it
-                            contributes to your future digital product.
+                            Strategy, design and engineering work as one
+                            connected system around your product goals.
                         </p>
 
                         <button
@@ -327,13 +327,13 @@ export default function NeuralSystemSection({
                             onClick={() => onDeepAnalysis?.(activeNode)}
                             className="mt-auto flex min-h-[clamp(46px,3vw,54px)] w-full items-center justify-center bg-black px-5 py-3 text-[clamp(14px,1vw,18px)] font-extrabold uppercase leading-none text-white transition-colors hover:bg-[#246ae5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#246ae5]"
                         >
-                            Deep Analysis
+                            Explore Capability
                         </button>
                     </div>
                 </aside>
 
                 <div
-                    className="relative z-10 mt-14 flex flex-wrap items-start gap-8 sm:gap-10"
+                    className="relative z-10 mt-10 grid grid-cols-2 items-start gap-8 md:mt-12 md:flex md:flex-wrap md:gap-10"
                     data-neural-stats=""
                     data-cinematic-element="neural-stats"
                 >

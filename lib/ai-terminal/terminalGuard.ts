@@ -30,7 +30,7 @@ const labelledPhoneRegex =
 const cardCandidateRegex = /(?:\d[\s-]?){13,19}/g;
 
 const privateDataAnswers: Record<TerminalLanguage, string> = {
-    en: "Please do not send contact details or private data through the AI terminal. Remove the sensitive information and describe the project without personal details, or use the contact form when you are ready.",
+    en: "Please do not send contact details or private data through the project advisor. Remove the sensitive information and describe the project without personal details, or use the contact form when you are ready.",
     de: "Bitte senden Sie keine Kontaktdaten oder privaten Informationen über das KI-Terminal. Entfernen Sie sensible Daten und beschreiben Sie das Projekt ohne persönliche Angaben oder verwenden Sie das Kontaktformular.",
 };
 

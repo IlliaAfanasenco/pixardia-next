@@ -46,51 +46,49 @@ const fieldWrapperClass =
 const copy = {
     en: {
         intro:
-            "Your project deserves a clear strategy and reliable implementation. Tell us what you are planning, and we will review the next steps.",
-        location: "Location: Remote / Europe",
-        responseTime: "Response Time: Usually within 24 hours",
-        availability: "Availability: Open for new projects",
-        connect: "Connect via channels",
-        nameLabel: "Client name",
+            "Tell us about your business, your challenge and the product you want to create. We will turn it into a clear project direction, then manage delivery from the first conversation through launch and support.",
+        location: "Based in Germany / Working worldwide",
+        responseTime: "Direct project response",
+        availability: "Project intake: open",
+        connect: "Direct project channels",
+        nameLabel: "Your name",
         namePlaceholder: "Your name",
-        emailLabel: "Contact email",
-        emailPlaceholder: "example@mail.com",
+        emailLabel: "Email address",
+        emailPlaceholder: "you@company.com",
         serviceLabel: "Project type",
-        messageLabel: "Additional briefing",
+        messageLabel: "Project details",
         messagePlaceholder:
-            "Describe your goals, required functionality and current project stage...",
+            "Describe your business goals, required functionality and current project stage...",
         privacy: "I agree to the privacy policy",
-        submit: "Initialize dialogue",
-        submitting: "Sending request...",
-        success: "Your request has been sent successfully.",
-        error: "The request could not be sent. Please try again.",
+        submit: "Send project request",
+        submitting: "Sending project request...",
+        success: "Request received. We’ll be in touch to discuss the next step.",
+        error: "Something went wrong. Please try again or contact us directly.",
         rateLimit:
             "Too many requests. Please wait a moment and try again.",
     },
     de: {
         intro:
-            "Ihr Projekt verdient eine klare Strategie und eine zuverlässige Umsetzung. Beschreiben Sie Ihr Vorhaben, damit wir die nächsten Schritte prüfen können.",
-        location: "Standort: Remote / Europa",
-        responseTime:
-            "Antwortzeit: In der Regel innerhalb von 24 Stunden",
-        availability: "Verfügbarkeit: Neue Projekte möglich",
-        connect: "Kontaktkanäle",
-        nameLabel: "Name",
-        namePlaceholder: "Ihr Name",
-        emailLabel: "E-Mail",
-        emailPlaceholder: "beispiel@mail.de",
-        serviceLabel: "Projekttyp",
-        messageLabel: "Projektbeschreibung",
+            "Tell us about your business, your challenge and the product you want to create. We will turn it into a clear project direction, then manage delivery from the first conversation through launch and support.",
+        location: "Based in Germany / Working worldwide",
+        responseTime: "Direct project response",
+        availability: "Project intake: open",
+        connect: "Direct project channels",
+        nameLabel: "Your name",
+        namePlaceholder: "Your name",
+        emailLabel: "Email address",
+        emailPlaceholder: "you@company.com",
+        serviceLabel: "Project type",
+        messageLabel: "Project details",
         messagePlaceholder:
-            "Beschreiben Sie Ihre Ziele, benötigte Funktionen und den aktuellen Projektstand...",
-        privacy: "Ich stimme der Datenschutzerklärung zu",
-        submit: "Anfrage senden",
-        submitting: "Anfrage wird gesendet...",
-        success: "Ihre Anfrage wurde erfolgreich gesendet.",
-        error:
-            "Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+            "Describe your business goals, required functionality and current project stage...",
+        privacy: "I agree to the privacy policy",
+        submit: "Send project request",
+        submitting: "Sending project request...",
+        success: "Request received. We’ll be in touch to discuss the next step.",
+        error: "Something went wrong. Please try again or contact us directly.",
         rateLimit:
-            "Zu viele Anfragen. Bitte warten Sie kurz und versuchen Sie es erneut.",
+            "Too many requests. Please wait a moment and try again.",
     },
 } as const;
 
@@ -280,7 +278,7 @@ export default function ContactSection({
     return (
         <section
             id="contact"
-            className="w-full py-16 md:py-24"
+            className="w-full py-2 md:py-5"
             aria-labelledby="contact-title"
             data-story-section="contact"
             data-story-step="6"
@@ -295,7 +293,7 @@ export default function ContactSection({
                     />
 
                     <p className="text-xs font-bold uppercase leading-none text-[#C5C6C8]">
-                        06 / CONNECTION
+                        06 / START A PROJECT
                     </p>
                 </div>
 
@@ -304,7 +302,7 @@ export default function ContactSection({
                         id="contact-title"
                         className="max-w-[720px] text-[clamp(40px,7vw,94px)] font-black uppercase leading-[0.86] tracking-[-0.03em] text-[#202021]"
                     >
-                        Initialize Your Project
+                        Let’s Build What’s Next
                     </h2>
 
                     <Image
@@ -387,7 +385,7 @@ export default function ContactSection({
                                 </p>
 
                                 <p className="mt-1 text-xs font-bold leading-none text-[#D4D5D7]">
-                                    build_with_passion.exe
+                                    full-cycle delivery
                                 </p>
                             </div>
                         </div>
@@ -402,7 +400,7 @@ export default function ContactSection({
                         />
 
                         <p className="mt-2.5 text-xs font-bold leading-none text-[#D7D8DA] min-[361px]:text-sm">
-                            {new Date().getFullYear()} Pixardia {"//"} All rights reserved
+                            © {new Date().getFullYear()} Pixardia. All rights reserved.
                         </p>
                     </div>
 
@@ -575,9 +573,8 @@ export default function ContactSection({
                                             >
                                                 {
                                                     service
-                                                        .title[
-                                                        language
-                                                        ]
+                                                        .title
+                                                        .en
                                                 }
                                             </option>
                                         ),
@@ -714,9 +711,7 @@ export default function ContactSection({
                                                     .privacy
                                             }
                                             aria-label={
-                                                language === "de"
-                                                    ? "Datenschutzerklärung öffnen"
-                                                    : "Open privacy policy"
+                                                "Open privacy policy"
                                             }
                                             className="underline transition hover:text-black"
                                         >

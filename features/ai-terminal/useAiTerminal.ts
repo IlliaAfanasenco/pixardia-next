@@ -35,7 +35,7 @@ const MAX_INPUT_LENGTH =
 const MAX_MESSAGES_LENGTH = 12;
 
 const errorMessages: Record<TerminalLanguage, string> = {
-    en: "The terminal is temporarily unavailable. Please try again.",
+    en: "The project advisor is temporarily unavailable. Please try again.",
     de: "Das Terminal ist vorübergehend nicht verfügbar. Bitte versuchen Sie es erneut.",
 };
 

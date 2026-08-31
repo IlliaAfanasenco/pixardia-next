@@ -5,54 +5,54 @@ import { siteConfig } from "@/config/site";
 
 const cards = [
     {
-        label: "DISCOVERY",
+        label: "WEBSITES",
         code: "PX101",
-        title: "CLEAR",
-        titleSecond: "DIRECTION",
-        text: "We define the business goal, audience, product scope and technical requirements before development begins.",
-        bottom: "SCOPE FIRST",
+        title: "BUSINESS",
+        titleSecond: "WEBSITES",
+        text: "Professional websites built to strengthen trust, communicate value and generate qualified enquiries.",
+        bottom: "TRUST & ENQUIRIES",
     },
     {
-        label: "DESIGN",
+        label: "PLATFORMS",
         code: "PX202",
-        title: "USEFUL",
-        titleSecond: "INTERFACE",
-        text: "Every screen and interaction is designed around real user actions, accessibility and conversion goals.",
-        bottom: "USER FOCUSED",
+        title: "WEB",
+        titleSecond: "APPLICATIONS",
+        text: "Custom platforms, dashboards and internal tools built around specific business workflows.",
+        bottom: "WORKFLOW READY",
     },
     {
-        label: "ENGINEERING",
+        label: "SYSTEMS",
         code: "PX303",
-        title: "CLEAN",
-        titleSecond: "SYSTEM",
-        text: "The product is built with a maintainable architecture, typed code and room for future functionality.",
-        bottom: "SCALABLE CORE",
+        title: "AI &",
+        titleSecond: "AUTOMATION",
+        text: "Connected integrations and automated workflows that reduce manual work and improve daily operations.",
+        bottom: "EFFICIENCY BUILT",
         withAstronaut: true,
     },
     {
-        label: "DELIVERY",
+        label: "CONTINUITY",
         code: "PX404",
-        title: "LONG",
-        titleSecond: "TERM",
-        text: "Testing, deployment and ongoing support turn the initial release into a foundation for future growth.",
-        bottom: "READY TO GROW",
+        title: "SUPPORT &",
+        titleSecond: "DEVELOPMENT",
+        text: "Ongoing support, security updates, performance improvements and continued product development.",
+        bottom: "LONG-TERM VALUE",
     },
 ] as const;
 
 const systemChecks = [
     {
         icon: "/icons/arrowGreenProd.svg",
-        text: "Product scope and business goals aligned.",
+        text: "Strategy, scope and business goals aligned.",
         className: "text-[#5E9D72]",
     },
     {
         icon: "/icons/arrowBlueProd.svg",
-        text: "Architecture and technology route prepared.",
+        text: "UX, interface and engineering systems prepared.",
         className: "text-[#7770D8]",
     },
     {
         icon: "/icons/arrowGreyProd.svg",
-        text: "Delivery, testing and support path available.",
+        text: "Launch and ongoing support included in the route.",
         className: "text-[#9A9A9A]",
     },
 ] as const;
@@ -140,16 +140,16 @@ function ProductSystemPanel() {
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
                     <div>
                         <p className="font-mono text-xs font-bold uppercase tracking-[0.08em] text-white">
-                            Product delivery system
+                            Full-cycle delivery system
                         </p>
 
                         <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.08em] text-white/35">
-                            PX lifecycle / operational route
+                            Strategy / UX & UI / development / launch / support
                         </p>
                     </div>
 
                     <span className="border border-[#5E9D72] px-3 py-1.5 font-mono text-[9px] font-bold uppercase tracking-[0.08em] text-[#78B58C]">
-                        system ready
+                        production ready
                     </span>
                 </div>
 
@@ -178,14 +178,14 @@ function ProductSystemPanel() {
                         href={siteConfig.links.services}
                         className="border border-white/25 px-5 py-3 text-center text-xs font-bold uppercase tracking-[0.08em] text-white transition hover:border-white"
                     >
-                        explore services →
+                        view capabilities →
                     </Link>
 
                     <Link
                         href={siteConfig.links.contact}
                         className="bg-[#F7F9FA] px-5 py-3 text-center text-xs font-bold uppercase tracking-[0.08em] text-[#1E1E1E] transition hover:bg-[#4F46E5] hover:text-white"
                     >
-                        start a project →
+                        discuss your project →
                     </Link>
                 </div>
             </div>
@@ -209,11 +209,11 @@ function ProductStatus() {
             />
 
             <h3 className="mt-3 text-xs font-bold uppercase leading-none text-[#1E1E1E]">
-                Delivery ready
+                Production ready
             </h3>
 
             <p className="mt-3 max-w-[210px] text-[9px] font-bold uppercase leading-[1.4] tracking-[0.08em] text-[#B8B8BA]">
-                One structured process from discovery to release and support
+                Clear scope. Controlled delivery. Production-ready results.
             </p>
         </div>
     );
@@ -239,7 +239,7 @@ export default function ProductSection() {
                     className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]"
                     data-cinematic-element="product-kicker"
                 >
-                    04 / LIFECYCLE
+                    04 / WHAT WE BUILD
                 </p>
 
                 <div
@@ -251,16 +251,16 @@ export default function ProductSection() {
                         className="flex flex-col text-[clamp(44px,7vw,94px)] font-black uppercase leading-[0.9] tracking-[-0.03em]"
                     >
                         <span className="text-[#1E1E1E]">
-                            Product
+                            Digital
                         </span>
 
                         <span className="text-[#C5C6C8]">
-                            Lifecycle
+                            Products
                         </span>
                     </h2>
 
                     <p className="max-w-[500px] text-sm font-bold uppercase leading-[1.3] text-[#A7A7AA]">
-                        We build more than interfaces. Each product moves through a clear process covering strategy, design, engineering, delivery and continued development.
+                        Custom digital solutions designed to solve specific business problems and support long-term growth.
                     </p>
                 </div>
 
@@ -285,11 +285,11 @@ export default function ProductSection() {
                 >
                     <div className="flex gap-2 text-xs font-bold uppercase leading-none text-[#C1C2C4]">
                         <p>End</p>
-                        <p>of phase 04</p>
+                        <p>of section 04</p>
                     </div>
 
                     <p className="text-xs font-bold uppercase leading-none text-[#C1C2C4]">
-                        Pixardia product ecosystem
+                        Pixardia delivery ecosystem
                     </p>
                 </div>
             </div>

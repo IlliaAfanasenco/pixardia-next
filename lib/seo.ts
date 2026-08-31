@@ -7,6 +7,8 @@ type PageMetadataOptions = Readonly<{
     description: string;
     path: `/${string}`;
     absoluteTitle?: boolean;
+    socialTitle?: string;
+    socialDescription?: string;
 }>;
 
 function createAbsoluteUrl(path: `/${string}`): string {
@@ -18,10 +20,17 @@ export function createPageMetadata({
     description,
     path,
     absoluteTitle = false,
+    socialTitle,
+    socialDescription,
 }: PageMetadataOptions): Metadata {
-    const socialTitle = absoluteTitle
-        ? title
-        : `${title} | ${siteConfig.name}`;
+    const resolvedSocialTitle =
+        socialTitle ??
+        (absoluteTitle
+            ? title
+            : `${title} | ${siteConfig.name}`);
+
+    const resolvedSocialDescription =
+        socialDescription ?? description;
 
     return {
         title: absoluteTitle
@@ -41,14 +50,14 @@ export function createPageMetadata({
             locale: "en_US",
             url: createAbsoluteUrl(path),
             siteName: siteConfig.name,
-            title: socialTitle,
-            description,
+            title: resolvedSocialTitle,
+            description: resolvedSocialDescription,
         },
 
         twitter: {
             card: "summary",
-            title: socialTitle,
-            description,
+            title: resolvedSocialTitle,
+            description: resolvedSocialDescription,
         },
 
         robots: {

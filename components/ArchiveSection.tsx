@@ -27,7 +27,7 @@ export default function ArchiveSection() {
             <div className="site-container flex flex-col gap-[clamp(28px,4vw,40px)]">
                 <div className="flex flex-col gap-2">
                     <p className="text-xs font-bold uppercase leading-none text-[#C5C6C8]">
-                        05 / EVIDENCE
+                        05 / SELECTED DIGITAL WORK
                     </p>
 
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
@@ -35,12 +35,12 @@ export default function ArchiveSection() {
                             id="archive-title"
                             className="max-w-[620px] text-[clamp(40px,7vw,94px)] font-black uppercase leading-[0.9] tracking-[-0.03em] text-[#1E1E1E]"
                         >
-                            Digital Archive
+                            Project Archive
                         </h2>
 
                         <p className="max-w-[470px] text-left text-xs font-bold leading-[1.35] text-[#A9AAAE] lg:text-right">
-                            Selected systems, interfaces and digital products
-                            built through the Pixardia delivery process.
+                            A selection of digital products shaped through
+                            strategy, design and engineering.
                         </p>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ export default function ArchiveSection() {
                         href="/projects"
                         className="inline-flex w-full items-center justify-center border border-[#767576] px-9 py-4 text-sm font-bold uppercase leading-none text-[#767576] no-underline transition duration-200 hover:border-[#1E1E1E] hover:text-[#1E1E1E] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5E56E7] sm:w-auto"
                     >
-                        Explore full archive
+                        View all work
                     </Link>
                 </div>
             </div>
@@ -172,7 +172,7 @@ function ProjectArchiveCard({
                         </span>
 
                         <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-white">
-                            Open case study →
+                            Explore case →
                         </span>
                     </div>
                 </div>

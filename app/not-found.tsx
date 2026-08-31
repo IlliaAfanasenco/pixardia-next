@@ -18,14 +18,14 @@ export default function NotFound() {
             </h1>
 
             <p className="mt-5 max-w-xl">
-                The requested page does not exist or has been moved.
+                This page is unavailable. Return to Pixardia to explore our capabilities and selected work.
             </p>
 
             <Link
                 href="/"
                 className="mt-6 inline-flex font-bold underline underline-offset-4"
             >
-                Return to home
+                Return to Pixardia
             </Link>
         </section>
     );

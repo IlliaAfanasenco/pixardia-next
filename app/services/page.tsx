@@ -7,7 +7,7 @@ import { createPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = createPageMetadata({
     title: "Services",
     description:
-        "Explore Pixardia services for business websites, landing pages, web applications, e-commerce, UI and UX design, AI automation and ongoing support.",
+        "Explore full-cycle digital services covering strategy, UX and UI, development, AI automation, launch and ongoing support.",
     path: "/services",
 });
 
@@ -21,7 +21,7 @@ export default function ServicesPage() {
                 id="services-page-title"
                 className="text-4xl font-black uppercase tracking-tight text-[#1E1E1E]"
             >
-                Services
+                Digital Capabilities
             </h1>
 
             <div className="mt-10 space-y-10">
@@ -42,7 +42,7 @@ export default function ServicesPage() {
                             href={`/services/${service.slug}`}
                             className="mt-4 inline-flex font-bold underline underline-offset-4"
                         >
-                            View service
+                            View capability
                         </Link>
                     </article>
                 ))}

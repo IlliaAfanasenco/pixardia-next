@@ -41,7 +41,7 @@ Neural is intentionally the visual peak. The title resolves first, the system co
 
 The Neural scene deconstructs into Product, so the story reads as:
 
-structure -> intelligence -> product lifecycle -> evidence -> connection.
+process -> expertise -> digital products -> selected work -> contact.
 
 Archive and Contact remain natural-flow sections and are not pinned.
 

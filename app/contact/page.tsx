@@ -16,7 +16,7 @@ type ContactPageProps = {
 export const metadata: Metadata = createPageMetadata({
     title: "Start a Project",
     description:
-        "Describe your website, web application, e-commerce or AI automation project and request a review from Pixardia.",
+        "Tell Pixardia about your business, project goals and required digital product to receive a clear next-step review.",
     path: "/contact",
 });
 

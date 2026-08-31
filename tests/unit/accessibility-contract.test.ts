@@ -90,7 +90,7 @@ describe("accessibility source contract", () => {
             '"Open privacy policy"',
         );
 
-        expect(contact).toContain(
+        expect(contact).not.toContain(
             '"Datenschutzerklärung öffnen"',
         );
     });

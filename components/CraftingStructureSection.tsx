@@ -11,16 +11,16 @@ import { useAiTerminal } from "@/features/ai-terminal/useAiTerminal";
 
 const tags = [
     {
-        top: "security",
-        bottom: "End-To-End",
+        top: "scope",
+        bottom: "Defined",
     },
     {
-        top: "speed",
-        bottom: "Optimized",
+        top: "delivery",
+        bottom: "Controlled",
     },
     {
-        top: "stack",
-        bottom: "Scalable",
+        top: "support",
+        bottom: "Continuous",
     },
 ];
 
@@ -63,7 +63,7 @@ export default function CraftingStructureSection() {
                     data-cinematic-element="crafting-copy"
                 >
                     <p className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]">
-                        02 / STRUCTURE
+                        02 / END-TO-END DELIVERY SYSTEM
                     </p>
 
                     <h2 className="mt-7 flex flex-col items-start text-[clamp(44px,7.5vw,104px)] font-black uppercase leading-[0.86] tracking-[-0.045em]">
@@ -77,19 +77,19 @@ export default function CraftingStructureSection() {
                     </h2>
 
                     <p className="mt-7 max-w-[620px] text-left text-lg font-bold uppercase leading-[1.2] tracking-[-0.03em] text-[#1E1E1E] md:text-[clamp(18px,2vw,24px)]">
-                        We create websites that don’t just
-                        look good — they work, convert and
-                        grow your business.
+                        Every successful product starts with
+                        a clear strategy, a strong system and
+                        a controlled delivery process.
                     </p>
 
                     <div className="mt-8 flex items-center gap-6 text-left sm:gap-10">
                         <div>
                             <p className="text-[32px] font-black uppercase leading-none tracking-[0.03em] md:text-4xl">
-                                99.9%
+                                clear
                             </p>
 
                             <p className="mt-1 text-sm font-bold uppercase leading-[1.2] tracking-[0.1em] text-[#C5C6C8] md:text-base">
-                                uptime core
+                                project scope
                             </p>
                         </div>
 
@@ -97,11 +97,11 @@ export default function CraftingStructureSection() {
 
                         <div>
                             <p className="text-[32px] font-black uppercase leading-none tracking-[0.03em] md:text-4xl">
-                                clean
+                                managed
                             </p>
 
                             <p className="mt-1 text-sm font-bold uppercase leading-[1.2] tracking-[0.1em] text-[#C5C6C8] md:text-base">
-                                architecture
+                                controlled delivery
                             </p>
                         </div>
                     </div>
@@ -122,7 +122,7 @@ export default function CraftingStructureSection() {
                                     />
 
                                     <p className="truncate text-sm font-bold uppercase leading-[1.2] tracking-[0.01em] text-[#3D5FB5]">
-                                        ai architect
+                                        project architect
                                     </p>
                                 </div>
 
@@ -138,10 +138,10 @@ export default function CraftingStructureSection() {
                             </div>
 
                             <p className="mt-6 text-sm font-bold leading-[1.3] tracking-[0.01em] text-[#C5C6C8]">
-                                Describe your product, goals
-                                and required functionality.
-                                The result will appear in the
-                                terminal.
+                                Describe your business goals,
+                                target users and required
+                                functionality. We will map the
+                                strongest delivery route.
                             </p>
 
                             <form
@@ -165,7 +165,7 @@ export default function CraftingStructureSection() {
                                         );
                                     }}
                                     maxLength={800}
-                                    placeholder="Are you ready to take your project to the next level?"
+                                    placeholder="Describe your goals, users and required functionality."
                                     className="h-11 w-full bg-[#F3F4F6] px-4 text-sm font-bold leading-[1.2] tracking-[0.01em] text-[#1E1E1E] outline-none placeholder:text-[#C5C6C8] focus:ring-2 focus:ring-[#3D5FB5] md:h-10"
                                     disabled={isSubmitting}
                                     aria-invalid={Boolean(
@@ -192,7 +192,7 @@ export default function CraftingStructureSection() {
                                     <span className="text-sm font-bold uppercase leading-[1.2] tracking-[0.03em] text-[#EDEDED]">
                                         {isSubmitting
                                             ? "analysing..."
-                                            : "generate stack →"}
+                                            : "build project route →"}
                                     </span>
                                 </button>
                             </form>
@@ -205,7 +205,7 @@ export default function CraftingStructureSection() {
                                             href="/contact"
                                             className="border border-[#3D5FB5] px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.03em] text-[#3D5FB5] transition hover:bg-[#3D5FB5] hover:text-white"
                                         >
-                                            contact form →
+                                            start a project →
                                         </Link>
                                     )}
 
@@ -219,7 +219,7 @@ export default function CraftingStructureSection() {
                                                     : "sm:col-span-2"
                                             }`}
                                         >
-                                            clear terminal
+                                            reset analysis
                                         </button>
                                     )}
                                 </div>

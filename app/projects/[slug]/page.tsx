@@ -39,7 +39,7 @@ export async function generateMetadata({
     }
 
     return createPageMetadata({
-        title: project.title,
+        title: `${project.title} Case Study`,
         description: project.summary.en,
         path: `/projects/${project.slug}`,
     });

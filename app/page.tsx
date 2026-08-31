@@ -15,6 +15,8 @@ export const metadata: Metadata = createPageMetadata({
     description: siteConfig.description,
     path: "/",
     absoluteTitle: true,
+    socialTitle: siteConfig.openGraphTitle,
+    socialDescription: siteConfig.openGraphDescription,
 });
 
 export default function HomePage() {

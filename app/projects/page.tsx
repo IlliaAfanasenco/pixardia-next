@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import {
     projects,
+    projectTypeLabels,
 } from "@/content/projects";
 import {
     createPageMetadata,
@@ -10,9 +11,9 @@ import {
 
 export const metadata: Metadata =
     createPageMetadata({
-        title: "Projects",
+        title: "Selected Digital Work",
         description:
-            "Explore selected Pixardia digital products, platforms and web experiences.",
+            "Explore digital products shaped by Pixardia through strategy, distinctive design and reliable engineering.",
         path: "/projects",
     });
 
@@ -26,12 +27,12 @@ export default function ProjectsPage() {
                 id="projects-page-title"
                 className="text-4xl font-black uppercase tracking-tight text-[#1E1E1E]"
             >
-                Projects
+                Project Archive
             </h1>
 
             <div className="mt-10">
                 <h2 className="text-2xl font-bold uppercase tracking-tight text-[#1E1E1E]">
-                    Selected work
+                    Selected digital work
                 </h2>
 
                 <div className="mt-6 grid gap-6 md:grid-cols-2">
@@ -41,7 +42,7 @@ export default function ProjectsPage() {
                             className="border-t border-[#1E1E1E] pt-5"
                         >
                             <p className="text-sm font-bold uppercase tracking-[0.08em] text-[#777777]">
-                                {project.type}
+                                {projectTypeLabels[project.type].en}
                             </p>
 
                             <h3 className="mt-2 text-2xl font-black uppercase tracking-tight text-[#1E1E1E]">
@@ -56,7 +57,7 @@ export default function ProjectsPage() {
                                 href={`/projects/${project.slug}`}
                                 className="mt-4 inline-flex font-bold underline underline-offset-4"
                             >
-                                View project
+                                Explore case
                             </Link>
                         </article>
                     ))}

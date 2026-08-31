@@ -515,7 +515,7 @@ export default function ProjectCaseStudy({
                         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
                             <div>
                                 <Eyebrow>
-                                    Record complete
+                                    Case study complete
                                 </Eyebrow>
 
                                 <h2 className="mt-3 max-w-[570px] text-[clamp(30px,5vw,52px)] font-black uppercase leading-[0.9] tracking-[-0.035em] text-[#202022]">
@@ -571,7 +571,7 @@ export default function ProjectCaseStudy({
                                     </strong>
 
                                     <span className="mt-5 block text-xs font-bold uppercase tracking-[0.08em] text-white/70">
-                                        Open case study →
+                                        Explore case →
                                     </span>
                                 </Link>
                             ) : null}

@@ -67,37 +67,37 @@ describe("runtime continuity contract", () => {
         );
 
         expect(interlude).toContain(
-            "05 / EVIDENCE",
+            "05 / SELECTED WORK",
         );
 
         expect(interlude).toContain(
-            "From process",
+            "From strategy",
         );
 
         expect(interlude).toContain(
-            "to proof",
+            "to delivery",
         );
     });
 
     it("uses one six-chapter narrative", () => {
         expect(
             read("components/CraftingStructureSection.tsx"),
-        ).toContain("02 / STRUCTURE");
+        ).toContain("02 / END-TO-END DELIVERY SYSTEM");
 
         expect(
             read("components/NeuralSection.tsx"),
-        ).toContain("03 / INTELLIGENCE");
+        ).toContain("03 / CONNECTED DIGITAL CAPABILITIES");
 
         expect(
             read("components/ProductSection.tsx"),
-        ).toContain("04 / LIFECYCLE");
+        ).toContain("04 / WHAT WE BUILD");
 
         expect(
             read("components/ArchiveSection.tsx"),
-        ).toContain("05 / EVIDENCE");
+        ).toContain("05 / SELECTED DIGITAL WORK");
 
         expect(
             read("components/ContactSection.tsx"),
-        ).toContain("06 / CONNECTION");
+        ).toContain("06 / START A PROJECT");
     });
 });

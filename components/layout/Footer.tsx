@@ -18,16 +18,20 @@ type ContactItem = {
 
 const sections: FooterLink[] = [
     {
-        label: "Home",
-        href: siteConfig.links.home,
-    },
-    {
         label: "Services",
         href: siteConfig.links.services,
     },
     {
-        label: "Projects",
-        href: siteConfig.links.projects,
+        label: "Process",
+        href: "/#crafting-structure",
+    },
+    {
+        label: "Expertise",
+        href: "/#neural-system",
+    },
+    {
+        label: "Work",
+        href: "/#projects",
     },
     {
         label: "Contact",
@@ -37,20 +41,24 @@ const sections: FooterLink[] = [
 
 const exploreLinks: FooterLink[] = [
     {
-        label: "Process",
-        href: "/#process",
+        label: "Websites",
+        href: "/services/business-website",
     },
     {
-        label: "Archive",
-        href: "/#projects",
+        label: "Web applications",
+        href: "/services/web-application",
     },
     {
-        label: "Privacy",
-        href: siteConfig.links.privacy,
+        label: "E-commerce",
+        href: "/services/ecommerce",
     },
     {
-        label: "Imprint",
-        href: siteConfig.links.imprint,
+        label: "AI & automation",
+        href: "/services/ai-automation",
+    },
+    {
+        label: "Support",
+        href: "/services/maintenance-support",
     },
 ];
 
@@ -87,11 +95,11 @@ const contacts: ContactItem[] = [
         },
     {
         label: "Location",
-        value: "Europe / Remote",
+        value: "Germany / Worldwide",
     },
     {
         label: "Status",
-        value: "Open for projects",
+        value: "Available for selected projects",
         isStatus: true,
     },
 ];
@@ -104,10 +112,6 @@ const legalLinks: FooterLink[] = [
     {
         label: "Imprint",
         href: siteConfig.links.imprint,
-    },
-    {
-        label: "Contact",
-        href: siteConfig.links.contact,
     },
 ];
 
@@ -134,10 +138,9 @@ export default function Footer() {
                         </Link>
 
                         <p className="mt-6 max-w-[430px] text-sm font-medium uppercase leading-[1.3] tracking-[0.03em] text-[#DBDADA] md:text-base md:leading-[1.2]">
-                            Full-cycle digital product studio.
-                            We design, develop and support
-                            websites, applications and
-                            AI-powered business solutions.
+                            We create digital products that
+                            combine strategy, distinctive
+                            design and reliable engineering.
                         </p>
 
                         <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row xl:mt-auto xl:gap-10">
@@ -153,24 +156,24 @@ export default function Footer() {
                                 href={siteConfig.links.contact}
                                 className="flex h-11 flex-1 items-center justify-center border border-[#1E1E1E] px-3 text-sm font-bold uppercase text-[#1E1E1E] no-underline transition duration-300 hover:border-[#5E56E7] hover:bg-[#5E56E7] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5E56E7] active:translate-y-px md:text-base"
                             >
-                                Project intake open
+                                Start a project
                             </Link>
                         </div>
                     </div>
 
                     <FooterNav
-                        title="Sections"
+                        title="Explore"
                         items={sections}
                     />
 
                     <FooterNav
-                        title="Explore"
+                        title="Capabilities"
                         items={exploreLinks}
                     />
 
                     <div className="w-full max-w-[280px] md:col-span-1 md:max-w-[300px] xl:col-span-1 xl:max-w-none">
                         <p className="text-base font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA]">
-                            Communication Nodes
+                            Have a project in mind?
                         </p>
 
                         <div className="mt-6 grid grid-cols-1 gap-2 sm:mt-7 sm:gap-2 md:mt-8 lg:gap-3 xl:mt-[34px] xl:grid-cols-2">
@@ -221,9 +224,9 @@ export default function Footer() {
 
                 <div className="mt-6 flex flex-col items-center gap-6 text-center xl:flex-row xl:items-start xl:justify-between xl:gap-10 xl:text-left">
                     <p className="text-sm font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA] md:text-base">
-                        Secure project communication
+                        Clear scope. Controlled delivery.
                         {" // "}
-                        Privacy-first workflow
+                        Production-ready results.
                     </p>
 
                     <div className="flex flex-col items-center gap-6 md:flex-row md:justify-center md:gap-10 xl:justify-end xl:gap-[43px]">
@@ -243,7 +246,7 @@ export default function Footer() {
                         </nav>
 
                         <p className="text-sm font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA] md:text-base">
-                            © {currentYear} {siteConfig.name}
+                            © {currentYear} {siteConfig.name}. All rights reserved.
                         </p>
                     </div>
                 </div>
@@ -277,8 +280,8 @@ export default function Footer() {
                 </div>
 
                 <div className="flex flex-col gap-2.5 text-center text-sm font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA] md:flex-row md:justify-between md:gap-6 md:text-base">
-                    <p>Service area: Europe / Remote</p>
-                    <p>System status: Online</p>
+                    <p>Full-cycle digital studio</p>
+                    <p>Available for selected projects</p>
                 </div>
             </div>
         </footer>

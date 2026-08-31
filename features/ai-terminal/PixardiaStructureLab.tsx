@@ -13,38 +13,38 @@ type PixardiaStructureLabProps = {
 const structureSteps = [
     {
         code: "01",
-        title: "brief",
-        status: "received",
-    },
-    {
-        code: "02",
-        title: "design",
-        status: "mapping",
-    },
-    {
-        code: "03",
-        title: "build",
+        title: "discovery",
         status: "ready",
     },
     {
+        code: "02",
+        title: "strategy",
+        status: "mapped",
+    },
+    {
+        code: "03",
+        title: "delivery",
+        status: "controlled",
+    },
+    {
         code: "04",
-        title: "launch",
-        status: "standby",
+        title: "support",
+        status: "included",
     },
 ] as const;
 
 const systemMetrics = [
     {
-        label: "security",
-        value: "End-To-End",
+        label: "scope",
+        value: "Defined",
     },
     {
-        label: "speed",
-        value: "Optimized",
+        label: "delivery",
+        value: "Controlled",
     },
     {
-        label: "stack",
-        value: "Scalable",
+        label: "support",
+        value: "Continuous",
     },
 ] as const;
 
@@ -92,7 +92,7 @@ export default function PixardiaStructureLab({
                             ? "signal error"
                             : isSubmitting
                               ? "mapping"
-                              : "system active"}
+                              : "project ready"}
                     </span>
                 </div>
             </div>
@@ -101,11 +101,11 @@ export default function PixardiaStructureLab({
                 <div className="flex items-end justify-between gap-5">
                     <div>
                         <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#808188]">
-                            deployment protocol / 02
+                            end-to-end delivery / 02
                         </p>
 
                         <h3 className="mt-2 text-[clamp(28px,2.4vw,38px)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-[#1E1E1E]">
-                            Structure Blueprint
+                            Delivery Blueprint
                         </h3>
                     </div>
 
@@ -180,7 +180,7 @@ export default function PixardiaStructureLab({
                     ) : isSubmitting ? (
                         <div className="mt-4 flex flex-1 flex-col justify-center">
                             <p className="text-sm font-bold uppercase leading-[1.25] tracking-[0.02em] text-[#1E1E1E]">
-                                Mapping the strongest service route…
+                                Mapping the strongest delivery route…
                             </p>
 
                             <div className="mt-4 h-1.5 overflow-hidden bg-[#D8D8DA]">
@@ -215,7 +215,7 @@ export default function PixardiaStructureLab({
                     ) : (
                         <div className="mt-4 flex flex-1 items-end justify-between gap-6">
                             <p className="max-w-[360px] text-sm font-bold uppercase leading-[1.3] tracking-[0.01em] text-[#1E1E1E]">
-                                Add your brief to generate a focused product structure.
+                                Add your brief to generate a focused delivery structure.
                             </p>
 
                             <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.08em] text-[#A7A7AA]">

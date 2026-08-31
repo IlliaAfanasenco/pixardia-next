@@ -22,7 +22,7 @@ function nameField(
         "textbox",
         {
             name:
-                "Client name",
+                "Your name",
         },
     );
 }
@@ -34,7 +34,7 @@ function emailField(
         "textbox",
         {
             name:
-                "Contact email",
+                "Email address",
         },
     );
 }
@@ -46,7 +46,7 @@ function messageField(
         "textbox",
         {
             name:
-                "Additional briefing",
+                "Project details",
         },
     );
 }
@@ -82,7 +82,7 @@ function submitButton(
         "button",
         {
             name:
-                /initialize dialogue/i,
+                /send project request/i,
         },
     );
 }
@@ -394,7 +394,7 @@ test.describe(
 
                 const requestError =
                     page.getByText(
-                        "The request could not be sent. Please try again.",
+                        "Something went wrong. Please try again or contact us directly.",
                         {
                             exact: true,
                         },
@@ -520,7 +520,7 @@ test.describe(
 
                 const requestError =
                     page.getByText(
-                        "The request could not be sent. Please try again.",
+                        "Something went wrong. Please try again or contact us directly.",
                         {
                             exact: true,
                         },

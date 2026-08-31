@@ -10,8 +10,8 @@ export default function EvidenceInterlude() {
                 data-cinematic-evidence-frame=""
             >
                 <div className="cinematic-evidence-interlude__meta">
-                    <span>05 / EVIDENCE</span>
-                    <span>PX / SYSTEM RECORD</span>
+                    <span>05 / SELECTED WORK</span>
+                    <span>PIXARDIA / PROJECT RECORD</span>
                 </div>
 
                 <div
@@ -20,13 +20,13 @@ export default function EvidenceInterlude() {
                 />
 
                 <p className="cinematic-evidence-interlude__title">
-                    From process
-                    <span>to proof</span>
+                    From strategy
+                    <span>to delivery</span>
                 </p>
 
                 <p className="cinematic-evidence-interlude__copy">
-                    Delivery becomes evidence. Selected systems move
-                    from lifecycle to documented outcomes.
+                    Selected digital products shaped through strategy,
+                    design and reliable engineering.
                 </p>
             </div>
         </div>

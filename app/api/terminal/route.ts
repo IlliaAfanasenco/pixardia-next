@@ -61,7 +61,7 @@ const rateLimitUnavailableAnswers: Record<
     TerminalResult
 > = {
     en: {
-        answer: "The AI terminal is temporarily unavailable. Please try again later or use the contact form.",
+        answer: "The project advisor is temporarily unavailable. Please try again later or use the contact form.",
         category: "contact",
         shouldLeadToContact: true,
     },

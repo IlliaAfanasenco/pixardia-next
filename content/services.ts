@@ -9,15 +9,15 @@ export const services = [
         code: "BUSINESS_WEBSITE",
         slug: "business-website",
         title: {
-            en: "Business websites",
+            en: "Business Website",
             de: "Unternehmenswebsites",
         },
         shortDescription: {
-            en: "Professional websites that present your company and generate qualified enquiries.",
+            en: "Professional websites built to strengthen trust, communicate value and generate qualified enquiries.",
             de: "Professionelle Websites, die Ihr Unternehmen präsentieren und qualifizierte Anfragen generieren.",
         },
         description: {
-            en: "We design and develop fast, responsive and search-friendly websites for companies that need a strong and trustworthy online presence.",
+            en: "We create high-performance business websites that turn complex offers into clear user journeys and dependable enquiry channels.",
             de: "Wir konzipieren und entwickeln schnelle, responsive und suchmaschinenfreundliche Websites für Unternehmen, die einen starken und vertrauenswürdigen Online-Auftritt benötigen.",
         },
         deliverables: {
@@ -57,15 +57,15 @@ export const services = [
         code: "LANDING_PAGE",
         slug: "landing-page",
         title: {
-            en: "Landing pages",
+            en: "Landing Page",
             de: "Landingpages",
         },
         shortDescription: {
-            en: "Focused landing pages for campaigns, products, services and lead generation.",
+            en: "Focused campaign experiences designed to present an offer clearly and guide visitors towards action.",
             de: "Fokussierte Landingpages für Kampagnen, Produkte, Dienstleistungen und Leadgenerierung.",
         },
         description: {
-            en: "We create conversion-focused landing pages with clear messaging, strong calls to action and fast loading performance.",
+            en: "We combine focused messaging, intentional UX and fast frontend delivery to support campaigns, launches and lead generation.",
             de: "Wir erstellen conversion-orientierte Landingpages mit klaren Botschaften, überzeugenden Handlungsaufforderungen und schnellen Ladezeiten.",
         },
         deliverables: {
@@ -104,15 +104,15 @@ export const services = [
         code: "WEB_APPLICATION",
         slug: "web-application",
         title: {
-            en: "Web applications",
+            en: "Web Application",
             de: "Webanwendungen",
         },
         shortDescription: {
-            en: "Custom web platforms, dashboards, portals and internal business tools.",
+            en: "Custom digital platforms, dashboards and internal tools built around specific workflows.",
             de: "Individuelle Webplattformen, Dashboards, Portale und interne Geschäftstools.",
         },
         description: {
-            en: "We build reliable web applications tailored to business processes, users and long-term product goals.",
+            en: "We design and engineer scalable web applications around real operations, user roles, data flows and long-term product goals.",
             de: "Wir entwickeln zuverlässige Webanwendungen, die auf Geschäftsprozesse, Nutzer und langfristige Produktziele zugeschnitten sind.",
         },
         deliverables: {
@@ -157,11 +157,11 @@ export const services = [
             de: "E-Commerce",
         },
         shortDescription: {
-            en: "Modern online stores with clear product discovery and a convenient buying experience.",
+            en: "Reliable online stores with clear navigation, practical management and frictionless purchasing journeys.",
             de: "Moderne Onlineshops mit klarer Produktsuche und einem komfortablen Einkaufserlebnis.",
         },
         description: {
-            en: "We create scalable e-commerce experiences with product catalogues, integrations and a clear path from discovery to purchase.",
+            en: "We build scalable commerce platforms that connect catalogue management, product discovery, checkout and essential integrations.",
             de: "Wir entwickeln skalierbare E-Commerce-Lösungen mit Produktkatalogen, Integrationen und einem klaren Weg vom Entdecken bis zum Kauf.",
         },
         deliverables: {
@@ -201,15 +201,15 @@ export const services = [
         code: "WEBSITE_REDESIGN",
         slug: "website-redesign",
         title: {
-            en: "Website redesign",
+            en: "Website Redesign",
             de: "Website-Redesign",
         },
         shortDescription: {
-            en: "A complete visual and technical refresh of an existing website.",
+            en: "Strategic improvements to outdated websites, including structure, visuals, usability and performance.",
             de: "Eine vollständige visuelle und technische Erneuerung einer bestehenden Website.",
         },
         description: {
-            en: "We improve outdated websites by restructuring content, modernising the interface and rebuilding weak technical foundations.",
+            en: "We turn outdated websites into clear, responsive and maintainable digital platforms without losing valuable existing content.",
             de: "Wir verbessern veraltete Websites durch eine neue Inhaltsstruktur, eine moderne Benutzeroberfläche und eine stabile technische Grundlage.",
         },
         deliverables: {
@@ -248,15 +248,15 @@ export const services = [
         code: "UI_UX_DESIGN",
         slug: "ui-ux-design",
         title: {
-            en: "UI and UX design",
+            en: "UX & UI Design",
             de: "UI- und UX-Design",
         },
         shortDescription: {
-            en: "Clear interfaces and user flows for websites and digital products.",
+            en: "Intuitive user journeys and consistent interface systems designed around real tasks.",
             de: "Klare Benutzeroberflächen und Nutzerabläufe für Websites und digitale Produkte.",
         },
         description: {
-            en: "We turn product requirements into understandable user flows, structured interfaces and consistent visual systems.",
+            en: "We translate product requirements into usable flows, responsive interfaces and scalable design systems ready for engineering.",
             de: "Wir verwandeln Produktanforderungen in verständliche Nutzerabläufe, strukturierte Benutzeroberflächen und konsistente visuelle Systeme.",
         },
         deliverables: {
@@ -290,15 +290,15 @@ export const services = [
         code: "AI_AUTOMATION",
         slug: "ai-automation",
         title: {
-            en: "AI automation",
+            en: "AI & Automation",
             de: "KI-Automatisierung",
         },
         shortDescription: {
-            en: "Practical AI tools that automate communication, analysis and repetitive workflows.",
+            en: "Smart integrations and automated workflows that reduce repetitive work and improve efficiency.",
             de: "Praktische KI-Lösungen zur Automatisierung von Kommunikation, Analyse und wiederkehrenden Abläufen.",
         },
         description: {
-            en: "We integrate AI into websites and business workflows where it creates measurable practical value instead of unnecessary complexity.",
+            en: "We connect AI services, business data and validation rules to automate useful work while preserving control and human oversight.",
             de: "Wir integrieren KI in Websites und Geschäftsprozesse, wenn sie einen messbaren praktischen Nutzen schafft und keine unnötige Komplexität erzeugt.",
         },
         deliverables: {
@@ -338,15 +338,15 @@ export const services = [
         code: "MAINTENANCE_SUPPORT",
         slug: "maintenance-support",
         title: {
-            en: "Maintenance and support",
+            en: "Maintenance & Support",
             de: "Wartung und Support",
         },
         shortDescription: {
-            en: "Ongoing technical maintenance, improvements and product support.",
+            en: "Ongoing technical support, security updates, performance improvements and product development.",
             de: "Laufende technische Wartung, Verbesserungen und Produktsupport.",
         },
         description: {
-            en: "We keep digital products stable, secure and up to date while implementing planned improvements.",
+            en: "We keep digital products stable, secure and current while delivering planned improvements after launch.",
             de: "Wir halten digitale Produkte stabil, sicher und aktuell und setzen geplante Verbesserungen um.",
         },
         deliverables: {

@@ -22,15 +22,15 @@ export const projectTypeLabels = {
         "Kundenprojekt",
     ),
     internal: text(
-        "Internal project",
+        "Digital studio platform",
         "Internes Projekt",
     ),
     concept: text(
-        "Concept project",
+        "Studio initiative",
         "Konzeptprojekt",
     ),
     educational: text(
-        "Educational project",
+        "Product initiative",
         "Lernprojekt",
     ),
 } satisfies Record<ProjectType, LocalizedText>;
@@ -53,23 +53,23 @@ export const projectStatusLabels = {
 export const projects = [
     {
         slug: "pixardia-digital-studio",
-        title: "Pixardia Digital Studio",
+        title: "Pixardia",
         type: "internal",
         status: "in_progress",
         summary: text(
-            "A multilingual portfolio and lead-generation platform for a modern digital product studio.",
+            "A custom digital experience presenting complex services through bold visual storytelling and a clear path to project enquiry.",
             "Eine mehrsprachige Portfolio- und Leadgenerierungsplattform für ein modernes Digitalstudio.",
         ),
         description: text(
-            "Pixardia presents the studio's services, technical capabilities and selected work through a clear visual system, multilingual content and practical tools for project enquiries.",
+            "Pixardia is a full-cycle digital studio platform that connects service positioning, selected work, project consultation and qualified lead intake in one coherent experience.",
             "Pixardia präsentiert die Dienstleistungen, technischen Kompetenzen und ausgewählte Arbeiten des Studios durch ein klares visuelles System, mehrsprachige Inhalte und praktische Möglichkeiten für Projektanfragen.",
         ),
         challenge: text(
-            "The original prototype had a strong visual direction but contained disconnected sections, placeholder content, inconsistent service data and unfinished contact and AI functionality.",
+            "A broad range of strategy, design, engineering and automation capabilities needed to feel connected, credible and easy to navigate without reducing the studio to a generic service list.",
             "Der ursprüngliche Prototyp hatte eine starke visuelle Richtung, enthielt jedoch unverbundene Bereiche, Platzhalterinhalte, inkonsistente Servicedaten sowie unfertige Kontakt- und KI-Funktionen.",
         ),
         solution: text(
-            "The platform is being rebuilt around a unified content model, production-ready lead processing, accessible interfaces, multilingual SEO and an AI-assisted consultation flow.",
+            "The platform combines a structured service system, distinctive visual storytelling, accessible interaction, production-ready lead processing and an AI-assisted project consultation flow.",
             "Die Plattform wird auf Basis eines einheitlichen Inhaltsmodells, einer produktionsreifen Lead-Verarbeitung, barrierearmer Oberflächen, mehrsprachiger SEO und eines KI-gestützten Beratungsablaufs neu aufgebaut.",
         ),
         serviceCodes: [
@@ -98,7 +98,7 @@ export const projects = [
         caseStudy: {
             identifier: "PX-2026-001",
             subtitle: text(
-                "A production-focused studio platform built around clear services, reliable lead intake and an AI-assisted consultation flow.",
+                "A full-cycle studio platform built around clear capabilities, reliable project intake and an AI-assisted consultation flow.",
                 "Eine produktionsorientierte Studio-Plattform mit klaren Dienstleistungen, zuverlässiger Lead-Erfassung und einem KI-gestützten Beratungsablauf.",
             ),
             role: text(
@@ -107,7 +107,7 @@ export const projects = [
             ),
             client: null,
             engagement: text(
-                "Internal studio product",
+                "Pixardia studio platform",
                 "Internes Studioprodukt",
             ),
             architecture: text(
@@ -121,7 +121,7 @@ export const projects = [
                         "Projektphase",
                     ),
                     value: text(
-                        "Production hardening",
+                        "Production delivery",
                         "Produktionshärtung",
                     ),
                 },
@@ -131,7 +131,7 @@ export const projects = [
                         "Zielgruppe",
                     ),
                     value: text(
-                        "Companies and startups",
+                        "Ambitious businesses",
                         "Unternehmen und Start-ups",
                     ),
                 },
@@ -141,7 +141,7 @@ export const projects = [
                         "Leistungsregion",
                     ),
                     value: text(
-                        "Europe and remote",
+                        "Germany and worldwide",
                         "Europa und Remote",
                     ),
                 },
@@ -237,7 +237,7 @@ export const projects = [
             presentation: {
                 desktopDirection: "left",
                 centerLabel: text(
-                    "Open system record",
+                    "Explore Pixardia case",
                     "Systemakte öffnen",
                 ),
             },
@@ -249,11 +249,11 @@ export const projects = [
         type: "concept",
         status: "in_progress",
         summary: text(
-            "A finance management platform with account analytics, transaction monitoring and clear data visualisation.",
+            "A structured finance platform connecting account activity, transaction control and clear operational analytics.",
             "Eine Finanzmanagement-Plattform mit Kontoanalysen, Transaktionsüberwachung und verständlicher Datenvisualisierung.",
         ),
         description: text(
-            "Nexus Finance explores how a complex financial product can remain structured, readable and easy to navigate across desktop and mobile interfaces.",
+            "Nexus Finance turns interconnected financial data into a focused workspace for balances, transactions, budgets and account activity across desktop and mobile.",
             "Nexus Finance zeigt, wie ein komplexes Finanzprodukt auf Desktop- und Mobilgeräten strukturiert, verständlich und einfach bedienbar bleiben kann.",
         ),
         challenge: text(
@@ -288,20 +288,20 @@ export const projects = [
         caseStudy: {
             identifier: "NX-2026-002",
             subtitle: text(
-                "A structured finance workspace designed to make balances, transactions and analytics easier to understand.",
+                "A structured finance workspace that makes balances, transactions and operational analytics easier to understand and control.",
                 "Ein strukturierter Finanzarbeitsbereich, der Kontostände, Transaktionen und Analysen leichter verständlich macht.",
             ),
             role: text(
-                "Product concept, UX architecture and interface system.",
+                "Product strategy, UX architecture and interface system.",
                 "Produktkonzept, UX-Architektur und Interface-System.",
             ),
             client: null,
             engagement: text(
-                "Independent concept study",
+                "Digital finance product",
                 "Unabhängige Konzeptstudie",
             ),
             architecture: text(
-                "A modular finance dashboard concept that separates account data, transaction workflows, budgets and analytical views into focused product areas.",
+                "A modular finance dashboard that separates account data, transaction workflows, budgets and analytical views into focused product areas.",
                 "Ein modulares Finanz-Dashboard-Konzept, das Kontodaten, Transaktionsabläufe, Budgets und analytische Ansichten in klar abgegrenzte Produktbereiche aufteilt.",
             ),
             facts: [
@@ -311,7 +311,7 @@ export const projects = [
                         "Produktphase",
                     ),
                     value: text(
-                        "Concept development",
+                        "Product architecture",
                         "Konzeptentwicklung",
                     ),
                 },
@@ -331,7 +331,7 @@ export const projects = [
                         "Nachweisstatus",
                     ),
                     value: text(
-                        "No public client or production deployment",
+                        "Delivery scope defined",
                         "Kein öffentlicher Kunde und keine Produktionsbereitstellung",
                     ),
                 },
@@ -438,11 +438,11 @@ export const projects = [
         type: "concept",
         status: "planned",
         summary: text(
-            "A modern e-commerce platform focused on simple product discovery and a frictionless buying experience.",
+            "A scalable commerce platform connecting product discovery, catalogue management and a focused purchasing journey.",
             "Eine moderne E-Commerce-Plattform mit einfacher Produktsuche und einem reibungslosen Einkaufserlebnis.",
         ),
         description: text(
-            "Nordmarkt Commerce is designed as a scalable online store for a growing European brand, combining product presentation, catalogue management and a clear purchase flow.",
+            "Nordmarkt Commerce gives a growing European brand one dependable system for product presentation, catalogue operations and customer purchasing journeys.",
             "Nordmarkt Commerce ist als skalierbarer Onlineshop für eine wachsende europäische Marke konzipiert und verbindet Produktpräsentation, Katalogverwaltung und einen klaren Kaufprozess.",
         ),
         challenge: text(
@@ -450,7 +450,7 @@ export const projects = [
             "Große Produktkataloge können schnell unübersichtlich werden, insbesondere wenn Filterung, mobile Navigation und Checkout als getrennte Bestandteile betrachtet werden.",
         ),
         solution: text(
-            "The planned platform combines structured categories, fast search, useful filters, responsive product pages and a focused checkout flow within one consistent interface.",
+            "The platform combines structured categories, fast search, useful filters, responsive product pages and a focused checkout flow within one consistent interface.",
             "Die geplante Plattform verbindet strukturierte Kategorien, schnelle Suche, hilfreiche Filter, responsive Produktseiten und einen fokussierten Checkout in einer einheitlichen Benutzeroberfläche.",
         ),
         serviceCodes: [
@@ -476,7 +476,7 @@ export const projects = [
         caseStudy: {
             identifier: "NM-2026-003",
             subtitle: text(
-                "A commerce concept that connects product discovery, catalogue structure and checkout within one consistent experience.",
+                "A commerce platform connecting product discovery, catalogue structure and checkout within one consistent experience.",
                 "Ein Commerce-Konzept, das Produktsuche, Katalogstruktur und Checkout in einem konsistenten Erlebnis verbindet.",
             ),
             role: text(
@@ -485,7 +485,7 @@ export const projects = [
             ),
             client: null,
             engagement: text(
-                "Independent commerce concept",
+                "Commerce product system",
                 "Unabhängiges Commerce-Konzept",
             ),
             architecture: text(
@@ -499,7 +499,7 @@ export const projects = [
                         "Produktphase",
                     ),
                     value: text(
-                        "Planned concept",
+                        "Platform definition",
                         "Geplantes Konzept",
                     ),
                 },
@@ -519,7 +519,7 @@ export const projects = [
                         "Nachweisstatus",
                     ),
                     value: text(
-                        "No public client or production deployment",
+                        "Delivery scope defined",
                         "Kein öffentlicher Kunde und keine Produktionsbereitstellung",
                     ),
                 },
@@ -625,11 +625,11 @@ export const projects = [
         type: "educational",
         status: "planned",
         summary: text(
-            "An AI-assisted workspace for organising requests, internal knowledge and repetitive business operations.",
+            "An AI-assisted workspace connecting structured requests, internal knowledge and controlled business automation.",
             "Ein KI-gestützter Arbeitsbereich zur Organisation von Anfragen, internem Wissen und wiederkehrenden Geschäftsprozessen.",
         ),
         description: text(
-            "CoreFlow explores a practical AI workspace where teams can process incoming requests, search internal information and automate routine actions without losing human oversight.",
+            "CoreFlow centralises incoming requests, searchable internal knowledge and routine actions while keeping validation and human oversight explicit.",
             "CoreFlow untersucht einen praktischen KI-Arbeitsbereich, in dem Teams eingehende Anfragen bearbeiten, interne Informationen durchsuchen und Routineaufgaben automatisieren können, ohne die menschliche Kontrolle zu verlieren.",
         ),
         challenge: text(
@@ -637,7 +637,7 @@ export const projects = [
             "Geschäftsinformationen sind häufig über Nachrichten, Dokumente und verschiedene Tools verteilt, während wiederkehrende Anfragen Zeit kosten und zu uneinheitlichen Antworten führen.",
         ),
         solution: text(
-            "The planned workspace combines structured requests, searchable knowledge, AI-assisted responses, validation rules and clear escalation to a responsible team member.",
+            "The workspace combines structured requests, searchable knowledge, AI-assisted responses, validation rules and clear escalation to a responsible team member.",
             "Der geplante Arbeitsbereich verbindet strukturierte Anfragen, durchsuchbares Wissen, KI-gestützte Antworten, Validierungsregeln und eine klare Weiterleitung an verantwortliche Teammitglieder.",
         ),
         serviceCodes: [
@@ -664,7 +664,7 @@ export const projects = [
         caseStudy: {
             identifier: "CF-2026-004",
             subtitle: text(
-                "An educational AI workspace concept built around structured requests, searchable knowledge and human-controlled automation.",
+                "An AI operations workspace built around structured requests, searchable knowledge and human-controlled automation.",
                 "Ein edukatives KI-Workspace-Konzept für strukturierte Anfragen, durchsuchbares Wissen und menschlich kontrollierte Automatisierung.",
             ),
             role: text(
@@ -673,7 +673,7 @@ export const projects = [
             ),
             client: null,
             engagement: text(
-                "Educational prototype concept",
+                "AI operations product",
                 "Edukatives Prototyp-Konzept",
             ),
             architecture: text(
@@ -687,7 +687,7 @@ export const projects = [
                         "Produktphase",
                     ),
                     value: text(
-                        "Educational planning",
+                        "Product definition",
                         "Edukative Planung",
                     ),
                 },

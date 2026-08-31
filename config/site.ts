@@ -88,10 +88,15 @@ export const siteConfig = {
     shortName: "Pixardia",
     creator: "Pixardia Digital Studio",
 
-    title: "Pixardia — Web, App & AI Product Studio",
+    title: "Pixardia — Digital Products, Web Development & AI Solutions",
+
+    openGraphTitle: "Pixardia — Full-Cycle Digital Studio",
+
+    openGraphDescription:
+        "Strategy, design and engineering for ambitious digital products.",
 
     description:
-        "Pixardia designs and develops modern websites, web applications, digital products and AI-powered business solutions for companies and startups.",
+        "Pixardia is a full-cycle digital studio creating high-performance websites, web applications, e-commerce platforms and AI-powered business solutions.",
 
     url: siteUrl,
     defaultLocale: "en" satisfies SiteLocale,

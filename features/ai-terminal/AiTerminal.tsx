@@ -35,20 +35,20 @@ const reducedMotionQuery =
 const missionSteps = [
     {
         code: "01",
-        title: "DISCOVER",
-        description: "project context",
+        title: "DISCOVERY",
+        description: "goals and scope",
         status: "READY",
     },
     {
         code: "02",
-        title: "ARCHITECT",
-        description: "service route",
+        title: "STRATEGY",
+        description: "product roadmap",
         status: "READY",
     },
     {
         code: "03",
-        title: "DEPLOY",
-        description: "contact handoff",
+        title: "DELIVERY",
+        description: "launch and support",
         status: "STANDBY",
     },
 ] as const;
@@ -313,7 +313,7 @@ function IdleTerminalState({
             >
                 <div className="flex items-center justify-between border border-[#353838] bg-white/[0.015] px-3 py-2">
                     <p className="font-bold text-[#C7CACA]">
-                        MISSION CONTROL
+                        DELIVERY CONTROL
                     </p>
 
                     <p className="text-[9px] tracking-[0.12em] text-[#75B887]">
@@ -332,7 +332,7 @@ function IdleTerminalState({
                 <div className="border border-[#353838] bg-white/[0.015] p-3">
                     <div className="flex items-center justify-between">
                         <p className="font-bold text-[#BFC1C1]">
-                            MISSION PIPELINE
+                        PROJECT PIPELINE
                         </p>
 
                         <span className="text-[9px] text-[#666969]">
@@ -385,7 +385,7 @@ function IdleTerminalState({
                 <div className="flex min-h-36 flex-col border border-[#353838] bg-white/[0.015] p-3">
                     <div className="flex items-center justify-between">
                         <p className="font-bold text-[#BFC1C1]">
-                            SIGNAL
+                            PROJECT SIGNAL
                         </p>
 
                         <span className="text-[9px] text-[#75B887]">
@@ -438,14 +438,14 @@ function IdleTerminalState({
                 </p>
 
                 <p className="mt-1 text-[#91B79A]">
-                    Send a project brief to calculate
-                    the strongest service path.
+                    Send a project brief to map the
+                    strongest delivery route.
                 </p>
 
                 <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[9px] uppercase tracking-[0.08em] text-[#657168]">
-                    <span>scope detection</span>
-                    <span>stack routing</span>
-                    <span>human handoff</span>
+                    <span>scope definition</span>
+                    <span>capability routing</span>
+                    <span>project handoff</span>
                 </div>
             </div>
         </div>
@@ -518,51 +518,51 @@ export default function AiTerminal({
                             </p>
 
                             <span className="border border-[#39413D] px-2 py-1 text-[8px] uppercase tracking-[0.12em] text-[#75B887]">
-                                core online
+                                studio online
                             </span>
                         </div>
 
                         <p className="mt-3 text-[#858787]">
-                            SYSTEM INTERFACE V4.0.2
+                            PROJECT DELIVERY INTERFACE
                             {" // "}
-                            CORE: NEURAL-NET-V8
+                            STRATEGY / DESIGN / ENGINEERING
                         </p>
                     </div>
 
                     <div className="relative mt-5 grid grid-cols-2 border-y border-[#343636] sm:grid-cols-4">
                         <div className="border-b border-r border-[#343636] px-3 py-3 sm:border-b-0">
                             <p className="text-[8px] text-[#5F6262]">
-                                CORE
+                                SCOPE
                             </p>
 
                             <p className="mt-1 font-bold text-[#75B887]">
-                                ACTIVE
+                                DEFINED
                             </p>
                         </div>
 
                         <div className="border-b border-[#343636] px-3 py-3 sm:border-b-0 sm:border-r">
                             <p className="text-[8px] text-[#5F6262]">
-                                MODE
+                                DELIVERY
                             </p>
 
                             <p className="mt-1 font-bold text-[#8B83EA]">
-                                ARCHITECT
+                                CONTROLLED
                             </p>
                         </div>
 
                         <div className="border-r border-[#343636] px-3 py-3">
                             <p className="text-[8px] text-[#5F6262]">
-                                GUARD
+                                SUPPORT
                             </p>
 
                             <p className="mt-1 font-bold text-[#75B887]">
-                                ENABLED
+                                INCLUDED
                             </p>
                         </div>
 
                         <div className="px-3 py-3">
                             <p className="text-[8px] text-[#5F6262]">
-                                CHANNEL
+                                STATUS
                             </p>
 
                             <p className="mt-1 font-bold text-[#B8BABA]">
@@ -659,14 +659,14 @@ export default function AiTerminal({
                             <span className="text-[#75B887]">
                                 pixardia@system:~$
                             </span>{" "}
-                            transmission channel ready
+                            project consultation ready
                             <span className="ml-1 inline-block animate-pulse text-[#75B887]">
                                 ▌
                             </span>
                         </p>
 
                         <span className="text-[8px] uppercase tracking-[0.12em] text-[#4F5353]">
-                            secure session
+                            privacy-first session
                         </span>
                     </div>
                 </div>
