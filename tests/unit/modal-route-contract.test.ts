@@ -151,4 +151,42 @@ describe("project modal route contract", () => {
             'setAttribute("inert", "")',
         );
     });
+
+    it("renders the Figma-inspired two-panel system over the real page", () => {
+        const modal = read(
+            "features/projects/ProjectModal.tsx",
+        );
+
+        const caseStudy = read(
+            "features/projects/ProjectCaseStudy.tsx",
+        );
+
+        expect(modal).toContain(
+            "data-project-modal-backdrop",
+        );
+
+        expect(modal).toContain(
+            "backdrop-blur-[18px]",
+        );
+
+        expect(modal).toContain(
+            "Exit system",
+        );
+
+        expect(caseStudy).toContain(
+            "Visual_Storage//Unit_A",
+        );
+
+        expect(caseStudy).toContain(
+            "Tech_Manifest//Unit_B",
+        );
+
+        expect(caseStudy).toContain(
+            "ProjectModalCaseStudy",
+        );
+
+        expect(caseStudy).not.toContain(
+            "NEXUS FINANCE",
+        );
+    });
 });

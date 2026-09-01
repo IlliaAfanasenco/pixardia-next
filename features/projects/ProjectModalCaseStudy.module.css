@@ -1,0 +1,196 @@
+.leftPanel,
+.rightPanel {
+    min-width: 0;
+}
+
+@media (min-width: 1024px) {
+    .leftPanel,
+    .rightPanel {
+        height: 100dvh;
+        overflow: visible !important;
+        padding-top: clamp(14px, 2.2dvh, 28px);
+        padding-bottom: clamp(14px, 2.2dvh, 28px);
+    }
+
+    .leftPanel {
+        display: grid;
+        grid-template-rows:
+            auto
+            minmax(0, auto)
+            auto
+            auto
+            auto
+            auto;
+        align-content: space-between;
+        row-gap: clamp(12px, 1.8dvh, 24px);
+    }
+
+    .rightPanel {
+        display: grid;
+        grid-template-rows:
+            auto
+            auto
+            auto
+            auto
+            auto
+            auto
+            auto
+            auto
+            auto;
+        align-content: space-between;
+        row-gap: clamp(8px, 1.35dvh, 16px);
+    }
+
+    .leftPanel > *,
+    .rightPanel > * {
+        margin-top: 0 !important;
+    }
+
+    .galleryFrame {
+        height: min(37dvh, 25vw);
+        min-height: 150px;
+        aspect-ratio: auto;
+    }
+
+    .technologyGrid {
+        gap: clamp(6px, 0.8dvh, 12px);
+    }
+
+    .technologyTag {
+        min-height: clamp(32px, 4.4dvh, 44px);
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .colorList {
+        display: grid;
+        gap: clamp(6px, 0.85dvh, 12px);
+    }
+
+    .colorSwatch {
+        height: clamp(24px, 3.4dvh, 36px);
+    }
+
+    .typefaceBlock p:last-child {
+        margin-top: clamp(6px, 1dvh, 12px);
+    }
+
+    .signalList {
+        display: grid;
+        gap: clamp(7px, 0.9dvh, 12px);
+    }
+
+    .signalBar {
+        margin-top: clamp(4px, 0.55dvh, 8px);
+    }
+
+    .archiveFooter {
+        padding-top: clamp(8px, 1.2dvh, 16px);
+    }
+}
+
+@media (min-width: 1024px) and (max-height: 900px) {
+    .leftPanel,
+    .rightPanel {
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+
+    .leftPanel {
+        row-gap: clamp(9px, 1.45dvh, 13px);
+    }
+
+    .rightPanel {
+        row-gap: clamp(6px, 1.05dvh, 10px);
+    }
+
+    .galleryFrame {
+        height: min(33dvh, 24vw);
+    }
+
+    .modalTitle {
+        font-size: clamp(40px, 4.5vw, 64px);
+    }
+
+    .summary {
+        font-size: clamp(10px, 0.8vw, 12px);
+        line-height: 1.22;
+    }
+
+    .systemLabel {
+        min-height: 34px;
+        padding: 9px 12px;
+    }
+
+    .technologyTag {
+        min-height: 32px;
+        font-size: 9px;
+    }
+
+    .typefaceBlock p:last-child {
+        font-size: clamp(18px, 1.75vw, 25px);
+    }
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+    .leftPanel,
+    .rightPanel {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .leftPanel {
+        row-gap: 8px;
+    }
+
+    .rightPanel {
+        row-gap: 5px;
+    }
+
+    .galleryFrame {
+        height: min(31dvh, 23vw);
+        min-height: 140px;
+    }
+
+    .modalTitle {
+        font-size: clamp(38px, 4.2vw, 54px);
+    }
+
+    .summary {
+        font-size: 10px;
+        line-height: 1.16;
+    }
+
+    .metaGrid {
+        gap: 14px;
+        padding-top: 10px;
+    }
+
+    .technologyTag {
+        min-height: 29px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        font-size: 8px;
+    }
+
+    .colorList {
+        gap: 4px;
+    }
+
+    .colorSwatch {
+        height: 22px;
+    }
+
+    .signalList {
+        gap: 5px;
+    }
+
+    .signalBar {
+        margin-top: 3px;
+        height: 4px;
+    }
+
+    .archiveFooter {
+        padding-top: 6px;
+    }
+}

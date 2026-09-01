@@ -6,6 +6,7 @@ import {
     useCallback,
     useEffect,
     useRef,
+    useState,
 } from "react";
 import { useRouter } from "next/navigation";
 
@@ -65,13 +66,38 @@ export default function ProjectModal({
 
     const closingRef = useRef(false);
 
+    const closeTimerRef =
+        useRef<ReturnType<typeof setTimeout> | null>(
+            null,
+        );
+
+    const [isVisible, setIsVisible] =
+        useState(false);
+
     const closeModal = useCallback(() => {
         if (closingRef.current) {
             return;
         }
 
         closingRef.current = true;
-        router.back();
+
+        const reduceMotion =
+            window.matchMedia(
+                "(prefers-reduced-motion: reduce)",
+            ).matches;
+
+        if (reduceMotion) {
+            router.back();
+
+            return;
+        }
+
+        setIsVisible(false);
+
+        closeTimerRef.current = setTimeout(
+            () => router.back(),
+            180,
+        );
     }, [router]);
 
     useEffect(() => {
@@ -169,6 +195,8 @@ export default function ProjectModal({
 
         const focusFrame =
             window.requestAnimationFrame(() => {
+                setIsVisible(true);
+
                 closeButtonRef.current?.focus({
                     preventScroll: true,
                 });
@@ -243,6 +271,12 @@ export default function ProjectModal({
             window.cancelAnimationFrame(
                 focusFrame,
             );
+
+            if (closeTimerRef.current) {
+                clearTimeout(
+                    closeTimerRef.current,
+                );
+            }
 
             document.removeEventListener(
                 "keydown",
@@ -335,9 +369,22 @@ export default function ProjectModal({
 
     return (
         <div
-            className="fixed inset-0 z-[200] overflow-y-auto overscroll-contain bg-black/70 sm:p-6"
+            className="fixed inset-0 isolate z-[200] overflow-hidden overscroll-contain"
             onMouseDown={handleOverlayMouseDown}
+            data-project-modal-state={
+                isVisible ? "open" : "closing"
+            }
         >
+            <div
+                className={`pointer-events-none absolute inset-0 bg-black/25 backdrop-blur-[18px] transition-opacity duration-200 motion-reduce:transition-none ${
+                    isVisible
+                        ? "opacity-100"
+                        : "opacity-0"
+                }`}
+                aria-hidden="true"
+                data-project-modal-backdrop=""
+            />
+
             <div
                 ref={dialogRef}
                 role="dialog"
@@ -345,21 +392,43 @@ export default function ProjectModal({
                 aria-labelledby={titleId}
                 aria-describedby={summaryId}
                 tabIndex={-1}
-                className="relative min-h-dvh w-full min-w-0 bg-white shadow-2xl sm:mx-auto sm:min-h-0 sm:max-w-5xl sm:border sm:border-[#1E1E1E]"
+                className="relative h-dvh w-full min-w-0 overflow-hidden focus:outline-none"
             >
-                <div className="sticky top-0 z-10 flex justify-end border-b border-[#1E1E1E] bg-white px-5 py-4 sm:px-8">
+                <div
+                    className={`h-full w-full transition duration-300 ease-out motion-reduce:transform-none motion-reduce:transition-none ${
+                        isVisible
+                            ? "translate-y-0 opacity-100"
+                            : "translate-y-1 opacity-0"
+                    }`}
+                >
+                    {children}
+                </div>
+
+                <div className="pointer-events-none fixed right-[max(16px,env(safe-area-inset-right))] top-[max(16px,env(safe-area-inset-top))] z-20 flex items-center md:left-1/2 md:right-auto md:top-1/2 md:w-[min(15vw,170px)] md:-translate-x-1/2 md:-translate-y-1/2 md:flex-col">
+                    <span
+                        className="hidden h-[clamp(40px,10vh,110px)] w-px bg-[#BFC0C4] md:block"
+                        aria-hidden="true"
+                    />
+
                     <button
                         ref={closeButtonRef}
                         type="button"
                         aria-label="Close project dialog"
                         onClick={closeModal}
-                        className="inline-flex min-h-11 items-center justify-center border border-[#1E1E1E] px-5 text-sm font-bold uppercase tracking-[0.05em] text-[#1E1E1E] transition-colors hover:bg-[#1E1E1E] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5E56E7]"
+                        className="pointer-events-auto inline-flex min-h-11 w-full min-w-[116px] items-center justify-center border border-black bg-black px-4 text-[11px] font-black uppercase tracking-[0.04em] text-white transition-colors hover:bg-[#5E56E7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5E56E7] md:my-7 md:min-w-0"
                     >
-                        Close
+                        Exit system
                     </button>
-                </div>
 
-                {children}
+                    <span
+                        className="hidden h-[clamp(40px,10vh,110px)] w-px bg-[#BFC0C4] md:block"
+                        aria-hidden="true"
+                    />
+
+                    <span className="mt-6 hidden whitespace-nowrap text-[9px] font-black uppercase tracking-[0.06em] text-white/55 md:block">
+                        Safe mode active
+                    </span>
+                </div>
             </div>
         </div>
     );

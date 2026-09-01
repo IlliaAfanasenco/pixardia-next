@@ -1,4 +1,5 @@
 import type {
+    CSSProperties,
     ReactNode,
 } from "react";
 import Image from "next/image";
@@ -12,6 +13,8 @@ import {
 import type {
     Project,
 } from "@/types/services";
+import ProjectModalGallery from "@/features/projects/ProjectModalGallery";
+import modalStyles from "@/features/projects/ProjectModalCaseStudy.module.css";
 
 type ProjectCaseStudyProps = {
     project: Project;
@@ -50,6 +53,17 @@ export default function ProjectCaseStudy({
     const statusLabel =
         projectStatusLabels[project.status].en;
 
+    if (variant === "modal") {
+        return (
+            <ProjectModalCaseStudy
+                project={project}
+                titleId={titleId}
+                summaryId={summaryId}
+                statusLabel={statusLabel}
+            />
+        );
+    }
+
     const media = [
         ...(project.coverImage
             ? [project.coverImage]
@@ -73,22 +87,14 @@ export default function ProjectCaseStudy({
 
     return (
         <article
-            className={
-                variant === "modal"
-                    ? "min-w-0 bg-[#F5F5F3]"
-                    : "container-custom py-10 sm:py-14"
-            }
+            className="container-custom py-10 sm:py-14"
             aria-labelledby={titleId}
             aria-describedby={summaryId}
             data-project-case-study=""
             data-project-case-study-variant={variant}
         >
             <div
-                className={
-                    variant === "page"
-                        ? "overflow-hidden border border-[#CECED1] bg-[#F5F5F3]"
-                        : ""
-                }
+                className="overflow-hidden border border-[#CECED1] bg-[#F5F5F3]"
             >
                 <header className="border-b border-[#D2D2D4] bg-[#ECECEA] px-5 py-8 sm:px-8 sm:py-10 lg:px-10">
                     <div className="flex flex-wrap items-center gap-2">
@@ -554,10 +560,7 @@ export default function ProjectCaseStudy({
                             project.slug ? (
                                 <Link
                                     href={`/projects/${nextProject.slug}`}
-                                    scroll={
-                                        variant ===
-                                        "page"
-                                    }
+                                    scroll
                                     className="min-w-0 border border-[#1E1E1E] bg-[#1E1E1E] p-5 text-white no-underline transition-colors hover:bg-[#5E56E7] sm:min-w-[290px]"
                                 >
                                     <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/50">
@@ -580,6 +583,316 @@ export default function ProjectCaseStudy({
                 </div>
             </div>
         </article>
+    );
+}
+
+type ProjectModalCaseStudyProps = {
+    project: Project;
+    titleId: string;
+    summaryId: string;
+    statusLabel: string;
+};
+
+const evidenceProgress: Record<Evidence, string> = {
+    verified: "100%",
+    target: "72%",
+    not_measured: "34%",
+};
+
+function ProjectModalCaseStudy({
+                                   project,
+                                   titleId,
+                                   summaryId,
+                                   statusLabel,
+                               }: ProjectModalCaseStudyProps) {
+    const media = [
+        ...(project.coverImage
+            ? [project.coverImage]
+            : []),
+        ...project.images,
+    ];
+
+    const primaryColor =
+        project.caseStudy.visualSystem.colors[0]
+            ?.value ?? "#1E1E1E";
+
+    const accentColor =
+        project.caseStudy.visualSystem.colors[1]
+            ?.value ?? "#5E56E7";
+
+    const surfaceColor =
+        project.caseStudy.visualSystem.colors[2]
+            ?.value ?? "#FCFCFC";
+
+    const technologies = Array.from(
+        new Set(
+            project.caseStudy.technologyGroups.flatMap(
+                (group) => group.items,
+            ),
+        ),
+    );
+
+    const titleParts =
+        project.title.trim().split(/\s+/u);
+
+    const leadTitle = titleParts[0];
+    const trailingTitle = titleParts
+        .slice(1)
+        .join(" ");
+
+    const imageLabel = `${project.caseStudy.identifier.slice(0, 2)}IMG_${String(project.order).padStart(2, "0")}`;
+
+    const client =
+        project.caseStudy.client ??
+        project.caseStudy.engagement.en;
+
+    return (
+        <article
+            className="grid h-dvh w-full min-w-0 grid-cols-1 gap-y-2 overflow-y-auto px-0 py-0 md:grid-cols-[minmax(0,40.5fr)_minmax(96px,19fr)_minmax(0,40.5fr)] md:gap-y-0 md:overflow-hidden"
+            aria-labelledby={titleId}
+            aria-describedby={summaryId}
+            data-project-case-study=""
+            data-project-case-study-variant="modal"
+        >
+            <section
+                className={`${modalStyles.leftPanel} min-w-0 border-[#B9B9BD] bg-[#FCFCFC] px-[clamp(20px,3.2vw,58px)] pb-[max(32px,env(safe-area-inset-bottom))] pt-[max(22px,env(safe-area-inset-top))] md:col-start-1 md:h-dvh md:overflow-y-auto md:border-r md:overscroll-contain lg:overflow-visible`}
+                data-project-modal-panel="left"
+            >
+                <p className="text-[10px] font-black uppercase tracking-[0.055em] text-[#C1C2C5]">
+                    Visual_Storage//Unit_A
+                </p>
+
+                <ProjectModalGallery
+                    key={project.slug}
+                    projectKey={project.slug}
+                    projectTitle={project.title}
+                    media={media}
+                    imageLabel={imageLabel}
+                    primaryColor={primaryColor}
+                    accentColor={accentColor}
+                    surfaceColor={surfaceColor}
+                    className={`${modalStyles.galleryFrame} mt-[clamp(22px,3.2vh,38px)] aspect-[1.62/1]`}
+                />
+
+                <div className="mt-[clamp(24px,4vh,44px)] flex items-center gap-3">
+                    <span
+                        className="h-px w-9 shrink-0"
+                        style={{
+                            backgroundColor: accentColor,
+                        }}
+                        aria-hidden="true"
+                    />
+
+                    <p
+                        className="min-w-0 break-words text-[11px] font-black uppercase tracking-[0.045em]"
+                        style={{
+                            color: accentColor,
+                        }}
+                    >
+                        Case_Identifier:{project.caseStudy.identifier}
+                    </p>
+                </div>
+
+                <h1
+                    id={titleId}
+                    className={`${modalStyles.modalTitle} mt-[clamp(24px,4vh,46px)] break-words text-[clamp(42px,5vw,76px)] font-black uppercase leading-[0.82] tracking-[-0.045em] text-black max-md:text-[clamp(42px,13vw,66px)] [overflow-wrap:anywhere]`}
+                >
+                    <span className="block">
+                        {leadTitle}
+                    </span>
+
+                    {trailingTitle ? (
+                        <span className="block text-[#CDCDD0]">
+                            {trailingTitle}
+                        </span>
+                    ) : null}
+                </h1>
+
+                <p
+                    id={summaryId}
+                    className={`${modalStyles.summary} mt-[clamp(26px,4vh,46px)] max-w-[620px] text-[clamp(12px,1vw,16px)] font-black uppercase leading-[1.3] tracking-[-0.01em] text-[#C1C2C5]`}
+                >
+                    {project.summary.en}
+                </p>
+
+                <div className={`${modalStyles.metaGrid} mt-[clamp(30px,5vh,58px)] grid grid-cols-2 gap-6 border-t border-black/[0.04] pt-6`}>
+                    <ModalMeta
+                        label="Role"
+                        value={project.caseStudy.role.en}
+                    />
+
+                    <ModalMeta
+                        label="Client"
+                        value={client}
+                    />
+                </div>
+            </section>
+
+            <section
+                className={`${modalStyles.rightPanel} min-w-0 border-[#B9B9BD] bg-[#FCFCFC] px-[clamp(20px,3.2vw,58px)] pb-[max(32px,env(safe-area-inset-bottom))] pt-[max(22px,env(safe-area-inset-top))] md:col-start-3 md:h-dvh md:overflow-y-auto md:border-l md:overscroll-contain lg:overflow-visible`}
+                style={{
+                    "--case-accent": accentColor,
+                } as CSSProperties}
+                data-project-modal-panel="right"
+            >
+                <p className="text-right text-[10px] font-black uppercase tracking-[0.055em] text-[#C1C2C5]">
+                    Tech_Manifest//Unit_B
+                </p>
+
+                <ModalSystemLabel className={`${modalStyles.systemLabel} mt-[clamp(28px,5vh,58px)]`}>
+                    Engine &amp; Logic
+                </ModalSystemLabel>
+
+                <div className={`${modalStyles.technologyGrid} mt-6 grid grid-cols-2 gap-3 xl:grid-cols-4`}>
+                    {technologies.map(
+                        (technology) => (
+                            <span
+                                key={technology}
+                                tabIndex={0}
+                                className={`${modalStyles.technologyTag} flex min-h-11 items-center justify-center border border-[#2B2B2D] px-2 py-2 text-center text-[10px] font-black uppercase leading-[1.1] text-[#1E1E1E] transition-colors duration-150 hover:border-[var(--case-accent)] hover:bg-black/[0.02] hover:text-[var(--case-accent)] focus-visible:border-[var(--case-accent)] focus-visible:text-[var(--case-accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--case-accent)]`}
+                                data-project-technology=""
+                            >
+                                {technology}
+                            </span>
+                        ),
+                    )}
+                </div>
+
+                <ModalSystemLabel className={`${modalStyles.systemLabel} mt-[clamp(42px,7vh,78px)]`}>
+                    Visual DNA
+                </ModalSystemLabel>
+
+                <div className={`${modalStyles.colorList} mt-5 space-y-4`}>
+                    {project.caseStudy.visualSystem.colors.map(
+                        (color) => (
+                            <div
+                                key={color.value}
+                                className="grid grid-cols-[minmax(0,1fr)_88px] items-center gap-5"
+                            >
+                                <p className="min-w-0 break-words text-[12px] font-bold text-[#737377]">
+                                    {color.label.en}:
+                                    <span className="font-black uppercase">
+                                        {color.value}
+                                    </span>
+                                </p>
+
+                                <span
+                                    className={`${modalStyles.colorSwatch} h-9 border border-[#77787B]`}
+                                    style={{
+                                        backgroundColor:
+                                            color.value,
+                                    }}
+                                    aria-label={`${color.label.en} ${color.value}`}
+                                />
+                            </div>
+                        ),
+                    )}
+                </div>
+
+                <div className={`${modalStyles.typefaceBlock} mt-[clamp(40px,7vh,76px)]`}>
+                    <p className="text-[10px] font-black uppercase tracking-[0.04em] text-[#363638]">
+                        Typeface
+                    </p>
+
+                    <p className="mt-4 break-words text-[clamp(20px,2vw,32px)] font-black uppercase leading-[0.95] tracking-[-0.025em] text-[#343436]">
+                        {
+                            project.caseStudy
+                                .visualSystem.typeface
+                        }
+                    </p>
+                </div>
+
+                <ModalSystemLabel className={`${modalStyles.systemLabel} mt-[clamp(42px,7vh,78px)]`}>
+                    Performance Audit
+                </ModalSystemLabel>
+
+                <div className={`${modalStyles.signalList} mt-6 space-y-4`}>
+                    {project.caseStudy.qualitySignals.map(
+                        (signal) => (
+                            <div
+                                key={signal.label.en}
+                            >
+                                <div className="flex items-end justify-between gap-4 text-[10px] font-black uppercase leading-none text-[#656569]">
+                                    <span>
+                                        {signal.label.en}
+                                    </span>
+
+                                    <span className="shrink-0">
+                                        {signal.value.en}
+                                    </span>
+                                </div>
+
+                                <div className={`${modalStyles.signalBar} mt-2 h-1.5 bg-[#ECECEF]`}>
+                                    <div
+                                        className="h-full transition-[width] duration-500 motion-reduce:transition-none"
+                                        style={{
+                                            width: evidenceProgress[
+                                                signal
+                                                    .evidence
+                                            ],
+                                            backgroundColor:
+                                                accentColor,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        ),
+                    )}
+                </div>
+
+                <div className={`${modalStyles.archiveFooter} mt-[clamp(34px,5vh,58px)] flex items-end justify-between gap-6 border-t border-black/[0.04] pt-5`}>
+                    <p className="text-[10px] font-black uppercase leading-[1.2] tracking-[0.015em] text-[#C0C1C4]">
+                        Archive status: {statusLabel}
+                        <br />
+                        Record: {project.caseStudy.identifier}
+                    </p>
+
+                    <span className="grid size-10 shrink-0 place-items-center bg-black text-lg font-black italic text-white">
+                        P
+                    </span>
+                </div>
+            </section>
+        </article>
+    );
+}
+
+type ModalMetaProps = {
+    label: string;
+    value: string;
+};
+
+function ModalMeta({
+                       label,
+                       value,
+                   }: ModalMetaProps) {
+    return (
+        <div className="min-w-0">
+            <p className="text-[11px] font-black uppercase tracking-[0.025em] text-[#303033]">
+                {label}
+            </p>
+
+            <p className="mt-2 break-words text-[10px] font-black uppercase leading-[1.25] text-[#C1C2C5]">
+                {value}
+            </p>
+        </div>
+    );
+}
+
+type ModalSystemLabelProps = {
+    children: ReactNode;
+    className?: string;
+};
+
+function ModalSystemLabel({
+                              children,
+                              className = "",
+                          }: ModalSystemLabelProps) {
+    return (
+        <h2
+            className={`inline-flex min-h-11 items-center bg-black px-4 py-3 text-[11px] font-black uppercase leading-none tracking-[0.025em] text-white ${className}`}
+        >
+            {children}
+        </h2>
     );
 }
 

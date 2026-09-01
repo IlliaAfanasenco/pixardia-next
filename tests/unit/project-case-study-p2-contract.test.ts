@@ -95,7 +95,11 @@ describe("P2 project case study contract", () => {
         );
 
         expect(caseStudy).toContain(
-            'variant === "page"',
+            "ProjectModalCaseStudy",
+        );
+
+        expect(caseStudy).toContain(
+            'data-project-case-study-variant={variant}',
         );
     });
 });

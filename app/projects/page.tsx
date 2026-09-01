@@ -54,7 +54,11 @@ export default function ProjectsPage() {
                             </p>
 
                             <Link
+                                id={`project-modal-trigger-${project.slug}`}
                                 href={`/projects/${project.slug}`}
+                                scroll={false}
+                                aria-haspopup="dialog"
+                                aria-label={`Open ${project.title} case study`}
                                 className="mt-4 inline-flex font-bold underline underline-offset-4"
                             >
                                 Explore case

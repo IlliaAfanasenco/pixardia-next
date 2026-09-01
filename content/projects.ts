@@ -90,7 +90,35 @@ export const projects = [
         ],
         year: 2026,
         coverImage: null,
-        images: [],
+        images: [
+            {
+                src: "/images/product11.png",
+                alt: text(
+                    "Pixardia astronaut and alien visual composition",
+                    "Pixardia-Bildkomposition mit Astronaut und Alien",
+                ),
+                width: 494,
+                height: 318,
+            },
+            {
+                src: "/images/product12.png",
+                alt: text(
+                    "Pixardia technical terminal interface background",
+                    "Technischer Terminal-Hintergrund von Pixardia",
+                ),
+                width: 547,
+                height: 662,
+            },
+            {
+                src: "/images/product13.png",
+                alt: text(
+                    "Pixardia extraterrestrial character artwork",
+                    "Pixardia-Figurengrafik eines Außerirdischen",
+                ),
+                width: 1024,
+                height: 1024,
+            },
+        ],
         liveUrl: null,
         repositoryUrl: null,
         featured: true,
@@ -280,7 +308,35 @@ export const projects = [
         ],
         year: 2026,
         coverImage: null,
-        images: [],
+        images: [
+            {
+                src: "/images/product11.png",
+                alt: text(
+                    "Pixardia astronaut and alien visual composition",
+                    "Pixardia-Bildkomposition mit Astronaut und Alien",
+                ),
+                width: 494,
+                height: 318,
+            },
+            {
+                src: "/images/product12.png",
+                alt: text(
+                    "Pixardia technical terminal interface background",
+                    "Technischer Terminal-Hintergrund von Pixardia",
+                ),
+                width: 547,
+                height: 662,
+            },
+            {
+                src: "/images/product13.png",
+                alt: text(
+                    "Pixardia extraterrestrial character artwork",
+                    "Pixardia-Figurengrafik eines Außerirdischen",
+                ),
+                width: 1024,
+                height: 1024,
+            },
+        ],
         liveUrl: null,
         repositoryUrl: null,
         featured: true,
