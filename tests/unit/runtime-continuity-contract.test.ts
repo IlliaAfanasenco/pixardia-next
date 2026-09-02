@@ -48,6 +48,15 @@ describe("runtime continuity contract", () => {
         expect(modal).toContain(
             'root.style.overflow = "hidden"',
         );
+
+        expect(runtime).toContain(
+            '"pixardia:project-modal-lock"',
+        );
+        expect(runtime).toContain(
+            '"pixardia:project-modal-unlock"',
+        );
+        expect(runtime).toContain("lenis.stop()");
+        expect(runtime).toContain("lenis.start()");
     });
 
     it("provides a dedicated lifecycle to evidence transition", () => {

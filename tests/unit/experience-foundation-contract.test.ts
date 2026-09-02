@@ -131,7 +131,7 @@ describe("experience foundation contract", () => {
         expect(runtime).toContain("pin: true");
         expect(runtime.match(/pin:\s*true/g)).toHaveLength(1);
         expect(runtime).toContain("pinSpacing: true");
-        expect(runtime).toContain("scrub: 0.28");
+        expect(runtime).toContain("scrub: true");
         expect(runtime).toContain("invalidateOnRefresh: true");
         expect(runtime).toContain('start: "top top"');
         expect(runtime).toContain("end: () =>");
@@ -223,6 +223,27 @@ describe("experience foundation contract", () => {
         expect(runtime).toContain("product-clean-release");
     });
 
+    it("keeps pinned chapter handoffs decisive instead of stacking translucent scenes", () => {
+        const runtime = read(
+            "components/presentation/CinematicRuntime.tsx",
+        );
+
+        expect(runtime).toContain("scrub: true");
+        expect(runtime).toContain("clipPath: \"inset(0 100% 0 0)\"");
+        expect(runtime).toContain("clipPath: \"inset(0 0 0 100%)\"");
+        expect(runtime).toContain("xPercent: -32");
+        expect(runtime).toContain("xPercent: 32");
+
+        for (const staleOverlap of [
+            "autoAlpha: 0.56",
+            "autoAlpha: 0.52",
+            "autoAlpha: 0.58",
+            "autoAlpha: 0.46",
+        ]) {
+            expect(runtime).not.toContain(staleOverlap);
+        }
+    });
+
     it("extends the same runtime across Archive and Contact without pinning natural-flow sections", () => {
         const runtime = read(
             "components/presentation/CinematicRuntime.tsx",
@@ -244,13 +265,17 @@ describe("experience foundation contract", () => {
 
         for (const label of [
             "archive-handoff",
-            "archive-entry",
+            "archive-editorial",
             "archive-active",
             "archive-outro",
-            "contact-entry",
+            "contact-convergence",
             "contact-settled",
         ]) {
-            expect(runtime).toContain(`.addLabel("${label}")`);
+            expect(runtime).toMatch(
+                new RegExp(
+                    `\\.addLabel\\("${label}"(?:,\\s*[^)]*)?\\)`,
+                ),
+            );
         }
 
         expect(runtime).toContain("trigger: archiveSection");
@@ -341,7 +366,7 @@ describe("experience foundation contract", () => {
             /\.cinematic-navigator\s*\{[\s\S]*?position:\s*fixed;[\s\S]*?right:\s*var\(--cinematic-nav-right\);[\s\S]*?pointer-events:\s*auto;/,
         );
         expect(styles).toContain(
-            "--cinematic-nav-right: clamp(18px, 1.8vw, 52px)",
+            "--cinematic-nav-right: clamp(16px, 1.4vw, 28px)",
         );
         expect(styles).toMatch(
             /\.cinematic-navigator__link\s*\{[\s\S]*?min-width:\s*44px;[\s\S]*?min-height:\s*44px;/,
@@ -362,10 +387,16 @@ describe("experience foundation contract", () => {
         expect(runtime).toMatch(
             /\.set\(\s*veil,\s*\{\s*autoAlpha:\s*0,/,
         );
-        expect(runtime).toContain("autoAlpha: 0.10");
-        expect(runtime).not.toContain("autoAlpha: 0.15");
-        expect(runtime).not.toContain("autoAlpha: 0.14");
-        expect(runtime).not.toContain("autoAlpha: 0.13");
+        const veilAlphaValues = [
+            ...runtime.matchAll(
+                /(?:\.to\(\s*veil,|\.fromTo\(\s*veil,)[\s\S]*?autoAlpha:\s*([0-9.]+)/g,
+            ),
+        ].map((match) => Number(match[1]));
+
+        expect(veilAlphaValues).toContain(0.075);
+        expect(
+            Math.max(...veilAlphaValues),
+        ).toBeLessThanOrEqual(0.075);
         expect(styles).not.toContain(
             'path[data-cinematic-signal-path="vertical"]',
         );
@@ -386,7 +417,9 @@ describe("experience foundation contract", () => {
             /timeline\.to\(\s*navigatorFill/,
         );
         expect(runtime).toContain("--cinematic-progress");
-        expect(runtime).not.toMatch(/getBoundingClientRect/);
+        expect(
+            runtime.match(/getBoundingClientRect/g)?.length ?? 0,
+        ).toBe(1);
     });
 
     it("keeps the homepage order and stable scene hooks explicit", () => {

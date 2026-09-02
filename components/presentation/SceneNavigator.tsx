@@ -38,6 +38,14 @@ export default function SceneNavigator() {
             aria-label="Homepage presentation scenes"
             data-cinematic-navigator=""
         >
+            <div
+                className="cinematic-navigator__meta"
+                aria-hidden="true"
+            >
+                <span>Index</span>
+                <span>01—06</span>
+            </div>
+
             <span
                 className="cinematic-navigator__track"
                 aria-hidden="true"
@@ -67,7 +75,12 @@ export default function SceneNavigator() {
                                     "0",
                                 )}
                             </span>
-                            <span className="cinematic-navigator__dot" />
+
+                            <span
+                                className="cinematic-navigator__dot"
+                                aria-hidden="true"
+                            />
+
                             <span className="cinematic-navigator__label">
                                 {node.label}
                             </span>

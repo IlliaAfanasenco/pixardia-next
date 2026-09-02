@@ -197,6 +197,70 @@ export default function CinematicRuntime() {
                         document,
                         "#contact",
                     );
+                    const archiveKicker = select<HTMLElement>(
+                        document,
+                        "[data-archive-kicker]",
+                    );
+                    const archiveTitle = select<HTMLElement>(
+                        document,
+                        "[data-archive-title]",
+                    );
+                    const archiveIntro = select<HTMLElement>(
+                        document,
+                        "[data-archive-intro]",
+                    );
+                    const archiveAlien = select<HTMLElement>(
+                        document,
+                        "[data-archive-alien]",
+                    );
+                    const archiveCta = select<HTMLElement>(
+                        document,
+                        "[data-archive-cta]",
+                    );
+                    const archiveCards = selectAll<HTMLElement>(
+                        document,
+                        "[data-archive-card]",
+                    );
+                    const archiveCardVisuals = selectAll<HTMLElement>(
+                        document,
+                        "[data-archive-card-visual]",
+                    );
+                    const archiveCardCopies = selectAll<HTMLElement>(
+                        document,
+                        "[data-archive-card-copy]",
+                    );
+                    const contactKicker = select<HTMLElement>(
+                        document,
+                        "[data-contact-kicker]",
+                    );
+                    const contactTitle = select<HTMLElement>(
+                        document,
+                        "[data-contact-title]",
+                    );
+                    const contactStamp = select<HTMLElement>(
+                        document,
+                        "[data-contact-stamp]",
+                    );
+                    const contactRule = select<HTMLElement>(
+                        document,
+                        "[data-contact-rule]",
+                    );
+                    const contactCopy = select<HTMLElement>(
+                        document,
+                        "[data-contact-copy]",
+                    );
+                    const contactVisual = select<HTMLElement>(
+                        document,
+                        "[data-contact-visual]",
+                    );
+                    const contactFormWrap = select<HTMLElement>(
+                        document,
+                        "[data-contact-form-wrap]",
+                    );
+                    const contactFormVisual = select<HTMLElement>(
+                        document,
+                        "[data-contact-form-visual]",
+                    );
                     const heroLayer = select<HTMLElement>(
                         stage,
                         '[data-cinematic-scene="hero"] [data-cinematic-layer]',
@@ -257,6 +321,22 @@ export default function CinematicRuntime() {
                         !signalRoute ||
                         !archiveSection ||
                         !contactSection ||
+                        !archiveKicker ||
+                        !archiveTitle ||
+                        !archiveIntro ||
+                        !archiveAlien ||
+                        !archiveCta ||
+                        archiveCards.length === 0 ||
+                        archiveCardVisuals.length === 0 ||
+                        archiveCardCopies.length === 0 ||
+                        !contactKicker ||
+                        !contactTitle ||
+                        !contactStamp ||
+                        !contactRule ||
+                        !contactCopy ||
+                        !contactVisual ||
+                        !contactFormWrap ||
+                        !contactFormVisual ||
                         !heroLayer ||
                         !craftingLayer ||
                         !neuralLayer ||
@@ -362,15 +442,39 @@ export default function CinematicRuntime() {
                     const lenis = new Lenis({
                         anchors: true,
                         allowNestedScroll: true,
-                        lerp: 0.12,
+                        lerp: 0.10,
                         smoothWheel: true,
                         touchMultiplier: 1,
-                        wheelMultiplier: 0.9,
+                        wheelMultiplier: 0.88,
                         autoToggle: true,
                     });
                     const tickLenis = (time: number) => {
                         lenis.raf(time * 1000);
                     };
+
+                    const handleProjectModalLock = () => {
+                        lenis.stop();
+                    };
+                    const handleProjectModalUnlock = () => {
+                        lenis.start();
+                        ScrollTrigger.update();
+                    };
+
+                    document.addEventListener(
+                        "pixardia:project-modal-lock",
+                        handleProjectModalLock,
+                    );
+                    document.addEventListener(
+                        "pixardia:project-modal-unlock",
+                        handleProjectModalUnlock,
+                    );
+
+                    if (
+                        root.dataset.projectModalOpen ===
+                        "true"
+                    ) {
+                        lenis.stop();
+                    }
 
                     lenis.on("scroll", ScrollTrigger.update);
                     gsap.ticker.add(tickLenis);
@@ -415,6 +519,71 @@ export default function CinematicRuntime() {
                             autoAlpha: 0,
                         },
                     );
+                    gsap.set(
+                        "[data-neural-header]",
+                        {
+                            y: 18,
+                        },
+                    );
+                    gsap.set(
+                        "[data-neural-title-line]",
+                        {
+                            y: 24,
+                            clipPath: "inset(0 0 100% 0)",
+                        },
+                    );
+                    gsap.set(
+                        neuralCore,
+                        {
+                            scale: 0.84,
+                            rotation: -3,
+                        },
+                    );
+                    gsap.set(
+                        '[data-neural-node="frontend"]',
+                        {
+                            x: 24,
+                            y: -10,
+                            scale: 0.96,
+                        },
+                    );
+                    gsap.set(
+                        '[data-neural-node="integration"]',
+                        {
+                            x: -24,
+                            y: 0,
+                            scale: 0.96,
+                        },
+                    );
+                    gsap.set(
+                        '[data-neural-node="backend"]',
+                        {
+                            x: -18,
+                            y: 18,
+                            scale: 0.96,
+                        },
+                    );
+                    gsap.set(
+                        '[data-neural-node="security"]',
+                        {
+                            x: 18,
+                            y: 18,
+                            scale: 0.96,
+                        },
+                    );
+                    gsap.set(
+                        neuralInsight,
+                        {
+                            x: 26,
+                            scale: 0.98,
+                        },
+                    );
+                    gsap.set(
+                        neuralStats,
+                        {
+                            y: 16,
+                        },
+                    );
                     gsap.set(veil, {
                         autoAlpha: 0,
                     });
@@ -451,10 +620,47 @@ export default function CinematicRuntime() {
                             clipPath: "inset(0 0 0 0)",
                         },
                     );
+                    gsap.set(
+                        [
+                            '[data-cinematic-element="crafting-copy"]',
+                            '[data-cinematic-element="crafting-card"]',
+                            '[data-cinematic-element="crafting-terminal"]',
+                        ],
+                        {
+                            autoAlpha: 0,
+                            y: 26,
+                        },
+                    );
+                    gsap.set(
+                        [
+                            '[data-cinematic-element="product-kicker"]',
+                            '[data-cinematic-element="product-heading"]',
+                            '[data-cinematic-product-card]',
+                            '[data-cinematic-element="product-system"]',
+                            '[data-cinematic-element="product-status"]',
+                            '[data-cinematic-element="product-footer"]',
+                        ],
+                        {
+                            autoAlpha: 0,
+                            y: 24,
+                        },
+                    );
+                    gsap.set(
+                        '[data-cinematic-element="product-heading"]',
+                        {
+                            x: 22,
+                        },
+                    );
+                    gsap.set(
+                        "[data-cinematic-product-card]",
+                        {
+                            scale: 0.985,
+                        },
+                    );
                     const timeline = gsap.timeline({
                         defaults: {
-                            duration: 0.68,
-                            ease: "none",
+                            duration: 0.44,
+                            ease: "power2.inOut",
                         },
                     });
                     const createHold = () => ({ progress: 0 });
@@ -463,66 +669,59 @@ export default function CinematicRuntime() {
                         .addLabel("hero")
                         .to(createHold(), {
                             progress: 1,
-                            duration: 1.28,
+                            duration: 1.02,
+                            ease: "none",
                         })
+
                         .addLabel("hero-to-crafting")
-                        .set(
-                            veil,
+                        .set(signalRoute, {
+                            autoAlpha: 0.22,
+                        })
+                        .fromTo(
+                            '[data-cinematic-signal-path="primary"]',
+                            {
+                                strokeDashoffset: 1,
+                            },
+                            {
+                                strokeDashoffset: 0.18,
+                                duration: 0.34,
+                                ease: "power2.out",
+                            },
+                        )
+                        .to(
+                            [
+                                '[data-cinematic-element="hero-eyebrow"]',
+                                '[data-cinematic-element="hero-title"] span',
+                                '[data-cinematic-element="hero-copy"]',
+                                '[data-cinematic-element="hero-cta"]',
+                                '[data-cinematic-element="hero-meta"]',
+                            ],
                             {
                                 autoAlpha: 0,
-                            },
-                        )
-                        .set(
-                            signalRoute,
-                            {
-                                autoAlpha: 0.16,
-                            },
-                            "<",
-                        )
-                        .set(
-                            craftingLayer,
-                            {
-                                autoAlpha: 0,
-                                y: 44,
-                                scale: 0.994,
-                                clipPath:
-                                    "inset(0% 0% 0% 0%)",
-                            },
-                            "<",
-                        )
-                        .to(
-                            scenes[1],
-                            {
-                                autoAlpha: 1,
-                                duration: 0.72,
-                            },
-                            "<",
-                        )
-                        .to(
-                            craftingLayer,
-                            {
-                                autoAlpha: 1,
-                                y: 0,
-                                scale: 1,
-                                duration: 0.64,
-                            },
-                            "<+=0.06",
-                        )
-                        .to(
-                            heroLayer,
-                            {
-                                yPercent: -2.5,
-                                scale: 0.991,
-                                duration: 0.58,
+                                y: -20,
+                                stagger: 0.035,
+                                duration: 0.34,
+                                ease: "power2.in",
                             },
                             "<",
                         )
                         .to(
                             '[data-cinematic-element="hero-character"]',
                             {
-                                y: -34,
-                                scale: 0.97,
-                                duration: 0.56,
+                                autoAlpha: 0,
+                                xPercent: 3,
+                                y: -18,
+                                scale: 0.975,
+                                duration: 0.38,
+                                ease: "power2.in",
+                            },
+                            "<+=0.04",
+                        )
+                        .to(
+                            heroLayer,
+                            {
+                                scale: 0.995,
+                                duration: 0.30,
                             },
                             "<",
                         )
@@ -530,118 +729,111 @@ export default function CinematicRuntime() {
                             scenes[0],
                             {
                                 autoAlpha: 0,
-                                duration: 0.54,
+                                duration: 0.16,
+                                ease: "none",
                             },
-                            "<+=0.10",
+                            ">-0.04",
                         )
-                        .to(
-                            signalRoute,
-                            {
-                                autoAlpha: 0,
-                                duration: 0.18,
-                            },
-                            "<+=0.08",
-                        )
-                        .addLabel("crafting")
-                        .fromTo(
-                            [
-                                '[data-cinematic-element="crafting-copy"]',
-                                '[data-cinematic-element="crafting-card"]',
-                                '[data-cinematic-element="crafting-terminal"]',
-                            ],
-                            {
-                                autoAlpha: 0,
-                                y: 34,
-                            },
+                        .set(
+                            craftingLayer,
                             {
                                 autoAlpha: 1,
+                                x: 26,
                                 y: 0,
-                                stagger: 0.16,
-                            },
-                            "<",
-                        )
-                        .to(createHold(), {
-                            progress: 1,
-                            duration: 0.72,
-                        })
-                        .addLabel("crafting-to-neural")
-                        .set(
-                            veil,
-                            {
-                                autoAlpha: 0,
+                                scale: 1,
+                                clipPath: "inset(0 100% 0 0)",
                             },
                         )
                         .set(
-                            neuralLayer,
+                            scenes[1],
                             {
                                 autoAlpha: 1,
-                                y: 24,
-                                scale: 0.995,
-                                clipPath:
-                                    "inset(0% 0% 0% 0%)",
-                            },
-                            "<",
-                        )
-                        .set(
-                            signalRoute,
-                            {
-                                autoAlpha: 0.12,
-                            },
-                            "<",
-                        )
-                        .to(
-                            '[data-cinematic-signal-path="secondary"]',
-                            {
-                                strokeDashoffset: 0.28,
-                                duration: 0.52,
-                            },
-                            "<",
-                        )
-                        .to(
-                            scenes[2],
-                            {
-                                autoAlpha: 0.56,
-                                duration: 0.48,
                             },
                             "<",
                         )
                         .to(
                             craftingLayer,
                             {
-                                autoAlpha: 0.72,
-                                yPercent: -1,
-                                scale: 0.997,
+                                x: 0,
+                                clipPath: "inset(0 0% 0 0)",
                                 duration: 0.48,
+                                ease: "power3.out",
                             },
-                            "<",
                         )
                         .to(
-                            "[data-neural-header]",
-                            {
-                                autoAlpha: 0.46,
-                                y: 10,
-                                duration: 0.34,
-                            },
-                            "<+=0.08",
-                        )
-                        .to(
-                            neuralCore,
-                            {
-                                autoAlpha: 0.46,
-                                scale: 0.92,
-                                rotation: -2,
-                                duration: 0.36,
-                            },
-                            "<",
-                        )
-
-                        .addLabel("neural")
-
-                        .to(
-                            scenes[2],
+                            [
+                                '[data-cinematic-element="crafting-copy"]',
+                                '[data-cinematic-element="crafting-card"]',
+                                '[data-cinematic-element="crafting-terminal"]',
+                            ],
                             {
                                 autoAlpha: 1,
-                                duration: 0.44,
+                                y: 0,
+                                stagger: 0.075,
+                                duration: 0.34,
+                                ease: "power3.out",
+                            },
+                            "<+=0.12",
+                        )
+                        .to(
+                            signalRoute,
+                            {
+                                autoAlpha: 0,
+                                duration: 0.16,
+                                ease: "none",
+                            },
+                            ">-0.12",
+                        )
+
+                        .addLabel("crafting")
+                        .to(createHold(), {
+                            progress: 1,
+                            duration: 0.82,
+                            ease: "none",
+                        })
+
+                        .addLabel("crafting-to-neural")
+                        .set(signalRoute, {
+                            autoAlpha: 0.22,
+                        })
+                        .fromTo(
+                            '[data-cinematic-signal-path="secondary"]',
+                            {
+                                strokeDashoffset: 1,
+                            },
+                            {
+                                strokeDashoffset: 0.16,
+                                duration: 0.36,
+                                ease: "power2.out",
+                            },
+                        )
+                        .to(
+                            '[data-cinematic-element="crafting-copy"]',
+                            {
+                                autoAlpha: 0,
+                                x: -28,
+                                duration: 0.30,
+                                ease: "power2.in",
+                            },
+                            "<",
+                        )
+                        .to(
+                            '[data-cinematic-element="crafting-card"]',
+                            {
+                                autoAlpha: 0,
+                                y: -22,
+                                duration: 0.30,
+                                ease: "power2.in",
+                            },
+                            "<+=0.04",
+                        )
+                        .to(
+                            '[data-cinematic-element="crafting-terminal"]',
+                            {
+                                autoAlpha: 0,
+                                x: 30,
+                                duration: 0.32,
+                                ease: "power2.in",
                             },
                             "<",
                         )
@@ -649,37 +841,47 @@ export default function CinematicRuntime() {
                             scenes[1],
                             {
                                 autoAlpha: 0,
-                                duration: 0.46,
+                                duration: 0.16,
+                                ease: "none",
                             },
-                            "<",
+                            ">-0.04",
                         )
-                        .to(
+                        .set(
                             neuralLayer,
                             {
+                                autoAlpha: 1,
                                 y: 0,
                                 scale: 1,
-                                duration: 0.46,
+                                clipPath: "inset(0% 0% 0% 0%)",
+                            },
+                        )
+                        .set(
+                            scenes[2],
+                            {
+                                autoAlpha: 1,
                             },
                             "<",
                         )
+
+                        .addLabel("neural")
                         .to(
                             "[data-neural-header]",
                             {
                                 autoAlpha: 1,
                                 y: 0,
-                                duration: 0.38,
+                                duration: 0.30,
+                                ease: "power3.out",
                             },
-                            "<",
                         )
                         .to(
                             "[data-neural-title-line]",
                             {
                                 autoAlpha: 1,
                                 y: 0,
-                                clipPath:
-                                    "inset(0 0 0% 0)",
-                                stagger: 0.065,
-                                duration: 0.42,
+                                clipPath: "inset(0 0 0% 0)",
+                                stagger: 0.055,
+                                duration: 0.36,
+                                ease: "power3.out",
                             },
                             "<+=0.03",
                         )
@@ -689,15 +891,17 @@ export default function CinematicRuntime() {
                                 autoAlpha: 1,
                                 scale: 1,
                                 rotation: 0,
-                                duration: 0.48,
+                                duration: 0.42,
+                                ease: "power3.out",
                             },
-                            "<",
+                            "<+=0.02",
                         )
                         .to(
                             neuralNetwork,
                             {
                                 autoAlpha: 1,
-                                duration: 0.18,
+                                duration: 0.12,
+                                ease: "none",
                             },
                             "<+=0.08",
                         )
@@ -705,8 +909,9 @@ export default function CinematicRuntime() {
                             neuralNetworkPaths,
                             {
                                 strokeDashoffset: 0,
-                                stagger: 0.05,
-                                duration: 0.48,
+                                stagger: 0.045,
+                                duration: 0.40,
+                                ease: "power2.out",
                             },
                             "<",
                         )
@@ -714,157 +919,121 @@ export default function CinematicRuntime() {
                             neuralNodes,
                             {
                                 autoAlpha: 1,
+                                x: 0,
                                 y: 0,
                                 scale: 1,
-                                stagger: 0.065,
-                                duration: 0.4,
+                                stagger: 0.06,
+                                duration: 0.34,
+                                ease: "power3.out",
                             },
-                            "<+=0.07",
+                            "<+=0.08",
                         )
                         .to(
                             neuralInsight,
                             {
                                 autoAlpha: 1,
                                 x: 0,
+                                y: 0,
+                                scale: 1,
                                 duration: 0.36,
+                                ease: "power3.out",
                             },
-                            "<+=0.04",
+                            "<+=0.10",
                         )
                         .to(
                             neuralStats,
                             {
                                 autoAlpha: 1,
                                 y: 0,
-                                duration: 0.3,
-                            },
-                            "<",
-                        )
-                        .to(
-                            signalRoute,
-                            {
-                                autoAlpha: 0,
-                                duration: 0.2,
-                            },
-                            "<",
-                        )
-                        .to(
-                            createHold(),
-                            {
-                                progress: 1,
-                                duration: 1.38,
-                            },
-                        )
-
-                        .addLabel("neural-to-product")
-                        .set(
-                            veil,
-                            {
-                                autoAlpha: 0,
-                            },
-                        )
-                        .set(
-                            productLayer,
-                            {
-                                autoAlpha: 1,
-                                y: 24,
-                                scale: 0.996,
-                                clipPath:
-                                    "inset(0% 0% 0% 0%)",
-                            },
-                            "<",
-                        )
-                        .set(
-                            [
-                                '[data-cinematic-element="product-kicker"]',
-                                '[data-cinematic-element="product-heading"]',
-                            ],
-                            {
-                                autoAlpha: 0,
-                                y: 24,
-                            },
-                            "<",
-                        )
-                        .set(
-                            "[data-cinematic-product-card]",
-                            {
-                                autoAlpha: 0,
-                                y: 30,
-                                scale: 0.99,
-                            },
-                            "<",
-                        )
-                        .set(
-                            [
-                                '[data-cinematic-element="product-system"]',
-                                '[data-cinematic-element="product-status"]',
-                            ],
-                            {
-                                autoAlpha: 0,
-                                y: 22,
-                            },
-                            "<",
-                        )
-                        .set(
-                            '[data-cinematic-element="product-footer"]',
-                            {
-                                autoAlpha: 0,
-                                y: 12,
-                            },
-                            "<",
-                        )
-                        .set(
-                            signalRoute,
-                            {
-                                autoAlpha: 0.10,
-                            },
-                            "<",
-                        )
-                        .to(
-                            '[data-cinematic-signal-path="convergence"]',
-                            {
-                                strokeDashoffset: 0.3,
-                                duration: 0.5,
-                            },
-                            "<",
-                        )
-                        .to(
-                            scenes[3],
-                            {
-                                autoAlpha: 0.52,
-                                duration: 0.48,
-                            },
-                            "<",
-                        )
-                        .to(
-                            [
-                                '[data-cinematic-element="product-kicker"]',
-                                '[data-cinematic-element="product-heading"]',
-                            ],
-                            {
-                                autoAlpha: 0.58,
-                                y: 10,
-                                stagger: 0.05,
-                                duration: 0.38,
+                                duration: 0.30,
+                                ease: "power3.out",
                             },
                             "<+=0.08",
                         )
                         .to(
-                            neuralLayer,
+                            signalRoute,
                             {
-                                yPercent: -0.8,
-                                scale: 0.997,
-                                duration: 0.46,
+                                autoAlpha: 0,
+                                duration: 0.16,
+                                ease: "none",
+                            },
+                            ">-0.10",
+                        )
+                        .to(createHold(), {
+                            progress: 1,
+                            duration: 0.96,
+                            ease: "none",
+                        })
+
+                        .addLabel("neural-to-product")
+                        .set(signalRoute, {
+                            autoAlpha: 0.24,
+                        })
+                        .to(
+                            [neuralInsight, neuralStats],
+                            {
+                                autoAlpha: 0,
+                                y: -14,
+                                stagger: 0.035,
+                                duration: 0.26,
+                                ease: "power2.in",
+                            },
+                        )
+                        .to(
+                            neuralNodes,
+                            {
+                                autoAlpha: 0,
+                                scale: 0.96,
+                                y: 8,
+                                stagger: {
+                                    each: 0.035,
+                                    from: "end",
+                                },
+                                duration: 0.28,
+                                ease: "power2.in",
+                            },
+                            "<+=0.02",
+                        )
+                        .to(
+                            neuralNetworkPaths,
+                            {
+                                strokeDashoffset: 1,
+                                stagger: {
+                                    each: 0.035,
+                                    from: "end",
+                                },
+                                duration: 0.30,
+                                ease: "power2.in",
                             },
                             "<",
                         )
-
-                        .addLabel("product")
-
                         .to(
-                            scenes[3],
+                            neuralNetwork,
                             {
-                                autoAlpha: 1,
-                                duration: 0.44,
+                                autoAlpha: 0,
+                                duration: 0.12,
+                                ease: "none",
+                            },
+                            ">-0.08",
+                        )
+                        .to(
+                            neuralCore,
+                            {
+                                autoAlpha: 0,
+                                scale: 0.82,
+                                rotation: 2,
+                                duration: 0.30,
+                                ease: "power2.in",
+                            },
+                            "<",
+                        )
+                        .to(
+                            "[data-neural-header]",
+                            {
+                                autoAlpha: 0,
+                                y: -16,
+                                duration: 0.26,
+                                ease: "power2.in",
                             },
                             "<",
                         )
@@ -872,19 +1041,53 @@ export default function CinematicRuntime() {
                             scenes[2],
                             {
                                 autoAlpha: 0,
-                                duration: 0.48,
+                                duration: 0.14,
+                                ease: "none",
+                            },
+                            ">-0.02",
+                        )
+                        .set(
+                            productLayer,
+                            {
+                                autoAlpha: 1,
+                                x: -24,
+                                y: 0,
+                                scale: 1,
+                                clipPath: "inset(0 0 0 100%)",
+                            },
+                            "<",
+                        )
+                        .set(
+                            scenes[3],
+                            {
+                                autoAlpha: 1,
+                            },
+                            "<",
+                        )
+                        .fromTo(
+                            '[data-cinematic-signal-path="convergence"]',
+                            {
+                                strokeDashoffset: 1,
+                            },
+                            {
+                                strokeDashoffset: 0.18,
+                                duration: 0.30,
+                                ease: "power2.out",
                             },
                             "<",
                         )
                         .to(
                             productLayer,
                             {
-                                y: 0,
-                                scale: 1,
-                                duration: 0.46,
+                                x: 0,
+                                clipPath: "inset(0 0 0 0%)",
+                                duration: 0.42,
+                                ease: "power3.out",
                             },
-                            "<",
+                            "<+=0.04",
                         )
+
+                        .addLabel("product")
                         .to(
                             [
                                 '[data-cinematic-element="product-kicker"]',
@@ -892,11 +1095,13 @@ export default function CinematicRuntime() {
                             ],
                             {
                                 autoAlpha: 1,
+                                x: 0,
                                 y: 0,
-                                stagger: 0.07,
-                                duration: 0.38,
+                                stagger: 0.06,
+                                duration: 0.34,
+                                ease: "power3.out",
                             },
-                            "<",
+                            "<+=0.08",
                         )
                         .to(
                             "[data-cinematic-product-card]",
@@ -904,10 +1109,11 @@ export default function CinematicRuntime() {
                                 autoAlpha: 1,
                                 y: 0,
                                 scale: 1,
-                                stagger: 0.065,
-                                duration: 0.42,
+                                stagger: 0.055,
+                                duration: 0.34,
+                                ease: "power3.out",
                             },
-                            "<+=0.04",
+                            "<+=0.06",
                         )
                         .to(
                             [
@@ -917,45 +1123,45 @@ export default function CinematicRuntime() {
                             {
                                 autoAlpha: 1,
                                 y: 0,
-                                stagger: 0.08,
-                                duration: 0.38,
+                                stagger: 0.065,
+                                duration: 0.30,
+                                ease: "power3.out",
                             },
-                            "<+=0.02",
+                            "<+=0.04",
                         )
                         .to(
                             '[data-cinematic-element="product-footer"]',
                             {
                                 autoAlpha: 1,
                                 y: 0,
-                                duration: 0.28,
+                                duration: 0.24,
+                                ease: "power3.out",
                             },
-                            "<+=0.04",
+                            "<+=0.03",
                         )
                         .to(
                             signalRoute,
                             {
                                 autoAlpha: 0,
-                                duration: 0.18,
+                                duration: 0.16,
+                                ease: "none",
                             },
-                            "<",
+                            ">-0.10",
                         )
-                        .to(
-                            createHold(),
-                            {
-                                progress: 1,
-                                duration: 0.92,
-                            },
-                        )
+                        .to(createHold(), {
+                            progress: 1,
+                            duration: 0.90,
+                            ease: "none",
+                        })
 
                         .addLabel("product-deconstruct")
                         .to(
-                            "[data-cinematic-product-card]",
+                            '[data-cinematic-element="product-footer"]',
                             {
-                                autoAlpha: 0.28,
-                                y: -12,
-                                scale: 0.99,
-                                stagger: 0.02,
-                                duration: 0.32,
+                                autoAlpha: 0,
+                                y: -10,
+                                duration: 0.20,
+                                ease: "power2.in",
                             },
                         )
                         .to(
@@ -964,12 +1170,43 @@ export default function CinematicRuntime() {
                                 '[data-cinematic-element="product-status"]',
                             ],
                             {
-                                autoAlpha: 0.22,
-                                y: -10,
+                                autoAlpha: 0,
+                                y: -12,
+                                stagger: 0.035,
+                                duration: 0.24,
+                                ease: "power2.in",
+                            },
+                            "<",
+                        )
+                        .to(
+                            "[data-cinematic-product-card]",
+                            {
+                                autoAlpha: 0,
+                                y: -18,
+                                scale: 0.985,
+                                stagger: {
+                                    each: 0.03,
+                                    from: "end",
+                                },
                                 duration: 0.28,
+                                ease: "power2.in",
+                            },
+                            "<+=0.02",
+                        )
+                        .to(
+                            [
+                                '[data-cinematic-element="product-kicker"]',
+                                '[data-cinematic-element="product-heading"]',
+                            ],
+                            {
+                                autoAlpha: 0,
+                                x: -22,
+                                duration: 0.26,
+                                ease: "power2.in",
                             },
                             "<+=0.04",
                         )
+
                         .addLabel("product-to-archive-signal")
                         .set(signalRoute, {
                             autoAlpha: 0.34,
@@ -981,25 +1218,21 @@ export default function CinematicRuntime() {
                             },
                             {
                                 strokeDashoffset: 0,
-                                duration: 0.4,
+                                duration: 0.34,
+                                ease: "power2.out",
                             },
-                            "<",
                         )
-                        .to(
+                        .fromTo(
                             veil,
                             {
-                                autoAlpha: 0.06,
-                                duration: 0.16,
+                                autoAlpha: 0,
+                                xPercent: -32,
                             },
-                            "<",
-                        )
-                        .to(
-                            productLayer,
                             {
-                                autoAlpha: 0.12,
-                                yPercent: -2,
-                                scale: 0.992,
-                                duration: 0.38,
+                                autoAlpha: 0.075,
+                                xPercent: 32,
+                                duration: 0.30,
+                                ease: "power2.inOut",
                             },
                             "<",
                         )
@@ -1007,21 +1240,33 @@ export default function CinematicRuntime() {
                             evidenceInterlude,
                             {
                                 autoAlpha: 1,
+                                y: 0,
+                                scale: 1,
                             },
-                            "<+=0.12",
+                            "<+=0.14",
                         )
                         .fromTo(
                             evidenceFrame,
                             {
                                 autoAlpha: 0,
-                                y: 24,
-                                scale: 0.985,
+                                y: 14,
+                                scale: 0.992,
                             },
                             {
                                 autoAlpha: 1,
                                 y: 0,
                                 scale: 1,
-                                duration: 0.42,
+                                duration: 0.32,
+                                ease: "power3.out",
+                            },
+                            "<+=0.03",
+                        )
+                        .to(
+                            scenes[3],
+                            {
+                                autoAlpha: 0,
+                                duration: 0.14,
+                                ease: "none",
                             },
                             "<",
                         )
@@ -1032,20 +1277,27 @@ export default function CinematicRuntime() {
                             },
                             {
                                 scaleX: 1,
-                                duration: 0.36,
+                                duration: 0.26,
+                                ease: "power2.out",
                             },
-                            "<+=0.06",
+                            "<+=0.04",
                         )
+
                         .addLabel("product-to-archive")
                         .to(createHold(), {
                             progress: 1,
-                            duration: 0.5,
+                            duration: 0.34,
+                            ease: "none",
                         })
                         .addLabel("product-clean-release")
-                        .to(productLayer, {
-                            autoAlpha: 0,
-                            duration: 0.18,
-                        });
+                        .to(
+                            [veil, signalRoute],
+                            {
+                                autoAlpha: 0,
+                                duration: 0.16,
+                                ease: "none",
+                            },
+                        );
 
                     const timelineDuration = timeline.duration();
 
@@ -1071,7 +1323,7 @@ export default function CinematicRuntime() {
                             `+=${Math.round(
                                 window.innerHeight * 6.2,
                             )}`,
-                        scrub: 0.28,
+                        scrub: true,
                         pin: true,
                         pinSpacing: true,
                         invalidateOnRefresh: true,
@@ -1080,26 +1332,11 @@ export default function CinematicRuntime() {
                             updateScene(self.progress);
                         },
                     });
-                    const archiveHeadingElements =
-                        selectAll<HTMLElement>(
-                            archiveSection,
-                            "p, h2",
-                        );
-                    const archiveCards =
-                        selectAll<HTMLElement>(
-                            archiveSection,
-                            "article",
-                        );
-                    const contactHeadingElements =
-                        selectAll<HTMLElement>(
-                            contactSection,
-                            "p, h2",
-                        );
-                    const contactInner =
-                        contactSection.firstElementChild instanceof
-                        HTMLElement
-                            ? contactSection.firstElementChild
-                            : contactSection;
+                    const archiveHeadingElements = [
+                        archiveKicker,
+                        archiveTitle,
+                        archiveIntro,
+                    ];
 
                     const productArchiveHandoffTimeline =
                         gsap.timeline({
@@ -1170,62 +1407,138 @@ export default function CinematicRuntime() {
 
                     const archiveEntryTimeline = gsap.timeline({
                         defaults: {
-                            ease: "none",
+                            ease: "power3.out",
                         },
                         paused: true,
                     });
 
                     archiveEntryTimeline
-                        .addLabel("archive-entry")
+                        .addLabel("archive-editorial")
                         .fromTo(
-                            archiveSection,
+                            archiveKicker,
                             {
-                                autoAlpha: 0.78,
-                                y: 46,
+                                autoAlpha: 0,
+                                x: -18,
                             },
                             {
                                 autoAlpha: 1,
-                                y: 0,
-                                duration: 0.62,
+                                x: 0,
+                                duration: 0.28,
                                 immediateRender: false,
                             },
                         )
                         .fromTo(
-                            archiveHeadingElements,
+                            archiveTitle,
                             {
-                                autoAlpha: 0.72,
+                                autoAlpha: 0,
                                 y: 26,
+                                clipPath: "inset(0 0 100% 0)",
                             },
                             {
                                 autoAlpha: 1,
                                 y: 0,
-                                stagger: 0.06,
-                                duration: 0.42,
+                                clipPath: "inset(0 0 0% 0)",
+                                duration: 0.5,
                                 immediateRender: false,
                             },
-                            "<",
+                            0.04,
+                        )
+                        .fromTo(
+                            archiveIntro,
+                            {
+                                autoAlpha: 0,
+                                x: 24,
+                            },
+                            {
+                                autoAlpha: 1,
+                                x: 0,
+                                duration: 0.36,
+                                immediateRender: false,
+                            },
+                            0.14,
+                        )
+                        .fromTo(
+                            archiveAlien,
+                            {
+                                autoAlpha: 0,
+                                y: 22,
+                                scale: 0.94,
+                            },
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                scale: 1,
+                                duration: 0.48,
+                                immediateRender: false,
+                            },
+                            0.18,
                         )
                         .fromTo(
                             archiveCards,
                             {
-                                autoAlpha: 0.88,
-                                y: 24,
+                                autoAlpha: 0,
+                                x: (index: number) =>
+                                    index % 2 === 0 ? -30 : 30,
+                                y: 20,
+                            },
+                            {
+                                autoAlpha: 1,
+                                x: 0,
+                                y: 0,
+                                stagger: 0.09,
+                                duration: 0.46,
+                                immediateRender: false,
+                            },
+                            0.22,
+                        )
+                        .fromTo(
+                            archiveCardVisuals,
+                            {
+                                clipPath: "inset(0 0 14% 0)",
+                            },
+                            {
+                                clipPath: "inset(0 0 0% 0)",
+                                stagger: 0.07,
+                                duration: 0.38,
+                                immediateRender: false,
+                            },
+                            0.28,
+                        )
+                        .fromTo(
+                            archiveCardCopies,
+                            {
+                                autoAlpha: 0,
+                                y: 12,
                             },
                             {
                                 autoAlpha: 1,
                                 y: 0,
-                                stagger: 0.08,
-                                duration: 0.46,
+                                stagger: 0.055,
+                                duration: 0.3,
                                 immediateRender: false,
                             },
-                            0.16,
+                            0.34,
+                        )
+                        .fromTo(
+                            archiveCta,
+                            {
+                                autoAlpha: 0,
+                                y: 12,
+                            },
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                duration: 0.28,
+                                immediateRender: false,
+                            },
+                            0.58,
                         )
                         .addLabel("archive-active");
 
                     const archiveContactHandoffTimeline =
                         gsap.timeline({
                             defaults: {
-                                ease: "none",
+                                ease: "power2.inOut",
                             },
                             paused: true,
                         });
@@ -1233,7 +1546,7 @@ export default function CinematicRuntime() {
                     archiveContactHandoffTimeline
                         .addLabel("archive-outro")
                         .set(signalRoute, {
-                            autoAlpha: 0.34,
+                            autoAlpha: 0.3,
                         })
                         .fromTo(
                             '[data-cinematic-signal-path="convergence"]',
@@ -1242,66 +1555,170 @@ export default function CinematicRuntime() {
                             },
                             {
                                 strokeDashoffset: 0,
-                                duration: 0.46,
+                                duration: 0.42,
+                            },
+                        )
+                        .to(
+                            archiveHeadingElements,
+                            {
+                                autoAlpha: 0.32,
+                                x: -14,
+                                stagger: 0.025,
+                                duration: 0.32,
                             },
                             "<",
                         )
                         .to(
-                            veil,
+                            archiveCards,
                             {
-                                autoAlpha: 0.07,
-                                duration: 0.16,
+                                autoAlpha: 0.38,
+                                y: -18,
+                                stagger: {
+                                    each: 0.025,
+                                    from: "end",
+                                },
+                                duration: 0.34,
                             },
-                            "<",
+                            "<+=0.04",
                         )
-                        .to(
-                            archiveSection,
-                            {
-                                autoAlpha: 0.8,
-                                y: -22,
-                                duration: 0.46,
-                            },
-                            "<",
-                        )
-                        .addLabel("contact-entry")
+                        .addLabel("contact-convergence", 0.2)
                         .fromTo(
-                            contactInner,
+                            contactKicker,
                             {
-                                autoAlpha: 0.72,
-                                y: 54,
+                                autoAlpha: 0,
+                                x: -18,
                             },
                             {
                                 autoAlpha: 1,
-                                y: 0,
-                                duration: 0.54,
+                                x: 0,
+                                duration: 0.28,
                                 immediateRender: false,
                             },
-                            0.26,
+                            0.2,
                         )
                         .fromTo(
-                            contactHeadingElements,
+                            contactTitle,
                             {
-                                autoAlpha: 0.76,
-                                y: 24,
+                                autoAlpha: 0,
+                                y: 28,
+                                clipPath: "inset(0 0 100% 0)",
                             },
                             {
                                 autoAlpha: 1,
                                 y: 0,
-                                stagger: 0.06,
+                                clipPath: "inset(0 0 0% 0)",
+                                duration: 0.5,
+                                immediateRender: false,
+                            },
+                            0.24,
+                        )
+                        .fromTo(
+                            contactStamp,
+                            {
+                                autoAlpha: 0,
+                                scale: 0.84,
+                                rotation: -6,
+                            },
+                            {
+                                autoAlpha: 1,
+                                scale: 1,
+                                rotation: 0,
                                 duration: 0.42,
                                 immediateRender: false,
                             },
                             0.3,
                         )
-                        .to(
-                            [veil, signalRoute],
+                        .fromTo(
+                            contactRule,
+                            {
+                                scaleX: 0,
+                            },
+                            {
+                                scaleX: 1,
+                                duration: 0.34,
+                                immediateRender: false,
+                            },
+                            0.34,
+                        )
+                        .fromTo(
+                            contactCopy,
                             {
                                 autoAlpha: 0,
-                                duration: 0.22,
+                                x: -24,
                             },
-                            "-=0.1",
+                            {
+                                autoAlpha: 1,
+                                x: 0,
+                                duration: 0.46,
+                                immediateRender: false,
+                            },
+                            0.4,
                         )
-                        .addLabel("contact-settled");
+                        .fromTo(
+                            contactVisual,
+                            {
+                                autoAlpha: 0,
+                                y: 18,
+                                scale: 0.96,
+                            },
+                            {
+                                autoAlpha: 1,
+                                y: 0,
+                                scale: 1,
+                                duration: 0.4,
+                                immediateRender: false,
+                            },
+                            0.46,
+                        )
+                        .fromTo(
+                            contactFormWrap,
+                            {
+                                autoAlpha: 0,
+                                x: 28,
+                                y: 12,
+                            },
+                            {
+                                autoAlpha: 1,
+                                x: 0,
+                                y: 0,
+                                duration: 0.5,
+                                immediateRender: false,
+                            },
+                            0.42,
+                        )
+                        .fromTo(
+                            contactFormVisual,
+                            {
+                                autoAlpha: 0,
+                                x: -18,
+                                scale: 0.94,
+                            },
+                            {
+                                autoAlpha: 1,
+                                x: 0,
+                                scale: 1,
+                                duration: 0.38,
+                                immediateRender: false,
+                            },
+                            0.52,
+                        )
+                        .to(
+                            archiveSection,
+                            {
+                                autoAlpha: 0.14,
+                                duration: 0.24,
+                            },
+                            0.54,
+                        )
+                        .to(
+                            signalRoute,
+                            {
+                                autoAlpha: 0,
+                                duration: 0.18,
+                            },
+                            0.64,
+                        )
+                        .addLabel("contact-settled", 0.78);
 
                     const productArchiveHandoffTrigger =
                         ScrollTrigger.create({
@@ -1350,9 +1767,9 @@ export default function CinematicRuntime() {
                         ScrollTrigger.create({
                             trigger: archiveSection,
                             animation: archiveEntryTimeline,
-                            start: "top 100%",
-                            end: "top 42%",
-                            scrub: 0.24,
+                            start: "top 96%",
+                            end: "top 38%",
+                            scrub: true,
                             invalidateOnRefresh: true,
                             onUpdate: (self) => {
                                 setNavigatorProgress(
@@ -1394,9 +1811,9 @@ export default function CinematicRuntime() {
                             trigger: contactSection,
                             animation:
                             archiveContactHandoffTimeline,
-                            start: "top 96%",
-                            end: "top 46%",
-                            scrub: 0.22,
+                            start: "top 94%",
+                            end: "top 42%",
+                            scrub: true,
                             invalidateOnRefresh: true,
                             onUpdate: (self) => {
                                 setNavigatorProgress(
@@ -1463,49 +1880,137 @@ export default function CinematicRuntime() {
                         );
                     };
 
+                    let directedScrollTween:
+                        | gsap.core.Tween
+                        | null = null;
+
+                    const runDirectedScroll = (
+                        targetY: number,
+                        onComplete?: () => void,
+                    ) => {
+                        directedScrollTween?.kill();
+
+                        const scrollState = {
+                            y: lenis.scroll,
+                        };
+
+                        lenis.stop();
+
+                        directedScrollTween = gsap.to(
+                            scrollState,
+                            {
+                                y: targetY,
+                                duration: 0.95,
+                                ease: "power3.inOut",
+                                overwrite: true,
+                                onUpdate: () => {
+                                    lenis.scrollTo(
+                                        scrollState.y,
+                                        {
+                                            immediate: true,
+                                            force: true,
+                                        },
+                                    );
+                                    ScrollTrigger.update();
+                                },
+                                onComplete: () => {
+                                    lenis.scrollTo(
+                                        targetY,
+                                        {
+                                            immediate: true,
+                                            force: true,
+                                        },
+                                    );
+                                    lenis.start();
+                                    directedScrollTween =
+                                        null;
+                                    ScrollTrigger.update();
+                                    onComplete?.();
+                                },
+                                onInterrupt: () => {
+                                    lenis.start();
+                                    directedScrollTween =
+                                        null;
+                                },
+                            },
+                        );
+                    };
+
                     const scrollToTarget = (
                         target: NavigatorTarget,
                     ) => {
-                        if (sceneOrder.includes(target as CinematicScene)) {
-                            lenis.scrollTo(
-                                getLabelScroll(
-                                    target as CinematicScene,
-                                ),
-                                {
-                                    immediate: false,
-                                    lock: false,
+                        if (
+                            sceneOrder.includes(
+                                target as CinematicScene,
+                            )
+                        ) {
+                            const sceneTarget =
+                                target as CinematicScene;
+                            const sceneIndex =
+                                sceneOrder.indexOf(
+                                    sceneTarget,
+                                );
+                            const targetY =
+                                sceneTarget === "hero"
+                                    ? 0
+                                    : getLabelScroll(
+                                        sceneTarget,
+                                    );
+
+                            runDirectedScroll(
+                                targetY,
+                                () => {
+                                    activeIndex =
+                                        Math.max(
+                                            0,
+                                            sceneIndex,
+                                        );
+                                    setActiveScene(
+                                        scenes,
+                                        activeIndex,
+                                        navControls,
+                                    );
+                                    setSignalState(
+                                        sceneTarget,
+                                    );
+                                    setNavigatorProgress(
+                                        navigatorProgressByChapter[
+                                            sceneTarget
+                                            ],
+                                    );
                                 },
                             );
 
                             return;
                         }
 
-                        const elementId =
-                            target === "archive"
-                                ? "projects"
-                                : "contact";
                         const element =
-                            document.getElementById(elementId);
+                            target === "archive"
+                                ? archiveSection
+                                : contactSection;
+                        const headerOffset =
+                            Math.round(
+                                Number.parseFloat(
+                                    getComputedStyle(
+                                        root,
+                                    ).getPropertyValue(
+                                        "--cinematic-header-offset",
+                                    ),
+                                ) || 76,
+                            );
+                        const flowTarget =
+                            window.scrollY +
+                            element.getBoundingClientRect().top -
+                            headerOffset;
 
-                        if (!element) {
-                            return;
-                        }
-
-                        lenis.scrollTo(element, {
-                            immediate: false,
-                            lock: false,
-                            offset:
-                                -1 *
-                                Math.round(
-                                    Number.parseFloat(
-                                        getComputedStyle(
-                                            root,
-                                        ).getPropertyValue(
-                                            "--cinematic-header-offset",
-                                        ),
-                                    ) || 76,
-                                ),
-                        });
+                        runDirectedScroll(
+                            flowTarget,
+                            () => {
+                                setFlowChapter(
+                                    target as FlowSection,
+                                );
+                            },
+                        );
                     };
 
                     const handleNavigatorClick = (
@@ -1536,6 +2041,32 @@ export default function CinematicRuntime() {
                             handleNavigatorClick,
                         );
                     });
+
+                    const handleExternalNavigation = (
+                        event: Event,
+                    ) => {
+                        const target = (
+                            event as CustomEvent<{
+                                target?: string;
+                            }>
+                        ).detail?.target;
+
+                        if (
+                            typeof target !== "string" ||
+                            !(target in navigatorProgressByChapter)
+                        ) {
+                            return;
+                        }
+
+                        scrollToTarget(
+                            target as NavigatorTarget,
+                        );
+                    };
+
+                    window.addEventListener(
+                        "pixardia:navigate-target",
+                        handleExternalNavigation,
+                    );
 
                     const syncHashTarget = () => {
                         if (!window.location.hash) {
@@ -1611,6 +2142,10 @@ export default function CinematicRuntime() {
                             "hashchange",
                             syncHashTarget,
                         );
+                        window.removeEventListener(
+                            "pixardia:navigate-target",
+                            handleExternalNavigation,
+                        );
                         navControls.forEach((control) => {
                             control.removeEventListener(
                                 "click",
@@ -1626,6 +2161,7 @@ export default function CinematicRuntime() {
                         flowTimelines.forEach((flowTimeline) => {
                             flowTimeline.kill();
                         });
+                        directedScrollTween?.kill();
                         trigger.kill();
                         timeline.kill();
 
@@ -1647,6 +2183,24 @@ export default function CinematicRuntime() {
                             evidenceInterlude,
                             evidenceFrame,
                             evidenceLine,
+                            archiveSection,
+                            archiveKicker,
+                            archiveTitle,
+                            archiveIntro,
+                            archiveAlien,
+                            archiveCta,
+                            ...archiveCards,
+                            ...archiveCardVisuals,
+                            ...archiveCardCopies,
+                            contactSection,
+                            contactKicker,
+                            contactTitle,
+                            contactStamp,
+                            contactRule,
+                            contactCopy,
+                            contactVisual,
+                            contactFormWrap,
+                            contactFormVisual,
                             ...signalPaths,
                             ...selectAll<Element>(
                                 stage,
@@ -1662,6 +2216,14 @@ export default function CinematicRuntime() {
                             },
                         );
 
+                        document.removeEventListener(
+                            "pixardia:project-modal-lock",
+                            handleProjectModalLock,
+                        );
+                        document.removeEventListener(
+                            "pixardia:project-modal-unlock",
+                            handleProjectModalUnlock,
+                        );
                         gsap.ticker.remove(tickLenis);
                         lenis.off("scroll", ScrollTrigger.update);
                         lenis.destroy();
