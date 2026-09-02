@@ -10,8 +10,91 @@ test.describe(
     "core navigation",
     () => {
         test(
+            "cinematic navigator moves between chapters without leaving the homepage",
+            async ({ page }) => {
+                await page.setViewportSize({
+                    width: 1440,
+                    height: 900,
+                });
+
+                await page.goto("/");
+
+                const navigator =
+                    page.getByRole(
+                        "navigation",
+                        {
+                            name:
+                                "Homepage presentation scenes",
+                        },
+                    );
+
+                await expect(
+                    navigator,
+                ).toBeVisible();
+
+                await navigator.getByRole(
+                    "button",
+                    {
+                        name: "Go to Expertise",
+                    },
+                ).click();
+
+                await expect(
+                    page.locator("html"),
+                ).toHaveAttribute(
+                    "data-cinematic-active",
+                    "neural",
+                    {
+                        timeout: 10_000,
+                    },
+                );
+
+                await navigator.getByRole(
+                    "button",
+                    {
+                        name: "Go to Contact",
+                    },
+                ).click();
+
+                await expect(
+                    page.locator("html"),
+                ).toHaveAttribute(
+                    "data-cinematic-active",
+                    "contact",
+                    {
+                        timeout: 10_000,
+                    },
+                );
+
+                await expect(page).toHaveURL(/\/$/);
+
+                await navigator.getByRole(
+                    "button",
+                    {
+                        name: "Go to Agency",
+                    },
+                ).click();
+
+                await expect(
+                    page.locator("html"),
+                ).toHaveAttribute(
+                    "data-cinematic-active",
+                    "hero",
+                    {
+                        timeout: 10_000,
+                    },
+                );
+            },
+        );
+
+        test(
             "opens project as intercepted modal and restores homepage position",
             async ({ page }) => {
+                await page.setViewportSize({
+                    width: 1440,
+                    height: 900,
+                });
+
                 await page.goto("/");
 
                 const projectLink =
@@ -50,6 +133,25 @@ test.describe(
                     dialog,
                 ).toBeVisible();
 
+                const siteShell =
+                    page.locator(
+                        "[data-site-shell]",
+                    );
+
+                await expect(
+                    siteShell,
+                ).toHaveAttribute(
+                    "inert",
+                    "",
+                );
+
+                await expect(
+                    siteShell,
+                ).toHaveAttribute(
+                    "aria-hidden",
+                    "true",
+                );
+
                 await expect(
                     dialog.getByRole(
                         "heading",
@@ -68,6 +170,32 @@ test.describe(
                         },
                     ),
                 ).toBeVisible();
+
+                const modalScrollStart =
+                    await page.evaluate(
+                        () => window.scrollY,
+                    );
+
+                await page.mouse.wheel(0, 1400);
+                await page.keyboard.press(
+                    "PageDown",
+                );
+                await page.keyboard.press(
+                    "ArrowDown",
+                );
+                await page.waitForTimeout(250);
+
+                const modalScrollAfterWheel =
+                    await page.evaluate(
+                        () => window.scrollY,
+                    );
+
+                expect(
+                    Math.abs(
+                        modalScrollAfterWheel -
+                        modalScrollStart,
+                    ),
+                ).toBeLessThan(2);
 
                 const closeButton =
                     dialog.getByRole(
@@ -93,6 +221,32 @@ test.describe(
                     /\/$/,
                 );
 
+                await page.waitForTimeout(900);
+
+                await expect(
+                    page,
+                ).toHaveURL(
+                    /\/$/,
+                );
+
+                await expect(
+                    siteShell,
+                ).not.toHaveAttribute(
+                    "inert",
+                    "",
+                );
+
+                await expect(
+                    siteShell,
+                ).not.toHaveAttribute(
+                    "aria-hidden",
+                    "true",
+                );
+
+                await expect(
+                    projectLink,
+                ).toBeVisible();
+
                 const afterClose =
                     await page.evaluate(
                         () => window.scrollY,
@@ -101,7 +255,7 @@ test.describe(
                 expect(
                     Math.abs(
                         afterClose -
-                            beforeOpen,
+                        beforeOpen,
                     ),
                 ).toBeLessThan(
                     180,
@@ -110,6 +264,46 @@ test.describe(
                 await expect(
                     projectLink,
                 ).toBeFocused();
+
+                await expect(
+                    siteShell,
+                ).not.toHaveAttribute(
+                    "inert",
+                    "",
+                );
+
+                await expect(
+                    siteShell,
+                ).not.toHaveAttribute(
+                    "aria-hidden",
+                    "true",
+                );
+
+                const navigator =
+                    page.getByRole(
+                        "navigation",
+                        {
+                            name:
+                                "Homepage presentation scenes",
+                        },
+                    );
+
+                await navigator.getByRole(
+                    "button",
+                    {
+                        name: "Go to Contact",
+                    },
+                ).click();
+
+                await expect(
+                    page.locator("html"),
+                ).toHaveAttribute(
+                    "data-cinematic-active",
+                    "contact",
+                    {
+                        timeout: 10_000,
+                    },
+                );
             },
         );
 
@@ -361,9 +555,9 @@ test.describe(
                             elements.map(
                                 (element) => ({
                                     border:
-                                        getComputedStyle(
-                                            element,
-                                        ).borderColor,
+                                    getComputedStyle(
+                                        element,
+                                    ).borderColor,
                                     text: getComputedStyle(
                                         element,
                                     ).color,
@@ -518,14 +712,14 @@ test.describe(
                     await page.evaluate(
                         () => ({
                             scrollWidth:
-                                document
-                                    .documentElement
-                                    .scrollWidth,
+                            document
+                                .documentElement
+                                .scrollWidth,
 
                             clientWidth:
-                                document
-                                    .documentElement
-                                    .clientWidth,
+                            document
+                                .documentElement
+                                .clientWidth,
                         }),
                     );
 
@@ -533,7 +727,7 @@ test.describe(
                     dimensions.scrollWidth,
                 ).toBeLessThanOrEqual(
                     dimensions.clientWidth +
-                        2,
+                    2,
                 );
             },
         );
@@ -577,15 +771,15 @@ test.describe(
                                 elements.map(
                                     (element) => ({
                                         clientHeight:
-                                            element
-                                                .clientHeight,
+                                        element
+                                            .clientHeight,
                                         scrollHeight:
-                                            element
-                                                .scrollHeight,
+                                        element
+                                            .scrollHeight,
                                         overflowY:
-                                            getComputedStyle(
-                                                element,
-                                            ).overflowY,
+                                        getComputedStyle(
+                                            element,
+                                        ).overflowY,
                                     })),
                         );
 

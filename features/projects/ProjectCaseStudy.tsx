@@ -648,7 +648,7 @@ function ProjectModalCaseStudy({
 
     return (
         <article
-            className="grid h-dvh w-full min-w-0 grid-cols-1 gap-y-2 overflow-y-auto px-0 py-0 md:grid-cols-[minmax(0,40.5fr)_minmax(96px,19fr)_minmax(0,40.5fr)] md:gap-y-0 md:overflow-hidden"
+            className="grid h-dvh w-full min-w-0 grid-cols-1 gap-y-2 overflow-y-auto px-0 py-0 md:grid-cols-[minmax(0,1fr)_clamp(132px,8.5vw,180px)_minmax(0,1fr)] md:gap-y-0 md:overflow-hidden"
             aria-labelledby={titleId}
             aria-describedby={summaryId}
             data-project-case-study=""
@@ -780,7 +780,7 @@ function ProjectModalCaseStudy({
                                     className={`${modalStyles.colorSwatch} h-9 border border-[#77787B]`}
                                     style={{
                                         backgroundColor:
-                                            color.value,
+                                        color.value,
                                     }}
                                     aria-label={`${color.label.en} ${color.value}`}
                                 />
@@ -829,9 +829,9 @@ function ProjectModalCaseStudy({
                                             width: evidenceProgress[
                                                 signal
                                                     .evidence
-                                            ],
+                                                ],
                                             backgroundColor:
-                                                accentColor,
+                                            accentColor,
                                         }}
                                     />
                                 </div>
