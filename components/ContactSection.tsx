@@ -285,8 +285,11 @@ export default function ContactSection({
             data-motion="fade-up"
             data-motion-state="pending"
         >
-            <div className="site-container">
-                <div className="flex justify-center gap-3 xl:justify-start">
+            <div className="site-container" data-contact-shell="">
+                <div
+                    className="flex justify-center gap-3 xl:justify-start"
+                    data-contact-kicker=""
+                >
                     <div
                         className="h-2 w-2 bg-[#5149DA]"
                         aria-hidden="true"
@@ -300,6 +303,7 @@ export default function ContactSection({
                 <div className="mt-6 flex flex-col items-center gap-6 text-center xl:flex-row xl:items-start xl:justify-between xl:text-left">
                     <h2
                         id="contact-title"
+                        data-contact-title=""
                         className="max-w-[720px] text-[clamp(40px,7vw,94px)] font-black uppercase leading-[0.86] tracking-[-0.03em] text-[#202021]"
                     >
                         Let’s Build What’s Next
@@ -307,6 +311,7 @@ export default function ContactSection({
 
                     <Image
                         src="/images/stampCon.svg"
+                        data-contact-stamp=""
                         alt=""
                         aria-hidden="true"
                         width={160}
@@ -315,10 +320,19 @@ export default function ContactSection({
                     />
                 </div>
 
-                <div className="mt-[34px] h-0.5 w-full bg-[#353638]" />
+                <div
+                    className="mt-[34px] h-0.5 w-full origin-left bg-[#353638]"
+                    data-contact-rule=""
+                />
 
-                <div className="grid grid-cols-1 justify-items-center gap-10 text-center xl:grid-cols-[minmax(280px,1fr)_minmax(420px,620px)] xl:items-center xl:justify-items-stretch xl:gap-[clamp(32px,6vw,80px)] xl:text-left">
-                    <div className="flex w-full max-w-[620px] flex-col items-center xl:max-w-none xl:items-start">
+                <div
+                    className="grid grid-cols-1 justify-items-center gap-10 text-center xl:grid-cols-[minmax(280px,1fr)_minmax(420px,620px)] xl:items-center xl:justify-items-stretch xl:gap-[clamp(32px,6vw,80px)] xl:text-left"
+                    data-contact-grid=""
+                >
+                    <div
+                        className="flex w-full max-w-[620px] flex-col items-center xl:max-w-none xl:items-start"
+                        data-contact-copy=""
+                    >
                         <p className="mt-6 max-w-[440px] text-sm font-bold leading-[1.3] text-[#C5C6C8]">
                             {text.intro}
                         </p>
@@ -392,6 +406,7 @@ export default function ContactSection({
 
                         <Image
                             src="/images/astronautAlienContacts.png"
+                            data-contact-visual=""
                             alt=""
                             aria-hidden="true"
                             width={247}
@@ -404,9 +419,13 @@ export default function ContactSection({
                         </p>
                     </div>
 
-                    <div className="relative w-full max-w-[620px] xl:max-w-none">
+                    <div
+                        className="relative w-full max-w-[620px] xl:max-w-none"
+                        data-contact-form-wrap=""
+                    >
                         <Image
                             src="/images/astronautCon.png"
+                            data-contact-form-visual=""
                             alt=""
                             aria-hidden="true"
                             width={161}
@@ -415,6 +434,7 @@ export default function ContactSection({
                         />
 
                         <form
+                            data-contact-form=""
                             className="mt-6 w-full border-[3px] border-black px-5 py-6 shadow-[7px_7px_0_-2px_#000] min-[361px]:shadow-[11px_11px_0_-3px_#000] md:px-[clamp(20px,5vw,58px)] md:py-[clamp(24px,4vw,39px)]"
                             onSubmit={handleSubmit}
                             noValidate

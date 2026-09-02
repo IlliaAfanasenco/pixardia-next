@@ -24,33 +24,50 @@ export default function ArchiveSection() {
             data-motion="fade-up"
             data-motion-state="pending"
         >
-            <div className="site-container flex flex-col gap-[clamp(28px,4vw,40px)]">
-                <div className="flex flex-col gap-2">
-                    <p className="text-xs font-bold uppercase leading-none text-[#C5C6C8]">
+            <div
+                className="site-container flex flex-col gap-[clamp(28px,4vw,40px)]"
+                data-archive-shell=""
+            >
+                <div
+                    className="flex flex-col gap-2"
+                    data-archive-heading=""
+                >
+                    <p
+                        className="text-xs font-bold uppercase leading-none text-[#C5C6C8]"
+                        data-archive-kicker=""
+                    >
                         05 / SELECTED DIGITAL WORK
                     </p>
 
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
                         <h2
                             id="archive-title"
+                            data-archive-title=""
                             className="max-w-[620px] text-[clamp(40px,7vw,94px)] font-black uppercase leading-[0.9] tracking-[-0.03em] text-[#1E1E1E]"
                         >
                             Project Archive
                         </h2>
 
-                        <p className="max-w-[470px] text-left text-xs font-bold leading-[1.35] text-[#A9AAAE] lg:text-right">
+                        <p
+                            className="max-w-[470px] text-left text-xs font-bold leading-[1.35] text-[#A9AAAE] lg:text-right"
+                            data-archive-intro=""
+                        >
                             A selection of digital products shaped through
                             strategy, design and engineering.
                         </p>
                     </div>
                 </div>
 
-                <div className="relative grid grid-cols-1 gap-6 lg:grid-cols-2">
+                <div
+                    className="relative grid grid-cols-1 gap-6 lg:grid-cols-2"
+                    data-archive-grid=""
+                >
                     {featuredProjects.map(
-                        (project) => (
+                        (project, index) => (
                             <ProjectArchiveCard
                                 key={project.slug}
                                 project={project}
+                                index={index}
                             />
                         ),
                     )}
@@ -61,6 +78,7 @@ export default function ArchiveSection() {
                         aria-hidden="true"
                         width={239}
                         height={239}
+                        data-archive-alien=""
                         className="
                             pointer-events-none
                             absolute
@@ -76,7 +94,10 @@ export default function ArchiveSection() {
                     />
                 </div>
 
-                <div className="flex items-center justify-center pt-2">
+                <div
+                    className="flex items-center justify-center pt-2"
+                    data-archive-cta=""
+                >
                     <Link
                         href="/projects"
                         className="inline-flex w-full items-center justify-center border border-[#767576] px-9 py-4 text-sm font-bold uppercase leading-none text-[#767576] no-underline transition duration-200 hover:border-[#1E1E1E] hover:text-[#1E1E1E] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5E56E7] sm:w-auto"
@@ -91,10 +112,12 @@ export default function ArchiveSection() {
 
 type ProjectArchiveCardProps = {
     project: Project;
+    index: number;
 };
 
 function ProjectArchiveCard({
                                 project,
+                                index,
                             }: ProjectArchiveCardProps) {
     const colors =
         project.caseStudy.visualSystem.colors;
@@ -119,7 +142,11 @@ function ProjectArchiveCard({
             ].en;
 
     return (
-        <article className="group relative w-full border border-[#A2A3AA] bg-[#FEFEFE] transition duration-300 hover:border-[#5E56E7] focus-within:border-[#5E56E7]">
+        <article
+            className="group relative w-full border border-[#A2A3AA] bg-[#FEFEFE] transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 hover:border-[#5E56E7] hover:shadow-[0_18px_50px_rgb(30_30_30/0.08)] focus-within:border-[#5E56E7]"
+            data-archive-card=""
+            data-archive-card-index={index}
+        >
             <Link
                 id={`project-modal-trigger-${project.slug}`}
                 href={`/projects/${project.slug}`}
@@ -128,7 +155,10 @@ function ProjectArchiveCard({
                 aria-label={`Open ${project.title} case study`}
                 className="block h-full text-inherit no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5E56E7]"
             >
-                <div className="relative aspect-[1.4/1] overflow-hidden sm:aspect-[640/318]">
+                <div
+                    className="relative aspect-[1.4/1] overflow-hidden sm:aspect-[640/318]"
+                    data-archive-card-visual=""
+                >
                     {project.coverImage ? (
                         <Image
                             src={
@@ -177,7 +207,10 @@ function ProjectArchiveCard({
                     </div>
                 </div>
 
-                <div className="flex flex-col items-start gap-[15px] p-[clamp(16px,2vw,22px)]">
+                <div
+                    className="flex flex-col items-start gap-[15px] p-[clamp(16px,2vw,22px)]"
+                    data-archive-card-copy=""
+                >
                     <div className="flex flex-wrap items-center gap-2">
                         <span className="bg-[#1E1E1E] px-2.5 py-1.5 text-[10px] font-bold uppercase leading-none tracking-[0.06em] text-[#BFC0C3]">
                             {typeLabel}

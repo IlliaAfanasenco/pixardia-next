@@ -92,7 +92,7 @@ export const projects = [
         coverImage: null,
         images: [
             {
-                src: "/images/product11.png",
+                src: "/images/product11.PNG",
                 alt: text(
                     "Pixardia astronaut and alien visual composition",
                     "Pixardia-Bildkomposition mit Astronaut und Alien",
@@ -101,7 +101,7 @@ export const projects = [
                 height: 318,
             },
             {
-                src: "/images/product12.png",
+                src: "/images/product12.PNG",
                 alt: text(
                     "Pixardia technical terminal interface background",
                     "Technischer Terminal-Hintergrund von Pixardia",
@@ -110,7 +110,7 @@ export const projects = [
                 height: 662,
             },
             {
-                src: "/images/product13.png",
+                src: "/images/product13.PNG",
                 alt: text(
                     "Pixardia extraterrestrial character artwork",
                     "Pixardia-Figurengrafik eines Außerirdischen",
@@ -310,7 +310,7 @@ export const projects = [
         coverImage: null,
         images: [
             {
-                src: "/images/product11.png",
+                src: "/images/product11.PNG",
                 alt: text(
                     "Pixardia astronaut and alien visual composition",
                     "Pixardia-Bildkomposition mit Astronaut und Alien",
@@ -319,7 +319,7 @@ export const projects = [
                 height: 318,
             },
             {
-                src: "/images/product12.png",
+                src: "/images/product12.PNG",
                 alt: text(
                     "Pixardia technical terminal interface background",
                     "Technischer Terminal-Hintergrund von Pixardia",
@@ -328,7 +328,7 @@ export const projects = [
                 height: 662,
             },
             {
-                src: "/images/product13.png",
+                src: "/images/product13.PNG",
                 alt: text(
                     "Pixardia extraterrestrial character artwork",
                     "Pixardia-Figurengrafik eines Außerirdischen",
