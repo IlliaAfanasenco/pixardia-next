@@ -3,7 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Archivo } from "next/font/google";
-import { useEffect, useState } from "react";
+import {
+    type MouseEvent,
+    useEffect,
+    useState,
+} from "react";
 
 import { siteConfig } from "@/config/site";
 
@@ -38,6 +42,43 @@ export default function Header() {
         };
     }, []);
 
+
+    function handleHomeClick(
+        event: MouseEvent<HTMLAnchorElement>,
+    ): void {
+        if (
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey ||
+            event.button !== 0
+        ) {
+            return;
+        }
+
+        if (window.location.pathname !== "/") {
+            return;
+        }
+
+        const cinematicRuntime = document.querySelector(
+            '[data-cinematic-runtime="ready"]',
+        );
+
+        if (!cinematicRuntime) {
+            return;
+        }
+
+        event.preventDefault();
+
+        window.dispatchEvent(
+            new CustomEvent("pixardia:navigate-target", {
+                detail: {
+                    target: "hero",
+                },
+            }),
+        );
+    }
+
     return (
         <header
             className={`${archivo.variable} sticky top-0 z-[60] w-full border-b border-black/[0.04] bg-white/95 `}
@@ -52,8 +93,9 @@ export default function Header() {
                 }`}
             >
                 <Link
-                    href={siteConfig.links.home}
+                    href={`${siteConfig.links.home}#hero`}
                     aria-label="Pixardia home"
+                    onClick={handleHomeClick}
                     className={`flex flex-col items-start no-underline transition-[gap] duration-300 ease-out sm:flex-row sm:items-center ${
                         isCompact
                             ? "gap-0.5 sm:gap-2"

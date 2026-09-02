@@ -1,0 +1,59 @@
+import {
+    expect,
+    test,
+} from "@playwright/test";
+
+test.describe("header home navigation", () => {
+    test("returns from Archive to the Hero chapter through the Pixardia logo", async ({
+        page,
+    }) => {
+        await page.setViewportSize({
+            width: 1440,
+            height: 900,
+        });
+        await page.goto("/");
+
+        const archiveControl = page.locator(
+            '[data-cinematic-nav-target="archive"]',
+        );
+
+        await expect(archiveControl).toBeVisible();
+        await archiveControl.click();
+
+        await expect
+            .poll(async () =>
+                page.evaluate(
+                    () =>
+                        document.documentElement.dataset
+                            .cinematicActive,
+                ),
+            )
+            .toBe("archive");
+
+        const headerHomeLink = page
+            .locator("header")
+            .getByRole("link", {
+                name: "Pixardia home",
+            })
+            .first();
+
+        await expect(headerHomeLink).toBeVisible();
+        await headerHomeLink.click();
+
+        await expect
+            .poll(async () =>
+                page.evaluate(
+                    () =>
+                        document.documentElement.dataset
+                            .cinematicActive,
+                ),
+            )
+            .toBe("hero");
+
+        await expect
+            .poll(async () =>
+                page.evaluate(() => window.scrollY),
+            )
+            .toBeLessThan(80);
+    });
+});
