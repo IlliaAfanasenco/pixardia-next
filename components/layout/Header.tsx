@@ -5,11 +5,14 @@ import Link from "next/link";
 import { Archivo } from "next/font/google";
 import {
     type MouseEvent,
-    useEffect,
+    useEffect, useRef,
     useState,
 } from "react";
 
 import { siteConfig } from "@/config/site";
+import {useGSAP} from "@gsap/react";
+import {gsap} from "gsap/gsap-core";
+
 
 const archivo = Archivo({
     subsets: ["latin"],
@@ -19,6 +22,20 @@ const archivo = Archivo({
 
 export default function Header() {
     const [isCompact, setIsCompact] = useState(false);
+    const starRef = useRef<HTMLImageElement>(null);
+
+    useGSAP(() => {
+        if (!starRef.current) return;
+
+        gsap.to(starRef.current, {
+            scale: 1.15,
+            rotation: 45,
+            duration: 1.2,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+        });
+    });
 
     useEffect(() => {
         let animationFrame = 0;
@@ -125,6 +142,7 @@ export default function Header() {
 
                 <div className="flex shrink-0 items-center justify-end gap-3 sm:gap-4 lg:gap-6">
                     <Image
+                        ref={starRef}
                         src="/icons/star.svg"
                         alt=""
                         width={36}

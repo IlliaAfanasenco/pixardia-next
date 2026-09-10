@@ -1,8 +1,12 @@
+"use client"
+
 import Image from "next/image";
 import Link from "next/link";
 import { Archivo } from "next/font/google";
 
 import { siteConfig } from "@/config/site";
+import {useRef} from "react";
+import { gsap, useGSAP } from "@/lib/motion/gsap";
 
 const archivo = Archivo({
     subsets: ["latin"],
@@ -11,6 +15,64 @@ const archivo = Archivo({
 });
 
 export default function HeroSection() {
+    const rotatingElementRef = useRef<HTMLImageElement>(null);
+    const charactersRef = useRef<HTMLImageElement>(null);
+    const scrollProgressRef = useRef<HTMLDivElement>(null);
+
+
+    useGSAP(() => {
+        const characters = charactersRef.current;
+
+        if (!characters) return;
+
+        const media = gsap.matchMedia();
+
+        media.add(
+            "(prefers-reduced-motion: no-preference)",
+            () => {
+                if (characters) {
+                    gsap.to(characters, {
+                        y: -8,
+                        scale: 1.008,
+                        duration: 3.2,
+                        ease: "sine.inOut",
+                        repeat: -1,
+                        yoyo: true,
+                        transformOrigin: "center bottom",
+                    });
+                }
+
+                if (scrollProgressRef.current) {
+                    gsap.fromTo(
+                        scrollProgressRef.current,
+                        {
+                            xPercent: -120,
+                        },
+                        {
+                            xPercent: 320,
+                            duration: 3.0,
+                            ease: "sine.inOut",
+                            repeat: -1,
+                            repeatDelay: 0.35,
+                        },
+                    );
+                }
+            },
+        );
+
+        return () => {
+            media.revert();
+        };
+    });
+
+    useGSAP(() => {
+        gsap.to(rotatingElementRef.current, {
+            rotation: 360,
+            duration: 2,
+            ease: "power2.inOut",
+            transformOrigin: "center center",
+        });
+    });
     return (
         <section
             id="hero"
@@ -62,6 +124,7 @@ export default function HeroSection() {
                     data-cinematic-element="hero-cta"
                 >
                     <Image
+                        ref={rotatingElementRef}
                         src="/icons/arrow.svg"
                         alt=""
                         width={96}
@@ -88,7 +151,8 @@ export default function HeroSection() {
                             className="mt-3 h-2 w-[121px] overflow-hidden rounded-[10px] bg-[#C5C6C8]"
                             aria-hidden="true"
                         >
-                            <div className="h-2 w-[45px] bg-[#2A2A2A]" />
+                            <div ref={scrollProgressRef}
+                                 className="h-full w-1/2 rounded-full bg-[#1E1E1E] will-change-transform" />
                         </div>
                     </div>
 
@@ -104,10 +168,11 @@ export default function HeroSection() {
                 </div>
 
                 <div
-                    className="relative mt-4 flex w-full justify-center pt-1 sm:mt-5 min-[1200px]:absolute min-[1200px]:bottom-0 min-[1200px]:left-1/2 min-[1200px]:z-20 min-[1200px]:mt-0 min-[1200px]:w-auto min-[1200px]:-translate-x-1/2 min-[1200px]:pt-0"
+                    className="will-change-transform relative mt-4 flex w-full justify-center pt-1 sm:mt-5 min-[1200px]:absolute min-[1200px]:bottom-0 min-[1200px]:left-1/2 min-[1200px]:z-20 min-[1200px]:mt-0 min-[1200px]:w-auto min-[1200px]:-translate-x-1/2 min-[1200px]:pt-0"
                     data-cinematic-element="hero-character"
                 >
                     <Image
+                        ref={charactersRef}
                         src="/images/AlienExtraterrestrial.png"
                         alt=""
                         aria-hidden="true"
