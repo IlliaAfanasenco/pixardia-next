@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import ProductProgress from "@/components/ProductProgress";
 import { siteConfig } from "@/config/site";
 
 const cards = [
@@ -199,14 +200,7 @@ function ProductStatus() {
             className="flex min-h-[220px] flex-col items-center justify-center border-2 border-[#E1DED6] p-6 text-center md:col-span-2 xl:col-span-1"
             data-cinematic-element="product-status"
         >
-            <Image
-                src="/icons/statisticsProd.svg"
-                alt=""
-                aria-hidden="true"
-                width={160}
-                height={120}
-                className="h-auto max-w-full"
-            />
+            <ProductProgress />
 
             <h3 className="mt-3 text-xs font-bold uppercase leading-none text-[#1E1E1E]">
                 Production ready

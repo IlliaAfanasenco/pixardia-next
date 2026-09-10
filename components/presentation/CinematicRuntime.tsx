@@ -277,6 +277,14 @@ export default function CinematicRuntime() {
                         stage,
                         '[data-cinematic-scene="product"] [data-cinematic-layer]',
                     );
+                    const productProgress = select<SVGPathElement>(
+                        stage,
+                        "[data-product-progress]",
+                    );
+                    const productProgressValue = select<SVGTextElement>(
+                        stage,
+                        "[data-product-progress-value]",
+                    );
                     const neuralCore = select<HTMLElement>(
                         stage,
                         "[data-neural-core]",
@@ -347,6 +355,8 @@ export default function CinematicRuntime() {
                         !neuralInsight ||
                         !neuralStats ||
                         !productLayer ||
+                        !productProgress ||
+                        !productProgressValue ||
                         !evidenceInterlude ||
                         !evidenceFrame ||
                         !evidenceLine
@@ -664,6 +674,47 @@ export default function CinematicRuntime() {
                         },
                     });
                     const createHold = () => ({ progress: 0 });
+                    const productProgressLength =
+                        productProgress.getTotalLength();
+                    const productProgressState = {
+                        value: 0,
+                    };
+                    let productProgressTween: gsap.core.Tween | null =
+                        null;
+                    const renderProductProgress = () => {
+                        productProgressValue.textContent = `${Math.round(
+                            productProgressState.value,
+                        )}%`;
+                        gsap.set(productProgress, {
+                            strokeDasharray: productProgressLength,
+                            strokeDashoffset:
+                                productProgressLength *
+                                (1 - productProgressState.value / 80),
+                        });
+                    };
+                    const resetProductProgress = () => {
+                        productProgressTween?.kill();
+                        productProgressTween = null;
+                        productProgressState.value = 0;
+                        renderProductProgress();
+                    };
+                    const playProductProgress = () => {
+                        resetProductProgress();
+                        productProgressTween = gsap.to(
+                            productProgressState,
+                            {
+                                value: 80,
+                                duration: 2,
+                                ease: "power2.inOut",
+                                onUpdate: renderProductProgress,
+                                onComplete: () => {
+                                    productProgressTween = null;
+                                },
+                            },
+                        );
+                    };
+
+                    resetProductProgress();
 
                     timeline
                         .addLabel("hero")
@@ -1126,6 +1177,8 @@ export default function CinematicRuntime() {
                                 stagger: 0.065,
                                 duration: 0.30,
                                 ease: "power3.out",
+                                onStart: playProductProgress,
+                                onReverseComplete: resetProductProgress,
                             },
                             "<+=0.04",
                         )
@@ -1175,6 +1228,8 @@ export default function CinematicRuntime() {
                                 stagger: 0.035,
                                 duration: 0.24,
                                 ease: "power2.in",
+                                onComplete: resetProductProgress,
+                                onReverseComplete: playProductProgress,
                             },
                             "<",
                         )
@@ -2164,6 +2219,7 @@ export default function CinematicRuntime() {
                         directedScrollTween?.kill();
                         trigger.kill();
                         timeline.kill();
+                        productProgressTween?.kill();
 
                         const runtimeStyledElements = [
                             ...scenes,
