@@ -1,4 +1,6 @@
 "use client";
+import { localized } from "@/i18n/localized";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 import Image from "next/image";
 import {
@@ -36,6 +38,7 @@ export default function ProjectModalGallery({
                                                 surfaceColor,
                                                 className = "",
                                             }: ProjectModalGalleryProps) {
+    const { t, locale } = useI18n();
     const [currentIndex, setCurrentIndex] =
         useState(0);
 
@@ -171,7 +174,7 @@ export default function ProjectModalGallery({
                 outlineColor: accentColor,
             }}
             role="group"
-            aria-label={`${projectTitle} project gallery`}
+            aria-label={t("{title} project gallery", { title: projectTitle })}
             tabIndex={hasNavigation ? 0 : -1}
             onKeyDown={handleKeyDown}
             onTouchStart={handleTouchStart}
@@ -185,7 +188,7 @@ export default function ProjectModalGallery({
                 <Image
                     key={currentMedia.src}
                     src={currentMedia.src}
-                    alt={currentMedia.alt.en}
+                    alt={localized(currentMedia.alt, locale)}
                     fill
                     priority={currentIndex === 0}
                     sizes="(max-width: 767px) 100vw, 41vw"
@@ -199,7 +202,7 @@ export default function ProjectModalGallery({
                 <div
                     className="absolute inset-0 overflow-hidden"
                     role="img"
-                    aria-label={`${projectTitle} system preview`}
+                    aria-label={t("{title} system preview", { title: projectTitle })}
                     style={{
                         backgroundColor: surfaceColor,
                         backgroundImage: `linear-gradient(135deg, ${accentColor}18 0%, transparent 44%), radial-gradient(circle at 76% 28%, ${primaryColor}20 0%, transparent 34%)`,
@@ -231,7 +234,7 @@ export default function ProjectModalGallery({
                             <button
                                 key={asset.src}
                                 type="button"
-                                aria-label={`Show image ${index + 1} of ${media.length}`}
+                                aria-label={t("Show image {index} of {count}", { index: index + 1, count: media.length })}
                                 aria-current={
                                     index === currentIndex
                                         ? "true"
@@ -243,7 +246,7 @@ export default function ProjectModalGallery({
                                 className="h-6 w-6 p-[9px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                                 style={{
                                     outlineColor:
-                                        accentColor,
+                                    accentColor,
                                 }}
                             >
                                 <span
@@ -263,7 +266,7 @@ export default function ProjectModalGallery({
                     <div className="absolute bottom-3 right-3 flex items-center bg-black text-white sm:bottom-4 sm:right-4">
                         <button
                             type="button"
-                            aria-label="Show previous project image"
+                            aria-label={t("Show previous project image")}
                             onClick={() =>
                                 selectImage(
                                     currentIndex - 1,
@@ -272,7 +275,7 @@ export default function ProjectModalGallery({
                             className="grid size-9 place-items-center border-r border-white/30 text-base font-black transition-colors hover:text-[var(--gallery-accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--gallery-accent)]"
                             style={{
                                 "--gallery-accent":
-                                    accentColor,
+                                accentColor,
                             } as CSSProperties}
                         >
                             ←
@@ -294,7 +297,7 @@ export default function ProjectModalGallery({
 
                         <button
                             type="button"
-                            aria-label="Show next project image"
+                            aria-label={t("Show next project image")}
                             onClick={() =>
                                 selectImage(
                                     currentIndex + 1,
@@ -303,7 +306,7 @@ export default function ProjectModalGallery({
                             className="grid size-9 place-items-center border-l border-white/30 text-base font-black transition-colors hover:text-[var(--gallery-accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--gallery-accent)]"
                             style={{
                                 "--gallery-accent":
-                                    accentColor,
+                                accentColor,
                             } as CSSProperties}
                         >
                             →

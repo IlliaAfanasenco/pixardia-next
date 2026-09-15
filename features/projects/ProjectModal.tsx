@@ -1,4 +1,5 @@
 "use client";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 import {
     type MouseEvent,
@@ -79,6 +80,7 @@ export default function ProjectModal({
                                          summaryId,
                                          triggerId,
                                      }: ProjectModalProps) {
+    const { t } = useI18n();
     const router = useRouter();
 
     const modalRootRef =
@@ -108,7 +110,6 @@ export default function ProjectModal({
     const closingRef = useRef(false);
     const navigationCommittedRef = useRef(false);
     const reduceMotionRef = useRef(false);
-    const returnHrefRef = useRef("/");
     const releaseEnvironmentRef =
         useRef<(() => void) | null>(null);
 
@@ -134,9 +135,7 @@ export default function ProjectModal({
             );
         }
 
-        router.replace(returnHrefRef.current, {
-            scroll: false,
-        });
+        router.back();
     }, [router]);
 
     const closeModal = useCallback(() => {
@@ -475,11 +474,6 @@ export default function ProjectModal({
                 : document.activeElement instanceof HTMLElement
                     ? document.activeElement
                     : null;
-
-        returnHrefRef.current =
-            trigger instanceof HTMLElement
-                ? "/"
-                : "/projects";
 
         const scrollY = window.scrollY;
         const scrollbarWidth =
@@ -854,11 +848,11 @@ export default function ProjectModal({
                     <button
                         ref={closeButtonRef}
                         type="button"
-                        aria-label="Close project dialog"
+                        aria-label={t("Close project dialog")}
                         onClick={closeModal}
                         className="pointer-events-auto inline-flex min-h-11 w-full min-w-[116px] items-center justify-center border border-black bg-black px-4 text-[11px] md:w-[calc(100%_-_32px)] md:max-w-[140px] font-black uppercase tracking-[0.04em] text-white transition-colors hover:bg-[#5E56E7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5E56E7] md:my-7 md:min-w-0"
                     >
-                        Exit system
+                        {t("Exit system")}
                     </button>
 
                     <span
@@ -867,8 +861,8 @@ export default function ProjectModal({
                     />
 
                     <span className="mt-6 hidden whitespace-nowrap text-[9px] font-black uppercase tracking-[0.06em] text-white/55 md:block">
-                        Safe mode active
-                    </span>
+                        {t("Safe mode active")}
+                        </span>
                 </div>
             </div>
         </div>

@@ -1,3 +1,7 @@
+import { publicPath } from "@/i18n/navigation";
+import { localized } from "@/i18n/localized";
+import type { SiteLocale } from "@/i18n/config";
+import { translator } from "@/i18n/getDictionary";
 import type {
     ReactNode,
 } from "react";
@@ -14,6 +18,7 @@ import type {
 } from "@/types/services";
 
 type ProjectCaseStudyProps = {
+    locale: SiteLocale;
     project: Project;
     titleId: string;
     summaryId: string;
@@ -38,17 +43,18 @@ const evidenceStyles: Record<Evidence, string> = {
         "border-[#D0D0D3] bg-[#F3F3F3] text-[#77787D]",
 };
 
-export default function ProjectCaseStudy({
+export default function ProjectCaseStudy({ locale,
                                              project,
                                              titleId,
                                              summaryId,
                                              variant,
                                          }: ProjectCaseStudyProps) {
+    const t = translator(locale);
     const typeLabel =
-        projectTypeLabels[project.type].en;
+        localized(projectTypeLabels[project.type], locale);
 
     const statusLabel =
-        projectStatusLabels[project.status].en;
+        localized(projectStatusLabels[project.status], locale);
 
     const media = [
         ...(project.coverImage
@@ -125,46 +131,43 @@ export default function ProjectCaseStudy({
                         className="mt-7 max-w-[740px] text-[clamp(16px,2vw,20px)] font-semibold leading-[1.4] text-[#55565A]"
                     >
                         {
-                            project
+                            localized(project
                                 .caseStudy
-                                .subtitle
-                                .en
+                                .subtitle, locale)
                         }
                     </p>
 
                     <div className="mt-8 grid gap-px border border-[#CECED0] bg-[#CECED0] sm:grid-cols-2">
-                        <Meta
-                            label="Engagement"
-                            value={
-                                project
-                                    .caseStudy
-                                    .engagement
-                                    .en
-                            }
+                        <Meta locale={locale}
+                              label={t("Engagement")}
+                              value={
+                                  localized(project
+                                      .caseStudy
+                                      .engagement, locale)
+                              }
                         />
 
-                        <Meta
-                            label="Role"
-                            value={
-                                project
-                                    .caseStudy
-                                    .role
-                                    .en
-                            }
+                        <Meta locale={locale}
+                              label={t("Role")}
+                              value={
+                                  localized(project
+                                      .caseStudy
+                                      .role, locale)
+                              }
                         />
 
-                        <Meta
-                            label="Status"
-                            value={statusLabel}
+                        <Meta locale={locale}
+                              label={t("Status")}
+                              value={statusLabel}
                         />
 
-                        <Meta
-                            label="Record"
-                            value={
-                                project
-                                    .caseStudy
-                                    .identifier
-                            }
+                        <Meta locale={locale}
+                              label={t("Record")}
+                              value={
+                                  project
+                                      .caseStudy
+                                      .identifier
+                              }
                         />
                     </div>
                 </header>
@@ -176,44 +179,42 @@ export default function ProjectCaseStudy({
                     >
                         <div>
                             <Eyebrow>
-                                01 / Context
+                                {t("01 / Context")}
                             </Eyebrow>
 
                             <Heading
                                 id={`${titleId}-overview`}
                             >
-                                Project overview
+                                {t("Project overview")}
                             </Heading>
                         </div>
 
                         <p className="max-w-[680px] text-[15px] font-medium leading-[1.65] text-[#57585C]">
-                            {project.description.en}
+                            {localized(project.description, locale)}
                         </p>
                     </section>
 
                     <section
                         className="grid gap-px border border-[#D5D5D7] bg-[#D5D5D7] lg:grid-cols-2"
-                        aria-label="Challenge and solution"
+                        aria-label={t("Challenge and solution")}
                     >
-                        <NarrativePanel
-                            eyebrow="02 / Challenge"
-                            title="Challenge"
+                        <NarrativePanel locale={locale}
+                                        eyebrow="02 / Challenge"
+                                        title={t("Challenge")}
                         >
                             {
-                                project
-                                    .challenge
-                                    .en
+                                localized(project
+                                    .challenge, locale)
                             }
                         </NarrativePanel>
 
-                        <NarrativePanel
-                            eyebrow="03 / Solution"
-                            title="Solution"
+                        <NarrativePanel locale={locale}
+                                        eyebrow="03 / Solution"
+                                        title={t("Solution")}
                         >
                             {
-                                project
-                                    .solution
-                                    .en
+                                localized(project
+                                    .solution, locale)
                             }
                         </NarrativePanel>
                     </section>
@@ -224,23 +225,22 @@ export default function ProjectCaseStudy({
                     >
                         <div>
                             <Eyebrow dark>
-                                04 / Architecture
+                                {t("04 / Architecture")}
                             </Eyebrow>
 
                             <Heading
                                 id={`${titleId}-architecture`}
                                 dark
                             >
-                                System structure
+                                {t("System structure")}
                             </Heading>
                         </div>
 
                         <p className="max-w-[700px] text-[15px] font-medium leading-[1.65] text-white/70">
                             {
-                                project
+                                localized(project
                                     .caseStudy
-                                    .architecture
-                                    .en
+                                    .architecture, locale)
                             }
                         </p>
                     </section>
@@ -249,11 +249,11 @@ export default function ProjectCaseStudy({
                         className="border border-[#D5D5D7] bg-white p-5 sm:p-7"
                         aria-labelledby={`${titleId}-facts`}
                     >
-                        <SectionTitle
-                            id={`${titleId}-facts`}
-                            eyebrow="05 / Facts"
+                        <SectionTitle locale={locale}
+                                      id={`${titleId}-facts`}
+                                      eyebrow="05 / Facts"
                         >
-                            Project record
+                            {t("Project record")}
                         </SectionTitle>
 
                         <div className="mt-6 grid gap-px border border-[#D8D8DA] bg-[#D8D8DA] sm:grid-cols-3">
@@ -261,25 +261,22 @@ export default function ProjectCaseStudy({
                                 (fact) => (
                                     <div
                                         key={
-                                            fact
-                                                .label
-                                                .en
+                                            localized(fact
+                                                .label, locale)
                                         }
                                         className="min-w-0 bg-[#FAFAF9] p-5"
                                     >
                                         <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#929398]">
                                             {
-                                                fact
-                                                    .label
-                                                    .en
+                                                localized(fact
+                                                    .label, locale)
                                             }
                                         </span>
 
                                         <strong className="mt-3 block text-sm font-bold leading-[1.35] text-[#343437]">
                                             {
-                                                fact
-                                                    .value
-                                                    .en
+                                                localized(fact
+                                                    .value, locale)
                                             }
                                         </strong>
                                     </div>
@@ -292,11 +289,11 @@ export default function ProjectCaseStudy({
                         className="border border-[#D5D5D7] bg-white p-5 sm:p-7"
                         aria-labelledby={`${titleId}-technology`}
                     >
-                        <SectionTitle
-                            id={`${titleId}-technology`}
-                            eyebrow="06 / Technology"
+                        <SectionTitle locale={locale}
+                                      id={`${titleId}-technology`}
+                                      eyebrow="06 / Technology"
                         >
-                            Technology groups
+                            {t("Technology groups")}
                         </SectionTitle>
 
                         <div className="mt-6 grid gap-4 lg:grid-cols-2">
@@ -304,17 +301,15 @@ export default function ProjectCaseStudy({
                                 (group) => (
                                     <div
                                         key={
-                                            group
-                                                .label
-                                                .en
+                                            localized(group
+                                                .label, locale)
                                         }
                                         className="border border-[#D8D8DA] bg-[#FAFAF9] p-5"
                                     >
                                         <h3 className="text-xs font-black uppercase tracking-[0.08em] text-[#55565A]">
                                             {
-                                                group
-                                                    .label
-                                                    .en
+                                                localized(group
+                                                    .label, locale)
                                             }
                                         </h3>
 
@@ -346,11 +341,11 @@ export default function ProjectCaseStudy({
                         className="border border-[#D5D5D7] bg-white p-5 sm:p-7"
                         aria-labelledby={`${titleId}-quality`}
                     >
-                        <SectionTitle
-                            id={`${titleId}-quality`}
-                            eyebrow="07 / Evidence"
+                        <SectionTitle locale={locale}
+                                      id={`${titleId}-quality`}
+                                      eyebrow="07 / Evidence"
                         >
-                            Quality signals
+                            {t("Quality signals")}
                         </SectionTitle>
 
                         <div className="mt-6 grid gap-3 lg:grid-cols-3">
@@ -358,18 +353,16 @@ export default function ProjectCaseStudy({
                                 (signal) => (
                                     <div
                                         key={
-                                            signal
-                                                .label
-                                                .en
+                                            localized(signal
+                                                .label, locale)
                                         }
                                         className="flex min-h-[145px] flex-col border border-[#D8D8DA] bg-[#FAFAF9] p-5"
                                     >
                                         <div className="flex items-start justify-between gap-3">
                                             <span className="text-[9px] font-bold uppercase tracking-[0.1em] text-[#76777B]">
                                                 {
-                                                    signal
-                                                        .label
-                                                        .en
+                                                    localized(signal
+                                                        .label, locale)
                                                 }
                                             </span>
 
@@ -377,19 +370,18 @@ export default function ProjectCaseStudy({
                                                 className={`shrink-0 border px-2 py-1 text-[9px] font-bold uppercase tracking-[0.07em] ${evidenceStyles[signal.evidence]}`}
                                             >
                                                 {
-                                                    evidenceLabels[
+                                                    t(evidenceLabels[
                                                         signal
                                                             .evidence
-                                                        ]
+                                                        ])
                                                 }
                                             </span>
                                         </div>
 
                                         <strong className="mt-auto pt-7 text-base font-black leading-[1.15] text-[#303033]">
                                             {
-                                                signal
-                                                    .value
-                                                    .en
+                                                localized(signal
+                                                    .value, locale)
                                             }
                                         </strong>
                                     </div>
@@ -402,12 +394,12 @@ export default function ProjectCaseStudy({
                         className="border border-[#D5D5D7] bg-[#202124] p-5 text-white sm:p-7"
                         aria-labelledby={`${titleId}-visual`}
                     >
-                        <SectionTitle
-                            id={`${titleId}-visual`}
-                            eyebrow="08 / Visual system"
-                            dark
+                        <SectionTitle locale={locale}
+                                      id={`${titleId}-visual`}
+                                      eyebrow="08 / Visual system"
+                                      dark
                         >
-                            Interface language
+                            {t("Interface language")}
                         </SectionTitle>
 
                         <div className="mt-6 grid gap-4 lg:grid-cols-[1fr_0.75fr]">
@@ -431,9 +423,8 @@ export default function ProjectCaseStudy({
 
                                             <span className="mt-3 block text-[9px] font-bold uppercase tracking-[0.1em] text-white/45">
                                                 {
-                                                    color
-                                                        .label
-                                                        .en
+                                                    localized(color
+                                                        .label, locale)
                                                 }
                                             </span>
 
@@ -449,8 +440,8 @@ export default function ProjectCaseStudy({
 
                             <div className="flex min-h-[150px] flex-col justify-between border border-white/15 bg-white/[0.035] p-5">
                                 <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-white/40">
-                                    Typeface
-                                </span>
+                                    {t("Typeface")}
+                                    </span>
 
                                 <strong className="text-[clamp(21px,3vw,32px)] font-black leading-none tracking-[-0.03em]">
                                     {
@@ -469,11 +460,11 @@ export default function ProjectCaseStudy({
                             className="border border-[#D5D5D7] bg-white p-5 sm:p-7"
                             aria-labelledby={`${titleId}-media`}
                         >
-                            <SectionTitle
-                                id={`${titleId}-media`}
-                                eyebrow="09 / Media"
+                            <SectionTitle locale={locale}
+                                          id={`${titleId}-media`}
+                                          eyebrow="09 / Media"
                             >
-                                Project views
+                                {t("Project views")}
                             </SectionTitle>
 
                             <div className="mt-6 grid gap-4">
@@ -491,9 +482,8 @@ export default function ProjectCaseStudy({
                                                     asset.src
                                                 }
                                                 alt={
-                                                    asset
-                                                        .alt
-                                                        .en
+                                                    localized(asset
+                                                        .alt, locale)
                                                 }
                                                 width={
                                                     asset.width
@@ -515,34 +505,29 @@ export default function ProjectCaseStudy({
                         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
                             <div>
                                 <Eyebrow>
-                                    Case study complete
+                                    {t("Case study complete")}
                                 </Eyebrow>
 
                                 <h2 className="mt-3 max-w-[570px] text-[clamp(30px,5vw,52px)] font-black uppercase leading-[0.9] tracking-[-0.035em] text-[#202022]">
-                                    Continue through
-                                    the archive
+                                    {t("Continue through the archive")}
                                 </h2>
 
                                 {(project.liveUrl ||
                                     project.repositoryUrl) ? (
                                     <div className="mt-6 flex flex-wrap gap-3">
                                         {project.liveUrl ? (
-                                            <ExternalLink
-                                                href={
-                                                    project.liveUrl
-                                                }
+                                            <ExternalLink locale={locale}
+                                                          href={publicPath(locale, project.liveUrl)}
                                             >
-                                                Live project ↗
+                                                {t("Live project ↗")}
                                             </ExternalLink>
                                         ) : null}
 
                                         {project.repositoryUrl ? (
-                                            <ExternalLink
-                                                href={
-                                                    project.repositoryUrl
-                                                }
+                                            <ExternalLink locale={locale}
+                                                          href={publicPath(locale, project.repositoryUrl)}
                                             >
-                                                Repository ↗
+                                                {t("Repository ↗")}
                                             </ExternalLink>
                                         ) : null}
                                     </div>
@@ -553,7 +538,7 @@ export default function ProjectCaseStudy({
                             nextProject.slug !==
                             project.slug ? (
                                 <Link
-                                    href={`/projects/${nextProject.slug}`}
+                                    href={publicPath(locale, `/projects/${nextProject.slug}`)}
                                     scroll={
                                         variant ===
                                         "page"
@@ -561,8 +546,8 @@ export default function ProjectCaseStudy({
                                     className="min-w-0 border border-[#1E1E1E] bg-[#1E1E1E] p-5 text-white no-underline transition-colors hover:bg-[#5E56E7] sm:min-w-[290px]"
                                 >
                                     <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/50">
-                                        Next project
-                                    </span>
+                                        {t("Next project")}
+                                        </span>
 
                                     <strong className="mt-3 block break-words text-xl font-black uppercase leading-[0.95] tracking-[-0.025em]">
                                         {
@@ -571,8 +556,8 @@ export default function ProjectCaseStudy({
                                     </strong>
 
                                     <span className="mt-5 block text-xs font-bold uppercase tracking-[0.08em] text-white/70">
-                                        Explore case →
-                                    </span>
+                                        {t("Explore case →")}
+                                        </span>
                                 </Link>
                             ) : null}
                         </div>
@@ -615,18 +600,20 @@ function Badge({
 }
 
 type MetaProps = {
+    locale: SiteLocale;
     label: string;
     value: string;
 };
 
-function Meta({
+function Meta({ locale,
                   label,
                   value,
               }: MetaProps) {
+    const t = translator(locale);
     return (
         <div className="min-w-0 bg-[#F8F8F6] p-4">
             <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#94959A]">
-                {label}
+                {t(label)}
             </span>
 
             <strong className="mt-2 block break-words text-xs font-bold leading-[1.4] text-[#3D3E41]">
@@ -637,12 +624,13 @@ function Meta({
 }
 
 type NarrativePanelProps = {
+    locale: SiteLocale;
     eyebrow: string;
     title: string;
     children: ReactNode;
 };
 
-function NarrativePanel({
+function NarrativePanel({ locale,
                             eyebrow,
                             title,
                             children,
@@ -665,13 +653,14 @@ function NarrativePanel({
 }
 
 type SectionTitleProps = {
+    locale: SiteLocale;
     id: string;
     eyebrow: string;
     children: ReactNode;
     dark?: boolean;
 };
 
-function SectionTitle({
+function SectionTitle({ locale,
                           id,
                           eyebrow,
                           children,
@@ -741,17 +730,18 @@ function Eyebrow({
 }
 
 type ExternalLinkProps = {
+    locale: SiteLocale;
     href: string;
     children: ReactNode;
 };
 
-function ExternalLink({
+function ExternalLink({ locale,
                           href,
                           children,
                       }: ExternalLinkProps) {
     return (
         <a
-            href={href}
+            href={publicPath(locale, href)}
             target="_blank"
             rel="noreferrer"
             className="inline-flex min-h-11 items-center border border-[#1E1E1E] px-4 text-xs font-bold uppercase tracking-[0.06em] text-[#1E1E1E] no-underline transition-colors hover:bg-[#1E1E1E] hover:text-white"
