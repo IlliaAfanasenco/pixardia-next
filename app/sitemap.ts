@@ -3,6 +3,8 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 import { projects } from "@/content/projects";
 import { services } from "@/content/services";
+import { siteLocales } from "@/i18n/config";
+import { localePath } from "@/i18n/navigation";
 
 type SitemapRoute = Readonly<{
     path: string;
@@ -57,12 +59,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ...projectRoutes,
     ];
 
-    return routes.map((route) => ({
+    return routes.flatMap((route) => siteLocales.map((locale) => ({
         url: new URL(
-            route.path,
+            localePath(locale, route.path),
             siteConfig.url,
         ).toString(),
         changeFrequency: route.changeFrequency,
         priority: route.priority,
-    }));
+        alternates: { languages: Object.fromEntries(siteLocales.map(language => [
+            language, new URL(localePath(language, route.path), siteConfig.url).toString(),
+        ])) },
+    })));
 }

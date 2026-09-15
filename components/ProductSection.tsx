@@ -1,3 +1,8 @@
+import { getServiceByCode } from "@/content/services";
+import { localized } from "@/i18n/localized";
+import { publicPath } from "@/i18n/navigation";
+import type { SiteLocale } from "@/i18n/config";
+import { translator } from "@/i18n/getDictionary";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,7 +15,7 @@ const cards = [
         code: "PX101",
         title: "BUSINESS",
         titleSecond: "WEBSITES",
-        text: "Professional websites built to strengthen trust, communicate value and generate qualified enquiries.",
+        serviceCode: "BUSINESS_WEBSITE",
         bottom: "TRUST & ENQUIRIES",
     },
     {
@@ -18,7 +23,7 @@ const cards = [
         code: "PX202",
         title: "WEB",
         titleSecond: "APPLICATIONS",
-        text: "Custom platforms, dashboards and internal tools built around specific business workflows.",
+        serviceCode: "WEB_APPLICATION",
         bottom: "WORKFLOW READY",
     },
     {
@@ -26,7 +31,7 @@ const cards = [
         code: "PX303",
         title: "AI &",
         titleSecond: "AUTOMATION",
-        text: "Connected integrations and automated workflows that reduce manual work and improve daily operations.",
+        serviceCode: "AI_AUTOMATION",
         bottom: "EFFICIENCY BUILT",
         withAstronaut: true,
     },
@@ -35,7 +40,7 @@ const cards = [
         code: "PX404",
         title: "SUPPORT &",
         titleSecond: "DEVELOPMENT",
-        text: "Ongoing support, security updates, performance improvements and continued product development.",
+        serviceCode: "MAINTENANCE_SUPPORT",
         bottom: "LONG-TERM VALUE",
     },
 ] as const;
@@ -59,6 +64,7 @@ const systemChecks = [
 ] as const;
 
 type ProductCardProps = {
+    locale: SiteLocale;
     label: string;
     code: string;
     title: string;
@@ -68,7 +74,7 @@ type ProductCardProps = {
     withAstronaut?: boolean;
 };
 
-function ProductCard({
+function ProductCard({ locale,
                          label,
                          code,
                          title,
@@ -77,6 +83,7 @@ function ProductCard({
                          bottom,
                          withAstronaut = false,
                      }: ProductCardProps) {
+    const t = translator(locale);
     return (
         <article
             className="relative min-w-0 border border-[#808181] p-5 md:p-6"
@@ -95,7 +102,7 @@ function ProductCard({
 
             <div className="flex items-center justify-between gap-3">
                 <p className="inline-flex items-center justify-center border-2 border-[#E1DED6] p-1.5 text-center text-xs font-bold leading-none text-[#878787]">
-                    {label}
+                    {t(label)}
                 </p>
 
                 <p className="text-xs font-bold leading-none text-[#CFCFCF]">
@@ -104,9 +111,9 @@ function ProductCard({
             </div>
 
             <h3 className="pt-6 text-2xl font-black uppercase leading-[1.05] text-[#1E1E1E]">
-                {title}
+                {t(title)}
                 <br />
-                {titleSecond}
+                {t(titleSecond)}
             </h3>
 
             <p className="pt-5 text-xs font-bold uppercase leading-[1.35] text-[#A7A7AA]">
@@ -115,7 +122,7 @@ function ProductCard({
 
             <div className="flex items-center justify-between gap-4 pt-11">
                 <p className="text-xs font-bold leading-none text-[#777779]">
-                    {bottom}
+                    {t(bottom)}
                 </p>
 
                 <Image
@@ -131,7 +138,8 @@ function ProductCard({
     );
 }
 
-function ProductSystemPanel() {
+function ProductSystemPanel({ locale }: { locale: SiteLocale }) {
+    const t = translator(locale);
     return (
         <div
             className="border-b-[5px] border-r-[10px] border-[#4F46E5] bg-[#101111] md:col-span-2 xl:col-span-3"
@@ -141,17 +149,17 @@ function ProductSystemPanel() {
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
                     <div>
                         <p className="font-mono text-xs font-bold uppercase tracking-[0.08em] text-white">
-                            Full-cycle delivery system
+                            {t("Full-cycle delivery system")}
                         </p>
 
                         <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.08em] text-white/35">
-                            Strategy / UX & UI / development / launch / support
+                            {t("Strategy / UX & UI / development / launch / support")}
                         </p>
                     </div>
 
                     <span className="border border-[#5E9D72] px-3 py-1.5 font-mono text-[9px] font-bold uppercase tracking-[0.08em] text-[#78B58C]">
-                        production ready
-                    </span>
+                        {t("production ready")}
+                        </span>
                 </div>
 
                 <div className="mt-5 grid gap-4">
@@ -169,24 +177,24 @@ function ProductSystemPanel() {
                                 className="mt-0.5 shrink-0"
                             />
 
-                            <p>{check.text}</p>
+                            <p>{t(check.text)}</p>
                         </div>
                     ))}
                 </div>
 
                 <div className="mt-auto grid gap-3 pt-8 sm:grid-cols-2">
                     <Link
-                        href={siteConfig.links.services}
+                        href={publicPath(locale, siteConfig.links.services)}
                         className="border border-white/25 px-5 py-3 text-center text-xs font-bold uppercase tracking-[0.08em] text-white transition hover:border-white"
                     >
-                        view capabilities →
+                        {t("view capabilities →")}
                     </Link>
 
                     <Link
-                        href={siteConfig.links.contact}
+                        href={publicPath(locale, siteConfig.links.contact)}
                         className="bg-[#F7F9FA] px-5 py-3 text-center text-xs font-bold uppercase tracking-[0.08em] text-[#1E1E1E] transition hover:bg-[#4F46E5] hover:text-white"
                     >
-                        discuss your project →
+                        {t("discuss your project →")}
                     </Link>
                 </div>
             </div>
@@ -194,7 +202,8 @@ function ProductSystemPanel() {
     );
 }
 
-function ProductStatus() {
+function ProductStatus({ locale }: { locale: SiteLocale }) {
+    const t = translator(locale);
     return (
         <div
             className="flex min-h-[220px] flex-col items-center justify-center border-2 border-[#E1DED6] p-6 text-center md:col-span-2 xl:col-span-1"
@@ -203,17 +212,18 @@ function ProductStatus() {
             <ProductProgress />
 
             <h3 className="mt-3 text-xs font-bold uppercase leading-none text-[#1E1E1E]">
-                Production ready
+                {t("Production ready")}
             </h3>
 
             <p className="mt-3 max-w-[210px] text-[9px] font-bold uppercase leading-[1.4] tracking-[0.08em] text-[#B8B8BA]">
-                Clear scope. Controlled delivery. Production-ready results.
+                {t("Clear scope. Controlled delivery. Production-ready results.")}
             </p>
         </div>
     );
 }
 
-export default function ProductSection() {
+export default function ProductSection({ locale }: { locale: SiteLocale }) {
+    const t = translator(locale);
     return (
         <section
             id="process"
@@ -233,7 +243,7 @@ export default function ProductSection() {
                     className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]"
                     data-cinematic-element="product-kicker"
                 >
-                    04 / WHAT WE BUILD
+                    {t("04 / WHAT WE BUILD")}
                 </p>
 
                 <div
@@ -245,16 +255,16 @@ export default function ProductSection() {
                         className="flex flex-col text-[clamp(44px,7vw,94px)] font-black uppercase leading-[0.9] tracking-[-0.03em]"
                     >
                         <span className="text-[#1E1E1E]">
-                            Digital
-                        </span>
+                            {t("Digital")}
+                            </span>
 
                         <span className="text-[#C5C6C8]">
-                            Products
-                        </span>
+                            {t("Products")}
+                            </span>
                     </h2>
 
                     <p className="max-w-[500px] text-sm font-bold uppercase leading-[1.3] text-[#A7A7AA]">
-                        Custom digital solutions designed to solve specific business problems and support long-term growth.
+                        {t("Custom digital solutions designed to solve specific business problems and support long-term growth.")}
                     </p>
                 </div>
 
@@ -263,14 +273,15 @@ export default function ProductSection() {
                     data-cinematic-element="product-grid"
                 >
                     {cards.map((card) => (
-                        <ProductCard
-                            key={card.code}
-                            {...card}
+                        <ProductCard locale={locale}
+                                     key={card.code}
+                                     {...card}
+                                     text={localized(getServiceByCode(card.serviceCode)!.shortDescription, locale)}
                         />
                     ))}
 
-                    <ProductSystemPanel />
-                    <ProductStatus />
+                    <ProductSystemPanel locale={locale} />
+                    <ProductStatus locale={locale} />
                 </div>
 
                 <div
@@ -278,12 +289,12 @@ export default function ProductSection() {
                     data-cinematic-element="product-footer"
                 >
                     <div className="flex gap-2 text-xs font-bold uppercase leading-none text-[#C1C2C4]">
-                        <p>End</p>
-                        <p>of section 04</p>
+                        <p>{t("End")}</p>
+                        <p>{t("of section 04")}</p>
                     </div>
 
                     <p className="text-xs font-bold uppercase leading-none text-[#C1C2C4]">
-                        Pixardia delivery ecosystem
+                        {t("Pixardia delivery ecosystem")}
                     </p>
                 </div>
             </div>

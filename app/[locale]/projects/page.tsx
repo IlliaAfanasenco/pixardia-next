@@ -1,0 +1,80 @@
+import { routeLocale } from "@/i18n/server";
+import { translator } from "@/i18n/getDictionary";
+import { localized } from "@/i18n/localized";
+import { publicPath } from "@/i18n/navigation";
+import type { Metadata } from "next";
+import Link from "next/link";
+
+import {
+    projects,
+    projectTypeLabels,
+} from "@/content/projects";
+import {
+    createPageMetadata,
+} from "@/lib/seo";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+    const locale = await routeLocale(params);
+    const t = translator(locale);
+    return createPageMetadata({
+        title: t("Selected Digital Work"),
+        description:
+            t("Explore digital products shaped by Pixardia through strategy, distinctive design and reliable engineering."),
+        path: "/projects",
+    
+        locale,
+    });
+}
+
+export default async function ProjectsPage({ params }: { params: Promise<{ locale: string }> }) {
+    const locale = await routeLocale(params);
+    const t = translator(locale);
+    return (
+        <section
+            className="container-custom py-12 sm:py-16"
+            aria-labelledby="projects-page-title"
+        >
+            <h1
+                id="projects-page-title"
+                className="text-4xl font-black uppercase tracking-tight text-[#1E1E1E]"
+            >
+                {t("Project Archive")}</h1>
+
+            <div className="mt-10">
+                <h2 className="text-2xl font-bold uppercase tracking-tight text-[#1E1E1E]">
+                    {t("Selected digital work")}</h2>
+
+                <div className="mt-6 grid gap-6 md:grid-cols-2">
+                    {projects.map((project) => (
+                        <article
+                            key={project.slug}
+                            className="border-t border-[#1E1E1E] pt-5"
+                        >
+                            <p className="text-sm font-bold uppercase tracking-[0.08em] text-[#777777]">
+                                {localized(projectTypeLabels[project.type], locale)}
+                            </p>
+
+                            <h3 className="mt-2 text-2xl font-black uppercase tracking-tight text-[#1E1E1E]">
+                                {project.title}
+                            </h3>
+
+                            <p className="mt-3 max-w-xl">
+                                {localized(project.summary, locale)}
+                            </p>
+
+                            <Link
+                                id={`project-modal-trigger-${project.slug}`}
+                                href={publicPath(locale, `/projects/${project.slug}`)}
+                                scroll={false}
+                                aria-haspopup="dialog"
+                                aria-label={t("Open {title} case study", { title: project.title })}
+                                className="mt-4 inline-flex font-bold underline underline-offset-4"
+                            >
+                                {t("Explore case")}</Link>
+                        </article>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
