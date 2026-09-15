@@ -1,4 +1,5 @@
 "use client";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 import {
     useCallback,
@@ -110,6 +111,7 @@ function TerminalMessage({
                              reducedMotion,
                              onProgress,
                          }: TerminalMessageProps) {
+    const { t } = useI18n();
     const shouldAnimate =
         message.role === "assistant" &&
         !reducedMotion;
@@ -224,7 +226,7 @@ function TerminalMessage({
 
                 {message.category && (
                     <span className="border border-[#424545] px-2 py-0.5 text-[9px] uppercase tracking-[0.08em] text-[#777A7A]">
-                        {message.category}
+                        {t(message.category)}
                     </span>
                 )}
             </div>
@@ -260,6 +262,7 @@ function IdleTerminalState({
                                reducedMotion,
                                onProgress,
                            }: IdleTerminalStateProps) {
+    const { t } = useI18n();
     const [visibleStage, setVisibleStage] =
         useState(0);
 
@@ -313,11 +316,13 @@ function IdleTerminalState({
             >
                 <div className="flex items-center justify-between border border-[#353838] bg-white/[0.015] px-3 py-2">
                     <p className="font-bold text-[#C7CACA]">
-                        DELIVERY CONTROL
+                        {t("DELIVERY CONTROL")}
+
                     </p>
 
                     <p className="text-[9px] tracking-[0.12em] text-[#75B887]">
-                        LINK ESTABLISHED
+                        {t("LINK ESTABLISHED")}
+
                     </p>
                 </div>
             </div>
@@ -332,7 +337,8 @@ function IdleTerminalState({
                 <div className="border border-[#353838] bg-white/[0.015] p-3">
                     <div className="flex items-center justify-between">
                         <p className="font-bold text-[#BFC1C1]">
-                        PROJECT PIPELINE
+                            {t("PROJECT PIPELINE")}
+
                         </p>
 
                         <span className="text-[9px] text-[#666969]">
@@ -356,12 +362,12 @@ function IdleTerminalState({
 
                                     <div className="min-w-0">
                                         <p className="font-bold text-[#989B9B]">
-                                            {step.title}
+                                            {t(step.title)}
                                         </p>
 
                                         <p className="truncate text-[9px] text-[#5F6262]">
                                             {
-                                                step.description
+                                                t(step.description)
                                             }
                                         </p>
                                     </div>
@@ -374,7 +380,7 @@ function IdleTerminalState({
                                                 : "text-[9px] text-[#8D86E8]"
                                         }
                                     >
-                                        {step.status}
+                                        {t(step.status)}
                                     </span>
                                 </div>
                             ),
@@ -385,12 +391,14 @@ function IdleTerminalState({
                 <div className="flex min-h-36 flex-col border border-[#353838] bg-white/[0.015] p-3">
                     <div className="flex items-center justify-between">
                         <p className="font-bold text-[#BFC1C1]">
-                            PROJECT SIGNAL
+                            {t("PROJECT SIGNAL")}
+
                         </p>
 
                         <span className="text-[9px] text-[#75B887]">
-                            OPEN
-                        </span>
+                            {t("OPEN")}
+
+                            </span>
                     </div>
 
                     <div className="mt-4 flex flex-1 items-end justify-between gap-1">
@@ -419,9 +427,9 @@ function IdleTerminalState({
                     </div>
 
                     <div className="mt-3 flex justify-between text-[8px] text-[#555858]">
-                        <span>INPUT</span>
-                        <span>ANALYSIS</span>
-                        <span>ROUTE</span>
+                        <span>{t("INPUT")}</span>
+                        <span>{t("ANALYSIS")}</span>
+                        <span>{t("ROUTE")}</span>
                     </div>
                 </div>
             </div>
@@ -438,14 +446,14 @@ function IdleTerminalState({
                 </p>
 
                 <p className="mt-1 text-[#91B79A]">
-                    Send a project brief to map the
-                    strongest delivery route.
+                    {t("Send a project brief to map the strongest delivery route.")}
+
                 </p>
 
                 <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[9px] uppercase tracking-[0.08em] text-[#657168]">
-                    <span>scope definition</span>
-                    <span>capability routing</span>
-                    <span>project handoff</span>
+                    <span>{t("scope definition")}</span>
+                    <span>{t("capability routing")}</span>
+                    <span>{t("project handoff")}</span>
                 </div>
             </div>
         </div>
@@ -457,6 +465,7 @@ export default function AiTerminal({
                                        isSubmitting,
                                        error,
                                    }: AiTerminalProps) {
+    const { t } = useI18n();
     const reducedMotion =
         useReducedMotion();
 
@@ -497,7 +506,8 @@ export default function AiTerminal({
                     </div>
 
                     <p className="min-w-0 flex-1 truncate px-3 text-center font-mono text-[10px] font-bold text-[#B9BABA] sm:text-xs">
-                        Pixardia AI Terminal
+                        {t("Pixardia AI Terminal")}
+
                     </p>
 
                     <p className="hidden font-mono text-[9px] text-[#747676] sm:block">
@@ -518,55 +528,63 @@ export default function AiTerminal({
                             </p>
 
                             <span className="border border-[#39413D] px-2 py-1 text-[8px] uppercase tracking-[0.12em] text-[#75B887]">
-                                studio online
-                            </span>
+                                {t("studio online")}
+
+                                </span>
                         </div>
 
                         <p className="mt-3 text-[#858787]">
-                            PROJECT DELIVERY INTERFACE
-                            {" // "}
-                            STRATEGY / DESIGN / ENGINEERING
+                            {t("PROJECT DELIVERY INTERFACE")}{" // "}
+                            {t("STRATEGY / DESIGN / ENGINEERING")}
                         </p>
                     </div>
 
                     <div className="relative mt-5 grid grid-cols-2 border-y border-[#343636] sm:grid-cols-4">
                         <div className="border-b border-r border-[#343636] px-3 py-3 sm:border-b-0">
                             <p className="text-[8px] text-[#5F6262]">
-                                SCOPE
+                                {t("SCOPE")}
+
                             </p>
 
                             <p className="mt-1 font-bold text-[#75B887]">
-                                DEFINED
+                                {t("DEFINED")}
+
                             </p>
                         </div>
 
                         <div className="border-b border-[#343636] px-3 py-3 sm:border-b-0 sm:border-r">
                             <p className="text-[8px] text-[#5F6262]">
-                                DELIVERY
+                                {t("DELIVERY")}
+
                             </p>
 
                             <p className="mt-1 font-bold text-[#8B83EA]">
-                                CONTROLLED
+                                {t("CONTROLLED")}
+
                             </p>
                         </div>
 
                         <div className="border-r border-[#343636] px-3 py-3">
                             <p className="text-[8px] text-[#5F6262]">
-                                SUPPORT
+                                {t("SUPPORT")}
+
                             </p>
 
                             <p className="mt-1 font-bold text-[#75B887]">
-                                INCLUDED
+                                {t("INCLUDED")}
+
                             </p>
                         </div>
 
                         <div className="px-3 py-3">
                             <p className="text-[8px] text-[#5F6262]">
-                                STATUS
+                                {t("STATUS")}
+
                             </p>
 
                             <p className="mt-1 font-bold text-[#B8BABA]">
-                                READY
+                                {t("READY")}
+
                             </p>
                         </div>
                     </div>
@@ -592,11 +610,13 @@ export default function AiTerminal({
                             <div className="flex items-center justify-between border-b border-[#303333] pb-3">
                                 <div>
                                     <p className="font-bold text-[#BFC2C2]">
-                                        LIVE SESSION
+                                        {t("LIVE SESSION")}
+
                                     </p>
 
                                     <p className="mt-0.5 text-[9px] text-[#606363]">
-                                        project signal stream
+                                        {t("project signal stream")}
+
                                     </p>
                                 </div>
 
@@ -604,8 +624,9 @@ export default function AiTerminal({
                                     {String(
                                         messages.length,
                                     ).padStart(2, "0")}{" "}
-                                    EVENTS
-                                </span>
+                                    {t("EVENTS")}
+
+                                    </span>
                             </div>
                         )}
 
@@ -629,7 +650,8 @@ export default function AiTerminal({
                                 </p>
 
                                 <p className="mt-1 animate-pulse">
-                                    mapping project signal...
+                                    {t("mapping project signal...")}
+
                                 </p>
 
                                 <div className="mt-2 h-1 overflow-hidden bg-[#253129]">
@@ -659,15 +681,15 @@ export default function AiTerminal({
                             <span className="text-[#75B887]">
                                 pixardia@system:~$
                             </span>{" "}
-                            project consultation ready
-                            <span className="ml-1 inline-block animate-pulse text-[#75B887]">
+                            {t("project consultation ready")}<span className="ml-1 inline-block animate-pulse text-[#75B887]">
                                 ▌
                             </span>
                         </p>
 
                         <span className="text-[8px] uppercase tracking-[0.12em] text-[#4F5353]">
-                            privacy-first session
-                        </span>
+                            {t("privacy-first session")}
+
+                            </span>
                     </div>
                 </div>
             </div>

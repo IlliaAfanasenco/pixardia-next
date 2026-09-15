@@ -1,4 +1,6 @@
 "use client"
+import { publicPath } from "@/i18n/navigation";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -15,6 +17,7 @@ const archivo = Archivo({
 });
 
 export default function HeroSection() {
+    const { t, locale } = useI18n();
     const rotatingElementRef = useRef<HTMLImageElement>(null);
     const charactersRef = useRef<HTMLImageElement>(null);
     const scrollProgressRef = useRef<HTMLDivElement>(null);
@@ -92,7 +95,7 @@ export default function HeroSection() {
                     className="max-w-[280px] font-[var(--font-archivo)] text-[11px] font-black uppercase leading-[1.2] tracking-[0.2em] text-[#C5C6C8] sm:max-w-[500px] sm:text-[clamp(12px,1.2vw,16px)] sm:leading-none"
                     data-cinematic-element="hero-eyebrow"
                 >
-                    creative digital studio / ai augmented
+                    {t("creative digital studio / ai augmented")}
                 </p>
 
                 <h1
@@ -102,24 +105,24 @@ export default function HeroSection() {
                 >
                     <span className="block whitespace-normal text-[clamp(58px,18vw,90px)] tracking-[-0.03em] sm:whitespace-nowrap sm:text-[clamp(70px,15vw,150px)] lg:text-[clamp(80px,16vw,212px)]">
                         <span className="-ml-[0.05em] inline-block">
-                            Digital
-                        </span>
+                            {t("Digital")}
+                            </span>
                     </span>
 
                     <span className="block whitespace-normal text-[clamp(58px,18vw,90px)] tracking-[-0.04em] sm:ml-[0.35em] sm:whitespace-nowrap sm:text-[clamp(70px,14vw,140px)] lg:ml-[0.55em] lg:text-[clamp(80px,15vw,205px)]">
-                        Agency
-                    </span>
+                        {t("Agency")}
+                        </span>
                 </h1>
 
                 <p
                     className="mt-7 max-w-[300px] font-[var(--font-archivo)] text-lg py-5 font-bold uppercase leading-none tracking-[0.03em] text-[#1E1E1E] sm:mt-[clamp(30px,6vw,90px)] sm:text-[clamp(18px,2vw,24px)] lg:max-w-[360px]"
                     data-cinematic-element="hero-copy"
                 >
-                    We design, build and scale digital products that move businesses forward.
+                    {t("We design, build and scale digital products that move businesses forward.")}
                 </p>
 
                 <Link
-                    href={siteConfig.links.services}
+                    href={publicPath(locale, siteConfig.links.services)}
                     className="flex w-fit items-center gap-5 py-6 text-[#1E1E1E] no-underline transition-opacity hover:opacity-70 sm:py-[30px]"
                     data-cinematic-element="hero-cta"
                 >
@@ -134,8 +137,8 @@ export default function HeroSection() {
                     />
 
                     <span className="font-[var(--font-archivo)] text-lg py-20 font-black uppercase leading-none tracking-[0.03em] sm:text-[clamp(18px,2vw,24px)]">
-                        explore services
-                    </span>
+                        {t("explore services")}
+                        </span>
                 </Link>
 
                 <div
@@ -144,7 +147,7 @@ export default function HeroSection() {
                 >
                     <div>
                         <p className="font-[var(--font-archivo)] text-xs uppercase leading-none tracking-[0.03em] text-[#C5C6C8] sm:text-base">
-                            scroll to explore
+                            {t("scroll to explore")}
                         </p>
 
                         <div
@@ -158,11 +161,11 @@ export default function HeroSection() {
 
                     <div className="text-left sm:text-right">
                         <p className="font-[var(--font-archivo)] text-xs uppercase leading-none tracking-[0.03em] text-[#C5C6C8] sm:text-base">
-                            project intake: open
+                            {t("project intake: open")}
                         </p>
 
                         <p className="font-[var(--font-archivo)] text-xs uppercase leading-none tracking-[0.03em] text-[#C5C6C8] sm:text-base">
-                            Germany / Europe / Worldwide
+                            {t("Germany / Europe / Worldwide")}
                         </p>
                     </div>
                 </div>

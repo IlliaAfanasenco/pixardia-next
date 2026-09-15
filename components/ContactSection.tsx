@@ -1,4 +1,9 @@
 "use client";
+import { translator, getDictionary } from "@/i18n/getDictionary";
+import type { SiteLocale } from "@/i18n/config";
+import { publicPath } from "@/i18n/navigation";
+import { localized } from "@/i18n/localized";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 import Image from "next/image";
 import {
@@ -17,7 +22,7 @@ import { leadSchema } from "@/lib/validators/lead";
 import { type ServiceCode } from "@/types/services";
 
 type ContactSectionProps = {
-    language?: "en" | "de";
+
     defaultServiceCode?: ServiceCode;
 };
 
@@ -43,54 +48,6 @@ const inputFieldClass =
 const fieldWrapperClass =
     "flex flex-col gap-3.5 border-b-2 border-black pb-2";
 
-const copy = {
-    en: {
-        intro:
-            "Tell us about your business, your challenge and the product you want to create. We will turn it into a clear project direction, then manage delivery from the first conversation through launch and support.",
-        location: "Based in Germany / Working worldwide",
-        responseTime: "Direct project response",
-        availability: "Project intake: open",
-        connect: "Direct project channels",
-        nameLabel: "Your name",
-        namePlaceholder: "Your name",
-        emailLabel: "Email address",
-        emailPlaceholder: "you@company.com",
-        serviceLabel: "Project type",
-        messageLabel: "Project details",
-        messagePlaceholder:
-            "Describe your business goals, required functionality and current project stage...",
-        privacy: "I agree to the privacy policy",
-        submit: "Send project request",
-        submitting: "Sending project request...",
-        success: "Request received. We’ll be in touch to discuss the next step.",
-        error: "Something went wrong. Please try again or contact us directly.",
-        rateLimit:
-            "Too many requests. Please wait a moment and try again.",
-    },
-    de: {
-        intro:
-            "Tell us about your business, your challenge and the product you want to create. We will turn it into a clear project direction, then manage delivery from the first conversation through launch and support.",
-        location: "Based in Germany / Working worldwide",
-        responseTime: "Direct project response",
-        availability: "Project intake: open",
-        connect: "Direct project channels",
-        nameLabel: "Your name",
-        namePlaceholder: "Your name",
-        emailLabel: "Email address",
-        emailPlaceholder: "you@company.com",
-        serviceLabel: "Project type",
-        messageLabel: "Project details",
-        messagePlaceholder:
-            "Describe your business goals, required functionality and current project stage...",
-        privacy: "I agree to the privacy policy",
-        submit: "Send project request",
-        submitting: "Sending project request...",
-        success: "Request received. We’ll be in touch to discuss the next step.",
-        error: "Something went wrong. Please try again or contact us directly.",
-        rateLimit:
-            "Too many requests. Please wait a moment and try again.",
-    },
-} as const;
 
 function getInitialState(
     defaultServiceCode: ServiceCode,
@@ -105,11 +62,18 @@ function getInitialState(
     };
 }
 
+function fieldError(field: string, message: string, locale: SiteLocale): string {
+    const t = translator(locale);
+    if (field === "serviceCode") return t("Please select a project type");
+    return Object.hasOwn(getDictionary(locale).ui, message) ? t(message) : t("Please check this field");
+}
+
 function getValidationErrors(
     issues: {
         path: PropertyKey[];
         message: string;
     }[],
+    locale: SiteLocale,
 ): FieldErrors {
     const errors: FieldErrors = {};
     const formFields = getInitialState(
@@ -125,7 +89,7 @@ function getValidationErrors(
             !errors[field as keyof FormState]
         ) {
             errors[field as keyof FormState] =
-                issue.message;
+                fieldError(field, issue.message, locale);
         }
     }
 
@@ -136,6 +100,7 @@ function getServerErrors(
     fields:
         | Record<string, string[] | undefined>
         | undefined,
+    locale: SiteLocale,
 ): FieldErrors {
     if (!fields) {
         return {};
@@ -154,7 +119,7 @@ function getServerErrors(
             messages?.[0]
         ) {
             errors[field as keyof FormState] =
-                messages[0];
+                fieldError(field, messages[0], locale);
         }
     }
 
@@ -162,10 +127,12 @@ function getServerErrors(
 }
 
 export default function ContactSection({
-                                           language = "en",
+
                                            defaultServiceCode = fallbackServiceCode,
                                        }: ContactSectionProps) {
-    const text = copy[language];
+    const { locale: language, t, dictionary } = useI18n();
+    const locale = language;
+    const text = dictionary.contact;
 
     const [form, setForm] = useState<FormState>(() =>
         getInitialState(defaultServiceCode),
@@ -239,6 +206,7 @@ export default function ContactSection({
             setErrors(
                 getValidationErrors(
                     parsed.error.issues,
+                    locale,
                 ),
             );
 
@@ -259,7 +227,7 @@ export default function ContactSection({
         } catch (error) {
             if (error instanceof ContactApiError) {
                 setErrors(
-                    getServerErrors(error.fields),
+                    getServerErrors(error.fields, locale),
                 );
 
                 setRequestError(
@@ -296,7 +264,7 @@ export default function ContactSection({
                     />
 
                     <p className="text-xs font-bold uppercase leading-none text-[#C5C6C8]">
-                        06 / START A PROJECT
+                        {t("06 / START A PROJECT")}
                     </p>
                 </div>
 
@@ -306,7 +274,7 @@ export default function ContactSection({
                         data-contact-title=""
                         className="max-w-[720px] text-[clamp(40px,7vw,94px)] font-black uppercase leading-[0.86] tracking-[-0.03em] text-[#202021]"
                     >
-                        Let’s Build What’s Next
+                        {t("Let’s Build What’s Next")}
                     </h2>
 
                     <Image
@@ -365,7 +333,7 @@ export default function ContactSection({
                                 return (
                                     <a
                                         key={item.label}
-                                        href={item.href}
+                                        href={publicPath(locale, item.href)}
                                         target={
                                             isExternal
                                                 ? "_blank"
@@ -378,7 +346,7 @@ export default function ContactSection({
                                         }
                                         className="border border-[#1E1E1E] px-4 py-[15px] text-xs font-bold leading-none transition hover:bg-[#1E1E1E] hover:text-white"
                                     >
-                                        {item.label}
+                                        {t(item.label)}
                                     </a>
                                 );
                             })}
@@ -387,7 +355,7 @@ export default function ContactSection({
                         <div className="mt-[34px] flex items-center justify-center gap-[15px] xl:justify-start">
                             <Image
                                 src="/images/pixardiaLogoCon.svg"
-                                alt="Pixardia Studio"
+                                alt={t("Pixardia Studio")}
                                 width={48}
                                 height={48}
                                 className="h-auto w-auto"
@@ -395,11 +363,11 @@ export default function ContactSection({
 
                             <div>
                                 <p className="text-sm font-bold uppercase leading-none text-[#6A6A6B]">
-                                    Pixardia Studio
+                                    {t("Pixardia Studio")}
                                 </p>
 
                                 <p className="mt-1 text-xs font-bold leading-none text-[#D4D5D7]">
-                                    full-cycle delivery
+                                    {t("full-cycle delivery")}
                                 </p>
                             </div>
                         </div>
@@ -415,8 +383,7 @@ export default function ContactSection({
                         />
 
                         <p className="mt-2.5 text-xs font-bold leading-none text-[#D7D8DA] min-[361px]:text-sm">
-                            © {new Date().getFullYear()} Pixardia. All rights reserved.
-                        </p>
+                            © {new Date().getFullYear()} {t("Pixardia. All rights reserved.")}</p>
                     </div>
 
                     <div
@@ -592,9 +559,8 @@ export default function ContactSection({
                                                 }
                                             >
                                                 {
-                                                    service
-                                                        .title
-                                                        .en
+                                                    localized(service
+                                                        .title, locale)
                                                 }
                                             </option>
                                         ),
@@ -664,7 +630,7 @@ export default function ContactSection({
                                 aria-hidden="true"
                             >
                                 <label htmlFor="contact-website">
-                                    website
+                                    {t("website")}
                                 </label>
 
                                 <input
@@ -725,13 +691,11 @@ export default function ContactSection({
                                     <span>
                                         {text.privacy}{" "}
                                         <a
-                                            href={
-                                                siteConfig
-                                                    .links
-                                                    .privacy
-                                            }
+                                            href={publicPath(locale, siteConfig
+                                                .links
+                                                .privacy)}
                                             aria-label={
-                                                "Open privacy policy"
+                                                t(t("Open privacy policy"))
                                             }
                                             className="underline transition hover:text-black"
                                         >

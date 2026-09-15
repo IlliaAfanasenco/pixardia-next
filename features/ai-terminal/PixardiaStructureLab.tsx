@@ -1,3 +1,5 @@
+"use client";
+import { useI18n } from "@/i18n/LocaleProvider";
 import Image from "next/image";
 
 import {
@@ -49,10 +51,11 @@ const systemMetrics = [
 ] as const;
 
 export default function PixardiaStructureLab({
-    messages,
-    isSubmitting,
-    error,
-}: PixardiaStructureLabProps) {
+                                                 messages,
+                                                 isSubmitting,
+                                                 error,
+                                             }: PixardiaStructureLabProps) {
+    const { t } = useI18n();
     const visibleMessages = messages.slice(-2);
 
     return (
@@ -72,7 +75,7 @@ export default function PixardiaStructureLab({
                     />
 
                     <p className="truncate text-xs font-black uppercase tracking-[0.08em] text-[#1E1E1E]">
-                        Pixardia / Structure Lab
+                        {t("Pixardia / Structure Lab")}
                     </p>
                 </div>
 
@@ -82,17 +85,17 @@ export default function PixardiaStructureLab({
                             error
                                 ? "bg-red-500"
                                 : isSubmitting
-                                  ? "animate-pulse bg-[#5E56E7]"
-                                  : "bg-[#30D13B]"
+                                    ? "animate-pulse bg-[#5E56E7]"
+                                    : "bg-[#30D13B]"
                         }`}
                     />
 
                     <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#808188]">
                         {error
-                            ? "signal error"
+                            ? t("signal error")
                             : isSubmitting
-                              ? "mapping"
-                              : "project ready"}
+                                ? t("mapping")
+                                : t("project ready")}
                     </span>
                 </div>
             </div>
@@ -101,17 +104,17 @@ export default function PixardiaStructureLab({
                 <div className="flex items-end justify-between gap-5">
                     <div>
                         <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#808188]">
-                            end-to-end delivery / 02
+                            {t("end-to-end delivery / 02")}
                         </p>
 
                         <h3 className="mt-2 text-[clamp(28px,2.4vw,38px)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-[#1E1E1E]">
-                            Delivery Blueprint
+                            {t("Delivery Blueprint")}
                         </h3>
                     </div>
 
                     <span className="border border-[#5E56E7] px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.08em] text-[#5E56E7]">
-                        AI assisted
-                    </span>
+                        {t("AI assisted")}
+                        </span>
                 </div>
 
                 <div className="mt-5 grid grid-cols-4 border-y border-[#C5C6C8]">
@@ -134,14 +137,14 @@ export default function PixardiaStructureLab({
                                         index === 1
                                             ? "bg-[#5E56E7]"
                                             : index < 3
-                                              ? "bg-[#1E1E1E]"
-                                              : "border border-[#808188] bg-white"
+                                                ? "bg-[#1E1E1E]"
+                                                : "border border-[#808188] bg-white"
                                     }`}
                                 />
                             </div>
 
                             <p className="mt-3 truncate text-sm font-black uppercase leading-none tracking-[0.02em] text-[#1E1E1E]">
-                                {step.title}
+                                {t(step.title)}
                             </p>
 
                             <p
@@ -151,7 +154,7 @@ export default function PixardiaStructureLab({
                                         : "text-[#A7A7AA]"
                                 }`}
                             >
-                                {step.status}
+                                {t(step.status)}
                             </p>
                         </div>
                     ))}
@@ -165,12 +168,11 @@ export default function PixardiaStructureLab({
                 >
                     <div className="flex items-center justify-between gap-4">
                         <p className="text-[10px] font-black uppercase tracking-[0.1em] text-[#5E56E7]">
-                            Project Signal
+                            {t("Project Signal")}
                         </p>
 
                         <span className="text-[9px] font-bold uppercase tracking-[0.08em] text-[#A7A7AA]">
-                            {String(messages.length).padStart(2, "0")} events
-                        </span>
+                            {String(messages.length).padStart(2, "0")} {t("events")}</span>
                     </div>
 
                     {error ? (
@@ -180,7 +182,7 @@ export default function PixardiaStructureLab({
                     ) : isSubmitting ? (
                         <div className="mt-4 flex flex-1 flex-col justify-center">
                             <p className="text-sm font-bold uppercase leading-[1.25] tracking-[0.02em] text-[#1E1E1E]">
-                                Mapping the strongest delivery route…
+                                {t("Mapping the strongest delivery route…")}
                             </p>
 
                             <div className="mt-4 h-1.5 overflow-hidden bg-[#D8D8DA]">
@@ -203,7 +205,7 @@ export default function PixardiaStructureLab({
                                     >
                                         {message.role === "assistant"
                                             ? "Pixardia"
-                                            : "Brief"}
+                                            : t("Brief")}
                                     </span>
 
                                     <p className="line-clamp-2 text-xs font-bold leading-[1.35] text-[#1E1E1E]">
@@ -215,12 +217,12 @@ export default function PixardiaStructureLab({
                     ) : (
                         <div className="mt-4 flex flex-1 items-end justify-between gap-6">
                             <p className="max-w-[360px] text-sm font-bold uppercase leading-[1.3] tracking-[0.01em] text-[#1E1E1E]">
-                                Add your brief to generate a focused delivery structure.
+                                {t("Add your brief to generate a focused delivery structure.")}
                             </p>
 
                             <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.08em] text-[#A7A7AA]">
-                                waiting for input
-                            </span>
+                                {t("waiting for input")}
+                                </span>
                         </div>
                     )}
                 </div>
@@ -237,11 +239,11 @@ export default function PixardiaStructureLab({
                         }`}
                     >
                         <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-[#A7A7AA]">
-                            {metric.label}
+                            {t(metric.label)}
                         </p>
 
                         <p className="mt-1 text-xs font-black leading-none text-[#1E1E1E]">
-                            {metric.value}
+                            {t(metric.value)}
                         </p>
                     </div>
                 ))}

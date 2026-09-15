@@ -1,4 +1,7 @@
+"use client";
+import { useI18n } from "@/i18n/LocaleProvider";
 export default function EvidenceInterlude() {
+    const { t } = useI18n();
     return (
         <div
             className="cinematic-evidence-interlude"
@@ -10,8 +13,8 @@ export default function EvidenceInterlude() {
                 data-cinematic-evidence-frame=""
             >
                 <div className="cinematic-evidence-interlude__meta">
-                    <span>05 / SELECTED WORK</span>
-                    <span>PIXARDIA / PROJECT RECORD</span>
+                    <span>{t("05 / SELECTED WORK")}</span>
+                    <span>{t("PIXARDIA / PROJECT RECORD")}</span>
                 </div>
 
                 <div
@@ -20,13 +23,14 @@ export default function EvidenceInterlude() {
                 />
 
                 <p className="cinematic-evidence-interlude__title">
-                    From strategy
-                    <span>to delivery</span>
+                    {t("From strategy")}<span>{t("to delivery")}
+
+                    </span>
                 </p>
 
                 <p className="cinematic-evidence-interlude__copy">
-                    Selected digital products shaped through strategy,
-                    design and reliable engineering.
+                    {t("Selected digital products shaped through strategy, design and reliable engineering.")}
+
                 </p>
             </div>
         </div>

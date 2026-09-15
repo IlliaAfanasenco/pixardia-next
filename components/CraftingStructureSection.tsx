@@ -1,4 +1,6 @@
 "use client";
+import { publicPath } from "@/i18n/navigation";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -25,6 +27,7 @@ const tags = [
 ];
 
 export default function CraftingStructureSection() {
+    const { t, locale } = useI18n();
     const {
         input,
         setInput,
@@ -34,7 +37,7 @@ export default function CraftingStructureSection() {
         shouldLeadToContact,
         submit,
         reset,
-    } = useAiTerminal("en");
+    } = useAiTerminal(locale);
 
     function handleSubmit(
         event: FormEvent<HTMLFormElement>,
@@ -63,33 +66,31 @@ export default function CraftingStructureSection() {
                     data-cinematic-element="crafting-copy"
                 >
                     <p className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]">
-                        02 / END-TO-END DELIVERY SYSTEM
+                        {t("02 / END-TO-END DELIVERY SYSTEM")}
                     </p>
 
                     <h2 className="mt-7 flex flex-col items-start text-[clamp(44px,7.5vw,104px)] font-black uppercase leading-[0.86] tracking-[-0.045em]">
                         <span className="text-[#1E1E1E]">
-                            crafting
-                        </span>
+                            {t("crafting")}
+                            </span>
 
                         <span className="text-[#C5C6C8]">
-                            structure
-                        </span>
+                            {t("structure")}
+                            </span>
                     </h2>
 
                     <p className="mt-7 max-w-[620px] text-left text-lg font-bold uppercase leading-[1.2] tracking-[-0.03em] text-[#1E1E1E] md:text-[clamp(18px,2vw,24px)]">
-                        Every successful product starts with
-                        a clear strategy, a strong system and
-                        a controlled delivery process.
+                        {t("Every successful product starts with a clear strategy, a strong system and a controlled delivery process.")}
                     </p>
 
                     <div className="mt-8 flex items-center gap-6 text-left sm:gap-10">
                         <div>
                             <p className="text-[32px] font-black uppercase leading-none tracking-[0.03em] md:text-4xl">
-                                clear
+                                {t("clear")}
                             </p>
 
                             <p className="mt-1 text-sm font-bold uppercase leading-[1.2] tracking-[0.1em] text-[#C5C6C8] md:text-base">
-                                project scope
+                                {t("project scope")}
                             </p>
                         </div>
 
@@ -97,11 +98,11 @@ export default function CraftingStructureSection() {
 
                         <div>
                             <p className="text-[32px] font-black uppercase leading-none tracking-[0.03em] md:text-4xl">
-                                managed
+                                {t("managed")}
                             </p>
 
                             <p className="mt-1 text-sm font-bold uppercase leading-[1.2] tracking-[0.1em] text-[#C5C6C8] md:text-base">
-                                controlled delivery
+                                {t("controlled delivery")}
                             </p>
                         </div>
                     </div>
@@ -122,7 +123,7 @@ export default function CraftingStructureSection() {
                                     />
 
                                     <p className="truncate text-sm font-bold uppercase leading-[1.2] tracking-[0.01em] text-[#3D5FB5]">
-                                        project architect
+                                        {t("project architect")}
                                     </p>
                                 </div>
 
@@ -138,10 +139,7 @@ export default function CraftingStructureSection() {
                             </div>
 
                             <p className="mt-6 text-sm font-bold leading-[1.3] tracking-[0.01em] text-[#C5C6C8]">
-                                Describe your business goals,
-                                target users and required
-                                functionality. We will map the
-                                strongest delivery route.
+                                {t("Describe your business goals, target users and required functionality. We will map the strongest delivery route.")}
                             </p>
 
                             <form
@@ -152,7 +150,7 @@ export default function CraftingStructureSection() {
                                     htmlFor="ai-project-signal"
                                     className="sr-only"
                                 >
-                                    Describe your project
+                                    {t("Describe your project")}
                                 </label>
 
                                 <input
@@ -165,7 +163,7 @@ export default function CraftingStructureSection() {
                                         );
                                     }}
                                     maxLength={800}
-                                    placeholder="Describe your goals, users and required functionality."
+                                    placeholder={t("Describe your goals, users and required functionality.")}
                                     className="h-11 w-full bg-[#F3F4F6] px-4 text-sm font-bold leading-[1.2] tracking-[0.01em] text-[#1E1E1E] outline-none placeholder:text-[#C5C6C8] focus:ring-2 focus:ring-[#3D5FB5] md:h-10"
                                     disabled={isSubmitting}
                                     aria-invalid={Boolean(
@@ -191,8 +189,8 @@ export default function CraftingStructureSection() {
                                 >
                                     <span className="text-sm font-bold uppercase leading-[1.2] tracking-[0.03em] text-[#EDEDED]">
                                         {isSubmitting
-                                            ? "analysing..."
-                                            : "build project route →"}
+                                            ? t("analysing...")
+                                            : t("build project route →")}
                                     </span>
                                 </button>
                             </form>
@@ -202,10 +200,10 @@ export default function CraftingStructureSection() {
                                 <div className="mt-3 grid gap-2 sm:grid-cols-2">
                                     {shouldLeadToContact && (
                                         <Link
-                                            href="/contact"
+                                            href={publicPath(locale, "/contact")}
                                             className="border border-[#3D5FB5] px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.03em] text-[#3D5FB5] transition hover:bg-[#3D5FB5] hover:text-white"
                                         >
-                                            start a project →
+                                            {t("start a project →")}
                                         </Link>
                                     )}
 
@@ -219,7 +217,7 @@ export default function CraftingStructureSection() {
                                                     : "sm:col-span-2"
                                             }`}
                                         >
-                                            reset analysis
+                                            {t("reset analysis")}
                                         </button>
                                     )}
                                 </div>
@@ -259,11 +257,11 @@ export default function CraftingStructureSection() {
                                     className="flex min-h-16 flex-col items-center justify-center border-b-2 border-r-2 border-[#BDBDBD] px-3 text-center"
                                 >
                                     <span className="text-xs font-bold uppercase leading-[1.2] tracking-[0.03em] text-[#C5C6C8] sm:text-sm">
-                                        {tag.top}
+                                        {t(tag.top)}
                                     </span>
 
                                     <span className="mt-1.5 text-sm font-bold leading-[1.2] tracking-[0.03em] text-[#1E1E1E] sm:text-base">
-                                        {tag.bottom}
+                                        {t(tag.bottom)}
                                     </span>
                                 </div>
                             ))}

@@ -1,3 +1,5 @@
+"use client";
+import { useI18n } from "@/i18n/LocaleProvider";
 const nodes = [
     {
         id: "hero",
@@ -32,17 +34,18 @@ const nodes = [
 ] as const;
 
 export default function SceneNavigator() {
+    const { t } = useI18n();
     return (
         <nav
             className="cinematic-navigator"
-            aria-label="Homepage presentation scenes"
+            aria-label={t("Homepage presentation scenes")}
             data-cinematic-navigator=""
         >
             <div
                 className="cinematic-navigator__meta"
                 aria-hidden="true"
             >
-                <span>Index</span>
+                <span>{t("Index")}</span>
                 <span>01—06</span>
             </div>
 
@@ -66,7 +69,7 @@ export default function SceneNavigator() {
                         <button
                             type="button"
                             className="cinematic-navigator__link"
-                            aria-label={`Go to ${node.label}`}
+                            aria-label={t("Go to {section}", { section: t(node.label) })}
                             data-cinematic-nav-target={node.target}
                         >
                             <span className="cinematic-navigator__index">
@@ -82,7 +85,7 @@ export default function SceneNavigator() {
                             />
 
                             <span className="cinematic-navigator__label">
-                                {node.label}
+                                {t(node.label)}
                             </span>
                         </button>
                     </li>

@@ -1,3 +1,7 @@
+import { publicPath } from "@/i18n/navigation";
+import { localized } from "@/i18n/localized";
+import type { SiteLocale } from "@/i18n/config";
+import { translator } from "@/i18n/getDictionary";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,7 +17,8 @@ import type {
 const featuredProjects =
     getFeaturedProjects();
 
-export default function ArchiveSection() {
+export default function ArchiveSection({ locale }: { locale: SiteLocale }) {
+    const t = translator(locale);
     return (
         <section
             id="projects"
@@ -36,7 +41,7 @@ export default function ArchiveSection() {
                         className="text-xs font-bold uppercase leading-none text-[#C5C6C8]"
                         data-archive-kicker=""
                     >
-                        05 / SELECTED DIGITAL WORK
+                        {t("05 / SELECTED DIGITAL WORK")}
                     </p>
 
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
@@ -45,15 +50,14 @@ export default function ArchiveSection() {
                             data-archive-title=""
                             className="max-w-[620px] text-[clamp(40px,7vw,94px)] font-black uppercase leading-[0.9] tracking-[-0.03em] text-[#1E1E1E]"
                         >
-                            Project Archive
+                            {t("Project Archive")}
                         </h2>
 
                         <p
                             className="max-w-[470px] text-left text-xs font-bold leading-[1.35] text-[#A9AAAE] lg:text-right"
                             data-archive-intro=""
                         >
-                            A selection of digital products shaped through
-                            strategy, design and engineering.
+                            {t("A selection of digital products shaped through strategy, design and engineering.")}
                         </p>
                     </div>
                 </div>
@@ -64,10 +68,10 @@ export default function ArchiveSection() {
                 >
                     {featuredProjects.map(
                         (project, index) => (
-                            <ProjectArchiveCard
-                                key={project.slug}
-                                project={project}
-                                index={index}
+                            <ProjectArchiveCard locale={locale}
+                                                key={project.slug}
+                                                project={project}
+                                                index={index}
                             />
                         ),
                     )}
@@ -99,10 +103,10 @@ export default function ArchiveSection() {
                     data-archive-cta=""
                 >
                     <Link
-                        href="/projects"
+                        href={publicPath(locale, "/projects")}
                         className="inline-flex w-full items-center justify-center border border-[#767576] px-9 py-4 text-sm font-bold uppercase leading-none text-[#767576] no-underline transition duration-200 hover:border-[#1E1E1E] hover:text-[#1E1E1E] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5E56E7] sm:w-auto"
                     >
-                        View all work
+                        {t("View all work")}
                     </Link>
                 </div>
             </div>
@@ -111,14 +115,16 @@ export default function ArchiveSection() {
 }
 
 type ProjectArchiveCardProps = {
+    locale: SiteLocale;
     project: Project;
     index: number;
 };
 
-function ProjectArchiveCard({
+function ProjectArchiveCard({ locale,
                                 project,
                                 index,
                             }: ProjectArchiveCardProps) {
+    const t = translator(locale);
     const colors =
         project.caseStudy.visualSystem.colors;
 
@@ -132,14 +138,14 @@ function ProjectArchiveCard({
         colors[2]?.value ?? "#F1F1F3";
 
     const typeLabel =
-        projectTypeLabels[
+        localized(projectTypeLabels[
             project.type
-            ].en;
+            ], locale);
 
     const statusLabel =
-        projectStatusLabels[
+        localized(projectStatusLabels[
             project.status
-            ].en;
+            ], locale);
 
     return (
         <article
@@ -149,10 +155,10 @@ function ProjectArchiveCard({
         >
             <Link
                 id={`project-modal-trigger-${project.slug}`}
-                href={`/projects/${project.slug}`}
+                href={publicPath(locale, `/projects/${project.slug}`)}
                 scroll={false}
                 aria-haspopup="dialog"
-                aria-label={`Open ${project.title} case study`}
+                aria-label={t("Open {title} case study", { title: project.title })}
                 className="block h-full text-inherit no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5E56E7]"
             >
                 <div
@@ -167,9 +173,9 @@ function ProjectArchiveCard({
                                     .src
                             }
                             alt={
-                                project
+                                localized(project
                                     .coverImage
-                                    .alt.en
+                                    .alt, locale)
                             }
                             width={
                                 project
@@ -184,11 +190,11 @@ function ProjectArchiveCard({
                             className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.015]"
                         />
                     ) : (
-                        <ProjectVisualFallback
-                            project={project}
-                            primary={primary}
-                            secondary={secondary}
-                            accent={accent}
+                        <ProjectVisualFallback locale={locale}
+                                               project={project}
+                                               primary={primary}
+                                               secondary={secondary}
+                                               accent={accent}
                         />
                     )}
 
@@ -202,8 +208,8 @@ function ProjectArchiveCard({
                         </span>
 
                         <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-white">
-                            Explore case →
-                        </span>
+                            {t("Explore case →")}
+                            </span>
                     </div>
                 </div>
 
@@ -227,33 +233,31 @@ function ProjectArchiveCard({
 
                     <p className="max-w-[560px] text-xs font-bold leading-[1.4] text-[#A8A9AD]">
                         {
-                            project
-                                .summary
-                                .en
+                            localized(project
+                                .summary, locale)
                         }
                     </p>
 
                     <div className="grid w-full grid-cols-2 gap-4 border-t border-[#DDDDDD] pt-[18px] sm:grid-cols-3">
-                        <ProjectStat
-                            label="Status"
-                            value={statusLabel}
-                            status
+                        <ProjectStat locale={locale}
+                                     label={t("Status")}
+                                     value={statusLabel}
+                                     status
                         />
 
-                        <ProjectStat
-                            label="System"
-                            value={
-                                project
-                                    .caseStudy
-                                    .presentation
-                                    .centerLabel
-                                    .en
-                            }
+                        <ProjectStat locale={locale}
+                                     label={t("System")}
+                                     value={
+                                         localized(project
+                                             .caseStudy
+                                             .presentation
+                                             .centerLabel, locale)
+                                     }
                         />
 
-                        <ProjectStat
-                            label="Stack"
-                            value={`${project.technologies.length} technologies`}
+                        <ProjectStat locale={locale}
+                                     label={t("Stack")}
+                                     value={`${project.technologies.length} technologies`}
                         />
                     </div>
                 </div>
@@ -263,18 +267,20 @@ function ProjectArchiveCard({
 }
 
 type ProjectVisualFallbackProps = {
+    locale: SiteLocale;
     project: Project;
     primary: string;
     secondary: string;
     accent: string;
 };
 
-function ProjectVisualFallback({
+function ProjectVisualFallback({ locale,
                                    project,
                                    primary,
                                    secondary,
                                    accent,
                                }: ProjectVisualFallbackProps) {
+    const t = translator(locale);
     return (
         <div
             className="relative h-full w-full overflow-hidden bg-[#151619]"
@@ -299,33 +305,33 @@ function ProjectVisualFallback({
                     </span>
 
                     <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-white/75">
-                        System view
-                    </span>
+                        {t("System view")}
+                        </span>
                 </div>
 
                 <div className="relative min-h-0 flex-1">
                     {project.slug ===
                     "pixardia-digital-studio" ? (
-                        <PixardiaProjectVisual
-                            primary={primary}
-                            accent={accent}
+                        <PixardiaProjectVisual locale={locale}
+                                               primary={primary}
+                                               accent={accent}
                         />
                     ) : project.slug ===
                     "nexus-finance" ? (
-                        <NexusProjectVisual
-                            primary={primary}
-                            accent={accent}
+                        <NexusProjectVisual locale={locale}
+                                            primary={primary}
+                                            accent={accent}
                         />
                     ) : project.slug ===
                     "nordmarkt-commerce" ? (
-                        <NordmarktProjectVisual
-                            primary={primary}
-                            accent={accent}
+                        <NordmarktProjectVisual locale={locale}
+                                                primary={primary}
+                                                accent={accent}
                         />
                     ) : (
-                        <CoreFlowProjectVisual
-                            primary={primary}
-                            accent={accent}
+                        <CoreFlowProjectVisual locale={locale}
+                                               primary={primary}
+                                               accent={accent}
                         />
                     )}
                 </div>
@@ -335,14 +341,16 @@ function ProjectVisualFallback({
 }
 
 type ProjectVisualSceneProps = {
+    locale: SiteLocale;
     primary: string;
     accent: string;
 };
 
-function PixardiaProjectVisual({
+function PixardiaProjectVisual({ locale,
                                    primary,
                                    accent,
                                }: ProjectVisualSceneProps) {
+    const t = translator(locale);
     return (
         <div
             className="grid h-full grid-cols-[0.8fr_1.2fr] gap-3 p-4 sm:gap-4 sm:p-5"
@@ -351,11 +359,11 @@ function PixardiaProjectVisual({
             <div className="flex min-w-0 flex-col justify-between border border-white/15 bg-white/[0.035] p-3 sm:p-4">
                 <div>
                     <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/40">
-                        Studio platform
-                    </span>
+                        {t("Studio platform")}
+                        </span>
 
                     <p className="mt-2 max-w-[180px] text-[clamp(16px,2.2vw,28px)] font-black uppercase leading-[0.92] tracking-[-0.03em] text-white">
-                        Signal to delivery
+                        {t("Signal to delivery")}
                     </p>
                 </div>
 
@@ -381,7 +389,7 @@ function PixardiaProjectVisual({
                                 />
 
                                 <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-white/55">
-                                    {label}
+                                    {t(label)}
                                 </span>
                             </div>
                         ),
@@ -399,8 +407,8 @@ function PixardiaProjectVisual({
                 >
                     <div className="flex h-full items-end justify-between gap-3">
                         <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/50">
-                            Experience layer
-                        </span>
+                            {t("Experience layer")}
+                            </span>
 
                         <span
                             className="h-10 w-10 border border-white/25"
@@ -414,24 +422,25 @@ function PixardiaProjectVisual({
 
                 <div className="border border-white/15 bg-white/[0.035] p-3">
                     <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-white/45">
-                        Content
-                    </span>
+                        {t("Content")}
+                        </span>
                 </div>
 
                 <div className="border border-white/15 bg-white/[0.035] p-3">
                     <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-white/45">
-                        Platform
-                    </span>
+                        {t("Platform")}
+                        </span>
                 </div>
             </div>
         </div>
     );
 }
 
-function NexusProjectVisual({
+function NexusProjectVisual({ locale,
                                 primary,
                                 accent,
                             }: ProjectVisualSceneProps) {
+    const t = translator(locale);
     return (
         <div
             className="grid h-full grid-cols-[1.25fr_0.75fr] gap-3 p-4 sm:gap-4 sm:p-5"
@@ -440,8 +449,8 @@ function NexusProjectVisual({
             <div className="flex min-w-0 flex-col border border-white/15 bg-white/[0.035] p-3 sm:p-4">
                 <div className="flex items-center justify-between gap-3">
                     <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/45">
-                        Account activity
-                    </span>
+                        {t("Account activity")}
+                        </span>
 
                     <span
                         className="h-2 w-8"
@@ -492,7 +501,7 @@ function NexusProjectVisual({
                             className="flex flex-1 flex-col justify-between border border-white/15 bg-white/[0.035] p-3"
                         >
                             <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-white/45">
-                                {label}
+                                {t(label)}
                             </span>
 
                             <span
@@ -514,10 +523,11 @@ function NexusProjectVisual({
     );
 }
 
-function NordmarktProjectVisual({
+function NordmarktProjectVisual({ locale,
                                     primary,
                                     accent,
                                 }: ProjectVisualSceneProps) {
+    const t = translator(locale);
     return (
         <div
             className="grid h-full grid-cols-[1.25fr_0.75fr] gap-3 p-4 sm:gap-4 sm:p-5"
@@ -547,7 +557,7 @@ function NordmarktProjectVisual({
 
                             <div className="mt-2 flex items-center justify-between">
                                 <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-white/40">
-                                    Item {item}
+                                    {t("Item")}{item}
                                 </span>
 
                                 <span
@@ -567,8 +577,8 @@ function NordmarktProjectVisual({
 
             <div className="flex min-w-0 flex-col border border-white/15 bg-white/[0.035] p-3">
                 <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/45">
-                    Purchase flow
-                </span>
+                    {t("Purchase flow")}
+                    </span>
 
                 <div className="mt-4 space-y-2">
                     {[
@@ -593,7 +603,7 @@ function NordmarktProjectVisual({
                                     />
 
                                     <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-white/50">
-                                        {label}
+                                        {t(label)}
                                     </span>
                                 </div>
                             </div>
@@ -613,10 +623,11 @@ function NordmarktProjectVisual({
     );
 }
 
-function CoreFlowProjectVisual({
+function CoreFlowProjectVisual({ locale,
                                    primary,
                                    accent,
                                }: ProjectVisualSceneProps) {
+    const t = translator(locale);
     return (
         <div
             className="relative h-full p-4 sm:p-5"
@@ -634,32 +645,32 @@ function CoreFlowProjectVisual({
                 }}
             >
                 <span className="text-[11px] font-black uppercase tracking-[0.08em] text-white">
-                    AI Core
-                </span>
+                    {t("AI Core")}
+                    </span>
             </div>
 
             <div className="absolute left-[6%] top-[18%] border border-white/15 bg-[#1C1D21] px-3 py-2">
                 <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-white/50">
-                    Requests
-                </span>
+                    {t("Requests")}
+                    </span>
             </div>
 
             <div className="absolute right-[6%] top-[18%] border border-white/15 bg-[#1C1D21] px-3 py-2">
                 <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-white/50">
-                    Knowledge
-                </span>
+                    {t("Knowledge")}
+                    </span>
             </div>
 
             <div className="absolute bottom-[18%] left-[6%] border border-white/15 bg-[#1C1D21] px-3 py-2">
                 <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-white/50">
-                    Validation
-                </span>
+                    {t("Validation")}
+                    </span>
             </div>
 
             <div className="absolute bottom-[18%] right-[6%] border border-white/15 bg-[#1C1D21] px-3 py-2">
                 <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-white/50">
-                    Human review
-                </span>
+                    {t("Human review")}
+                    </span>
             </div>
 
             <span
@@ -674,20 +685,22 @@ function CoreFlowProjectVisual({
 }
 
 type ProjectStatProps = {
+    locale: SiteLocale;
     label: string;
     value: string;
     status?: boolean;
 };
 
-function ProjectStat({
+function ProjectStat({ locale,
                          label,
                          value,
                          status = false,
                      }: ProjectStatProps) {
+    const t = translator(locale);
     return (
         <div className="min-w-0">
             <span className="block text-[10px] font-normal uppercase leading-none tracking-[0.08em] text-[#BFC0C3]">
-                {label}
+                {t(label)}
             </span>
 
             {status ? (

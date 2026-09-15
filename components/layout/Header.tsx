@@ -1,5 +1,9 @@
 "use client";
+import { publicPath } from "@/i18n/navigation";
+import { useI18n } from "@/i18n/LocaleProvider";
 
+import LanguageSwitcher from "./LanguageSwitcher";
+import { isLocaleHome } from "@/i18n/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Archivo } from "next/font/google";
@@ -21,6 +25,7 @@ const archivo = Archivo({
 });
 
 export default function Header() {
+    const { t, locale } = useI18n();
     const [isCompact, setIsCompact] = useState(false);
     const starRef = useRef<HTMLImageElement>(null);
 
@@ -73,7 +78,7 @@ export default function Header() {
             return;
         }
 
-        if (window.location.pathname !== "/") {
+        if (!isLocaleHome(window.location.pathname)) {
             return;
         }
 
@@ -110,8 +115,8 @@ export default function Header() {
                 }`}
             >
                 <Link
-                    href={`${siteConfig.links.home}#hero`}
-                    aria-label="Pixardia home"
+                    href={publicPath(locale, `${siteConfig.links.home}#hero`)}
+                    aria-label={t("Pixardia home")}
                     onClick={handleHomeClick}
                     className={`flex flex-col items-start no-underline transition-[gap] duration-300 ease-out sm:flex-row sm:items-center ${
                         isCompact
@@ -136,11 +141,12 @@ export default function Header() {
                                 : "text-[clamp(12px,1.5vw,16px)]"
                         }`}
                     >
-                        digital studio
-                    </span>
+                        {t("digital studio")}
+                        </span>
                 </Link>
 
                 <div className="flex shrink-0 items-center justify-end gap-3 sm:gap-4 lg:gap-6">
+                    <LanguageSwitcher />
                     <Image
                         ref={starRef}
                         src="/icons/star.svg"
@@ -170,14 +176,14 @@ export default function Header() {
                     />
 
                     <Link
-                        href={siteConfig.links.contact}
+                        href={publicPath(locale, siteConfig.links.contact)}
                         className={`whitespace-nowrap [font-family:var(--font-header-archivo)] font-bold uppercase leading-none tracking-[0.03em] text-[#1E1E1E] no-underline transition-[font-size,opacity] duration-300 ease-out hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E1E1E] ${
                             isCompact
                                 ? "text-[11px] sm:text-[13px]"
                                 : "text-[clamp(12px,1.5vw,16px)]"
                         }`}
                     >
-                        start project
+                        {t("start project")}
                     </Link>
                 </div>
             </div>
