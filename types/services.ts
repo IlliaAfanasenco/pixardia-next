@@ -1,3 +1,4 @@
+import type { SiteLocale } from "@/i18n/config";
 export const serviceCodes = [
     "BUSINESS_WEBSITE",
     "LANDING_PAGE",
@@ -11,10 +12,7 @@ export const serviceCodes = [
 
 export type ServiceCode = (typeof serviceCodes)[number];
 
-export type LocalizedText = {
-    en: string;
-    de: string;
-};
+export type LocalizedText = Record<SiteLocale, string>;
 
 export type Service = {
     code: ServiceCode;
@@ -22,10 +20,7 @@ export type Service = {
     title: LocalizedText;
     shortDescription: LocalizedText;
     description: LocalizedText;
-    deliverables: {
-        en: string[];
-        de: string[];
-    };
+    deliverables: Record<SiteLocale, string[]>;
     technologies: string[];
     timeline: LocalizedText;
     priceFrom: number | null;

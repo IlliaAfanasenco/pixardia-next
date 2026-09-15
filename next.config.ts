@@ -6,7 +6,17 @@ const nextConfig: NextConfig = {
             ? ".next-playwright"
             : ".next",
 
-    /* config options here */
+    experimental: { globalNotFound: true },
+    async redirects() {
+        return [
+            { source: "/", destination: "/en", permanent: true },
+            ...["services", "projects", "contact"].map((route) => ({
+                source: `/${route}/:path*`,
+                destination: `/en/${route}/:path*`,
+                permanent: true,
+            })),
+        ];
+    },
 };
 
 export default nextConfig;

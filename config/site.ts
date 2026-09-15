@@ -1,8 +1,7 @@
 const DEFAULT_DEVELOPMENT_URL = "http://localhost:3000";
 
-export const siteLocales = ["en", "de"] as const;
-
-export type SiteLocale = (typeof siteLocales)[number];
+import { siteLocales, defaultLocale, type SiteLocale } from "@/i18n/config";
+export { siteLocales, type SiteLocale } from "@/i18n/config";
 
 function getRequiredProductionValue(
     name: string,
@@ -99,7 +98,7 @@ export const siteConfig = {
         "Pixardia is a full-cycle digital studio creating high-performance websites, web applications, e-commerce platforms and AI-powered business solutions.",
 
     url: siteUrl,
-    defaultLocale: "en" satisfies SiteLocale,
+    defaultLocale: defaultLocale satisfies SiteLocale,
     locales: siteLocales,
 
 

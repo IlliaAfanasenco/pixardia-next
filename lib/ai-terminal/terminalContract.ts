@@ -1,6 +1,7 @@
-export const terminalLanguages = ["en", "de"] as const;
+import { siteLocales, type SiteLocale } from "@/i18n/config";
+export const terminalLanguages = siteLocales;
 
-export type TerminalLanguage = (typeof terminalLanguages)[number];
+export type TerminalLanguage = SiteLocale;
 
 export const terminalCategories = [
     "service",

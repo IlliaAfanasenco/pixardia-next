@@ -1,3 +1,4 @@
+import { siteLocales, defaultLocale } from "@/i18n/config";
 import { z } from "zod";
 
 import { serviceCodes } from "@/types/services";
@@ -59,7 +60,7 @@ export const leadSchema = z
 
         serviceCode: z.enum(serviceCodes),
 
-        language: z.enum(["en", "de"]).default("en"),
+        language: z.enum(siteLocales).default(defaultLocale),
 
         privacyAccepted: z
             .boolean()
