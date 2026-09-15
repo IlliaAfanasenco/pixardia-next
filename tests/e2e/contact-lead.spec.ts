@@ -124,7 +124,7 @@ test.describe(
         test.beforeEach(
             async ({ page }) => {
                 await page.goto(
-                    "/contact",
+                    "/en/contact",
                 );
 
                 await expect(

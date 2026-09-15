@@ -22,10 +22,10 @@ function countMatches(
 describe("accessibility source contract", () => {
     it("uses one page h1 and one secondary h2 on project and service indexes", () => {
         const projects =
-            read("app/projects/page.tsx");
+            read("app/[locale]/projects/page.tsx");
 
         const services =
-            read("app/services/page.tsx");
+            read("app/[locale]/services/page.tsx");
 
         expect(
             countMatches(projects, /<h1\b/g),

@@ -40,10 +40,10 @@ describe("P2 project case study contract", () => {
             caseStudy.replace(/\s+/gu, "");
 
         for (const marker of [
-            "project.description.en",
-            "project.challenge.en",
-            "project.solution.en",
-            "project.caseStudy.architecture.en",
+            "localized(project.description,locale)",
+            "localized(project.challenge,locale)",
+            "localized(project.solution,locale)",
+            "localized(project.caseStudy.architecture,locale)",
             "project.caseStudy.facts",
             "project.caseStudy.technologyGroups",
             "project.caseStudy.qualitySignals",
@@ -85,7 +85,7 @@ describe("P2 project case study contract", () => {
         );
 
         expect(caseStudy).toContain(
-            'href={`/projects/${nextProject.slug}`}',
+            'href={publicPath(locale, `/projects/${nextProject.slug}`)}',
         );
     });
 

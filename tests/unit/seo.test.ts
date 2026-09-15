@@ -15,6 +15,7 @@ const description =
 describe("createPageMetadata", () => {
     it("creates canonical and social metadata for a route", () => {
         const metadata = createPageMetadata({
+            locale: "en",
             title: "Projects",
             description,
             path: "/projects",
@@ -27,14 +28,15 @@ describe("createPageMetadata", () => {
         );
 
         expect(metadata.alternates).toEqual({
-            canonical: "/projects",
+            canonical: "/en/projects",
+            languages: { en: "/en/projects", de: "/de/projects", "x-default": "/en/projects" },
         });
 
         expect(metadata.openGraph).toMatchObject({
             type: "website",
             locale: "en_US",
             url: new URL(
-                "/projects",
+                "/en/projects",
                 `${siteConfig.url}/`,
             ).toString(),
             siteName: siteConfig.name,
@@ -63,6 +65,7 @@ describe("createPageMetadata", () => {
 
     it("uses an absolute title for the homepage", () => {
         const metadata = createPageMetadata({
+            locale: "en",
             title: siteConfig.title,
             description: siteConfig.description,
             path: "/",
@@ -84,6 +87,7 @@ describe("createPageMetadata", () => {
 
     it("does not advertise missing social images", () => {
         const metadata = createPageMetadata({
+            locale: "en",
             title: "Services",
             description,
             path: "/services",

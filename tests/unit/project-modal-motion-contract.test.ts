@@ -25,7 +25,7 @@ describe("project modal motion contract", () => {
         "features/projects/ProjectCaseStudy.tsx",
     );
 
-    it("uses GSAP curtain motion instead of CSS visibility toggles", () => {
+    it("uses GSAP curtain motion before history navigation", () => {
         expect(modal).toContain(
             'data-project-modal-panel="left"',
         );
@@ -39,8 +39,8 @@ describe("project modal motion contract", () => {
         expect(modal).not.toContain(
             "setTimeout(\n            () => router.back()",
         );
-        expect(modal).not.toContain("router.back()");
-        expect(modal).toContain("router.replace(returnHrefRef.current");
+        expect(modal).toContain("router.back()");
+        expect(modal).not.toContain("router.replace(");
         expect(modal).toContain("navigationCommittedRef");
     });
 
@@ -97,7 +97,7 @@ describe("project modal motion contract", () => {
             ),
         ).toBeLessThan(
             modal.indexOf(
-                "router.replace(returnHrefRef.current",
+                "router.back()",
             ),
         );
     });

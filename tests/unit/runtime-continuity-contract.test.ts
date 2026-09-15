@@ -14,7 +14,7 @@ function read(path: string): string {
 
 describe("runtime continuity contract", () => {
     it("keeps the GSAP pin inside a React-owned shell", () => {
-        const homepage = read("app/page.tsx");
+        const homepage = read("app/[locale]/page.tsx");
 
         expect(homepage).toContain(
             'data-cinematic-pin-shell=""',

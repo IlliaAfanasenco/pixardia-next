@@ -81,7 +81,7 @@ describe("archive project visual contract", () => {
         expect(
             archive,
         ).toContain(
-            'href={`/projects/${project.slug}`}',
+            'href={publicPath(locale, `/projects/${project.slug}`)}',
         );
 
         expect(

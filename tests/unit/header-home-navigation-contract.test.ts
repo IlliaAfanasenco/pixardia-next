@@ -22,10 +22,10 @@ describe("header home navigation contract", () => {
 
     it("keeps an anchor fallback to the first homepage section", () => {
         expect(header).toContain(
-            'href={`${siteConfig.links.home}#hero`}',
+            'href={publicPath(locale, `${siteConfig.links.home}#hero`)}',
         );
         expect(header).toContain(
-            'aria-label="Pixardia home"',
+            'aria-label={t("Pixardia home")}',
         );
     });
 

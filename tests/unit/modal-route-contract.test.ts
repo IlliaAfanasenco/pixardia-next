@@ -17,19 +17,19 @@ describe("project modal route contract", () => {
     it("uses the root parallel route slot", () => {
         expect(
             existsSync(
-                "app/@projectModal/(.)projects/[slug]/page.tsx",
+                "app/[locale]/@projectModal/(.)projects/[slug]/page.tsx",
             ),
         ).toBe(true);
 
         expect(
             existsSync(
-                "app/@projectModal/default.tsx",
+                "app/[locale]/@projectModal/default.tsx",
             ),
         ).toBe(true);
 
         expect(
             existsSync(
-                "app/@projectModal/[...catchAll]/page.tsx",
+                "app/[locale]/@projectModal/[...catchAll]/page.tsx",
             ),
         ).toBe(true);
     });
@@ -37,20 +37,20 @@ describe("project modal route contract", () => {
     it("removes the broken projects-local slot", () => {
         expect(
             existsSync(
-                "app/projects/@modal",
+                "app/[locale]/projects/@modal",
             ),
         ).toBe(false);
 
         expect(
             existsSync(
-                "app/projects/layout.tsx",
+                "app/[locale]/projects/layout.tsx",
             ),
         ).toBe(false);
     });
 
     it("renders the modal outside the site shell", () => {
         const layout =
-            read("app/layout.tsx");
+            read("app/[locale]/layout.tsx");
 
         expect(layout).toContain(
             "projectModal: ReactNode",
@@ -68,13 +68,13 @@ describe("project modal route contract", () => {
     it("provides null fallback routes", () => {
         expect(
             read(
-                "app/@projectModal/default.tsx",
+                "app/[locale]/@projectModal/default.tsx",
             ),
         ).toContain("return null");
 
         expect(
             read(
-                "app/@projectModal/[...catchAll]/page.tsx",
+                "app/[locale]/@projectModal/[...catchAll]/page.tsx",
             ),
         ).toContain("return null");
     });
@@ -82,7 +82,7 @@ describe("project modal route contract", () => {
     it("keeps intercepted and canonical routes separate", () => {
         const intercepted =
             read(
-                "app/@projectModal/(.)projects/[slug]/page.tsx",
+                "app/[locale]/@projectModal/(.)projects/[slug]/page.tsx",
             );
 
         expect(intercepted).toContain(
@@ -109,7 +109,7 @@ describe("project modal route contract", () => {
         );
 
         expect(archive).toContain(
-            'href={`/projects/${project.slug}`}',
+            'href={publicPath(locale, `/projects/${project.slug}`)}',
         );
 
         expect(archive).toContain(

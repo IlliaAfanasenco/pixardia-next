@@ -49,7 +49,7 @@ describe("experience foundation contract", () => {
     it("mounts one isolated client cinematic runtime on the homepage", () => {
         const runtimePath =
             "components/presentation/CinematicRuntime.tsx";
-        const homepage = read("app/page.tsx");
+        const homepage = read("app/[locale]/page.tsx");
 
         expect(existsSync(runtimePath)).toBe(true);
         expect(homepage).toContain(
@@ -76,7 +76,7 @@ describe("experience foundation contract", () => {
             "<CinematicRuntime />",
         );
         expect(homepage).toContain(
-            "<ArchiveSection />",
+            "<ArchiveSection locale={locale} />",
         );
     });
 
@@ -344,7 +344,7 @@ describe("experience foundation contract", () => {
         const styles = read("app/globals.css");
 
         expect(navigator).toContain(
-            'aria-label="Homepage presentation scenes"',
+            'aria-label={t("Homepage presentation scenes")}',
         );
         expect(navigator).toContain(
             'data-cinematic-navigator=""',
@@ -423,14 +423,14 @@ describe("experience foundation contract", () => {
     });
 
     it("keeps the homepage order and stable scene hooks explicit", () => {
-        const homepage = read("app/page.tsx");
+        const homepage = read("app/[locale]/page.tsx");
         const componentOrder = [
             "<HeroSection />",
             "<CraftingStructureSection />",
             "<NeuralSystemSection />",
-            "<ProductSection />",
+            "<ProductSection locale={locale} />",
             "<CinematicRuntime />",
-            "<ArchiveSection />",
+            "<ArchiveSection locale={locale} />",
             "<ContactSection />",
         ];
 
@@ -469,10 +469,10 @@ describe("experience foundation contract", () => {
             "features/projects/ProjectModal.tsx",
         );
         const modalRoute = read(
-            "app/@projectModal/(.)projects/[slug]/page.tsx",
+            "app/[locale]/@projectModal/(.)projects/[slug]/page.tsx",
         );
         const projectPage = read(
-            "app/projects/[slug]/page.tsx",
+            "app/[locale]/projects/[slug]/page.tsx",
         );
         const projectData = read(
             "content/projects.ts",

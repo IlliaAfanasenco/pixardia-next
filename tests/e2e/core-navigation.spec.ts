@@ -10,14 +10,14 @@ test.describe(
     "core navigation",
     () => {
         test(
-            "cinematic navigator moves between chapters without leaving the homepage",
-            async ({ page }) => {
+            "uses cinematic navigation on desktop and document flow on mobile",
+            async ({ page }, testInfo) => {
                 await page.setViewportSize({
                     width: 1440,
                     height: 900,
                 });
 
-                await page.goto("/");
+                await page.goto("/en");
 
                 const navigator =
                     page.getByRole(
@@ -27,6 +27,53 @@ test.describe(
                                 "Homepage presentation scenes",
                         },
                     );
+
+                if (
+                    testInfo.project.name.includes(
+                        "mobile",
+                    )
+                ) {
+                    await expect(
+                        page.locator(
+                            "[data-cinematic-navigator]",
+                        ),
+                    ).toBeHidden();
+
+                    await expect(
+                        page.locator("html"),
+                    ).not.toHaveAttribute(
+                        "data-cinematic-runtime",
+                        "ready",
+                    );
+
+                    const heroScene =
+                        page.locator(
+                            '[data-cinematic-scene="hero"]',
+                        );
+
+                    await expect(
+                        heroScene,
+                    ).toBeVisible();
+
+                    await expect(
+                        heroScene,
+                    ).not.toHaveAttribute(
+                        "aria-hidden",
+                        "",
+                    );
+
+                    const archiveSection =
+                        page.locator("#projects");
+
+                    await archiveSection
+                        .scrollIntoViewIfNeeded();
+
+                    await expect(
+                        archiveSection,
+                    ).toBeInViewport();
+
+                    return;
+                }
 
                 await expect(
                     navigator,
@@ -66,7 +113,7 @@ test.describe(
                     },
                 );
 
-                await expect(page).toHaveURL(/\/$/);
+                await expect(page).toHaveURL(/\/en$/);
 
                 await navigator.getByRole(
                     "button",
@@ -89,17 +136,17 @@ test.describe(
 
         test(
             "opens project as intercepted modal and restores homepage position",
-            async ({ page }) => {
+            async ({ page }, testInfo) => {
                 await page.setViewportSize({
                     width: 1440,
                     height: 900,
                 });
 
-                await page.goto("/");
+                await page.goto("/en");
 
                 const projectLink =
                     page.locator(
-                        `a[href="/projects/${projectSlug}"]`,
+                        `a[href="/en/projects/${projectSlug}"]`,
                     ).first();
 
                 await projectLink
@@ -218,7 +265,7 @@ test.describe(
                 await expect(
                     page,
                 ).toHaveURL(
-                    /\/$/,
+                    /\/en$/,
                 );
 
                 await page.waitForTimeout(900);
@@ -226,7 +273,7 @@ test.describe(
                 await expect(
                     page,
                 ).toHaveURL(
-                    /\/$/,
+                    /\/en$/,
                 );
 
                 await expect(
@@ -288,6 +335,30 @@ test.describe(
                         },
                     );
 
+                if (
+                    testInfo.project.name.includes(
+                        "mobile",
+                    )
+                ) {
+                    await expect(
+                        page.locator(
+                            "[data-cinematic-navigator]",
+                        ),
+                    ).toBeHidden();
+
+                    const contactSection =
+                        page.locator("#contact");
+
+                    await contactSection
+                        .scrollIntoViewIfNeeded();
+
+                    await expect(
+                        contactSection,
+                    ).toBeInViewport();
+
+                    return;
+                }
+
                 await navigator.getByRole(
                     "button",
                     {
@@ -310,11 +381,11 @@ test.describe(
         test(
             "loads project-specific modal data and closes with Escape",
             async ({ page }) => {
-                await page.goto("/");
+                await page.goto("/en");
 
                 const nexusLink =
                     page.locator(
-                        'a[href="/projects/nexus-finance"]',
+                        'a[href="/en/projects/nexus-finance"]',
                     ).first();
 
                 await nexusLink
@@ -343,6 +414,25 @@ test.describe(
                     ),
                 ).toBeVisible();
 
+                const nexusGallery =
+                    dialog.locator(
+                        "[data-project-gallery]",
+                    );
+
+                await expect(
+                    nexusGallery,
+                ).toHaveAttribute(
+                    "data-gallery-count",
+                    "3",
+                );
+
+                await expect(
+                    nexusGallery,
+                ).toHaveAttribute(
+                    "data-gallery-index",
+                    "0",
+                );
+
                 await expect(
                     dialog.getByRole(
                         "button",
@@ -351,7 +441,7 @@ test.describe(
                                 "Show next project image",
                         },
                     ),
-                ).toHaveCount(0);
+                ).toBeVisible();
 
                 await expect(
                     dialog.getByText(
@@ -383,11 +473,11 @@ test.describe(
             async ({ page }) => {
                 test.slow();
 
-                await page.goto("/");
+                await page.goto("/en");
 
                 const projectLink =
                     page.locator(
-                        `a[href="/projects/${projectSlug}"]`,
+                        `a[href="/en/projects/${projectSlug}"]`,
                     ).first();
 
                 await projectLink
@@ -490,11 +580,15 @@ test.describe(
                 ).click();
 
                 await expect(dialog).toBeHidden();
-                await expect(page).toHaveURL(/\/$/);
+                await expect(page).toHaveURL(/\/en$/);
 
                 await expect(
                     projectLink,
                 ).toBeVisible();
+
+                await expect(
+                    projectLink,
+                ).toBeFocused();
 
                 await projectLink.click();
 
@@ -507,8 +601,15 @@ test.describe(
                     },
                 );
 
+                const reopenedDialog =
+                    page.getByRole("dialog");
+
+                await expect(
+                    reopenedDialog,
+                ).toBeVisible();
+
                 const reopenedGallery =
-                    page.getByRole("dialog").locator(
+                    reopenedDialog.locator(
                         "[data-project-gallery]",
                     );
 
@@ -522,17 +623,12 @@ test.describe(
         );
 
         test(
-            "keeps technology tags neutral until hover or focus",
-            async ({ page }, testInfo) => {
-                const hasHover =
-                    !testInfo.project.name.includes(
-                        "mobile",
-                    );
-
-                await page.goto("/");
+            "keeps display-only technology tags neutral and out of the tab order",
+            async ({ page }) => {
+                await page.goto("/en");
 
                 await page.locator(
-                    'a[href="/projects/nexus-finance"]',
+                    'a[href="/en/projects/nexus-finance"]',
                 ).first().click();
 
                 const tags = page
@@ -574,69 +670,33 @@ test.describe(
                     ).size,
                 ).toBe(1);
 
-                const firstTag = tags.first();
-                const secondTag = tags.nth(1);
-
-                if (hasHover) {
-                    await firstTag.hover();
-
-                    const hoveredColor =
-                        await firstTag.evaluate(
-                            (element) =>
-                                getComputedStyle(
-                                    element,
-                                ).color,
-                        );
-
-                    const neighbourColor =
-                        await secondTag.evaluate(
-                            (element) =>
-                                getComputedStyle(
-                                    element,
-                                ).color,
-                        );
-
-                    expect(hoveredColor).not.toBe(
-                        neighbourColor,
-                    );
-                }
-
-                const closeButton = page
-                    .getByRole("dialog")
-                    .getByRole(
-                        "button",
-                        {
-                            name: /close/i,
-                        },
+                const tagSemantics =
+                    await tags.evaluateAll(
+                        (elements) =>
+                            elements.map(
+                                (element) => ({
+                                    tagName:
+                                    element.tagName,
+                                    tabIndex:
+                                    (
+                                        element as HTMLElement
+                                    ).tabIndex,
+                                    role:
+                                    element.getAttribute(
+                                        "role",
+                                    ),
+                                }),
+                            ),
                     );
 
-                await expect(
-                    closeButton,
-                ).toBeFocused();
-
-                await page.keyboard.press("Tab");
-
-                await expect(firstTag).toBeFocused();
-
-                const focusedColor =
-                    await firstTag.evaluate(
-                        (element) =>
-                            getComputedStyle(
-                                element,
-                            ).color,
-                    );
-
-                const unfocusedColor =
-                    await secondTag.evaluate(
-                        (element) =>
-                            getComputedStyle(
-                                element,
-                            ).color,
-                    );
-
-                expect(focusedColor).not.toBe(
-                    unfocusedColor,
-                );
+                expect(
+                    tagSemantics.every(
+                        (tag) =>
+                            tag.tagName === "SPAN" &&
+                            tag.tabIndex === -1 &&
+                            tag.role === null,
+                    ),
+                ).toBe(true);
             },
         );
 
@@ -644,7 +704,7 @@ test.describe(
             "renders canonical project page on direct navigation",
             async ({ page }) => {
                 await page.goto(
-                    `/projects/${projectSlug}`,
+                    `/en/projects/${projectSlug}`,
                 );
 
                 await expect(
@@ -679,7 +739,7 @@ test.describe(
             async ({ page }) => {
                 const response =
                     await page.goto(
-                        "/this-route-does-not-exist-e2e",
+                        "/en/this-route-does-not-exist-e2e",
                     );
 
                 expect(
@@ -706,7 +766,7 @@ test.describe(
         test(
             "homepage has no document-level horizontal overflow",
             async ({ page }) => {
-                await page.goto("/");
+                await page.goto("/en");
 
                 const dimensions =
                     await page.evaluate(
@@ -735,11 +795,17 @@ test.describe(
         test(
             "desktop modal panels fit without internal scrolling",
             async ({ page }) => {
-                await page.goto("/");
+                await page.goto("/en");
 
                 await page.locator(
-                    `a[href="/projects/${projectSlug}"]`,
+                    `a[href="/en/projects/${projectSlug}"]`,
                 ).first().click();
+
+                await expect(
+                    page.locator(
+                        '[data-project-modal-state="open"]',
+                    ),
+                ).toBeVisible();
 
                 for (const viewport of [
                     {
@@ -803,11 +869,11 @@ test.describe(
         test(
             "project modal remains usable at the active viewport",
             async ({ page }) => {
-                await page.goto("/");
+                await page.goto("/en");
 
                 const projectLink =
                     page.locator(
-                        `a[href="/projects/${projectSlug}"]`,
+                        `a[href="/en/projects/${projectSlug}"]`,
                     ).first();
 
                 await projectLink

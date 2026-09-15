@@ -57,11 +57,11 @@ describe("project modal gallery contract", () => {
         );
 
         expect(gallery).toContain(
-            'aria-label="Show previous project image"',
+            'aria-label={t("Show previous project image")}',
         );
 
         expect(gallery).toContain(
-            'aria-label="Show next project image"',
+            'aria-label={t("Show next project image")}',
         );
     });
 
@@ -113,17 +113,21 @@ describe("project modal gallery contract", () => {
         );
     });
 
-    it("uses the current case accent only for technology hover and focus", () => {
+    it("keeps technology labels display-only and out of the tab order", () => {
         expect(caseStudy).toContain(
             '"--case-accent": accentColor',
         );
 
-        expect(caseStudy).toContain(
+        expect(caseStudy).not.toContain(
             "hover:border-[var(--case-accent)]",
         );
 
-        expect(caseStudy).toContain(
+        expect(caseStudy).not.toContain(
             "focus-visible:text-[var(--case-accent)]",
+        );
+
+        expect(caseStudy).not.toContain(
+            "tabIndex={0}",
         );
 
         expect(caseStudy).not.toContain(
