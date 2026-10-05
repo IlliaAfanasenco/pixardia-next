@@ -1,0 +1,19 @@
+{
+  "/[locale]/@projectModal/(.)projects/[slug]/page": "/[locale]/(.)projects/[slug]",
+  "/[locale]/@projectModal/[...catchAll]/page": "/[locale]/[...catchAll]",
+  "/[locale]/@projectModal/page": "/[locale]",
+  "/[locale]/[...catchAll]/page": "/[locale]/[...catchAll]",
+  "/[locale]/contact/page": "/[locale]/contact",
+  "/[locale]/page": "/[locale]",
+  "/[locale]/projects/[slug]/page": "/[locale]/projects/[slug]",
+  "/[locale]/projects/page": "/[locale]/projects",
+  "/[locale]/services/[slug]/page": "/[locale]/services/[slug]",
+  "/[locale]/services/page": "/[locale]/services",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/leads/route": "/api/leads",
+  "/api/terminal/route": "/api/terminal",
+  "/favicon.ico/route": "/favicon.ico",
+  "/robots.txt/route": "/robots.txt",
+  "/sitemap.xml/route": "/sitemap.xml"
+}

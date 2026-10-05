@@ -1,0 +1,165 @@
+[
+  {
+    "route": "/[locale]",
+    "firstLoadUncompressedJsBytes": 1082656,
+    "firstLoadChunkPaths": [
+      ".next-playwright/static/chunks/0o9sdv2i5jrft.js",
+      ".next-playwright/static/chunks/0z~qglkhn5it5.js",
+      ".next-playwright/static/chunks/149jqut7u14bg.js",
+      ".next-playwright/static/chunks/0c9w-2te2f72k.js",
+      ".next-playwright/static/chunks/03nm~41tyhfzr.js",
+      ".next-playwright/static/chunks/0rbn.9xm9fty0.js",
+      ".next-playwright/static/chunks/176va.lf1huho.js",
+      ".next-playwright/static/chunks/0docaewaz4w9_.js",
+      ".next-playwright/static/chunks/0bnkqr1w.m4yf.js",
+      ".next-playwright/static/chunks/0ojtegyuqqn8k.js",
+      ".next-playwright/static/chunks/052eud77h2dju.js",
+      ".next-playwright/static/chunks/0z680_~1fx5fx.js",
+      ".next-playwright/static/chunks/0-_t77~cb.y7w.js",
+      ".next-playwright/static/chunks/0fozx4no03s6l.js",
+      ".next-playwright/static/chunks/turbopack-0j.742q5anxm2.js"
+    ]
+  },
+  {
+    "route": "/[locale]/contact",
+    "firstLoadUncompressedJsBytes": 962155,
+    "firstLoadChunkPaths": [
+      ".next-playwright/static/chunks/0o9sdv2i5jrft.js",
+      ".next-playwright/static/chunks/0z~qglkhn5it5.js",
+      ".next-playwright/static/chunks/149jqut7u14bg.js",
+      ".next-playwright/static/chunks/0c9w-2te2f72k.js",
+      ".next-playwright/static/chunks/03nm~41tyhfzr.js",
+      ".next-playwright/static/chunks/0rbn.9xm9fty0.js",
+      ".next-playwright/static/chunks/176va.lf1huho.js",
+      ".next-playwright/static/chunks/02cr58d3yvwoc.js",
+      ".next-playwright/static/chunks/0bnkqr1w.m4yf.js",
+      ".next-playwright/static/chunks/052eud77h2dju.js",
+      ".next-playwright/static/chunks/0z680_~1fx5fx.js",
+      ".next-playwright/static/chunks/0-_t77~cb.y7w.js",
+      ".next-playwright/static/chunks/0fozx4no03s6l.js",
+      ".next-playwright/static/chunks/turbopack-0j.742q5anxm2.js"
+    ]
+  },
+  {
+    "route": "/[locale]/(.)projects/[slug]",
+    "firstLoadUncompressedJsBytes": 671190,
+    "firstLoadChunkPaths": [
+      ".next-playwright/static/chunks/0o9sdv2i5jrft.js",
+      ".next-playwright/static/chunks/0z~qglkhn5it5.js",
+      ".next-playwright/static/chunks/149jqut7u14bg.js",
+      ".next-playwright/static/chunks/0c9w-2te2f72k.js",
+      ".next-playwright/static/chunks/03nm~41tyhfzr.js",
+      ".next-playwright/static/chunks/0rbn.9xm9fty0.js",
+      ".next-playwright/static/chunks/176va.lf1huho.js",
+      ".next-playwright/static/chunks/0hqkbb92vn-pg.js",
+      ".next-playwright/static/chunks/052eud77h2dju.js",
+      ".next-playwright/static/chunks/0z680_~1fx5fx.js",
+      ".next-playwright/static/chunks/0-_t77~cb.y7w.js",
+      ".next-playwright/static/chunks/0fozx4no03s6l.js",
+      ".next-playwright/static/chunks/turbopack-0j.742q5anxm2.js"
+    ]
+  },
+  {
+    "route": "/[locale]/[...catchAll]",
+    "firstLoadUncompressedJsBytes": 658373,
+    "firstLoadChunkPaths": [
+      ".next-playwright/static/chunks/0o9sdv2i5jrft.js",
+      ".next-playwright/static/chunks/0z~qglkhn5it5.js",
+      ".next-playwright/static/chunks/149jqut7u14bg.js",
+      ".next-playwright/static/chunks/0c9w-2te2f72k.js",
+      ".next-playwright/static/chunks/03nm~41tyhfzr.js",
+      ".next-playwright/static/chunks/0rbn.9xm9fty0.js",
+      ".next-playwright/static/chunks/176va.lf1huho.js",
+      ".next-playwright/static/chunks/052eud77h2dju.js",
+      ".next-playwright/static/chunks/0z680_~1fx5fx.js",
+      ".next-playwright/static/chunks/0-_t77~cb.y7w.js",
+      ".next-playwright/static/chunks/0fozx4no03s6l.js",
+      ".next-playwright/static/chunks/turbopack-0j.742q5anxm2.js"
+    ]
+  },
+  {
+    "route": "/[locale]/projects",
+    "firstLoadUncompressedJsBytes": 658373,
+    "firstLoadChunkPaths": [
+      ".next-playwright/static/chunks/0o9sdv2i5jrft.js",
+      ".next-playwright/static/chunks/0z~qglkhn5it5.js",
+      ".next-playwright/static/chunks/149jqut7u14bg.js",
+      ".next-playwright/static/chunks/0c9w-2te2f72k.js",
+      ".next-playwright/static/chunks/03nm~41tyhfzr.js",
+      ".next-playwright/static/chunks/0rbn.9xm9fty0.js",
+      ".next-playwright/static/chunks/176va.lf1huho.js",
+      ".next-playwright/static/chunks/052eud77h2dju.js",
+      ".next-playwright/static/chunks/0z680_~1fx5fx.js",
+      ".next-playwright/static/chunks/0-_t77~cb.y7w.js",
+      ".next-playwright/static/chunks/0fozx4no03s6l.js",
+      ".next-playwright/static/chunks/turbopack-0j.742q5anxm2.js"
+    ]
+  },
+  {
+    "route": "/[locale]/projects/[slug]",
+    "firstLoadUncompressedJsBytes": 658373,
+    "firstLoadChunkPaths": [
+      ".next-playwright/static/chunks/0o9sdv2i5jrft.js",
+      ".next-playwright/static/chunks/0z~qglkhn5it5.js",
+      ".next-playwright/static/chunks/149jqut7u14bg.js",
+      ".next-playwright/static/chunks/0c9w-2te2f72k.js",
+      ".next-playwright/static/chunks/03nm~41tyhfzr.js",
+      ".next-playwright/static/chunks/0rbn.9xm9fty0.js",
+      ".next-playwright/static/chunks/176va.lf1huho.js",
+      ".next-playwright/static/chunks/052eud77h2dju.js",
+      ".next-playwright/static/chunks/0z680_~1fx5fx.js",
+      ".next-playwright/static/chunks/0-_t77~cb.y7w.js",
+      ".next-playwright/static/chunks/0fozx4no03s6l.js",
+      ".next-playwright/static/chunks/turbopack-0j.742q5anxm2.js"
+    ]
+  },
+  {
+    "route": "/[locale]/services",
+    "firstLoadUncompressedJsBytes": 658373,
+    "firstLoadChunkPaths": [
+      ".next-playwright/static/chunks/0o9sdv2i5jrft.js",
+      ".next-playwright/static/chunks/0z~qglkhn5it5.js",
+      ".next-playwright/static/chunks/149jqut7u14bg.js",
+      ".next-playwright/static/chunks/0c9w-2te2f72k.js",
+      ".next-playwright/static/chunks/03nm~41tyhfzr.js",
+      ".next-playwright/static/chunks/0rbn.9xm9fty0.js",
+      ".next-playwright/static/chunks/176va.lf1huho.js",
+      ".next-playwright/static/chunks/052eud77h2dju.js",
+      ".next-playwright/static/chunks/0z680_~1fx5fx.js",
+      ".next-playwright/static/chunks/0-_t77~cb.y7w.js",
+      ".next-playwright/static/chunks/0fozx4no03s6l.js",
+      ".next-playwright/static/chunks/turbopack-0j.742q5anxm2.js"
+    ]
+  },
+  {
+    "route": "/[locale]/services/[slug]",
+    "firstLoadUncompressedJsBytes": 658373,
+    "firstLoadChunkPaths": [
+      ".next-playwright/static/chunks/0o9sdv2i5jrft.js",
+      ".next-playwright/static/chunks/0z~qglkhn5it5.js",
+      ".next-playwright/static/chunks/149jqut7u14bg.js",
+      ".next-playwright/static/chunks/0c9w-2te2f72k.js",
+      ".next-playwright/static/chunks/03nm~41tyhfzr.js",
+      ".next-playwright/static/chunks/0rbn.9xm9fty0.js",
+      ".next-playwright/static/chunks/176va.lf1huho.js",
+      ".next-playwright/static/chunks/052eud77h2dju.js",
+      ".next-playwright/static/chunks/0z680_~1fx5fx.js",
+      ".next-playwright/static/chunks/0-_t77~cb.y7w.js",
+      ".next-playwright/static/chunks/0fozx4no03s6l.js",
+      ".next-playwright/static/chunks/turbopack-0j.742q5anxm2.js"
+    ]
+  },
+  {
+    "route": "/_not-found",
+    "firstLoadUncompressedJsBytes": 519662,
+    "firstLoadChunkPaths": [
+      ".next-playwright/static/chunks/149jqut7u14bg.js",
+      ".next-playwright/static/chunks/0z~qglkhn5it5.js",
+      ".next-playwright/static/chunks/052eud77h2dju.js",
+      ".next-playwright/static/chunks/0z680_~1fx5fx.js",
+      ".next-playwright/static/chunks/0-_t77~cb.y7w.js",
+      ".next-playwright/static/chunks/0fozx4no03s6l.js",
+      ".next-playwright/static/chunks/turbopack-0j.742q5anxm2.js"
+    ]
+  }
+]

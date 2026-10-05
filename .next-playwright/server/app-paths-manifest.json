@@ -1,0 +1,19 @@
+{
+  "/[locale]/@projectModal/(.)projects/[slug]/page": "app/[locale]/@projectModal/(.)projects/[slug]/page.js",
+  "/[locale]/@projectModal/[...catchAll]/page": "app/[locale]/@projectModal/[...catchAll]/page.js",
+  "/[locale]/@projectModal/page": "app/[locale]/@projectModal/page.js",
+  "/[locale]/[...catchAll]/page": "app/[locale]/[...catchAll]/page.js",
+  "/[locale]/contact/page": "app/[locale]/contact/page.js",
+  "/[locale]/page": "app/[locale]/page.js",
+  "/[locale]/projects/[slug]/page": "app/[locale]/projects/[slug]/page.js",
+  "/[locale]/projects/page": "app/[locale]/projects/page.js",
+  "/[locale]/services/[slug]/page": "app/[locale]/services/[slug]/page.js",
+  "/[locale]/services/page": "app/[locale]/services/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/leads/route": "app/api/leads/route.js",
+  "/api/terminal/route": "app/api/terminal/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js"
+}

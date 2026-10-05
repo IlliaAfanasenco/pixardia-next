@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../i18n/localized.ts"],"sourcesContent":["import type { SiteLocale } from \"./config\";\n\nexport function localized<T>(value: Record<SiteLocale, T>, locale: SiteLocale): T {\n    return value[locale];\n}\n"],"names":["localized","value","locale"],"mappings":"0DAEO,SAASA,AAAaC,CAA4B,CAAEC,CAAkB,EACzE,OAAOD,CAAK,CAACC,EAAO,AACxB"}

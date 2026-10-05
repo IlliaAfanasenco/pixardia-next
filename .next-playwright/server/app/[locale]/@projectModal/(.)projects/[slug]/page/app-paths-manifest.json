@@ -1,0 +1,3 @@
+{
+  "/[locale]/@projectModal/(.)projects/[slug]/page": "app/[locale]/@projectModal/(.)projects/[slug]/page.js"
+}

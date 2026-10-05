@@ -7,6 +7,7 @@ import CraftingStructureSection from "@/components/CraftingStructureSection";
 import HeroSection from "@/components/HeroSection";
 import NeuralSystemSection from "@/components/NeuralSection";
 import CinematicRuntime from "@/components/presentation/CinematicRuntime";
+import TabletMotionRuntime from "@/components/presentation/TabletMotionRuntime";
 import ProductSection from "@/components/ProductSection";
 import { getDictionary } from "@/i18n/getDictionary";
 import { createPageMetadata } from "@/lib/seo";
@@ -41,6 +42,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 </div>
             </div>
             <CinematicRuntime />
+            <TabletMotionRuntime />
             <ArchiveSection locale={locale} />
             <ContactSection />
         </>

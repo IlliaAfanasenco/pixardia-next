@@ -58,7 +58,7 @@ export default function CraftingStructureSection() {
             data-motion-state="pending"
         >
             <div
-                className="site-container grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-[clamp(40px,6vw,92px)]"
+                className="site-container grid gap-12 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:items-start xl:gap-[clamp(40px,6vw,92px)]"
                 data-cinematic-layer=""
             >
                 <div
@@ -83,7 +83,7 @@ export default function CraftingStructureSection() {
                         {t("Every successful product starts with a clear strategy, a strong system and a controlled delivery process.")}
                     </p>
 
-                    <div className="mt-8 flex items-center gap-6 text-left sm:gap-10">
+                    <div className="crafting-metrics mt-8 flex items-center gap-6 text-left sm:gap-10">
                         <div>
                             <p className="text-[32px] font-black uppercase leading-none tracking-[0.03em] md:text-4xl">
                                 {t("clear")}
@@ -250,7 +250,7 @@ export default function CraftingStructureSection() {
                             />
                         </div>
 
-                        <div className="mt-6 grid w-full gap-3 sm:grid-cols-3 sm:gap-4 min-[1800px]:pl-28">
+                        <div className="crafting-terminal-tags mt-6 grid w-full gap-3 sm:grid-cols-3 sm:gap-4 min-[1800px]:pl-28">
                             {tags.map((tag) => (
                                 <div
                                     key={`${tag.top}-${tag.bottom}`}

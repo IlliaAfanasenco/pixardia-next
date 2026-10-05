@@ -88,7 +88,7 @@ export default function HeroSection() {
             data-motion-state="pending"
         >
             <div
-                className="site-container relative z-10"
+                className="site-container hero-layout relative z-10"
                 data-cinematic-layer=""
             >
                 <p
@@ -100,22 +100,22 @@ export default function HeroSection() {
 
                 <h1
                     id="hero-title"
-                    className="relative z-20 mt-6 font-[var(--font-archivo)] font-black uppercase leading-[0.85] text-[#C5C6C8] sm:mt-0"
+                    className="hero-title relative z-20 mt-6 font-[var(--font-archivo)] font-black uppercase leading-[0.85] text-[#C5C6C8] sm:mt-0"
                     data-cinematic-element="hero-title"
                 >
-                    <span className="block whitespace-normal text-[clamp(58px,18vw,90px)] tracking-[-0.03em] sm:whitespace-nowrap sm:text-[clamp(70px,15vw,150px)] lg:text-[clamp(80px,16vw,212px)]">
+                    <span className="hero-title__digital block whitespace-normal text-[clamp(58px,18vw,90px)] tracking-[-0.03em] sm:whitespace-nowrap sm:text-[clamp(70px,15vw,150px)] lg:text-[clamp(80px,16vw,212px)]">
                         <span className="-ml-[0.05em] inline-block">
                             {t("Digital")}
                             </span>
                     </span>
 
-                    <span className="block whitespace-normal text-[clamp(58px,18vw,90px)] tracking-[-0.04em] sm:ml-[0.35em] sm:whitespace-nowrap sm:text-[clamp(70px,14vw,140px)] lg:ml-[0.55em] lg:text-[clamp(80px,15vw,205px)]">
+                    <span className="hero-title__agency block whitespace-normal text-[clamp(58px,18vw,90px)] tracking-[-0.04em] sm:ml-[0.35em] sm:whitespace-nowrap sm:text-[clamp(70px,14vw,140px)] lg:ml-[0.55em] lg:text-[clamp(80px,15vw,205px)]">
                         {t("Agency")}
                         </span>
                 </h1>
 
                 <p
-                    className="mt-7 max-w-[300px] font-[var(--font-archivo)] text-lg py-5 font-bold uppercase leading-none tracking-[0.03em] text-[#1E1E1E] sm:mt-[clamp(30px,6vw,90px)] sm:text-[clamp(18px,2vw,24px)] lg:max-w-[360px]"
+                    className="hero-copy mt-7 max-w-[300px] font-[var(--font-archivo)] text-lg py-5 font-bold uppercase leading-none tracking-[0.03em] text-[#1E1E1E] sm:mt-[clamp(30px,6vw,90px)] sm:text-[clamp(18px,2vw,24px)] lg:max-w-[360px]"
                     data-cinematic-element="hero-copy"
                 >
                     {t("We design, build and scale digital products that move businesses forward.")}
@@ -123,7 +123,7 @@ export default function HeroSection() {
 
                 <Link
                     href={publicPath(locale, siteConfig.links.services)}
-                    className="flex w-fit items-center gap-5 py-6 text-[#1E1E1E] no-underline transition-opacity hover:opacity-70 sm:py-[30px]"
+                    className="hero-cta flex w-fit items-center gap-5 py-6 text-[#1E1E1E] no-underline transition-opacity hover:opacity-70 sm:py-[30px]"
                     data-cinematic-element="hero-cta"
                 >
                     <Image
@@ -136,13 +136,13 @@ export default function HeroSection() {
                         className="size-16 shrink-0 sm:size-20 lg:size-24"
                     />
 
-                    <span className="font-[var(--font-archivo)] text-lg py-20 font-black uppercase leading-none tracking-[0.03em] sm:text-[clamp(18px,2vw,24px)]">
+                    <span className="font-[var(--font-archivo)] text-lg font-black uppercase leading-none tracking-[0.03em] sm:text-[clamp(18px,2vw,24px)]">
                         {t("explore services")}
                         </span>
                 </Link>
 
                 <div
-                    className="mt-5 flex flex-col items-start gap-6 sm:mt-[2%] sm:flex-row sm:justify-between sm:gap-[30px]"
+                    className="hero-meta mt-5 flex flex-col items-start gap-6 sm:mt-[2%] sm:flex-row sm:justify-between sm:gap-[30px]"
                     data-cinematic-element="hero-meta"
                 >
                     <div>
@@ -159,7 +159,7 @@ export default function HeroSection() {
                         </div>
                     </div>
 
-                    <div className="text-left sm:text-right">
+                    <div className="hero-availability text-left sm:text-right">
                         <p className="font-[var(--font-archivo)] text-xs uppercase leading-none tracking-[0.03em] text-[#C5C6C8] sm:text-base">
                             {t("project intake: open")}
                         </p>
@@ -171,7 +171,7 @@ export default function HeroSection() {
                 </div>
 
                 <div
-                    className="will-change-transform relative mt-4 flex w-full justify-center pt-1 sm:mt-5 min-[1200px]:absolute min-[1200px]:bottom-0 min-[1200px]:left-1/2 min-[1200px]:z-20 min-[1200px]:mt-0 min-[1200px]:w-auto min-[1200px]:-translate-x-1/2 min-[1200px]:pt-0"
+                    className="hero-character will-change-transform relative mt-4 flex w-full justify-center pt-1 sm:mt-5 min-[1280px]:absolute min-[1280px]:bottom-0 min-[1280px]:left-1/2 min-[1280px]:z-20 min-[1280px]:mt-0 min-[1280px]:w-auto min-[1280px]:-translate-x-1/2 min-[1280px]:pt-0"
                     data-cinematic-element="hero-character"
                 >
                     <Image
@@ -182,8 +182,8 @@ export default function HeroSection() {
                         width={697}
                         height={694}
                         priority
-                        sizes="(max-width: 639px) 86vw, (max-width: 1199px) 44vw, 42vw"
-                        className="h-auto w-[min(86vw,340px)] max-w-full object-contain sm:w-[clamp(340px,44vw,470px)] min-[1200px]:w-[clamp(320px,42vw,697px)]"
+                        sizes="(max-width: 767px) 44vw, (max-width: 1279px) 48vw, (min-width: 1280px) and (min-height: 800px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) min(42vw, 64svh, 620px), min(42vw, 697px)"
+                        className="h-auto w-[min(86vw,340px)] max-w-full object-contain sm:w-[clamp(340px,44vw,470px)] min-[1280px]:w-[clamp(320px,42vw,697px)]"
                     />
                 </div>
             </div>

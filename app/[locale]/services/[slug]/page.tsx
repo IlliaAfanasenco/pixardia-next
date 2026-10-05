@@ -73,7 +73,7 @@ export default async function ServicePage({
 
             <h1
                 id="service-page-title"
-                className="mt-3 text-4xl font-black uppercase tracking-tight text-[#1E1E1E]"
+                className="mt-3 text-4xl font-black uppercase tracking-tight text-[#1E1E1E] [overflow-wrap:anywhere]"
             >
                 {localized(service.title, locale)}
             </h1>

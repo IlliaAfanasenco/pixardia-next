@@ -1,0 +1,10 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/app/[locale]/@projectModal/[...catchAll]/page": [
+      "static/media/75affa71d1e2f6a7-s.p.0e5c5_wyqqx75.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}

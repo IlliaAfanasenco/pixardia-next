@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
 :root {
+    /* Existing sections retain their measure; visual compositions opt into wide. */
     --site-container-max: 1440px;
+    --site-composition-max: clamp(1440px, calc(100vw - 80px), 2240px);
+    --site-copy-max: 36ch;
     --site-container-gutter: 20px;
     --container: var(--site-container-max);
     --cinematic-content-max: var(--site-container-max);
@@ -40,6 +43,150 @@
         --site-container-gutter: 40px;
     }
 }
+
+/* Phase 1: widen only opted-in compositions, not ordinary content containers. */
+.site-container--wide {
+    max-width: var(--site-composition-max);
+}
+
+/* Flow-only Hero improvements: desktop retains its original composition. */
+@media (max-width: 1279px) {
+    .hero-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        column-gap: 0.75rem;
+        align-items: center;
+    }
+
+    .hero-layout > * {
+        min-width: 0;
+    }
+
+    .hero-layout > [data-cinematic-element="hero-eyebrow"] {
+        grid-column: 1 / -1;
+    }
+
+    .hero-title {
+        grid-column: 1 / -1;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-title__digital,
+    .hero-title__agency {
+        font-size: clamp(3rem, 17vw, 7.5rem);
+    }
+
+    .hero-title__agency {
+        margin-left: 0.35em;
+    }
+
+    .hero-copy {
+        margin: 0;
+        padding: 0;
+        position: relative;
+        z-index: 30;
+        grid-column: 1;
+        grid-row: 3;
+        max-width: min(100%, var(--site-copy-max), 360px);
+        font-size: clamp(0.9375rem, 3.8vw, 1.125rem);
+        line-height: 1.2;
+    }
+
+    .hero-character {
+        width: auto;
+        margin: 0;
+        padding: 0;
+        grid-column: 2;
+        grid-row: 3;
+        align-self: end;
+    }
+
+    .hero-character img {
+        width: 100%;
+    }
+
+    .hero-cta {
+        max-width: 100%;
+        gap: 1rem;
+        position: relative;
+        z-index: 30;
+        grid-column: 1 / -1;
+        grid-row: 4;
+        padding-block: 1rem;
+    }
+
+    .hero-meta {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1rem 1.5rem;
+        grid-column: 1 / -1;
+        grid-row: 5;
+        margin-top: 0.75rem;
+    }
+
+    .hero-availability {
+        text-align: left;
+        max-width: 100%;
+    }
+
+    .hero-cta > span {
+        line-height: 1.1;
+    }
+
+    .hero-meta p {
+        line-height: 1.4;
+    }
+}
+
+/* Tablet / compact desktop: copy and CTA beside the character. */
+@media (min-width: 768px) and (max-width: 1279px) {
+    .hero-layout {
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+        column-gap: clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .hero-title {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero-title__digital {
+        font-size: clamp(7rem, 15vw, 11rem);
+    }
+
+    .hero-title__agency {
+        font-size: clamp(6.75rem, 14vw, 10.5rem);
+    }
+
+    .hero-copy {
+        align-self: end;
+        font-size: clamp(1.125rem, 2vw, 1.5rem);
+    }
+
+    .hero-cta {
+        grid-column: 1;
+        align-self: start;
+        padding-block: 1.5rem;
+    }
+
+    .hero-character {
+        grid-row: 3 / 5;
+        justify-self: center;
+        width: min(100%, 470px);
+        align-self: center;
+    }
+
+    .hero-meta {
+        margin-top: 2rem;
+    }
+
+    .hero-availability {
+        text-align: right;
+    }
+}
+
 .neural-canvas {
     container-type: inline-size;
 }
@@ -760,7 +907,7 @@
     }
 }
 
-@media (max-width: 1199px), (max-height: 799px), (hover: none), (pointer: coarse) {
+@media (max-width: 1279px), (max-height: 799px), (hover: none), (pointer: coarse) {
     .cinematic-stage {
         min-height: auto;
         overflow: visible;
@@ -1117,8 +1264,8 @@
     }
 }
 
-/* Neural System flow layout for tablets, phones, and coarse pointers. */
-@media (max-width: 1279px), (hover: none), (pointer: coarse) {
+/* Preserve the existing wide-screen touch fallback. */
+@media (min-width: 1280px) and (hover: none), (min-width: 1280px) and (pointer: coarse) {
     [data-cinematic-scene="neural"] {
         height: auto;
         min-height: 0;
@@ -1202,50 +1349,239 @@
     }
 }
 
-@media (max-width: 767px) {
+/* Responsive interfaces stay in flow; cinematic desktop rules remain separate. */
+@media (max-width: 1279px) {
+    [data-cinematic-scene="crafting"] {
+        padding-block: clamp(2.5rem, 6vw, 4rem);
+    }
+
+    [data-cinematic-scene="crafting"] [data-cinematic-layer] {
+        grid-template-columns: minmax(0, 1fr);
+        gap: clamp(2rem, 4vw, 3rem);
+    }
+
+    [data-cinematic-element="crafting-copy"] {
+        width: 100%;
+        max-width: 760px;
+        margin-inline: auto;
+    }
+
+    [data-cinematic-element="crafting-copy"] h2 {
+        margin-top: 1.5rem;
+        font-size: clamp(2.75rem, 8vw, 5.5rem);
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    [data-cinematic-element="crafting-copy"] > p:nth-of-type(2) {
+        margin-top: 1.5rem;
+        max-width: 36ch;
+        font-size: clamp(1rem, 2.2vw, 1.375rem);
+        line-height: 1.3;
+    }
+
+    .crafting-metrics {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        width: 100%;
+        max-width: 500px;
+        gap: clamp(1rem, 3vw, 2rem);
+        margin-top: 1.5rem;
+        overflow-wrap: anywhere;
+    }
+
+    .crafting-metrics > div > p:first-child {
+        font-size: clamp(1.5rem, 3.5vw, 2rem);
+    }
+
+    [data-cinematic-element="crafting-card"] {
+        max-width: 640px;
+        margin-top: 1.75rem;
+    }
+
+    [data-cinematic-element="crafting-card"] input,
+    [data-cinematic-element="crafting-card"] button {
+        min-height: 44px;
+    }
+
+    [data-cinematic-element="crafting-terminal"] > div {
+        max-width: 960px;
+    }
+
+    .crafting-terminal-tags {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.5rem;
+        margin-top: 1rem;
+        overflow-wrap: anywhere;
+    }
+
+    .crafting-terminal-tags > div {
+        min-width: 0;
+        padding-inline: 0.5rem;
+    }
+
     [data-cinematic-scene="neural"] [data-neural-layer] {
-        padding-block: clamp(2.25rem, 10vw, 3.5rem);
+        --neural-flow-gap: 1.5rem;
+        --neural-flow-line: rgb(36 106 229 / 28%);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--neural-flow-gap);
+        padding-block: clamp(2.5rem, 6vw, 4rem);
     }
 
     [data-cinematic-scene="neural"] [data-neural-header] h2 {
         margin-top: 1rem;
-        font-size: clamp(2.75rem, 14vw, 4.5rem);
+        font-size: clamp(2.75rem, 11vw, 6rem);
     }
 
     [data-cinematic-scene="neural"] [data-neural-core] {
-        width: min(100%, 340px);
+        width: min(100%, 220px);
+        max-width: none;
+        margin-block: 0;
     }
 
     [data-cinematic-scene="neural"] [data-neural-nodes] {
+        position: relative;
+        display: grid;
         grid-template-columns: minmax(0, 1fr);
-        gap: 1.5rem;
+        gap: var(--neural-flow-gap);
+        width: 100%;
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    /* One continuous signal connects core, nodes and insight in document flow. */
+    [data-cinematic-scene="neural"] [data-neural-nodes]::before {
+        position: absolute;
+        top: calc(-1 * var(--neural-flow-gap));
+        bottom: calc(-1 * var(--neural-flow-gap));
+        left: 50%;
+        width: 1px;
+        background: var(--neural-flow-line);
+        pointer-events: none;
+        content: "";
     }
 
     [data-cinematic-scene="neural"] [data-neural-node] {
-        min-height: 220px;
+        max-width: none;
+        min-height: 0;
+        aspect-ratio: auto;
     }
 
     [data-cinematic-scene="neural"] [data-neural-node-card] {
-        min-height: 220px;
-        padding: 1.25rem;
+        position: relative;
+        inset: auto;
+        width: 100%;
+        height: 100%;
+        min-height: 188px;
+        padding: 1rem;
+        overflow-wrap: anywhere;
+    }
+
+    [data-cinematic-scene="neural"] [data-neural-node-card]:focus-visible {
+        outline: 2px solid #246ae5;
+        outline-offset: 4px;
+    }
+
+    [data-cinematic-scene="neural"] [data-neural-node-card] > span:nth-child(2) {
+        margin-top: 1rem;
+        font-size: clamp(1.5rem, 3vw, 1.875rem);
     }
 
     [data-cinematic-scene="neural"] [data-neural-insight] {
         width: 100%;
-        min-height: 320px;
+        max-width: 480px;
+        min-height: 0;
+        margin-block: 0;
     }
 
     [data-cinematic-scene="neural"] [data-neural-insight-card] {
-        padding: clamp(1.25rem, 6vw, 1.75rem);
+        position: relative;
+        inset: auto;
+        width: 100%;
+        padding: 1.25rem;
+    }
+
+    [data-cinematic-scene="neural"] [data-neural-insight-card] p {
+        margin-top: 1rem;
     }
 
     [data-cinematic-scene="neural"] [data-neural-insight-card] button {
         min-height: 48px;
+        margin-top: 1.5rem;
     }
 
     [data-cinematic-scene="neural"] [data-neural-stats] {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+        max-width: 480px;
         gap: 1.5rem;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+    [data-cinematic-scene="neural"] [data-neural-layer] {
+        --neural-flow-gap: 2rem;
+    }
+
+    [data-cinematic-scene="neural"] [data-neural-core] {
+        width: min(100%, clamp(240px, 26vw, 320px));
+    }
+
+    [data-cinematic-scene="neural"] [data-neural-nodes] {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 960px;
+    }
+
+    /* Visible by default; the tablet runtime owns this property only while active. */
+    [data-cinematic-scene="neural"] [data-neural-nodes]::before,
+    [data-cinematic-scene="neural"] [data-neural-node]::before {
+        opacity: var(--tablet-connection-progress, 1);
+    }
+
+    /* Short branches join each pair to the centered core-to-insight signal. */
+    [data-cinematic-scene="neural"] [data-neural-node]::before {
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        width: calc(var(--neural-flow-gap) / 2);
+        height: 1px;
+        background: var(--neural-flow-line);
+        pointer-events: none;
+        content: "";
+    }
+
+    [data-cinematic-scene="neural"] [data-neural-node]:nth-child(odd)::before {
+        right: auto;
+        left: 100%;
+    }
+
+    [data-cinematic-scene="neural"] [data-neural-node-card] {
+        min-height: 212px;
+        padding: 1.25rem;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    /* Expand the introduction, while the terminal keeps its own full-width row. */
+    [data-cinematic-element="crafting-copy"] {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+        align-items: start;
+        column-gap: 2.5rem;
+        max-width: 960px;
+    }
+
+    [data-cinematic-element="crafting-copy"] > :not([data-cinematic-element="crafting-card"]) {
+        grid-column: 1;
+    }
+
+    [data-cinematic-element="crafting-card"] {
+        grid-column: 2;
+        grid-row: 1 / 5;
+        align-self: center;
+        margin-top: 0;
     }
 }

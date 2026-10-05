@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/[locale]/layout,_N_T_/[locale]/@projectModal/layout,_N_T_/[locale]/@projectModal/page,_N_T_/de"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/$d$locale/__PAGE__",
+    "/$d$locale/@projectModal/!KF9fU0xPVF9fKQ/__PAGE__",
+    "/$d$locale/@projectModal/!KF9fU0xPVF9fKQ",
+    "/$d$locale",
+    "/_index",
+    "/_head"
+  ]
+}

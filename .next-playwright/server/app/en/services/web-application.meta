@@ -1,0 +1,20 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/[locale]/layout,_N_T_/[locale]/services/layout,_N_T_/[locale]/services/[slug]/layout,_N_T_/[locale]/services/[slug]/page,_N_T_/en/services/web-application"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/$d$locale/services/$d$slug/__PAGE__",
+    "/$d$locale/services/$d$slug",
+    "/$d$locale/services",
+    "/$d$locale/@projectModal/!KF9fU0xPVF9fKQ/$c$catchAll/__PAGE__",
+    "/$d$locale/@projectModal/!KF9fU0xPVF9fKQ/$c$catchAll",
+    "/$d$locale/@projectModal/!KF9fU0xPVF9fKQ",
+    "/$d$locale",
+    "/_index",
+    "/_head"
+  ]
+}

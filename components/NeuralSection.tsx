@@ -284,7 +284,7 @@ export default function NeuralSystemSection({
                                     alt={t("Pixardia system core")}
                                     width={500}
                                     height={500}
-                                    sizes="(min-width: 1280px) 440px, (min-width: 768px) 520px, 340px"
+                                    sizes="(min-width: 1280px) 440px, (min-width: 768px) clamp(240px, 26vw, 320px), 220px"
                                     className="absolute inset-0 size-full object-cover opacity-90"
                                     data-neural-character=""
                                 />
