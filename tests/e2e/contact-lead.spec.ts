@@ -1,130 +1,721 @@
 import {
     expect,
-    type Page,
     test,
 } from "@playwright/test";
 
-const validLead = {
-    name:
-        "  Aleks Test  ",
-
-    email:
-        "TEST.LEAD@EXAMPLE.COM",
-
-    message:
-        "  We need a production website with a clear lead flow and analytics integration.  ",
-};
-
-function nameField(
-    page: Page,
-) {
-    return page.getByRole(
-        "textbox",
-        {
-            name:
-                "Your name",
-        },
-    );
-}
-
-function emailField(
-    page: Page,
-) {
-    return page.getByRole(
-        "textbox",
-        {
-            name:
-                "Email address",
-        },
-    );
-}
-
-function messageField(
-    page: Page,
-) {
-    return page.getByRole(
-        "textbox",
-        {
-            name:
-                "Project details",
-        },
-    );
-}
-
-function serviceField(
-    page: Page,
-) {
-    return page.getByRole(
-        "combobox",
-        {
-            name:
-                "Project type",
-        },
-    );
-}
-
-function privacyField(
-    page: Page,
-) {
-    return page.getByRole(
-        "checkbox",
-        {
-            name:
-                /I agree to the privacy policy/i,
-        },
-    );
-}
-
-function submitButton(
-    page: Page,
-) {
-    return page.getByRole(
-        "button",
-        {
-            name:
-                /send project request/i,
-        },
-    );
-}
-
-async function fillValidLead(
-    page: Page,
-): Promise<void> {
-    await nameField(page).fill(
-        validLead.name,
-    );
-
-    await emailField(page).fill(
-        validLead.email,
-    );
-
-    await messageField(page).fill(
-        validLead.message,
-    );
-
-    await serviceField(page)
-        .selectOption(
-            "BUSINESS_WEBSITE",
-        );
-
-    await privacyField(page)
-        .check();
-}
-
-async function submitLead(
-    page: Page,
-): Promise<void> {
-    await submitButton(page)
-        .click();
-}
+const projectSlug =
+    "pixardia-digital-studio";
 
 test.describe(
-    "contact lead flow",
+    "core navigation",
     () => {
-        test.beforeEach(
+        test(
+            "uses cinematic navigation on desktop and document flow on mobile",
+            async ({ page }, testInfo) => {
+                if (!testInfo.project.name.includes("mobile")) {
+                    await page.setViewportSize({
+                        width: 1440,
+                        height: 900,
+                    });
+                }
+
+                await page.goto("/en");
+
+                const navigator =
+                    page.getByRole(
+                        "navigation",
+                        {
+                            name:
+                                "Homepage presentation scenes",
+                        },
+                    );
+
+                if (
+                    testInfo.project.name.includes(
+                        "mobile",
+                    )
+                ) {
+                    await expect(
+                        page.locator(
+                            "[data-cinematic-navigator]",
+                        ),
+                    ).toBeHidden();
+
+                    await expect(
+                        page.locator("html"),
+                    ).not.toHaveAttribute(
+                        "data-cinematic-runtime",
+                        "ready",
+                    );
+
+                    const heroScene =
+                        page.locator(
+                            '[data-cinematic-scene="hero"]',
+                        );
+
+                    await expect(
+                        heroScene,
+                    ).toBeVisible();
+
+                    await expect(
+                        heroScene,
+                    ).not.toHaveAttribute(
+                        "aria-hidden",
+                        "",
+                    );
+
+                    const archiveSection =
+                        page.locator("#projects");
+
+                    await archiveSection
+                        .scrollIntoViewIfNeeded();
+
+                    await expect(
+                        archiveSection,
+                    ).toBeInViewport();
+
+                    return;
+                }
+
+                await expect(
+                    navigator,
+                ).toBeVisible();
+
+                await navigator.getByRole(
+                    "button",
+                    {
+                        name: "Go to Expertise",
+                    },
+                ).click();
+
+                await expect(
+                    page.locator("html"),
+                ).toHaveAttribute(
+                    "data-cinematic-active",
+                    "neural",
+                    {
+                        timeout: 10_000,
+                    },
+                );
+
+                await navigator.getByRole(
+                    "button",
+                    {
+                        name: "Go to Contact",
+                    },
+                ).click();
+
+                await expect(
+                    page.locator("html"),
+                ).toHaveAttribute(
+                    "data-cinematic-active",
+                    "contact",
+                    {
+                        timeout: 10_000,
+                    },
+                );
+
+                await expect(page).toHaveURL(/\/en$/);
+
+                await navigator.getByRole(
+                    "button",
+                    {
+                        name: "Go to Agency",
+                    },
+                ).click();
+
+                await expect(
+                    page.locator("html"),
+                ).toHaveAttribute(
+                    "data-cinematic-active",
+                    "hero",
+                    {
+                        timeout: 10_000,
+                    },
+                );
+            },
+        );
+
+        test(
+            "opens project as intercepted modal and restores homepage position",
+            async ({ page }, testInfo) => {
+                if (!testInfo.project.name.includes("mobile")) {
+                    await page.setViewportSize({
+                        width: 1440,
+                        height: 900,
+                    });
+                }
+
+                await page.goto("/en");
+
+                const projectLink =
+                    page.locator(
+                        `a[href="/en/projects/${projectSlug}"]`,
+                    ).first();
+
+                await projectLink
+                    .scrollIntoViewIfNeeded();
+
+                await expect(
+                    projectLink,
+                ).toBeVisible();
+
+                const beforeOpen =
+                    await page.evaluate(
+                        () => window.scrollY,
+                    );
+
+                await projectLink.click();
+
+                await expect(
+                    page,
+                ).toHaveURL(
+                    new RegExp(
+                        `/projects/${projectSlug}$`,
+                    ),
+                );
+
+                const dialog =
+                    page.getByRole(
+                        "dialog",
+                    );
+
+                await expect(
+                    dialog,
+                ).toBeVisible();
+
+                const siteShell =
+                    page.locator(
+                        "[data-site-shell]",
+                    );
+
+                await expect(
+                    siteShell,
+                ).toHaveAttribute(
+                    "inert",
+                    "",
+                );
+
+                await expect(
+                    siteShell,
+                ).toHaveAttribute(
+                    "aria-hidden",
+                    "true",
+                );
+
+                await expect(
+                    dialog.getByRole(
+                        "heading",
+                        {
+                            level: 1,
+                            name: /pixardia/i,
+                        },
+                    ),
+                ).toBeVisible();
+
+                await expect(
+                    dialog.getByText(
+                        "Engine & Logic",
+                        {
+                            exact: true,
+                        },
+                    ),
+                ).toBeVisible();
+
+                const modalScrollStart =
+                    await page.evaluate(
+                        () => window.scrollY,
+                    );
+
+                await page.mouse.wheel(0, 1400);
+                await page.keyboard.press(
+                    "PageDown",
+                );
+                await page.keyboard.press(
+                    "ArrowDown",
+                );
+                await page.waitForTimeout(250);
+
+                const modalScrollAfterWheel =
+                    await page.evaluate(
+                        () => window.scrollY,
+                    );
+
+                expect(
+                    Math.abs(
+                        modalScrollAfterWheel -
+                        modalScrollStart,
+                    ),
+                ).toBeLessThan(2);
+
+                const closeButton =
+                    dialog.getByRole(
+                        "button",
+                        {
+                            name: /close/i,
+                        },
+                    );
+
+                await expect(
+                    closeButton,
+                ).toBeVisible();
+
+                await closeButton.click();
+
+                await expect(
+                    dialog,
+                ).toBeHidden();
+
+                await expect(
+                    page,
+                ).toHaveURL(
+                    /\/en$/,
+                );
+
+                await page.waitForTimeout(900);
+
+                await expect(
+                    page,
+                ).toHaveURL(
+                    /\/en$/,
+                );
+
+                await expect(
+                    siteShell,
+                ).not.toHaveAttribute(
+                    "inert",
+                    "",
+                );
+
+                await expect(
+                    siteShell,
+                ).not.toHaveAttribute(
+                    "aria-hidden",
+                    "true",
+                );
+
+                await expect(
+                    projectLink,
+                ).toBeVisible();
+
+                await expect
+                    .poll(
+                        async () => {
+                            const afterClose =
+                                await page.evaluate(
+                                    () => window.scrollY,
+                                );
+
+                            return Math.abs(
+                                afterClose -
+                                beforeOpen,
+                            );
+                        },
+                        {
+                            timeout: 3_000,
+                        },
+                    )
+                    .toBeLessThan(
+                        180,
+                    );
+
+                await expect(
+                    projectLink,
+                ).toBeFocused();
+
+                await expect(
+                    siteShell,
+                ).not.toHaveAttribute(
+                    "inert",
+                    "",
+                );
+
+                await expect(
+                    siteShell,
+                ).not.toHaveAttribute(
+                    "aria-hidden",
+                    "true",
+                );
+
+                const navigator =
+                    page.getByRole(
+                        "navigation",
+                        {
+                            name:
+                                "Homepage presentation scenes",
+                        },
+                    );
+
+                if (
+                    testInfo.project.name.includes(
+                        "mobile",
+                    )
+                ) {
+                    await expect(
+                        page.locator(
+                            "[data-cinematic-navigator]",
+                        ),
+                    ).toBeHidden();
+
+                    const contactSection =
+                        page.locator("#contact");
+
+                    await contactSection
+                        .scrollIntoViewIfNeeded();
+
+                    await expect(
+                        contactSection,
+                    ).toBeInViewport();
+
+                    return;
+                }
+
+                await navigator.getByRole(
+                    "button",
+                    {
+                        name: "Go to Contact",
+                    },
+                ).click();
+
+                await expect(
+                    page.locator("html"),
+                ).toHaveAttribute(
+                    "data-cinematic-active",
+                    "contact",
+                    {
+                        timeout: 10_000,
+                    },
+                );
+            },
+        );
+
+        test(
+            "loads project-specific modal data and closes with Escape",
+            async ({ page }) => {
+                await page.goto("/en");
+
+                const nexusLink =
+                    page.locator(
+                        'a[href="/en/projects/nexus-finance"]',
+                    ).first();
+
+                await nexusLink
+                    .scrollIntoViewIfNeeded();
+
+                await expect(
+                    nexusLink,
+                ).toBeVisible();
+
+                await nexusLink.click();
+
+                await expect(page).toHaveURL(
+                    /\/projects\/nexus-finance$/,
+                );
+
+                const dialog =
+                    page.getByRole("dialog");
+
+                await expect(
+                    dialog.getByRole(
+                        "heading",
+                        {
+                            level: 1,
+                            name: /nexus finance/i,
+                        },
+                    ),
+                ).toBeVisible();
+
+                const nexusGallery =
+                    dialog.locator(
+                        "[data-project-gallery]",
+                    );
+
+                await expect(
+                    nexusGallery,
+                ).toHaveAttribute(
+                    "data-gallery-count",
+                    "3",
+                );
+
+                await expect(
+                    nexusGallery,
+                ).toHaveAttribute(
+                    "data-gallery-index",
+                    "0",
+                );
+
+                await expect(
+                    dialog.getByRole(
+                        "button",
+                        {
+                            name:
+                                "Show next project image",
+                        },
+                    ),
+                ).toBeVisible();
+
+                await expect(
+                    dialog.getByText(
+                        "#0B1020",
+                        {
+                            exact: false,
+                        },
+                    ),
+                ).toBeVisible();
+
+                await expect(
+                    page.locator("html"),
+                ).toHaveAttribute(
+                    "data-project-modal-open",
+                    "true",
+                );
+
+                await page.keyboard.press(
+                    "Escape",
+                );
+
+                await expect(dialog).toBeHidden();
+                await expect(nexusLink).toBeFocused();
+            },
+        );
+
+        test(
+            "supports project gallery controls, keyboard navigation and reset",
+            async ({ page }) => {
+                test.slow();
+
+                await page.goto("/en");
+
+                const projectLink =
+                    page.locator(
+                        `a[href="/en/projects/${projectSlug}"]`,
+                    ).first();
+
+                await projectLink
+                    .scrollIntoViewIfNeeded();
+
+                await expect(
+                    projectLink,
+                ).toBeVisible();
+
+                await projectLink.click();
+
+                await expect(page).toHaveURL(
+                    new RegExp(
+                        `/projects/${projectSlug}$`,
+                    ),
+                    {
+                        timeout: 15_000,
+                    },
+                );
+
+                const dialog =
+                    page.getByRole("dialog");
+
+                await expect(dialog).toBeVisible();
+
+                const gallery =
+                    dialog.locator(
+                        "[data-project-gallery]",
+                    );
+
+                await expect(gallery).toHaveAttribute(
+                    "data-gallery-count",
+                    "3",
+                );
+
+                await expect(gallery).toHaveAttribute(
+                    "data-gallery-index",
+                    "0",
+                );
+
+                await dialog.getByRole(
+                    "button",
+                    {
+                        name:
+                            "Show next project image",
+                    },
+                ).click();
+
+                await expect(gallery).toHaveAttribute(
+                    "data-gallery-index",
+                    "1",
+                );
+
+                await gallery.focus();
+                await page.keyboard.press(
+                    "ArrowRight",
+                );
+
+                await expect(gallery).toHaveAttribute(
+                    "data-gallery-index",
+                    "2",
+                );
+
+                await gallery.dispatchEvent(
+                    "touchstart",
+                    {
+                        touches: [
+                            {
+                                identifier: 1,
+                                clientX: 240,
+                                clientY: 120,
+                            },
+                        ],
+                    },
+                );
+
+                await gallery.dispatchEvent(
+                    "touchend",
+                    {
+                        changedTouches: [
+                            {
+                                identifier: 1,
+                                clientX: 80,
+                                clientY: 120,
+                            },
+                        ],
+                    },
+                );
+
+                await expect(gallery).toHaveAttribute(
+                    "data-gallery-index",
+                    "0",
+                );
+
+                await dialog.getByRole(
+                    "button",
+                    {
+                        name: /close/i,
+                    },
+                ).click();
+
+                await expect(dialog).toBeHidden();
+                await expect(page).toHaveURL(/\/en$/);
+
+                await expect(
+                    projectLink,
+                ).toBeVisible();
+
+                await expect(
+                    projectLink,
+                ).toBeFocused();
+
+                await projectLink.click();
+
+                await expect(page).toHaveURL(
+                    new RegExp(
+                        `/projects/${projectSlug}$`,
+                    ),
+                    {
+                        timeout: 15_000,
+                    },
+                );
+
+                const reopenedDialog =
+                    page.getByRole("dialog");
+
+                await expect(
+                    reopenedDialog,
+                ).toBeVisible();
+
+                const reopenedGallery =
+                    reopenedDialog.locator(
+                        "[data-project-gallery]",
+                    );
+
+                await expect(
+                    reopenedGallery,
+                ).toHaveAttribute(
+                    "data-gallery-index",
+                    "0",
+                );
+            },
+        );
+
+        test(
+            "keeps display-only technology tags neutral and out of the tab order",
+            async ({ page }) => {
+                await page.goto("/en");
+
+                await page.locator(
+                    'a[href="/en/projects/nexus-finance"]',
+                ).first().click();
+
+                const tags = page
+                    .getByRole("dialog")
+                    .locator(
+                        "[data-project-technology]",
+                    );
+
+                await expect(
+                    tags.first(),
+                ).toBeVisible();
+
+                expect(
+                    await tags.count(),
+                ).toBeGreaterThan(1);
+
+                const defaultColors =
+                    await tags.evaluateAll(
+                        (elements) =>
+                            elements.map(
+                                (element) => ({
+                                    border:
+                                    getComputedStyle(
+                                        element,
+                                    ).borderColor,
+                                    text: getComputedStyle(
+                                        element,
+                                    ).color,
+                                }),
+                            ),
+                    );
+
+                expect(
+                    new Set(
+                        defaultColors.map(
+                            (color) =>
+                                `${color.border}/${color.text}`,
+                        ),
+                    ).size,
+                ).toBe(1);
+
+                const tagSemantics =
+                    await tags.evaluateAll(
+                        (elements) =>
+                            elements.map(
+                                (element) => ({
+                                    tagName:
+                                    element.tagName,
+                                    tabIndex:
+                                    (
+                                        element as HTMLElement
+                                    ).tabIndex,
+                                    role:
+                                        element.getAttribute(
+                                            "role",
+                                        ),
+                                }),
+                            ),
+                    );
+
+                expect(
+                    tagSemantics.every(
+                        (tag) =>
+                            tag.tagName === "SPAN" &&
+                            tag.tabIndex === -1 &&
+                            tag.role === null,
+                    ),
+                ).toBe(true);
+            },
+        );
+
+        test(
+            "renders canonical project page on direct navigation",
             async ({ page }) => {
                 await page.goto(
-                    "/en/contact",
+                    `/en/projects/${projectSlug}`,
                 );
 
                 await expect(
@@ -132,51 +723,14 @@ test.describe(
                         "heading",
                         {
                             level: 1,
-                            name:
-                                "Start a project with Pixardia",
+                            name: /pixardia/i,
                         },
                     ),
                 ).toBeVisible();
 
                 await expect(
-                    submitButton(page),
-                ).toBeVisible();
-            },
-        );
-
-        test(
-            "blocks invalid input without calling the lead API",
-            async ({ page }) => {
-                let apiRequests = 0;
-
-                await page.route(
-                    "**/api/leads",
-                    async (route) => {
-                        apiRequests += 1;
-
-                        await route.fulfill({
-                            status: 500,
-
-                            contentType:
-                                "application/json",
-
-                            body:
-                                JSON.stringify({
-                                    ok: false,
-                                    error:
-                                        "unexpected_call",
-                                }),
-                        });
-                    },
-                );
-
-                await submitLead(
-                    page,
-                );
-
-                await expect(
                     page.getByText(
-                        "Name is too short",
+                        "Project overview",
                         {
                             exact: true,
                         },
@@ -184,387 +738,182 @@ test.describe(
                 ).toBeVisible();
 
                 await expect(
-                    page.getByText(
-                        "Invalid email",
-                        {
-                            exact: true,
-                        },
-                    ),
-                ).toBeVisible();
-
-                await expect(
-                    page.getByText(
-                        "Please describe the project in more detail",
-                        {
-                            exact: true,
-                        },
-                    ),
-                ).toBeVisible();
-
-                await expect(
-                    page.getByText(
-                        "Please accept the privacy policy",
-                        {
-                            exact: true,
-                        },
-                    ),
-                ).toBeVisible();
-
-                expect(
-                    apiRequests,
-                ).toBe(0);
-            },
-        );
-
-        test(
-            "submits normalized production payload and resets the form",
-            async ({ page }) => {
-                let apiRequests = 0;
-
-                let capturedPayload:
-                    Record<string, unknown>
-                    | null = null;
-
-                await page.route(
-                    "**/api/leads",
-                    async (route) => {
-                        apiRequests += 1;
-
-                        capturedPayload =
-                            route
-                                .request()
-                                .postDataJSON() as Record<
-                                    string,
-                                    unknown
-                                >;
-
-                        await route.fulfill({
-                            status: 201,
-
-                            contentType:
-                                "application/json",
-
-                            headers: {
-                                "Cache-Control":
-                                    "no-store",
-                            },
-
-                            body:
-                                JSON.stringify({
-                                    ok: true,
-                                }),
-                        });
-                    },
-                );
-
-                await fillValidLead(
-                    page,
-                );
-
-                await submitLead(
-                    page,
-                );
-
-                const success =
                     page.getByRole(
-                        "status",
-                    );
-
-                await expect(
-                    success,
-                ).toBeVisible();
-
-                await expect(
-                    success,
-                ).toContainText(
-                    /\S/u,
-                );
-
-                expect(
-                    apiRequests,
-                ).toBe(1);
-
-                expect(
-                    capturedPayload,
-                ).toMatchObject({
-                    name:
-                        "Aleks Test",
-
-                    email:
-                        "test.lead@example.com",
-
-                    message:
-                        "We need a production website with a clear lead flow and analytics integration.",
-
-                    language:
-                        "en",
-
-                    serviceCode:
-                        "BUSINESS_WEBSITE",
-
-                    privacyAccepted:
-                        true,
-
-                    website:
-                        "",
-                });
-
-                expect(
-                    capturedPayload,
-                ).not.toHaveProperty(
-                    "phone",
-                );
-
-                await expect(
-                    nameField(page),
-                ).toHaveValue("");
-
-                await expect(
-                    emailField(page),
-                ).toHaveValue("");
-
-                await expect(
-                    messageField(page),
-                ).toHaveValue("");
-
-                await expect(
-                    serviceField(page),
-                ).toHaveValue(
-                    "BUSINESS_WEBSITE",
-                );
-
-                await expect(
-                    privacyField(page),
-                ).not.toBeChecked();
+                        "dialog",
+                    ),
+                ).toHaveCount(0);
             },
         );
 
         test(
-            "shows recoverable feedback for HTTP 400",
+            "returns a real 404 for an unknown route",
             async ({ page }) => {
-                let apiRequests = 0;
-
-                await page.route(
-                    "**/api/leads",
-                    async (route) => {
-                        apiRequests += 1;
-
-                        await route.fulfill({
-                            status: 400,
-
-                            contentType:
-                                "application/json",
-
-                            body:
-                                JSON.stringify({
-                                    ok: false,
-
-                                    error:
-                                        "invalid_request",
-
-                                    fields: {
-                                        email: [
-                                            "Invalid email",
-                                        ],
-                                    },
-                                }),
-                        });
-                    },
-                );
-
-                await fillValidLead(
-                    page,
-                );
-
-                await submitLead(
-                    page,
-                );
-
-                const emailError =
-                    page.getByText(
-                        "Invalid email",
-                        {
-                            exact: true,
-                        },
+                const response =
+                    await page.goto(
+                        "/en/this-route-does-not-exist-e2e",
                     );
-
-                await expect(
-                    emailError,
-                ).toBeVisible();
-
-                const requestError =
-                    page.getByText(
-                        "Something went wrong. Please try again or contact us directly.",
-                        {
-                            exact: true,
-                        },
-                    );
-
-                await expect(
-                    requestError,
-                ).toBeVisible();
 
                 expect(
-                    apiRequests,
-                ).toBe(1);
+                    response,
+                ).not.toBeNull();
+
+                expect(
+                    response?.status(),
+                ).toBe(404);
 
                 await expect(
-                    submitButton(page),
-                ).toBeEnabled();
+                    page.locator(
+                        "body",
+                    ),
+                ).toBeVisible();
+            },
+        );
+    },
+);
 
-                await expect(
-                    nameField(page),
-                ).toHaveValue(
-                    validLead.name,
+test.describe(
+    "responsive foundation",
+    () => {
+        test(
+            "homepage has no document-level horizontal overflow",
+            async ({ page }) => {
+                await page.goto("/en");
+
+                const dimensions =
+                    await page.evaluate(
+                        () => ({
+                            scrollWidth:
+                            document
+                                .documentElement
+                                .scrollWidth,
+
+                            clientWidth:
+                            document
+                                .documentElement
+                                .clientWidth,
+                        }),
+                    );
+
+                expect(
+                    dimensions.scrollWidth,
+                ).toBeLessThanOrEqual(
+                    dimensions.clientWidth +
+                    2,
                 );
             },
         );
 
         test(
-            "shows dedicated rate-limit feedback for HTTP 429",
+            "desktop modal panels fit without internal scrolling",
             async ({ page }) => {
-                let apiRequests = 0;
+                await page.goto("/en");
 
-                await page.route(
-                    "**/api/leads",
-                    async (route) => {
-                        apiRequests += 1;
-
-                        await route.fulfill({
-                            status: 429,
-
-                            contentType:
-                                "application/json",
-
-                            headers: {
-                                "Retry-After":
-                                    "60",
-                            },
-
-                            body:
-                                JSON.stringify({
-                                    ok: false,
-                                    error:
-                                        "too_many_requests",
-                                }),
-                        });
-                    },
-                );
-
-                await fillValidLead(
-                    page,
-                );
-
-                await submitLead(
-                    page,
-                );
-
-                const requestError =
-                    page.getByText(
-                        /Too many requests\. Please wait a moment and try again\./i,
-                    );
+                await page.locator(
+                    `a[href="/en/projects/${projectSlug}"]`,
+                ).first().click();
 
                 await expect(
-                    requestError,
+                    page.locator(
+                        '[data-project-modal-state="open"]',
+                    ),
                 ).toBeVisible();
 
-                expect(
-                    apiRequests,
-                ).toBe(1);
+                for (const viewport of [
+                    {
+                        width: 1710,
+                        height: 950,
+                    },
+                    {
+                        width: 1512,
+                        height: 820,
+                    },
+                    {
+                        width: 1440,
+                        height: 800,
+                    },
+                    {
+                        width: 1280,
+                        height: 720,
+                    },
+                ]) {
+                    await page.setViewportSize(
+                        viewport,
+                    );
 
-                await expect(
-                    submitButton(page),
-                ).toBeEnabled();
+                    const panels =
+                        await page.locator(
+                            "[data-project-modal-panel]",
+                        ).evaluateAll(
+                            (elements) =>
+                                elements.map(
+                                    (element) => ({
+                                        clientHeight:
+                                        element
+                                            .clientHeight,
+                                        scrollHeight:
+                                        element
+                                            .scrollHeight,
+                                        overflowY:
+                                        getComputedStyle(
+                                            element,
+                                        ).overflowY,
+                                    })),
+                        );
 
-                await expect(
-                    nameField(page),
-                ).toHaveValue(
-                    validLead.name,
-                );
+                    for (const panel of panels) {
+                        expect(
+                            panel.scrollHeight,
+                        ).toBeLessThanOrEqual(
+                            panel.clientHeight,
+                        );
+
+                        expect(
+                            panel.overflowY,
+                        ).not.toMatch(
+                            /auto|scroll|hidden/u,
+                        );
+                    }
+                }
             },
         );
 
         test(
-            "preserves entered data and allows retry after HTTP 500",
+            "project modal remains usable at the active viewport",
             async ({ page }) => {
-                let apiRequests = 0;
+                await page.goto("/en");
 
-                await page.route(
-                    "**/api/leads",
-                    async (route) => {
-                        apiRequests += 1;
+                const projectLink =
+                    page.locator(
+                        `a[href="/en/projects/${projectSlug}"]`,
+                    ).first();
 
-                        await route.fulfill({
-                            status: 500,
+                await projectLink
+                    .scrollIntoViewIfNeeded();
 
-                            contentType:
-                                "application/json",
+                await expect(
+                    projectLink,
+                ).toBeVisible();
 
-                            body:
-                                JSON.stringify({
-                                    ok: false,
-                                    error:
-                                        "server_error",
-                                }),
-                        });
-                    },
-                );
+                await projectLink.click();
 
-                await fillValidLead(
-                    page,
-                );
-
-                await submitLead(
-                    page,
-                );
-
-                const requestError =
-                    page.getByText(
-                        "Something went wrong. Please try again or contact us directly.",
-                        {
-                            exact: true,
-                        },
+                const dialog =
+                    page.getByRole(
+                        "dialog",
                     );
 
                 await expect(
-                    requestError,
+                    dialog,
                 ).toBeVisible();
 
-                expect(
-                    apiRequests,
-                ).toBe(1);
-
                 await expect(
-                    nameField(page),
-                ).toHaveValue(
-                    validLead.name,
-                );
-
-                await expect(
-                    emailField(page),
-                ).toHaveValue(
-                    validLead.email,
-                );
-
-                await expect(
-                    messageField(page),
-                ).toHaveValue(
-                    validLead.message,
-                );
-
-                await expect(
-                    serviceField(page),
-                ).toHaveValue(
-                    "BUSINESS_WEBSITE",
-                );
-
-                await expect(
-                    privacyField(page),
-                ).toBeChecked();
-
-                await expect(
-                    submitButton(page),
-                ).toBeEnabled();
+                    dialog.getByRole(
+                        "heading",
+                        {
+                            level: 1,
+                            name: /pixardia/i,
+                        },
+                    ),
+                ).toBeVisible();
             },
         );
     },

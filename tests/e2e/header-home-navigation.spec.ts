@@ -5,12 +5,14 @@ import {
 
 test.describe("header home navigation", () => {
     test("returns from Archive to Hero through the desktop runtime or mobile anchor fallback", async ({
-        page,
-    }, testInfo) => {
-        await page.setViewportSize({
-            width: 1440,
-            height: 900,
-        });
+                                                                                                          page,
+                                                                                                      }, testInfo) => {
+        if (!testInfo.project.name.includes("mobile")) {
+            await page.setViewportSize({
+                width: 1440,
+                height: 900,
+            });
+        }
         await page.goto("/en");
 
         const headerHomeLink = page

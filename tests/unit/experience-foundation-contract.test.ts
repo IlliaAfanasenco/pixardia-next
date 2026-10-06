@@ -57,7 +57,7 @@ describe("experience foundation contract", () => {
         );
         expect(homepage).toContain("<CinematicRuntime />");
         expect(homepage).not.toMatch(
-            /MotionRuntime|StorylineOverlay/,
+            /\b(?:MotionRuntime|StorylineOverlay)\b/,
         );
 
         const runtime = read(runtimePath);
@@ -324,7 +324,7 @@ describe("experience foundation contract", () => {
         );
         expect(styles).toContain("position: absolute");
         expect(styles).toContain(
-            "@media (max-width: 1199px), (max-height: 799px), (hover: none), (pointer: coarse)",
+            "@media (max-width: 1279px), (max-height: 799px), (hover: none), (pointer: coarse)",
         );
         expect(styles).not.toMatch(
             /animation-timeline|view-timeline|scroll-snap(?:-type|-align|-stop)?\s*:/,

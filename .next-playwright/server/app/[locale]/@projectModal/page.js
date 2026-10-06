@@ -14,7 +14,7 @@ R.c("server/chunks/ssr/_01gc5kc._.js")
 R.c("server/chunks/ssr/_0p7ls-p._.js")
 R.c("server/chunks/ssr/app_[locale]_not-found_tsx_0nckgjy._.js")
 R.c("server/chunks/ssr/_0z3xb74._.js")
-R.c("server/chunks/ssr/_0c~_5n7._.js")
+R.c("server/chunks/ssr/_0b345yc._.js")
 R.c("server/chunks/ssr/_next-internal_server_app_[locale]_@projectModal_page_actions_0izuei-.js")
 R.m(41186)
 module.exports=R.m(41186).exports
