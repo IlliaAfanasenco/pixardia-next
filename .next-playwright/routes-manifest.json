@@ -160,6 +160,12 @@
       "namedRegex": "^/favicon\\.ico(?:/)?$"
     },
     {
+      "page": "/mobile-preview",
+      "regex": "^/mobile\\-preview(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/mobile\\-preview(?:/)?$"
+    },
+    {
       "page": "/robots.txt",
       "regex": "^/robots\\.txt(?:/)?$",
       "routeKeys": {},

@@ -1,4 +1,5 @@
 {
+  "/(mobile-preview)/mobile-preview/page": "app/(mobile-preview)/mobile-preview/page.js",
   "/[locale]/@projectModal/(.)projects/[slug]/page": "app/[locale]/@projectModal/(.)projects/[slug]/page.js",
   "/[locale]/@projectModal/[...catchAll]/page": "app/[locale]/@projectModal/[...catchAll]/page.js",
   "/[locale]/@projectModal/page": "app/[locale]/@projectModal/page.js",
