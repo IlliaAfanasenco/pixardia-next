@@ -47,15 +47,6 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 }
 
 
-// Validate ../../app/(mobile-preview)/mobile-preview/page.tsx
-{
-  type __IsExpected<Specific extends AppPageConfig<"/mobile-preview">> = Specific
-  const handler = {} as typeof import("../../app/(mobile-preview)/mobile-preview/page.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
-
 // Validate ../../app/[locale]/@projectModal/(.)projects/[slug]/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/[locale]/projects/[slug]">> = Specific
@@ -167,15 +158,6 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 
 
 
-
-// Validate ../../app/(mobile-preview)/layout.tsx
-{
-  type __IsExpected<Specific extends LayoutConfig<"/">> = Specific
-  const handler = {} as typeof import("../../app/(mobile-preview)/layout.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
 
 // Validate ../../app/[locale]/layout.tsx
 {

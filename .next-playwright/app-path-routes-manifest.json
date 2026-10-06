@@ -1,5 +1,4 @@
 {
-  "/(mobile-preview)/mobile-preview/page": "/mobile-preview",
   "/[locale]/@projectModal/(.)projects/[slug]/page": "/[locale]/(.)projects/[slug]",
   "/[locale]/@projectModal/[...catchAll]/page": "/[locale]/[...catchAll]",
   "/[locale]/@projectModal/page": "/[locale]",
