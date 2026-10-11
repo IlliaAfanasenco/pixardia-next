@@ -1585,3 +1585,488 @@
         margin-top: 0;
     }
 }
+
+/* Hero-only wide composition. The runtime gate also preserves flow fallbacks. */
+.hero-wide-decor {
+    display: none;
+    pointer-events: none;
+    user-select: none;
+}
+
+@media (min-width: 1600px) and (min-height: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"] .hero-wide-decor {
+        display: block;
+        position: absolute;
+        inset: 0;
+        /* Keep every decorative pixel outside the fixed navigator's lane. */
+        clip-path: inset(0 calc(var(--cinematic-nav-right) + clamp(130px, 7vw, 156px) + 24px) 0 0);
+        color: #96989c;
+        font-family: var(--font-archivo), sans-serif;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.16em;
+    }
+
+    .hero-orbital-field {
+        position: absolute;
+        width: min(76svh, 760px);
+        aspect-ratio: 1;
+        left: 50%;
+        bottom: 64px;
+        translate: -50% 0;
+    }
+
+    .hero-orbital-field svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        stroke: rgb(197 198 200 / 38%);
+        stroke-width: 0.65;
+    }
+
+    .hero-orbital-field text {
+        fill: #b5b6b8;
+        stroke: none;
+        font-size: 8px;
+    }
+
+    .hero-orbit__lime { fill: #b4d967; stroke: none; }
+    .hero-orbit__violet { fill: #5e56e7; stroke: none; opacity: 0.65; }
+
+    .hero-editorial-rail {
+        position: absolute;
+        left: clamp(28px, calc((100vw - 1440px) / 4), 240px);
+        top: 15%;
+        bottom: 14%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .hero-editorial-rail__index { font-variant-numeric: tabular-nums; }
+    .hero-editorial-rail__line { width: 1px; flex: 1; max-height: 120px; background: rgb(197 198 200 / 45%); }
+    .hero-editorial-rail__vertical { writing-mode: vertical-rl; rotate: 180deg; }
+    .hero-editorial-rail__indicator { width: 4px; height: 4px; border-radius: 50%; background: #b4d967; }
+    .hero-editorial-rail__coordinate,
+    .hero-studio-signature { display: none; }
+}
+
+@media (min-width: 1800px) and (min-height: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="hero"] {
+        --hero-wide-lift: clamp(64px, calc(40svh - 368px), 208px);
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-element="hero-character"] {
+        left: 82%;
+        width: min(74svh, 744px);
+        bottom: var(--hero-wide-lift);
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-element="hero-character"] img {
+        inline-size: min(74svh, 744px);
+    }
+
+    /* The longer German word needs a smaller measure beside the characters. */
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-element="hero-title"]:lang(de) > span:nth-child(2) {
+        font-size: clamp(5.75rem, min(13.5vw, 17svh), 10rem);
+    }
+
+    .hero-orbital-field {
+        left: calc(50% + var(--site-container-max) * 0.32);
+        width: min(88svh, 900px);
+        bottom: calc(var(--hero-wide-lift) - 16px);
+    }
+
+    .hero-editorial-rail__coordinate { display: block; margin-top: auto; }
+
+    .hero-studio-signature {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 18px;
+        position: absolute;
+        top: 10%;
+        right: calc(var(--cinematic-nav-right) + clamp(130px, 7vw, 156px) + 48px);
+    }
+
+    .hero-studio-signature__line { width: 48px; height: 1px; background: rgb(197 198 200 / 55%); }
+    .hero-studio-signature strong { color: #8b8d91; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; }
+    .hero-studio-signature__coordinate { margin-top: 12px; font-size: 8px; color: #b5b6b8; }
+}
+
+/* Crafting Structure: independent background details for cinematic desktop. */
+.crafting-wide-decor {
+    display: none;
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes crafting-orbit-turn {
+    to { transform: rotate(360deg); }
+}
+
+@media (min-width: 1600px) and (min-height: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"] .crafting-wide-decor {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        /* Reserve the entire navigator lane, including its breathing room. */
+        clip-path: inset(0 calc(var(--cinematic-nav-right) + clamp(130px, 7vw, 156px) + 24px) 0 0);
+        color: #96989c;
+        font-size: 9px;
+        font-weight: 400;
+        line-height: 1.2;
+        letter-spacing: 0.16em;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="crafting"] [data-cinematic-layer] {
+        position: relative;
+        z-index: 1;
+    }
+
+    .crafting-orbital-field {
+        position: absolute;
+        left: calc(50% + 330px);
+        top: calc(50% - 44px);
+        width: min(88svh, 940px);
+        aspect-ratio: 1;
+        translate: -50% -50%;
+        overflow: visible;
+        stroke: rgb(197 198 200 / 38%);
+        stroke-width: 0.7;
+    }
+
+    .crafting-orbit {
+        transform-box: view-box;
+        transform-origin: center;
+        animation: crafting-orbit-turn 60s linear infinite paused;
+    }
+
+    .crafting-orbit--inner { animation-duration: 72s; animation-direction: reverse; }
+    .crafting-orbit--dotted { display: none; animation-duration: 90s; }
+
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="crafting"][data-cinematic-state="active"] .crafting-orbit {
+        animation-play-state: running;
+    }
+
+    .crafting-decor__lime { fill: #b4d967; stroke: none; }
+    .crafting-decor__violet { fill: #5e56e7; stroke: none; opacity: 0.65; }
+    .crafting-decor__satellite { fill: #c5c6c8; stroke: none; }
+    .crafting-structural-paths { display: none; }
+    .crafting-structural-paths text { fill: #b5b6b8; stroke: none; font-size: 8px; }
+
+    .crafting-editorial-rail {
+        position: absolute;
+        left: clamp(28px, calc((100vw - var(--site-container-max)) / 4), 240px);
+        top: 19%;
+        bottom: 17%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .crafting-editorial-rail__line { width: 1px; flex: 1; max-height: 120px; background: rgb(197 198 200 / 45%); }
+    .crafting-editorial-rail__vertical { writing-mode: vertical-rl; rotate: 180deg; }
+    .crafting-editorial-rail__indicator { width: 4px; height: 4px; border-radius: 50%; background: #b4d967; }
+    .crafting-editorial-rail__coordinate,
+    .crafting-process-notes { display: none; }
+}
+
+/* Full annotations need headroom above the unchanged terminal. */
+@media (min-width: 1800px) and (min-height: 1080px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .crafting-orbital-field {
+        /* The unchanged grid puts the terminal center ~390px right of center. */
+        left: calc(50% + 390px);
+        top: calc(50% - 20px);
+        width: min(100svh, 1100px);
+    }
+
+    .crafting-orbit--dotted,
+    .crafting-structural-paths { display: block; }
+    .crafting-editorial-rail__coordinate { display: block; margin-top: auto; }
+
+    .crafting-process-notes {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+        position: absolute;
+        top: clamp(60px, 6svh, 86px);
+        right: calc(var(--cinematic-nav-right) + clamp(130px, 7vw, 156px) + 32px);
+        font-size: 8px;
+        letter-spacing: 0.12em;
+    }
+
+    .crafting-process-notes > span:not(:first-child) {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .crafting-process-notes > span:not(:first-child)::before {
+        content: "";
+        width: 18px;
+        height: 1px;
+        background: rgb(197 198 200 / 45%);
+    }
+
+    .crafting-process-notes__index { margin-bottom: 2px; color: #b5b6b8; }
+}
+
+/* Digital Products: decoration stays independent of the existing composition. */
+.product-wide-decor {
+    display: none;
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes product-orbit-turn {
+    to { transform: rotate(360deg); }
+}
+
+@media (min-width: 1600px) and (min-height: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"] .product-wide-decor {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        clip-path: inset(0 calc(var(--cinematic-nav-right) + clamp(130px, 7vw, 156px) + 24px) 0 0);
+        color: #96989c;
+        font-size: 9px;
+        font-weight: 400;
+        line-height: 1.2;
+        letter-spacing: 0.16em;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="product"] [data-cinematic-layer] {
+        position: relative;
+        z-index: 1;
+    }
+
+    .product-orbital-window {
+        position: absolute;
+        inset: 0;
+        /* Fade before the cards; retain the arcs in the outer right margin. */
+        mask-image:
+            linear-gradient(to bottom, #000 19%, transparent 27%),
+            linear-gradient(to right, transparent calc(50% + var(--site-container-max) / 2 - var(--cinematic-gutter)), #000 calc(50% + var(--site-container-max) / 2 - var(--cinematic-gutter) + 24px));
+        mask-composite: add;
+    }
+
+    .product-orbital-field {
+        position: absolute;
+        left: calc(50% + 300px);
+        top: clamp(144px, 18svh, 280px);
+        width: min(78svh, 760px);
+        aspect-ratio: 1;
+        translate: -50% -50%;
+        overflow: visible;
+        stroke: rgb(197 198 200 / 34%);
+        stroke-width: 0.7;
+    }
+
+    .product-orbit {
+        transform-box: view-box;
+        transform-origin: center;
+        animation: product-orbit-turn 60s linear infinite paused;
+    }
+
+    .product-orbit--inner { animation-duration: 50s; animation-direction: reverse; }
+    .product-orbit--dotted { display: none; animation-duration: 56s; }
+
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="product"][data-cinematic-state="active"] .product-orbit {
+        animation-play-state: running;
+    }
+
+    .product-decor__lime { fill: #b4d967; stroke: none; }
+    .product-decor__violet { fill: #5e56e7; stroke: none; opacity: 0.65; }
+    .product-decor__satellite { fill: #c5c6c8; stroke: none; }
+    .product-registration { display: none; }
+    .product-registration text { fill: #b5b6b8; stroke: none; font-size: 8px; }
+
+    .product-editorial-rail {
+        position: absolute;
+        left: clamp(28px, calc((100vw - var(--site-container-max)) / 4), 240px);
+        top: 19%;
+        bottom: 17%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .product-editorial-rail__line { width: 1px; flex: 1; max-height: 120px; background: rgb(197 198 200 / 45%); }
+    .product-editorial-rail__vertical { writing-mode: vertical-rl; rotate: 180deg; }
+    .product-editorial-rail__indicator { width: 4px; height: 4px; border-radius: 50%; background: #b4d967; }
+    .product-editorial-rail__coordinate,
+    .product-technical-notes,
+    .product-edge-geometry { display: none; }
+}
+
+@media (min-width: 1800px) and (min-height: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .product-orbital-field { width: min(86svh, 940px); }
+    .product-orbit--dotted,
+    .product-registration { display: block; }
+    .product-editorial-rail__coordinate { display: block; margin-top: auto; }
+
+    .product-technical-notes {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+        position: absolute;
+        top: clamp(64px, 7svh, 100px);
+        right: calc(var(--cinematic-nav-right) + clamp(130px, 7vw, 156px) + 32px);
+        font-size: 8px;
+        letter-spacing: 0.12em;
+    }
+
+    .product-technical-notes > span:not(:first-child) { display: flex; align-items: center; gap: 12px; }
+    .product-technical-notes > span:not(:first-child)::before { content: ""; width: 18px; height: 1px; background: rgb(197 198 200 / 45%); }
+    .product-technical-notes__index { margin-bottom: 2px; color: #b5b6b8; }
+
+    .product-edge-geometry {
+        display: block;
+        position: absolute;
+        left: max(28px, calc((100vw - var(--site-container-max)) / 2 - 184px));
+        bottom: 8%;
+        width: 120px;
+        height: 120px;
+        stroke: rgb(197 198 200 / 32%);
+        stroke-width: 0.7;
+    }
+}
+
+/* Contact flows after the pinned stage; opt in only while its desktop runtime exists. */
+.contact-wide-decor,
+.contact-form-orbits {
+    display: none;
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes contact-orbit-turn {
+    to { transform: rotate(360deg); }
+}
+
+@media (min-width: 1600px) and (min-height: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    body:has(.cinematic-stage[data-cinematic-mode="desktop"]) #contact {
+        --contact-orbit-bleed: 140px;
+        --contact-nav-lane: calc(var(--cinematic-nav-right) + clamp(130px, 7vw, 156px) + 24px);
+        position: relative;
+        isolation: isolate;
+        /* Keep the background inside Contact and clear of the separate footer. */
+        overflow: clip;
+    }
+
+    body:has(.cinematic-stage[data-cinematic-mode="desktop"]) #contact [data-contact-shell] {
+        position: relative;
+        z-index: 1;
+    }
+
+    body:has(.cinematic-stage[data-cinematic-mode="desktop"]) #contact [data-contact-form-wrap] {
+        isolation: isolate;
+    }
+
+    body:has(.cinematic-stage[data-cinematic-mode="desktop"]) #contact .contact-wide-decor {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        clip-path: inset(0 var(--contact-nav-lane) 0 0);
+        color: #96989c;
+        font-size: 9px;
+        font-weight: 400;
+        line-height: 1.2;
+        letter-spacing: 0.16em;
+        font-variant-numeric: tabular-nums;
+    }
+
+    body:has(.cinematic-stage[data-cinematic-mode="desktop"]) #contact .contact-form-orbits {
+        display: block;
+        position: absolute;
+        inset: calc(-1 * var(--contact-orbit-bleed));
+        z-index: -1;
+        /* Exclude the complete form, its shadow and a 12px clear perimeter. */
+        mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+        mask-size: 100% 100%, calc(100% - 2 * var(--contact-orbit-bleed) + 24px) calc(100% - 2 * var(--contact-orbit-bleed) + 24px);
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-composite: exclude;
+        /* Translate the fixed navigator's reserved lane into this local layer. */
+        clip-path: inset(0 max(0px, calc(var(--site-container-max) / 2 - var(--cinematic-gutter) + var(--contact-orbit-bleed) + var(--contact-nav-lane) - 50vw)) 0 0);
+    }
+
+    .contact-form-orbits svg { width: 100%; height: 100%; overflow: visible; stroke: rgb(197 198 200 / 38%); stroke-width: 0.7; }
+    .contact-orbit { transform-box: view-box; transform-origin: center; animation: contact-orbit-turn 60s linear infinite paused; }
+    .contact-orbit--inner { animation-duration: 70s; animation-direction: reverse; }
+    .contact-orbit--dotted { display: none; animation-duration: 65s; }
+    html[data-cinematic-active="contact"] .contact-orbit { animation-play-state: running; }
+    .contact-decor__lime { fill: #b4d967; stroke: none; }
+    .contact-decor__violet { fill: #5e56e7; stroke: none; opacity: 0.65; }
+    .contact-decor__satellite { fill: #b5b6b8; stroke: #fff; stroke-width: 0.6; }
+    .contact-orbit-registration { display: none; }
+    .contact-orbit-registration text { fill: #b5b6b8; stroke: none; font-size: 8px; letter-spacing: 0.16em; }
+
+    .contact-editorial-rail {
+        position: absolute;
+        left: clamp(28px, calc((100vw - var(--site-container-max)) / 4), 240px);
+        top: 15%;
+        bottom: 13%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .contact-editorial-rail__line { width: 1px; flex: 1; max-height: 120px; background: rgb(197 198 200 / 45%); }
+    .contact-editorial-rail__vertical { writing-mode: vertical-rl; rotate: 180deg; }
+    .contact-editorial-rail__indicator { width: 4px; height: 4px; border-radius: 50%; background: #b4d967; }
+    .contact-editorial-rail__coordinate,
+    .contact-project-notes,
+    .contact-signal-geometry { display: none; }
+}
+
+@media (min-width: 1800px) and (min-height: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    body:has(.cinematic-stage[data-cinematic-mode="desktop"]) #contact { --contact-orbit-bleed: 200px; }
+    .contact-orbit--dotted,
+    .contact-orbit-registration { display: block; }
+    .contact-editorial-rail__coordinate { display: block; margin-top: auto; }
+
+    .contact-project-notes {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 18px;
+        writing-mode: vertical-rl;
+        position: absolute;
+        top: 12%;
+        right: calc(var(--contact-nav-lane) + 8px);
+        font-size: 8px;
+        letter-spacing: 0.12em;
+    }
+
+    .contact-project-notes > span:not(:first-child) { display: flex; align-items: center; gap: 12px; }
+    .contact-project-notes > span:not(:first-child)::before { content: ""; inline-size: 18px; block-size: 1px; background: rgb(197 198 200 / 45%); }
+    .contact-project-notes__index { color: #b5b6b8; }
+
+    .contact-signal-geometry {
+        display: block;
+        position: absolute;
+        left: max(28px, calc((100vw - var(--site-container-max)) / 2 - 184px));
+        bottom: 8%;
+        width: 100px;
+        height: 125px;
+        stroke: rgb(197 198 200 / 32%);
+        stroke-width: 0.7;
+    }
+}
+
+@media (min-width: 2048px) {
+    .contact-project-notes { writing-mode: horizontal-tb; flex-direction: column; align-items: flex-end; gap: 12px; }
+}

@@ -253,6 +253,31 @@ export default function ContactSection({
             data-motion="fade-up"
             data-motion-state="pending"
         >
+            <div className="contact-wide-decor" aria-hidden="true">
+                <div className="contact-editorial-rail">
+                    <span>06 / 06</span>
+                    <span className="contact-editorial-rail__line" />
+                    <span className="contact-editorial-rail__vertical">CREATIVITY × TECHNOLOGY</span>
+                    <span className="contact-editorial-rail__indicator" />
+                    <span className="contact-editorial-rail__coordinate">+ &nbsp; Y / 006</span>
+                </div>
+
+                <div className="contact-project-notes">
+                    <span className="contact-project-notes__index">ORBIT / 06</span>
+                    <span>PROJECT INTAKE</span>
+                    <span>CONNECTION READY</span>
+                    <span>LET&apos;S CREATE</span>
+                    <span>BUILD BEYOND.</span>
+                </div>
+
+                <svg className="contact-signal-geometry" viewBox="0 0 160 200" fill="none" focusable="false">
+                    <path d="M20 16v44l40 40v32l48 48h32" />
+                    <path d="M12 16h16M52 100h16M60 92v16M132 172v16" />
+                    <circle className="contact-decor__satellite" cx="20" cy="60" r="2" />
+                    <circle className="contact-decor__violet" cx="60" cy="132" r="2.5" />
+                    <circle className="contact-decor__lime" cx="108" cy="180" r="2.5" />
+                </svg>
+            </div>
             <div className="site-container" data-contact-shell="">
                 <div
                     className="flex justify-center gap-3 xl:justify-start"
@@ -390,6 +415,29 @@ export default function ContactSection({
                         className="relative w-full max-w-[620px] xl:max-w-none"
                         data-contact-form-wrap=""
                     >
+                        <div className="contact-form-orbits" aria-hidden="true">
+                            <svg viewBox="0 0 1000 1000" fill="none" focusable="false">
+                                <g className="contact-orbit contact-orbit--outer">
+                                    <circle cx="500" cy="500" r="480" />
+                                    <path d="M500 12v16M972 500h16M500 972v16M12 500h16" />
+                                    <circle className="contact-decor__lime" cx="212" cy="116" r="3.5" />
+                                    <circle className="contact-decor__satellite" cx="20" cy="500" r="2" />
+                                </g>
+                                <g className="contact-orbit contact-orbit--inner">
+                                    <circle cx="500" cy="500" r="404" />
+                                    <circle className="contact-decor__violet" cx="823.2" cy="257.6" r="3" />
+                                    <circle className="contact-decor__satellite" cx="500" cy="96" r="2" />
+                                </g>
+                                <g className="contact-orbit contact-orbit--dotted">
+                                    <circle cx="500" cy="500" r="450" strokeDasharray="1 9" strokeLinecap="round" />
+                                    <circle className="contact-decor__lime" cx="950" cy="500" r="2.5" />
+                                </g>
+                                <g className="contact-orbit-registration">
+                                    <path d="M76 320h16M84 312v16M866 194h16M874 186v16" />
+                                    <text x="98" y="308">X / 006</text>
+                                </g>
+                            </svg>
+                        </div>
                         <Image
                             src="/images/astronautCon.png"
                             data-contact-form-visual=""

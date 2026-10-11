@@ -18,6 +18,7 @@ const archivo = Archivo({
 
 export default function HeroSection() {
     const { t, locale } = useI18n();
+    const orbitRef = useRef<HTMLDivElement>(null);
     const rotatingElementRef = useRef<HTMLImageElement>(null);
     const charactersRef = useRef<HTMLImageElement>(null);
     const scrollProgressRef = useRef<HTMLDivElement>(null);
@@ -69,6 +70,26 @@ export default function HeroSection() {
     });
 
     useGSAP(() => {
+        const media = gsap.matchMedia();
+        media.add(
+            "(min-width: 1600px) and (min-height: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+            () => {
+                const rings = orbitRef.current?.querySelectorAll("[data-hero-orbit]");
+                rings?.forEach((ring, index) => {
+                    gsap.to(ring, {
+                        rotation: index % 2 === 0 ? 360 : -360,
+                        duration: 40 + index * 10,
+                        repeat: -1,
+                        ease: "none",
+                        svgOrigin: "400 400",
+                    });
+                });
+            },
+        );
+        return () => media.revert();
+    });
+
+    useGSAP(() => {
         gsap.to(rotatingElementRef.current, {
             rotation: 360,
             duration: 2,
@@ -87,6 +108,37 @@ export default function HeroSection() {
             data-motion="fade-up"
             data-motion-state="pending"
         >
+            <div className="hero-wide-decor" aria-hidden="true">
+                <div className="hero-orbital-field" ref={orbitRef}>
+                    <svg viewBox="0 0 800 800" fill="none" focusable="false">
+                        <g data-hero-orbit="outer">
+                            <circle cx="400" cy="400" r="370" />
+                            <path d="M400 22v16M762 400h16M400 762v16M22 400h16" />
+                            <circle className="hero-orbit__lime" cx="400" cy="30" r="4" />
+                        </g>
+                        <g data-hero-orbit="inner">
+                            <circle cx="400" cy="400" r="306" />
+                            <circle className="hero-orbit__violet" cx="706" cy="400" r="3" />
+                            <path d="M94 394v12M394 706h12" />
+                        </g>
+                        <path d="M386 400h28M400 386v28" />
+                        <text x="414" y="390">X / 000</text>
+                    </svg>
+                </div>
+                <div className="hero-editorial-rail">
+                    <span className="hero-editorial-rail__index">001 / 006</span>
+                    <span className="hero-editorial-rail__line" />
+                    <span className="hero-editorial-rail__vertical">CREATIVITY × TECHNOLOGY</span>
+                    <span className="hero-editorial-rail__indicator" />
+                    <span className="hero-editorial-rail__coordinate">Y / 001</span>
+                </div>
+                <div className="hero-studio-signature">
+                    <span>PIXARDIA / DIGITAL STUDIO</span>
+                    <span className="hero-studio-signature__line" />
+                    <strong>BUILD BEYOND.</strong>
+                    <span className="hero-studio-signature__coordinate">+ &nbsp; 01 — ∞</span>
+                </div>
+            </div>
             <div
                 className="site-container hero-layout relative z-10"
                 data-cinematic-layer=""
@@ -182,7 +234,7 @@ export default function HeroSection() {
                         width={697}
                         height={694}
                         priority
-                        sizes="(max-width: 767px) 44vw, (max-width: 1279px) 48vw, (min-width: 1280px) and (min-height: 800px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) min(42vw, 64svh, 620px), min(42vw, 697px)"
+                        sizes="(max-width: 767px) 44vw, (max-width: 1279px) 48vw, (min-width: 1800px) and (min-height: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) min(74svh, 744px), (min-width: 1280px) and (min-height: 800px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) min(42vw, 64svh, 620px), min(42vw, 697px)"
                         className="h-auto w-[min(86vw,340px)] max-w-full object-contain sm:w-[clamp(340px,44vw,470px)] min-[1280px]:w-[clamp(320px,42vw,697px)]"
                     />
                 </div>

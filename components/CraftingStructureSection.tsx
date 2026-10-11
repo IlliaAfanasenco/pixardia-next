@@ -57,6 +57,55 @@ export default function CraftingStructureSection() {
             data-motion="fade-up"
             data-motion-state="pending"
         >
+            <div className="crafting-wide-decor" aria-hidden="true">
+                <svg
+                    className="crafting-orbital-field"
+                    viewBox="0 0 1000 1000"
+                    fill="none"
+                    focusable="false"
+                >
+                    <g className="crafting-orbit crafting-orbit--outer">
+                        <circle cx="500" cy="500" r="480" />
+                        <path d="M500 12v16M972 500h16M500 972v16M12 500h16" />
+                        <circle className="crafting-decor__lime" cx="116" cy="212" r="3.5" />
+                        <circle className="crafting-decor__satellite" cx="20" cy="500" r="2" />
+                    </g>
+                    <g className="crafting-orbit crafting-orbit--inner">
+                        <circle cx="500" cy="500" r="404" />
+                        <circle className="crafting-decor__violet" cx="823.2" cy="257.6" r="3" />
+                        <circle className="crafting-decor__satellite" cx="500" cy="904" r="2" />
+                    </g>
+                    <g className="crafting-orbit crafting-orbit--dotted">
+                        <circle cx="500" cy="500" r="450" strokeDasharray="1 9" strokeLinecap="round" />
+                        <circle className="crafting-decor__lime" cx="140" cy="770" r="2.5" />
+                        <circle className="crafting-decor__satellite" cx="770" cy="140" r="2" />
+                    </g>
+                    <g className="crafting-structural-paths">
+                        <path d="M64 188h84l72 72M790 780l72 72h98" />
+                        <path d="M142 182v12M78 858h16M86 850v16M856 846v12" />
+                        <circle cx="220" cy="260" r="2" />
+                        <circle cx="790" cy="780" r="2" />
+                        <text x="66" y="174">X / 002</text>
+                        <text x="868" y="875">Y / 006</text>
+                    </g>
+                </svg>
+
+                <div className="crafting-editorial-rail">
+                    <span>02 / 06</span>
+                    <span className="crafting-editorial-rail__line" />
+                    <span className="crafting-editorial-rail__vertical">CREATIVITY × TECHNOLOGY</span>
+                    <span className="crafting-editorial-rail__indicator" />
+                    <span className="crafting-editorial-rail__coordinate">+ &nbsp; SYS / 02</span>
+                </div>
+
+                <div className="crafting-process-notes">
+                    <span className="crafting-process-notes__index">ORBIT / 02</span>
+                    <span>PROCESS</span>
+                    <span>STRATEGY</span>
+                    <span>TECHNOLOGY</span>
+                    <span>DESIGN</span>
+                </div>
+            </div>
             <div
                 className="site-container grid gap-12 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:items-start xl:gap-[clamp(40px,6vw,92px)]"
                 data-cinematic-layer=""

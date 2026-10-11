@@ -235,6 +235,53 @@ export default function ProductSection({ locale }: { locale: SiteLocale }) {
             data-motion="fade-up"
             data-motion-state="pending"
         >
+            <div className="product-wide-decor" aria-hidden="true">
+                <div className="product-orbital-window">
+                    <svg className="product-orbital-field" viewBox="0 0 1000 1000" fill="none" focusable="false">
+                        <g className="product-orbit product-orbit--outer">
+                            <circle cx="500" cy="500" r="480" />
+                            <path d="M500 12v16M972 500h16M500 972v16M12 500h16" />
+                            <circle className="product-decor__lime" cx="20" cy="500" r="3.5" />
+                            <circle className="product-decor__violet" cx="980" cy="500" r="3" />
+                        </g>
+                        <g className="product-orbit product-orbit--inner">
+                            <circle cx="500" cy="500" r="404" />
+                            <circle className="product-decor__satellite" cx="904" cy="500" r="2" />
+                            <circle className="product-decor__satellite" cx="96" cy="500" r="2" />
+                        </g>
+                        <g className="product-orbit product-orbit--dotted">
+                            <circle cx="500" cy="500" r="450" strokeDasharray="1 9" strokeLinecap="round" />
+                            <circle className="product-decor__lime" cx="950" cy="500" r="2.5" />
+                        </g>
+                        <g className="product-registration">
+                            <path d="M76 492h16M84 484v16M864 214h12M870 208v12" />
+                            <text x="98" y="480">X / 004</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div className="product-editorial-rail">
+                    <span>04 / 06</span>
+                    <span className="product-editorial-rail__line" />
+                    <span className="product-editorial-rail__vertical">CREATIVITY × TECHNOLOGY</span>
+                    <span className="product-editorial-rail__indicator" />
+                    <span className="product-editorial-rail__coordinate">+ &nbsp; Y / 004</span>
+                </div>
+
+                <div className="product-technical-notes">
+                    <span className="product-technical-notes__index">ORBIT / 04</span>
+                    <span>PRODUCTS</span>
+                    <span>STRATEGY</span>
+                    <span>TECHNOLOGY</span>
+                    <span>DESIGN</span>
+                </div>
+
+                <svg className="product-edge-geometry" viewBox="0 0 160 160" fill="none" focusable="false">
+                    <path d="M12 20h40l68 68v60M46 14v12M114 142h12M12 148h16M20 140v16" />
+                    <path d="M8 112a104 104 0 0 1 104-104" strokeDasharray="1 8" />
+                    <circle cx="120" cy="88" r="2" />
+                </svg>
+            </div>
             <div
                 className="site-container"
                 data-cinematic-layer=""

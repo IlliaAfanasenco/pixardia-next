@@ -15,8 +15,6 @@ export const metadata: Metadata = {
 export default function MobilePreviewPage() {
     return (
         <>
-            <MobileHeader />
-
             <main id="mobile-main">
                 <MobileHome />
             </main>
