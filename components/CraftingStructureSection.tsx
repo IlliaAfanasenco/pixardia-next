@@ -106,8 +106,9 @@ export default function CraftingStructureSection() {
                     <span>DESIGN</span>
                 </div>
             </div>
+            {/* Extend the reveal mask for the action row without changing the grid's layout footprint. */}
             <div
-                className="site-container grid gap-12 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:items-start xl:gap-[clamp(40px,6vw,92px)]"
+                className="site-container grid gap-12 xl:-mb-20 xl:pb-20 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:items-start xl:gap-[clamp(40px,6vw,92px)]"
                 data-cinematic-layer=""
             >
                 <div
@@ -160,7 +161,7 @@ export default function CraftingStructureSection() {
                         className="mt-9 w-full max-w-[500px] border-b-4 border-r-4 border-[#1B1B1B] bg-white text-left"
                         data-cinematic-element="crafting-card"
                     >
-                        <div className="p-4 sm:p-[18px_20px_20px]">
+                        <div className="relative p-4 sm:p-[18px_20px_20px]">
                             <div className="flex items-center justify-between gap-4">
                                 <div className="flex min-w-0 items-center gap-4">
                                     <Image
@@ -246,7 +247,7 @@ export default function CraftingStructureSection() {
 
                             {(shouldLeadToContact ||
                                 messages.length > 0) && (
-                                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                                <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:absolute xl:inset-x-5 xl:top-full">
                                     {shouldLeadToContact && (
                                         <Link
                                             href={publicPath(locale, "/contact")}

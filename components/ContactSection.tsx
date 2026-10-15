@@ -293,7 +293,7 @@ export default function ContactSection({
                     </p>
                 </div>
 
-                <div className="mt-6 flex flex-col items-center gap-6 text-center xl:flex-row xl:items-start xl:justify-between xl:text-left">
+                <div className="mt-6 flex flex-col items-center gap-6 text-center xl:flex-row xl:items-start xl:justify-between xl:text-left" data-contact-heading="">
                     <h2
                         id="contact-title"
                         data-contact-title=""
@@ -330,7 +330,7 @@ export default function ContactSection({
                             {text.intro}
                         </p>
 
-                        <div className="mt-[18px] flex flex-col gap-3">
+                        <div className="mt-[18px] flex flex-col gap-3" data-contact-details="">
                             <p className="text-xs font-bold leading-none text-[#C5C6C8]">
                                 {text.location}
                             </p>
@@ -348,7 +348,7 @@ export default function ContactSection({
                             {text.connect}
                         </p>
 
-                        <div className="mt-[21px] flex flex-wrap justify-center gap-3 sm:gap-5 xl:justify-start">
+                        <div className="mt-[21px] flex flex-wrap justify-center gap-3 sm:gap-5 xl:justify-start" data-contact-channels="">
                             {contactLinks.map((item) => {
                                 const isExternal =
                                     item.href.startsWith(
@@ -377,7 +377,7 @@ export default function ContactSection({
                             })}
                         </div>
 
-                        <div className="mt-[34px] flex items-center justify-center gap-[15px] xl:justify-start">
+                        <div className="mt-[34px] flex items-center justify-center gap-[15px] xl:justify-start" data-contact-studio="">
                             <Image
                                 src="/images/pixardiaLogoCon.svg"
                                 alt={t("Pixardia Studio")}

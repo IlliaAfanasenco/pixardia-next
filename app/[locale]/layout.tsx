@@ -7,6 +7,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import "../globals.css";
+import "../tablet.css";
+import "../tablet-flow.css";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { siteConfig } from "@/config/site";

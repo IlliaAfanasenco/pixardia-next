@@ -99,10 +99,11 @@ describe("project modal route contract", () => {
     });
 
     it("opens canonical project routes from the homepage archive", () => {
-        const archive =
-            read(
-                "components/ArchiveSection.tsx",
-            );
+        const archive = [
+            read("components/ArchiveSection.tsx"),
+            read("components/archive/ArchiveCard.tsx"),
+            read("components/archive/archive-projects.ts"),
+        ].join("\n");
 
         expect(archive).toContain(
             "getFeaturedProjects",

@@ -32,14 +32,19 @@ export default function Header() {
     useGSAP(() => {
         if (!starRef.current) return;
 
-        gsap.to(starRef.current, {
-            scale: 1.15,
-            rotation: 45,
-            duration: 1.2,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
+        const media = gsap.matchMedia();
+        media.add("(prefers-reduced-motion: no-preference)", () => {
+            gsap.to(starRef.current, {
+                scale: 1.15,
+                rotation: 45,
+                duration: 1.2,
+                ease: "sine.inOut",
+                repeat: -1,
+                yoyo: true,
+            });
         });
+
+        return () => media.revert();
     });
 
     useEffect(() => {

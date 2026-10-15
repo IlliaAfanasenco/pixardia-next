@@ -218,6 +218,16 @@ function ProductStatus({ locale }: { locale: SiteLocale }) {
             <p className="mt-3 max-w-[210px] text-[9px] font-bold uppercase leading-[1.4] tracking-[0.08em] text-[#B8B8BA]">
                 {t("Clear scope. Controlled delivery. Production-ready results.")}
             </p>
+
+            <Image
+                src="/images/astronautProd.png"
+                alt=""
+                aria-hidden="true"
+                width={150}
+                height={150}
+                className="hidden"
+                data-tablet-product-astronaut=""
+            />
         </div>
     );
 }

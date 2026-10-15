@@ -11,6 +11,8 @@ const cinematicDesktopQuery =
 
 const tabletConditions = {
     standardTablet: "(min-width: 768px) and (max-width: 1279px)",
+    // Rebuild triggers when the neural cards move into the landscape constellation.
+    landscapeTablet: "(min-width: 1024px) and (max-width: 1279px)",
     largeTouchTablet: "(min-width: 1280px) and (max-width: 1440px) and (any-pointer: coarse)",
     motionAllowed: "(prefers-reduced-motion: no-preference)",
     desktopCinematic: cinematicDesktopQuery,
@@ -146,16 +148,20 @@ export default function TabletMotionRuntime() {
 
             reveal(select("[data-neural-header]"));
             reveal(select("[data-neural-core]"));
+            reveal(select("[data-neural-network]"), 0, false);
             const nodes = select("[data-neural-nodes]");
-            if (nodes && nodes.getBoundingClientRect().bottom > 0 && !nodes.contains(document.activeElement)) {
-                const cards = Array.from(nodes.querySelectorAll<HTMLElement>("[data-neural-node]"));
+            const cards = Array.from(nodes?.querySelectorAll<HTMLElement>("[data-neural-node]") ?? []);
+            // Landscape uses display:contents so the cards participate in the scene grid.
+            // Its wrapper has no box; anchor the entrance to the first visible card.
+            const nodeTrigger = nodes && getComputedStyle(nodes).display !== "contents" ? nodes : cards[0];
+            if (nodes && nodeTrigger && nodeTrigger.getBoundingClientRect().bottom > 0 && !nodes.contains(document.activeElement)) {
                 if (debugTabletMotion) {
                     matchedTargets.add(nodes);
                     cards.forEach((card) => matchedTargets.add(card));
                 }
                 const sequence = gsap.timeline({
                     defaults: { ease: "power2.out" },
-                    scrollTrigger: { trigger: nodes, start: "top 88%", once: true },
+                    scrollTrigger: { trigger: nodeTrigger, start: "top 88%", once: true },
                 });
                 sequence.fromTo(nodes,
                     { "--tablet-connection-progress": 0 },

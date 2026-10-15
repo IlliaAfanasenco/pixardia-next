@@ -169,7 +169,7 @@ function ModuleCard({
 
             <div className="ml-3 min-w-0 flex-1">
                 <p className="text-[8px] uppercase text-[#c5c5c5]">
-                    {number} // {code}
+                    {number}{" // "}{code}
                 </p>
 
                 <h3 className="mt-[1px] text-[13px] font-black uppercase leading-none text-[#333]">

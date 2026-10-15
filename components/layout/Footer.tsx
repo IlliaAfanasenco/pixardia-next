@@ -123,10 +123,10 @@ export default function Footer({ locale }: { locale: SiteLocale }) {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="w-full overflow-visible py-5 md:py-5">
+        <footer className="w-full overflow-visible py-5 md:py-5" data-site-footer="">
             <div className="site-container">
-                <div className="grid grid-cols-1 justify-items-center gap-10 text-center md:grid-cols-2 md:items-start md:gap-x-8 md:gap-y-12 xl:grid-cols-[1.5fr_0.8fr_0.8fr_1.2fr] xl:justify-items-stretch xl:gap-20 xl:text-left">
-                    <div className="flex w-full max-w-[280px] flex-col items-center md:max-w-[300px] xl:min-h-[230px] xl:max-w-none xl:items-start">
+                <div className="grid grid-cols-1 justify-items-center gap-10 text-center md:grid-cols-2 md:items-start md:gap-x-8 md:gap-y-12 xl:grid-cols-[1.5fr_0.8fr_0.8fr_1.2fr] xl:justify-items-stretch xl:gap-20 xl:text-left" data-footer-grid="">
+                    <div className="flex w-full max-w-[280px] flex-col items-center md:max-w-[300px] xl:min-h-[230px] xl:max-w-none xl:items-start" data-footer-brand="">
                         <Link
                             href={publicPath(locale, siteConfig.links.home)}
                             aria-label={t("Pixardia home")}
@@ -173,7 +173,7 @@ export default function Footer({ locale }: { locale: SiteLocale }) {
                                items={exploreLinks}
                     />
 
-                    <div className="w-full max-w-[280px] md:col-span-1 md:max-w-[300px] xl:col-span-1 xl:max-w-none">
+                    <div className="w-full max-w-[280px] md:col-span-1 md:max-w-[300px] xl:col-span-1 xl:max-w-none" data-footer-contact="">
                         <p className="text-base font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA]">
                             {t("Have a project in mind?")}
                         </p>
@@ -222,9 +222,9 @@ export default function Footer({ locale }: { locale: SiteLocale }) {
                     </div>
                 </div>
 
-                <div className="mt-12 border-b border-black md:mt-[68px]" />
+                <div className="mt-12 border-b border-black md:mt-[68px]" data-footer-rule="" />
 
-                <div className="mt-6 flex flex-col items-center gap-6 text-center xl:flex-row xl:items-start xl:justify-between xl:gap-10 xl:text-left">
+                <div className="mt-6 flex flex-col items-center gap-6 text-center xl:flex-row xl:items-start xl:justify-between xl:gap-10 xl:text-left" data-footer-legal="">
                     <p className="text-sm font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA] md:text-base">
                         {t("Clear scope. Controlled delivery.")}{" // "}
                         {t("Production-ready results.")}
@@ -251,13 +251,14 @@ export default function Footer({ locale }: { locale: SiteLocale }) {
                     </div>
                 </div>
 
-                <div className="relative mt-10 flex min-h-[140px] items-center justify-center overflow-visible md:mt-12 xl:min-h-[240px]">
+                <div className="relative mt-10 flex min-h-[140px] items-center justify-center overflow-visible md:mt-12 xl:min-h-[240px]" data-footer-wordmark="">
                     <Image
                         src="/images/alienFooter.png"
                         alt=""
                         aria-hidden="true"
                         width={70}
                         height={70}
+                        data-footer-alien=""
                         className="pointer-events-none absolute hidden h-auto object-contain drop-shadow-[0_12px_18px_rgba(0,0,0,0.12)] xl:left-1/2 xl:top-[9%] xl:block xl:w-[clamp(38px,5vw,70px)] xl:-translate-x-[440px]"
                     />
 
@@ -275,11 +276,12 @@ export default function Footer({ locale }: { locale: SiteLocale }) {
                         aria-hidden="true"
                         width={230}
                         height={230}
+                        data-footer-astronaut=""
                         className="pointer-events-none absolute -z-10 hidden h-auto object-contain min-[1261px]:right-0 min-[1261px]:top-[1%] min-[1261px]:block min-[1261px]:w-[clamp(100px,16vw,230px)]"
                     />
                 </div>
 
-                <div className="flex flex-col gap-2.5 text-center text-sm font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA] md:flex-row md:justify-between md:gap-6 md:text-base">
+                <div className="flex flex-col gap-2.5 text-center text-sm font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA] md:flex-row md:justify-between md:gap-6 md:text-base" data-footer-bottom="">
                     <p>{t("Full-cycle digital studio")}</p>
                     <p>{t("Available for selected projects")}</p>
                 </div>
@@ -303,6 +305,7 @@ function FooterNav({ locale,
         <nav
             className="flex w-full max-w-[280px] flex-col items-center gap-8 md:max-w-[300px] xl:max-w-none xl:items-start xl:gap-[34px]"
             aria-label={title}
+            data-footer-nav=""
         >
             <p className="text-base font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA]">
                 {title}

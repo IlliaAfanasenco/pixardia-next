@@ -90,12 +90,16 @@ export default function HeroSection() {
     });
 
     useGSAP(() => {
-        gsap.to(rotatingElementRef.current, {
-            rotation: 360,
-            duration: 2,
-            ease: "power2.inOut",
-            transformOrigin: "center center",
+        const media = gsap.matchMedia();
+        media.add("(prefers-reduced-motion: no-preference)", () => {
+            gsap.to(rotatingElementRef.current, {
+                rotation: 360,
+                duration: 2,
+                ease: "power2.inOut",
+                transformOrigin: "center center",
+            });
         });
+        return () => media.revert();
     });
     return (
         <section
@@ -109,22 +113,6 @@ export default function HeroSection() {
             data-motion-state="pending"
         >
             <div className="hero-wide-decor" aria-hidden="true">
-                <div className="hero-orbital-field" ref={orbitRef}>
-                    <svg viewBox="0 0 800 800" fill="none" focusable="false">
-                        <g data-hero-orbit="outer">
-                            <circle cx="400" cy="400" r="370" />
-                            <path d="M400 22v16M762 400h16M400 762v16M22 400h16" />
-                            <circle className="hero-orbit__lime" cx="400" cy="30" r="4" />
-                        </g>
-                        <g data-hero-orbit="inner">
-                            <circle cx="400" cy="400" r="306" />
-                            <circle className="hero-orbit__violet" cx="706" cy="400" r="3" />
-                            <path d="M94 394v12M394 706h12" />
-                        </g>
-                        <path d="M386 400h28M400 386v28" />
-                        <text x="414" y="390">X / 000</text>
-                    </svg>
-                </div>
                 <div className="hero-editorial-rail">
                     <span className="hero-editorial-rail__index">001 / 006</span>
                     <span className="hero-editorial-rail__line" />
@@ -226,6 +214,22 @@ export default function HeroSection() {
                     className="hero-character will-change-transform relative mt-4 flex w-full justify-center pt-1 sm:mt-5 min-[1280px]:absolute min-[1280px]:bottom-0 min-[1280px]:left-1/2 min-[1280px]:z-20 min-[1280px]:mt-0 min-[1280px]:w-auto min-[1280px]:-translate-x-1/2 min-[1280px]:pt-0"
                     data-cinematic-element="hero-character"
                 >
+                    <div className="hero-orbital-field" ref={orbitRef} aria-hidden="true">
+                        <svg viewBox="0 0 800 800" fill="none" focusable="false">
+                            <g data-hero-orbit="outer">
+                                <circle cx="400" cy="400" r="370" />
+                                <path d="M400 22v16M762 400h16M400 762v16M22 400h16" />
+                                <circle className="hero-orbit__lime" cx="400" cy="30" r="4" />
+                            </g>
+                            <g data-hero-orbit="inner">
+                                <circle cx="400" cy="400" r="306" />
+                                <circle className="hero-orbit__violet" cx="706" cy="400" r="3" />
+                                <path d="M94 394v12M394 706h12" />
+                            </g>
+                            <path d="M386 400h28M400 386v28" />
+                            <text x="414" y="390">X / 000</text>
+                        </svg>
+                    </div>
                     <Image
                         ref={charactersRef}
                         src="/images/AlienExtraterrestrial.png"

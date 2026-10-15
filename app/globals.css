@@ -1587,7 +1587,8 @@
 }
 
 /* Hero-only wide composition. The runtime gate also preserves flow fallbacks. */
-.hero-wide-decor {
+.hero-wide-decor,
+.hero-orbital-field {
     display: none;
     pointer-events: none;
     user-select: none;
@@ -1607,13 +1608,32 @@
         letter-spacing: 0.16em;
     }
 
-    .hero-orbital-field {
-        position: absolute;
-        width: min(76svh, 760px);
-        aspect-ratio: 1;
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="hero"] {
+        /* Reserve the unchanged two-line title, including the floating image's travel. */
+        --hero-title-clearance: calc(clamp(2rem, 4svh, 3.5rem) + 16px + clamp(5.75rem, min(14vw, 20svh), 11.875rem) * 0.85 + clamp(5.75rem, min(13.5vw, 19.5svh), 11.5rem) * 0.85 + 24px);
+        --hero-wide-lift: clamp(64px, calc(30svh - 224px), 208px);
+        --hero-character-limit: min(42vw, 64svh, 620px);
+        --hero-character-size: min(var(--hero-character-limit), calc(100svh - var(--cinematic-header-offset) - var(--hero-title-clearance) - var(--hero-wide-lift)));
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-element="hero-character"] {
         left: 50%;
-        bottom: 64px;
-        translate: -50% 0;
+        bottom: var(--hero-wide-lift);
+        width: var(--hero-character-size);
+        isolation: isolate;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-element="hero-character"] img {
+        position: relative;
+        inline-size: 100%;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"] .hero-orbital-field {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
     }
 
     .hero-orbital-field svg {
@@ -1654,28 +1674,12 @@
 
 @media (min-width: 1800px) and (min-height: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="hero"] {
-        --hero-wide-lift: clamp(64px, calc(40svh - 368px), 208px);
-    }
-
-    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-element="hero-character"] {
-        left: 82%;
-        width: min(74svh, 744px);
-        bottom: var(--hero-wide-lift);
-    }
-
-    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-element="hero-character"] img {
-        inline-size: min(74svh, 744px);
+        --hero-character-limit: min(74svh, 744px);
     }
 
     /* The longer German word needs a smaller measure beside the characters. */
     .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-element="hero-title"]:lang(de) > span:nth-child(2) {
         font-size: clamp(5.75rem, min(13.5vw, 17svh), 10rem);
-    }
-
-    .hero-orbital-field {
-        left: calc(50% + var(--site-container-max) * 0.32);
-        width: min(88svh, 900px);
-        bottom: calc(var(--hero-wide-lift) - 16px);
     }
 
     .hero-editorial-rail__coordinate { display: block; margin-top: auto; }

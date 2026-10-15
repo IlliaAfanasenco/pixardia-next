@@ -205,7 +205,7 @@ function TerminalMessage({
 
     return (
         <div
-            className={`transition duration-300 ${
+            className={`min-w-0 transition duration-300 ${
                 visible
                     ? "translate-y-0 opacity-100"
                     : "translate-y-2 opacity-0"
@@ -239,8 +239,8 @@ function TerminalMessage({
                 aria-hidden="true"
                 className={
                     message.role === "user"
-                        ? "mt-1 whitespace-pre-wrap break-words text-[#B8B3F6]"
-                        : "mt-1 whitespace-pre-wrap break-words text-[#A7D3B2]"
+                        ? "mt-1 whitespace-pre-wrap [overflow-wrap:anywhere] text-[#B8B3F6]"
+                        : "mt-1 whitespace-pre-wrap [overflow-wrap:anywhere] text-[#A7D3B2]"
                 }
             >
                 {message.content.slice(
@@ -472,12 +472,20 @@ export default function AiTerminal({
     const scrollContainerRef =
         useRef<HTMLDivElement | null>(null);
 
+    const followOutputRef = useRef(true);
+    const lastScrollTopRef = useRef(0);
+
+    function pauseFollowingOutput(container: HTMLDivElement) {
+        lastScrollTopRef.current = container.scrollTop;
+        followOutputRef.current = false;
+    }
+
     const scrollToBottom = useCallback(() => {
         window.requestAnimationFrame(() => {
             const container =
                 scrollContainerRef.current;
 
-            if (!container) {
+            if (!container || !followOutputRef.current) {
                 return;
             }
 
@@ -487,6 +495,9 @@ export default function AiTerminal({
     }, []);
 
     useEffect(() => {
+        if (isSubmitting) {
+            followOutputRef.current = true;
+        }
         scrollToBottom();
     }, [
         messages,
@@ -496,9 +507,9 @@ export default function AiTerminal({
     ]);
 
     return (
-        <div className="relative w-full">
-            <div className="overflow-hidden border border-[#454747] bg-[#101111] shadow-[0_20px_55px_rgba(0,0,0,0.2)]">
-                <div className="flex h-10 items-center border-b border-[#343636] bg-[#292A2A] px-3 sm:px-4">
+        <div className="relative min-w-0 w-full">
+            <div className="min-w-0 overflow-hidden border border-[#454747] bg-[#101111] shadow-[0_20px_55px_rgba(0,0,0,0.2)]">
+                <div className="flex h-10 shrink-0 items-center border-b border-[#343636] bg-[#292A2A] px-3 sm:px-4">
                     <div className="flex gap-2">
                         <span className="h-3 w-3 rounded-full bg-[#E76F51]" />
                         <span className="h-3 w-3 rounded-full bg-[#E9C46A]" />
@@ -516,12 +527,12 @@ export default function AiTerminal({
                 </div>
 
                 <div
-                    className="relative flex min-h-[520px] flex-col p-4 font-mono text-[11px] leading-[1.55] sm:min-h-[590px] sm:p-6 sm:text-xs lg:min-h-[620px]"
+                    className="relative flex min-w-0 min-h-[520px] flex-col p-4 font-mono text-[11px] leading-[1.55] sm:min-h-[590px] sm:p-6 sm:text-xs lg:min-h-[620px]"
                     data-ai-terminal-body=""
                 >
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.025] via-transparent to-white/[0.015]" />
 
-                    <div className="relative">
+                    <div className="relative min-w-0 shrink-0">
                         <div className="flex flex-wrap items-end justify-between gap-3">
                             <p className="text-[clamp(32px,8vw,58px)] font-black leading-none tracking-[-0.08em] text-[#7DA68A]">
                                 PIXARDIA
@@ -539,7 +550,7 @@ export default function AiTerminal({
                         </p>
                     </div>
 
-                    <div className="relative mt-5 grid grid-cols-2 border-y border-[#343636] sm:grid-cols-4">
+                    <div className="relative mt-5 grid shrink-0 grid-cols-2 border-y border-[#343636] sm:grid-cols-4">
                         <div className="border-b border-r border-[#343636] px-3 py-3 sm:border-b-0">
                             <p className="text-[8px] text-[#5F6262]">
                                 {t("SCOPE")}
@@ -589,94 +600,133 @@ export default function AiTerminal({
                         </div>
                     </div>
 
-                    <div
-                        ref={scrollContainerRef}
-                        id="pixardia-ai-terminal-log"
-                        role="log"
-                        aria-live="polite"
-                        aria-relevant="additions"
-                        className="relative mt-4 min-h-[260px] flex-1 space-y-5 overflow-y-auto overscroll-contain pr-2 [scrollbar-color:#4A4C4C_transparent] [scrollbar-width:thin]"
-                    >
-                        {messages.length === 0 ? (
-                            <IdleTerminalState
-                                reducedMotion={
-                                    reducedMotion
+                    <div className="relative mt-4 min-h-[260px] min-w-0 flex-1 overflow-hidden">
+                        {/* Only the unchanged idle UI contributes to the window's size.
+                            Live output is contained in the overlapping scroll region. */}
+                        <div className="invisible space-y-5 pr-2" aria-hidden="true" inert>
+                            <IdleTerminalState reducedMotion onProgress={scrollToBottom} />
+                        </div>
+                        <div
+                            ref={scrollContainerRef}
+                            id="pixardia-ai-terminal-log"
+                            role="log"
+                            aria-live="polite"
+                            aria-relevant="additions"
+                            data-lenis-prevent=""
+                            tabIndex={0}
+                            onScroll={(event) => {
+                                const container = event.currentTarget;
+                                // A queued scroll event must not undo an upward gesture.
+                                const scrollingDown = container.scrollTop > lastScrollTopRef.current;
+                                lastScrollTopRef.current = container.scrollTop;
+                                const distanceToBottom = container.scrollHeight - container.clientHeight - container.scrollTop;
+                                if (scrollingDown && distanceToBottom < 32) {
+                                    followOutputRef.current = true;
                                 }
-                                onProgress={
-                                    scrollToBottom
+                            }}
+                            onWheel={(event) => {
+                                if (event.deltaY < 0) {
+                                    pauseFollowingOutput(event.currentTarget);
                                 }
-                            />
-                        ) : (
-                            <div className="flex items-center justify-between border-b border-[#303333] pb-3">
-                                <div>
-                                    <p className="font-bold text-[#BFC2C2]">
-                                        {t("LIVE SESSION")}
+                            }}
+                            onTouchMove={(event) => {
+                                pauseFollowingOutput(event.currentTarget);
+                            }}
+                            onPointerDown={(event) => {
+                                pauseFollowingOutput(event.currentTarget);
+                            }}
+                            onKeyDown={(event) => {
+                                if (["ArrowUp", "PageUp", "Home"].includes(event.key) || (event.key === " " && event.shiftKey)) {
+                                    pauseFollowingOutput(event.currentTarget);
+                                } else if (event.key === "End") {
+                                    event.preventDefault();
+                                    followOutputRef.current = true;
+                                    scrollToBottom();
+                                }
+                            }}
+                            className="absolute inset-0 min-h-0 min-w-0 space-y-5 overflow-x-hidden overflow-y-auto overscroll-contain pr-2 [overflow-wrap:anywhere] [scrollbar-color:#4A4C4C_transparent] [scrollbar-width:thin]"
+                        >
+                            {messages.length === 0 ? (
+                                <IdleTerminalState
+                                    reducedMotion={
+                                        reducedMotion
+                                    }
+                                    onProgress={
+                                        scrollToBottom
+                                    }
+                                />
+                            ) : (
+                                <div className="flex items-center justify-between border-b border-[#303333] pb-3">
+                                    <div>
+                                        <p className="font-bold text-[#BFC2C2]">
+                                            {t("LIVE SESSION")}
 
-                                    </p>
+                                        </p>
 
-                                    <p className="mt-0.5 text-[9px] text-[#606363]">
-                                        {t("project signal stream")}
+                                        <p className="mt-0.5 text-[9px] text-[#606363]">
+                                            {t("project signal stream")}
 
-                                    </p>
-                                </div>
+                                        </p>
+                                    </div>
 
-                                <span className="text-[9px] text-[#75B887]">
-                                    {String(
-                                        messages.length,
-                                    ).padStart(2, "0")}{" "}
-                                    {t("EVENTS")}
+                                    <span className="text-[9px] text-[#75B887]">
+                                        {String(
+                                            messages.length,
+                                        ).padStart(2, "0")}{" "}
+                                        {t("EVENTS")}
 
                                     </span>
-                            </div>
-                        )}
-
-                        {messages.map((message) => (
-                            <TerminalMessage
-                                key={message.id}
-                                message={message}
-                                reducedMotion={
-                                    reducedMotion
-                                }
-                                onProgress={
-                                    scrollToBottom
-                                }
-                            />
-                        ))}
-
-                        {isSubmitting && (
-                            <div className="border-l-2 border-[#75B887] pl-3 text-[#75B887]">
-                                <p className="font-bold">
-                                    pixardia@ai:~$
-                                </p>
-
-                                <p className="mt-1 animate-pulse">
-                                    {t("mapping project signal...")}
-
-                                </p>
-
-                                <div className="mt-2 h-1 overflow-hidden bg-[#253129]">
-                                    <div className="h-full w-2/3 animate-pulse bg-[#75B887]" />
                                 </div>
-                            </div>
-                        )}
+                            )}
 
-                        {error && (
-                            <div
-                                role="alert"
-                                className="border border-[#704040] bg-[#211616] px-3 py-2 text-[#D58585]"
-                            >
-                                <p className="font-bold">
-                                    system@error:~$
-                                </p>
+                            {messages.map((message) => (
+                                <TerminalMessage
+                                    key={message.id}
+                                    message={message}
+                                    reducedMotion={
+                                        reducedMotion
+                                    }
+                                    onProgress={
+                                        scrollToBottom
+                                    }
+                                />
+                            ))}
 
-                                <p className="mt-1">
-                                    {error}
-                                </p>
-                            </div>
-                        )}
+                            {isSubmitting && (
+                                <div className="border-l-2 border-[#75B887] pl-3 text-[#75B887]">
+                                    <p className="font-bold">
+                                        pixardia@ai:~$
+                                    </p>
+
+                                    <p className="mt-1 animate-pulse">
+                                        {t("mapping project signal...")}
+
+                                    </p>
+
+                                    <div className="mt-2 h-1 overflow-hidden bg-[#253129]">
+                                        <div className="h-full w-2/3 animate-pulse bg-[#75B887]" />
+                                    </div>
+                                </div>
+                            )}
+
+                            {error && (
+                                <div
+                                    role="alert"
+                                    className="border border-[#704040] bg-[#211616] px-3 py-2 text-[#D58585]"
+                                >
+                                    <p className="font-bold">
+                                        system@error:~$
+                                    </p>
+
+                                    <p className="mt-1">
+                                        {error}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
-                    <div className="relative mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-[#343636] pt-3 text-[#666969]">
+                    <div className="relative mt-4 flex min-w-0 shrink-0 flex-wrap items-center justify-between gap-2 border-t border-[#343636] pt-3 text-[#666969]">
                         <p>
                             <span className="text-[#75B887]">
                                 pixardia@system:~$
