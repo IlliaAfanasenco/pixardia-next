@@ -1,116 +1,118 @@
 "use client";
 
-import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// PNG used while the hands approach each other.
-const separateImageSize = {
-    width: 1086,
-    height: 1448,
-    sizes: "(max-width: 640px) 100vw, 540px",
-};
-
-// Exact connected grip from the original reference (transparent, no text).
-const gripImageSize = {
-    width: 429,
-    height: 700,
-    sizes: "(max-width: 640px) 100vw, 540px",
-};
-
-// These values only affect the SEPARATED hands, not the final grip.
-const approachSettings = {
-    greenLeft: -25,       // % of the section width
-    astronautLeft: 32,   // % of the section width
-    top: 38,             // % of the section height
-    greenStart: -55,     // xPercent: initial offset
-    astronautStart: 55,  // xPercent: initial offset
-    scrub: 0.7,
-};
-
-// Timeline percentages: contact is reached before transition.
-const timing = {
-    approach: 0.69,
-    transitionAt: 0.69,
-    transitionLength: 0.012,
-    hold: 0.298,
-};
+const FRAME_COUNT = 192;
 
 export default function MobileCraftingSection() {
     const sectionRef = useRef<HTMLElement>(null);
-    const greenRef = useRef<HTMLDivElement>(null);
-    const astronautRef = useRef<HTMLDivElement>(null);
-    const approachRef = useRef<HTMLDivElement>(null);
-    const finalGripRef = useRef<HTMLDivElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useLayoutEffect(() => {
         const section = sectionRef.current;
-        const green = greenRef.current;
-        const astronaut = astronautRef.current;
-        const approach = approachRef.current;
-        const finalGrip = finalGripRef.current;
+        const canvas = canvasRef.current;
+        const context = canvas?.getContext("2d");
 
-        if (!section || !green || !astronaut || !approach || !finalGrip) return;
+        if (!section || !canvas || !context) return;
+
+        const reducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+        ).matches;
+        const playhead = { frame: reducedMotion ? FRAME_COUNT - 1 : 0 };
+        const frames: HTMLImageElement[] = [];
+        let renderedFrame = -1;
+        let disposed = false;
+        let width = 0;
+        let height = 0;
+
+        const render = () => {
+            if (disposed) return;
+
+            const requestedFrame = Math.round(playhead.frame);
+            const ready = (index: number) =>
+                frames[index]?.complete && frames[index].naturalWidth > 0;
+            const index = ready(requestedFrame)
+                ? requestedFrame
+                : Math.max(renderedFrame, 0);
+
+            if (!ready(index) || index === renderedFrame) return;
+
+            const image = frames[index];
+            const scale = Math.min(
+                width / image.naturalWidth,
+                height / image.naturalHeight,
+            );
+            const drawWidth = image.naturalWidth * scale;
+            const drawHeight = image.naturalHeight * scale;
+
+            context.clearRect(0, 0, width, height);
+            context.drawImage(
+                image,
+                (width - drawWidth) / 2,
+                (height - drawHeight) / 2,
+                drawWidth,
+                drawHeight,
+            );
+            renderedFrame = index;
+        };
+
+        const resize = () => {
+            width = canvas.clientWidth;
+            height = canvas.clientHeight;
+            const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = Math.round(width * pixelRatio);
+            canvas.height = Math.round(height * pixelRatio);
+            context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+            renderedFrame = -1;
+            render();
+        };
+
+        const resizeObserver = new ResizeObserver(resize);
+        resizeObserver.observe(canvas);
+        resize();
 
         const ctx = gsap.context(() => {
-            const reducedMotion = window.matchMedia(
-                "(prefers-reduced-motion: reduce)",
-            ).matches;
+            if (reducedMotion) return;
 
-            if (reducedMotion) {
-                gsap.set(approach, { autoAlpha: 0 });
-                gsap.set(finalGrip, { autoAlpha: 1 });
-                return;
-            }
-
-            gsap.set(approach, { autoAlpha: 1 });
-            gsap.set(finalGrip, { autoAlpha: 0 });
-
-            const tl = gsap.timeline({
+            gsap.to(playhead, {
+                frame: FRAME_COUNT - 1,
+                snap: "frame",
+                ease: "none",
                 scrollTrigger: {
                     trigger: section,
                     start: "top top",
                     end: "bottom bottom",
-                    scrub: approachSettings.scrub,
+                    scrub: 0.7,
                     invalidateOnRefresh: true,
                 },
+                onUpdate: render,
             });
-
-            tl.fromTo(
-                green,
-                { xPercent: approachSettings.greenStart },
-                { xPercent: 0, duration: timing.approach, ease: "power2.out" },
-                0,
-            )
-                .fromTo(
-                    astronaut,
-                    { xPercent: approachSettings.astronautStart },
-                    { xPercent: 0, duration: timing.approach, ease: "power2.out" },
-                    0,
-                )
-                // Do not try to bend fingers using CSS. Swap to an actual CLOSED grip.
-                .to(
-                    approach,
-                    { autoAlpha: 0, duration: timing.transitionLength, ease: "sine.inOut" },
-                    timing.transitionAt,
-                )
-                .to(
-                    finalGrip,
-                    { autoAlpha: 1, duration: timing.transitionLength, ease: "sine.inOut" },
-                    timing.transitionAt,
-                )
-                // Keep the correct grip fully visible at the end of the section.
-                .to(finalGrip, {
-                    autoAlpha: 1,
-                    duration: timing.hold,
-                    ease: "none",
-                });
         }, section);
 
-        return () => ctx.revert();
+        for (let index = 0; index < FRAME_COUNT; index++) {
+            if (reducedMotion && index !== FRAME_COUNT - 1) continue;
+
+            const image = new window.Image();
+            frames[index] = image;
+            image.decoding = "async";
+            image.fetchPriority = index === 0 || index === FRAME_COUNT - 1 ? "high" : "low";
+            image.onload = render;
+            image.src = `/images/handshake-sequence/frame-${String(index + 1).padStart(4, "0")}.webp`;
+        }
+
+        return () => {
+            disposed = true;
+            ctx.revert();
+            resizeObserver.disconnect();
+            frames.forEach((image) => {
+                image.onload = null;
+                image.removeAttribute("src");
+            });
+        };
     }, []);
 
     return (
@@ -119,7 +121,7 @@ export default function MobileCraftingSection() {
             data-mobile-section="crafting"
             className="relative h-[165svh] w-full"
         >
-            <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#f7f9fa]">
+            <div className="sticky top-0 h-[100svh] overflow-hidden">
                 {/* Text stays above the animation. */}
                 <div className="pointer-events-none relative z-20 px-5 pt-5 text-center">
                     <p className="text-[9px] font-black uppercase tracking-[0.28em] text-[#c6c6c8]">
@@ -145,60 +147,12 @@ export default function MobileCraftingSection() {
                     aria-hidden="true"
                     className="pointer-events-none absolute inset-0 z-10 isolate select-none"
                 >
-                    {/* Two independent open hands for the approach only. */}
-                    <div ref={approachRef} className="absolute inset-0">
-                        <div
-                            className="absolute w-full"
-                            style={{
-                                left: `${approachSettings.astronautLeft}%`,
-                                top: `${approachSettings.top}%`,
-                                transform: "translateY(-50%)",
-                            }}
-                        >
-                            <div ref={astronautRef} className="will-change-transform">
-                                <Image
-                                    src="/images/handshake/hand-astronaut.png"
-                                    alt=""
-                                    {...separateImageSize}
-                                    className="block h-auto w-full max-w-none"
-                                    draggable={false}
-                                />
-                            </div>
-                        </div>
-                        <div
-                            className="absolute w-full"
-                            style={{
-                                left: `${approachSettings.greenLeft}%`,
-                                top: `${approachSettings.top}%`,
-                                transform: "translateY(-50%)",
-                            }}
-                        >
-                            <div ref={greenRef} className="will-change-transform">
-                                <Image
-                                    src="/images/handshake/green-hand.png"
-                                    alt=""
-                                    {...separateImageSize}
-                                    className="block h-auto w-full max-w-none"
-                                    draggable={false}
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Final grip comes from ONE image: thumb and lower fingers are connected. */}
-                    <div
-                        ref={finalGripRef}
-                        className="absolute left-0 top-1/2 w-full -translate-y-1/2 opacity-0"
-                    >
-                        <Image
-                            src="/images/handshake/final-grip.png"
-                            alt=""
-                            {...gripImageSize}
-                            className="block h-auto w-full max-w-none"
-                            draggable={false}
-                            priority
-                        />
-                    </div>
+                    <canvas
+                        ref={canvasRef}
+                        width={496}
+                        height={864}
+                        className="absolute inset-0 h-full w-full"
+                    />
                 </div>
 
                 {/* Stats stay above the animation. */}

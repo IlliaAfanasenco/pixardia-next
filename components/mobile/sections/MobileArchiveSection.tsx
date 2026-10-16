@@ -18,7 +18,7 @@ export default function MobileArchiveSection() {
             className="relative w-full px-5 pb-7 pt-5"
         >
             {/* EYEBROW */}
-            <p className="text-[9px] font-medium uppercase text-[#a9a9a9]">
+            <p className="text-[9px] font-medium uppercase">
                 Deploymentprotocol05
             </p>
 
