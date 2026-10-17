@@ -1,193 +1,159 @@
+"use client";
+
+import { useId, useState } from "react";
+import Link from "next/link";
+import { siteConfig } from "@/config/site";
+import { useI18n } from "@/i18n/LocaleProvider";
+import type { Dictionary } from "@/i18n/messages/en";
+import { publicPath } from "@/i18n/navigation";
+import styles from "./MobileProductSection.module.css";
+
+type ProductCopy = Dictionary["mobileProduct"];
+const stageIcons = ["lightbulb", "pen", "code", "rocket"] as const;
+
 export default function MobileProductSection() {
-    const stages = [
-        {
-            tag: "EFFICIENCY",
-            title: "ULTRA SPEED",
-            description:
-                "Optimization of core web vitals for instant loading anywhere in the world.",
-        },
-        {
-            tag: "EFFICIENCY",
-            title: "ULTRA SPEED",
-            description:
-                "Optimization of core web vitals for instant loading anywhere in the world.",
-        },
-        {
-            tag: "EFFICIENCY",
-            title: "ULTRA SPEED",
-            description:
-                "Optimization of core web vitals for instant loading anywhere in the world.",
-        },
-        {
-            tag: "EFFICIENCY",
-            title: "ULTRA SPEED",
-            description:
-                "Optimization of core web vitals for instant loading anywhere in the world.",
-        },
-    ];
+    const { locale, dictionary } = useI18n();
+    const copy = dictionary.mobileProduct;
+    const sectionId = useId();
+    const [expandedId, setExpandedId] = useState<string | null>(null);
 
     return (
         <section
             data-mobile-section="product"
-            className="relative w-full px-5 pb-7 pt-5"
+            aria-labelledby={`${sectionId}-title`}
+            className={styles.section}
         >
-            {/* eyebrow */}
-            <p className="text-[9px] font-black uppercase tracking-[0.26em] text-[#c6c6c8]">
-                Deploymentprotocol03
-            </p>
-
-            {/* title */}
-            <h2 className="mt-2 uppercase leading-[0.9] tracking-[-0.055em]">
-                <span className="block text-[46px] font-black text-[#5848ff]">
-                    PRODUCT
-                </span>
-
-                <span className="block text-[46px] font-black text-[#bfc0c2]">
-                    LIFECYCLE
-                </span>
+            <p className={styles.eyebrow}>{copy.eyebrow}</p>
+            <h2 id={`${sectionId}-title`} className={styles.title}>
+                <span>{copy.titleLine1}</span>
+                <span>{copy.titleLine2}</span>
             </h2>
+            <p className={styles.description}>{copy.description}</p>
 
-            {/* description */}
-            <p className="mt-3 max-w-[360px] text-[16px] font-medium leading-[1.12] text-[#c5c5c7]">
-                A streamlined process from idea to a stable,
-                <br />
-                scalable product
-            </p>
-
-            {/* cards */}
-            <div className="mt-7 space-y-3">
-                {stages.map((stage, index) => (
-                    <article
-                        key={index}
-                        className="
-                            flex
-                            min-h-[89px]
-                            items-center
-                            rounded-[12px]
-                            border
-                            border-[#ededed]
-                            bg-white
-                            px-2
-                            py-2
-                        "
-                    >
-                        <div className="min-w-0 flex-1">
-                            <div
-                                className="
-                                    inline-flex
-                                    border
-                                    border-[#d7d7d7]
-                                    px-[5px]
-                                    py-[2px]
-                                    text-[8px]
-                                    font-bold
-                                    uppercase
-                                    leading-none
-                                    text-[#8b8b8b]
-                                "
-                            >
-                                {stage.tag}
-                            </div>
-
-                            <h3 className="mt-2 text-[13px] font-black uppercase leading-none text-[#222]">
-                                {stage.title}
-                            </h3>
-
-                            <p className="mt-2 max-w-[250px] text-[9px] leading-[1.12] text-[#c4c4c4]">
-                                {stage.description}
-                            </p>
-                        </div>
-
-                        <button
-                            type="button"
-                            aria-label={`Open ${stage.title}`}
-                            className="
-                                ml-3
-                                flex
-                                h-[34px]
-                                w-[34px]
-                                shrink-0
-                                items-center
-                                justify-center
-                                rounded-full
-                                border
-                                border-[#444]
-                                text-[20px]
-                                font-light
-                                text-[#444]
-                            "
-                        >
-                            →
-                        </button>
-                    </article>
+            <ol className={styles.timeline}>
+                {copy.stages.map((stage, index) => (
+                    <TimelineCard
+                        key={stage.id}
+                        id={`${sectionId}-${stage.id}`}
+                        number={String(index + 1).padStart(2, "0")}
+                        icon={stageIcons[index]}
+                        stage={stage}
+                        copy={copy}
+                        expanded={expandedId === stage.id}
+                        onToggle={() => setExpandedId((current) => current === stage.id ? null : stage.id)}
+                    />
                 ))}
-            </div>
+            </ol>
 
-            {/* Market ready */}
-            <div
-                className="
-                    mt-3
-                    flex
-                    min-h-[90px]
-                    items-center
-                    rounded-[10px]
-                    bg-[#151515]
-                    px-3
-                    text-white
-                "
-            >
-                {/* Progress circle */}
-                <div
-                    className="
-                        relative
-                        flex
-                        h-[65px]
-                        w-[65px]
-                        shrink-0
-                        items-center
-                        justify-center
-                        rounded-full
-                        bg-[conic-gradient(#5848ff_0deg,#5848ff_288deg,#ffffff_288deg,#ffffff_360deg)]
-                    "
+            <div className={styles.cta}>
+                <p className={styles.ctaLabel}>{copy.ctaLabel}</p>
+                <h3 className={styles.ctaTitle}>
+                    <span>{copy.ctaTitleLine1}</span>
+                    <span>{copy.ctaTitleLine2}</span>
+                </h3>
+                <p className={styles.ctaDescription}>{copy.ctaDescription}</p>
+                <Link
+                    href={publicPath(locale, siteConfig.links.contact)}
+                    aria-label={copy.ctaButton}
+                    className={styles.ctaButton}
                 >
-                    <div
-                        className="
-                            flex
-                            h-[52px]
-                            w-[52px]
-                            items-center
-                            justify-center
-                            rounded-full
-                            bg-[#151515]
-                        "
-                    >
-                        <span className="text-[16px] font-black">
-                            80%
-                        </span>
-                    </div>
-                </div>
-
-                {/* text */}
-                <div className="ml-5">
-                    <h3 className="text-[16px] font-black uppercase leading-none">
-                        Market ready
-                    </h3>
-
-                    <p className="mt-2 text-[11px] leading-[1.05] text-white">
-                        Your product is one
-                        <br />
-                        step closer
-                    </p>
-                </div>
-
-                {/* bars */}
-                <div className="ml-auto flex h-[52px] items-end gap-[4px] pr-1">
-                    <span className="h-[24px] w-[6px] bg-[#454545]" />
-                    <span className="h-[34px] w-[6px] bg-[#555]" />
-                    <span className="h-[43px] w-[6px] bg-[#666]" />
-                    <span className="h-[51px] w-[6px] bg-[#777]" />
-                </div>
+                    <span>{copy.ctaButton.replace(/\s*→$/, "")}</span>
+                    <span className={styles.ctaArrow} aria-hidden="true">→</span>
+                </Link>
             </div>
         </section>
+    );
+}
+
+function TimelineCard({ id, number, icon, stage, copy, expanded, onToggle }: {
+    id: string;
+    number: string;
+    icon: (typeof stageIcons)[number];
+    stage: ProductCopy["stages"][number];
+    copy: ProductCopy;
+    expanded: boolean;
+    onToggle: () => void;
+}) {
+    return (
+        <li className={styles.stage} data-expanded={expanded}>
+            <span className={styles.number} aria-hidden="true">{number}</span>
+            <article className={styles.card}>
+                <h3>
+                    <button
+                        id={`${id}-trigger`}
+                        type="button"
+                        aria-labelledby={`${id}-title`}
+                        aria-expanded={expanded}
+                        aria-controls={`${id}-panel`}
+                        onClick={onToggle}
+                        className={styles.trigger}
+                    >
+                        <span className={styles.identifier}>{stage.identifier}</span>
+                        <span className={styles.cardHeading}>
+                            <StageIcon type={icon} />
+                            <span id={`${id}-title`} className={styles.cardTitle}>{stage.title}</span>
+                            <span className={styles.arrow} aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                    <path d="m6 9 6 6 6-6" />
+                                </svg>
+                            </span>
+                        </span>
+                        <span className={styles.cardDescription}>{stage.description}</span>
+                    </button>
+                </h3>
+                <div
+                    id={`${id}-panel`}
+                    role="region"
+                    aria-labelledby={`${id}-trigger`}
+                    aria-hidden={!expanded}
+                    inert={!expanded}
+                    className={styles.panel}
+                >
+                    <div className={styles.panelClip}>
+                        <div className={styles.panelContent}>
+                            <h4 className={styles.introduction}>{stage.introduction}</h4>
+                            <p className={styles.expandedDescription}>{stage.expandedDescription}</p>
+                            <h5 className={styles.label}>{copy.whatYouGet}</h5>
+                            <ul className={styles.features}>
+                                {stage.features.map((feature) => (
+                                    <li key={feature}>
+                                        <CheckIcon />
+                                        <span>{feature}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className={styles.deliverableDivider}>
+                                <div className={styles.deliverable}>
+                                    <CheckIcon />
+                                    <div>
+                                        <h5 className={styles.deliverableLabel}>{copy.deliverable}</h5>
+                                        <p>{stage.deliverable}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </li>
+    );
+}
+
+function CheckIcon() {
+    return (
+        <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6">
+            <path d="m3 8 3 3 7-7" />
+        </svg>
+    );
+}
+
+function StageIcon({ type }: { type: (typeof stageIcons)[number] }) {
+    return (
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={styles.stageIcon}>
+            {type === "lightbulb" && <><path d="M8 15a6 6 0 1 1 8 0c-1 1-1 2-1 3H9c0-1 0-2-1-3Z" /><path d="M9 21h6M10 18v3m4-3v3" /></>}
+            {type === "pen" && <><path d="m12 3 8 8-5 9-6-5-5-6 8-6Z" /><path d="m12 3-1 6m9 2-6 1m-5 3-6 6" /><circle cx="12" cy="12" r="2" /></>}
+            {type === "code" && <><path d="m7 7-5 5 5 5m10-10 5 5-5 5M14 4l-4 16" /></>}
+            {type === "rocket" && <><path d="M9 15 7 9c4-6 10-7 14-6 1 4 0 10-6 14l-6-2Z" /><path d="M7 9 3 10l-1 5 7-1m6 3-1 5-5 1 1-7M5 18l-2 3" /><circle cx="16" cy="8" r="2" /></>}
+        </svg>
     );
 }

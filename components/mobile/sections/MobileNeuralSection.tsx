@@ -1,208 +1,152 @@
+"use client";
+
+import { useId, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { siteConfig } from "@/config/site";
+import { useI18n } from "@/i18n/LocaleProvider";
+import type { Dictionary } from "@/i18n/messages/en";
+import { publicPath } from "@/i18n/navigation";
+import styles from "./MobileNeuralSection.module.css";
+
+type NeuralCopy = Dictionary["mobileNeural"];
+const serviceIcons = ["window", "database", "brain", "window"] as const;
 
 export default function MobileNeuralSection() {
+    const { locale, dictionary } = useI18n();
+    const copy = dictionary.mobileNeural;
+    const sectionId = useId();
+    const [expandedId, setExpandedId] = useState<string | null>(null);
+    const contactHref = publicPath(locale, siteConfig.links.contact);
+
     return (
         <section
             data-mobile-section="neural"
-            className="relative w-full px-5 pb-8 pt-5"
+            aria-labelledby={`${sectionId}-title`}
+            className={styles.section}
         >
-            {/* eyebrow */}
-            <p className="text-[9px] font-black uppercase tracking-[0.26em] text-[#c6c6c8]">
-                Deploymentprotocol03
-            </p>
-
-            {/* title */}
-            <h2 className="mt-2 uppercase leading-[0.88] tracking-[-0.055em]">
-                <span className="block text-[46px] font-black text-[#bfc0c2]">
-                    THE NEURAL
-                </span>
-
-                <span className="block text-[46px] font-black text-[#5848ff]">
-                    SYSTEM
-                </span>
+            <p className={styles.eyebrow}>{copy.eyebrow}</p>
+            <h2 id={`${sectionId}-title`} className={styles.title}>
+                <span>{copy.titleLine1}</span>
+                <span>{copy.titleLine2}</span>
             </h2>
+            <p className={styles.description}>{copy.description}</p>
 
-            {/* description */}
-            <p className="mt-4 max-w-[370px] text-[16px] font-medium leading-[1.12] text-[#c5c5c7]">
-                A connected ecosystem that turns ideas
-                <br/>
-                into powerful digital products. Each module
-                <br/>
-                works together to deliver real results
-            </p>
-
-            {/* core */}
-            <div className="mt-7 flex flex-col items-center">
-                <div
-                    className="
-                        relative
-                        flex
-                        h-[165px]
-                        w-[165px]
-                        flex-col
-                        items-center
-                        overflow-hidden
-                        rounded-full
-                        border
-                        border-[#d5d5d5]
-                        bg-[#181818]
-                    "
-                >
-                    <div className="relative z-10 mt-7 text-center">
-                        <p className="text-[10px] font-medium uppercase text-[#737373]">
-                            Core_status
-                        </p>
-
-                        <p className="text-[16px] font-black uppercase text-white">
-                            Pixardia
-                        </p>
+            <div className={styles.core}>
+                <div className={styles.coreDisc}>
+                    <div className={styles.coreCopy}>
+                        <p className={styles.coreEyebrow}>{copy.coreEyebrow}</p>
+                        <p className={styles.coreTitle}>{copy.coreTitle}</p>
+                        <p className={styles.coreSubtitle}>{copy.coreSubtitle}</p>
                     </div>
-
-                    <div className="absolute bottom-[-4px] h-[88px] w-[100px]">
+                    <div className={styles.mascot}>
                         <Image
                             src="/images/alien-core.png"
                             alt=""
                             fill
+                            sizes="140px"
                             className="object-contain object-bottom"
                         />
                     </div>
                 </div>
-
-                {/* system badge */}
-                <div
-                    className="
-                        relative
-                        z-20
-                        mt-[-7px]
-                        flex
-                        min-w-[132px]
-                        items-center
-                        justify-center
-                        gap-2
-                        rounded-full
-                        bg-white
-                        px-4
-                        py-2
-                        shadow-[0_1px_6px_rgba(0,0,0,0.06)]
-                    "
-                >
-                    <span className="h-2 w-2 rounded-full bg-[#65ef76]"/>
-
-                    <span className="text-[10px] font-bold uppercase text-[#222]">
-                        System online
-                    </span>
-                </div>
-
-                <p className="mt-1 text-[6px] uppercase text-[#b8b8b8]">
-                    14 ms / Verified
+                <p className={styles.coreStatus}>
+                    <span aria-hidden="true" />
+                    {copy.coreStatus}
                 </p>
             </div>
 
-            {/* modules */}
-            <div className="mt-5 space-y-3">
-                <ModuleCard
-                    number="01"
-                    code="UI_ENGINE"
-                    title="Frontend manifest"
-                    description="Reactive interfaces featuring smooth animation and logic."
-                    icon="window"
-                />
-
-                <ModuleCard
-                    number="02"
-                    code="DATA_CORE"
-                    title="Scalable backend"
-                    description="Architecture capable of handling millions of requests per second."
-                    icon="database"
-                />
-
-                <ModuleCard
-                    number="03"
-                    code="INTEL_LAYER"
-                    title="AI integration"
-                    description="Gemini neural networks for content analysis and generation."
-                    icon="brain"
-                />
-
-                <ModuleCard
-                    number="04"
-                    code="SEC_SHIELD"
-                    title="Security protocol"
-                    description="Data encryption and protection against threats of any level."
-                    icon="shield"
-                />
+            <div className={styles.services}>
+                {copy.services.map((service, index) => (
+                    <ServiceCard
+                        key={service.id}
+                        id={`${sectionId}-${service.id}`}
+                        service={service}
+                        icon={serviceIcons[index]}
+                        copy={copy}
+                        contactHref={contactHref}
+                        expanded={expandedId === service.id}
+                        onToggle={() => setExpandedId((current) => current === service.id ? null : service.id)}
+                    />
+                ))}
             </div>
         </section>
     );
 }
 
-function ModuleCard({
-                        number,
-                        code,
-                        title,
-                        description,
-                        icon,
-                    }: {
-    number: string;
-    code: string;
-    title: string;
-    description: string;
-    icon: "window" | "database" | "brain" | "shield";
+function ServiceCard({ id, service, icon, copy, contactHref, expanded, onToggle }: {
+    id: string;
+    service: NeuralCopy["services"][number];
+    icon: (typeof serviceIcons)[number];
+    copy: NeuralCopy;
+    contactHref: string;
+    expanded: boolean;
+    onToggle: () => void;
 }) {
     return (
-        <div
-            className="
-                flex
-                min-h-[78px]
-                items-center
-                rounded-[12px]
-                border
-                border-[#ededed]
-                bg-white
-                px-3
-                py-3
-            "
-        >
-            <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center">
-                <ModuleIcon type={icon}/>
-            </div>
-
-            <div className="ml-3 min-w-0 flex-1">
-                <p className="text-[8px] uppercase text-[#c5c5c5]">
-                    {number}{" // "}{code}
-                </p>
-
-                <h3 className="mt-[1px] text-[13px] font-black uppercase leading-none text-[#333]">
-                    {title}
-                </h3>
-
-                <p className="mt-1 max-w-[210px] text-[8px] leading-[1.15] text-[#c4c4c4]">
-                    {description}
-                </p>
-            </div>
-
-            <button
-                type="button"
-                aria-label={title}
-                className="
-                    ml-2
-                    flex
-                    h-[34px]
-                    w-[34px]
-                    shrink-0
-                    items-center
-                    justify-center
-                    rounded-full
-                    border
-                    border-[#444]
-                    text-[20px]
-                    font-light
-                    text-[#444]
-                "
+        <article className={styles.card} data-expanded={expanded}>
+            <h3>
+                <button
+                    type="button"
+                    id={`${id}-trigger`}
+                    aria-labelledby={`${id}-title`}
+                    aria-expanded={expanded}
+                    aria-controls={`${id}-panel`}
+                    onClick={onToggle}
+                    className={styles.trigger}
+                >
+                    <span className={styles.identifier}>{service.identifier}</span>
+                    <span className={styles.serviceHeading}>
+                        <ModuleIcon type={icon} />
+                        <span id={`${id}-title`} className={styles.serviceTitle}>{service.title}</span>
+                        <span className={styles.arrow} aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                <path d="m6 9 6 6 6-6" />
+                            </svg>
+                        </span>
+                    </span>
+                    <span className={styles.serviceDescription}>{service.description}</span>
+                </button>
+            </h3>
+            <div
+                id={`${id}-panel`}
+                role="region"
+                aria-labelledby={`${id}-trigger`}
+                aria-hidden={!expanded}
+                inert={!expanded}
+                className={styles.panel}
             >
-                →
-            </button>
-        </div>
+                <div className={styles.panelClip}>
+                    <div className={styles.panelContent}>
+                        <h4 className={styles.introduction}>{service.introduction}</h4>
+                        <p className={styles.expandedDescription}>{service.expandedDescription}</p>
+                        <h5 className={styles.label}>{copy.whatWeBuild}</h5>
+                        <ul className={styles.builds}>
+                            {service.builds.map((build) => (
+                                <li key={build}>
+                                    <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6">
+                                        <path d="m3 8 3 3 7-7" />
+                                    </svg>
+                                    <span>{build}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        {service.technologies && (
+                            <>
+                                <h5 className={styles.label}>{copy.technologies}</h5>
+                                <ul className={styles.technologies}>
+                                    {service.technologies.map((technology) => <li key={technology}>{technology}</li>)}
+                                </ul>
+                            </>
+                        )}
+                        <div className={styles.contact}>
+                            <h5>{copy.ctaHeading}</h5>
+                            <p>{copy.ctaDescription}</p>
+                            <Link href={contactHref} className={styles.contactButton}>{copy.ctaButton}</Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
     );
 }
 
@@ -214,8 +158,9 @@ function ModuleIcon({
     if (type === "window") {
         return (
             <svg
+                aria-hidden="true"
                 viewBox="0 0 48 48"
-                className="h-[38px] w-[38px]"
+                className={styles.serviceIcon}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -230,8 +175,9 @@ function ModuleIcon({
     if (type === "database") {
         return (
             <svg
+                aria-hidden="true"
                 viewBox="0 0 48 48"
-                className="h-[38px] w-[38px]"
+                className={styles.serviceIcon}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -246,8 +192,9 @@ function ModuleIcon({
     if (type === "brain") {
         return (
             <svg
+                aria-hidden="true"
                 viewBox="0 0 48 48"
-                className="h-[38px] w-[38px]"
+                className={styles.serviceIcon}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -260,8 +207,9 @@ function ModuleIcon({
 
     return (
         <svg
-            viewBox="0 0 48 48"
-            className="h-[38px] w-[38px]"
+            aria-hidden="true"
+                viewBox="0 0 48 48"
+            className={styles.serviceIcon}
             fill="none"
             stroke="currentColor"
             strokeWidth="2"

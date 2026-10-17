@@ -1,5 +1,115 @@
 import type { Dictionary } from "./en";
 const de = {
+    "mobileProduct": {
+        "eyebrow": "04 / SO ARBEITEN WIR",
+        "titleLine1": "PRODUKT",
+        "titleLine2": "LEBENSZYKLUS",
+        "description": "Vom ersten Gespräch bis zum Launch und darüber hinaus. Ein klarer, gemeinsamer Prozess, der sich an Ihren Zielen orientiert.",
+        "whatYouGet": "DAS ERHALTEN SIE",
+        "deliverable": "ERGEBNIS",
+        "ctaLabel": "04 / 04 KOMPLETT",
+        "ctaTitleLine1": "VON DER IDEE",
+        "ctaTitleLine2": "BIS ZUM LAUNCH.",
+        "ctaDescription": "Ein kreativer Partner. Bei jedem Schritt.",
+        "ctaButton": "IHR PROJEKT STARTEN →",
+        "stages": [
+            {
+                "id": "discovery",
+                "identifier": "01 / ANALYSE",
+                "title": "IHRE IDEE, UNSERE STRATEGIE",
+                "description": "Wir erkunden Ihre Ziele, lernen Ihre Zielgruppe kennen und entwickeln aus Ihren Ideen einen klaren Projektplan.",
+                "introduction": "Jedes großartige Produkt beginnt mit Verständnis.",
+                "expandedDescription": "Wir besprechen Ihre Vision, legen Prioritäten fest und ermitteln die Funktionen, die Ihr Projekt wirklich braucht.",
+                "features": ["Erstberatung", "Geschäftsziele", "Zielgruppe", "Anforderungen"],
+                "deliverable": "Eine klare Projektrichtung und ein Entwicklungsplan."
+            },
+            {
+                "id": "design",
+                "identifier": "02 / DESIGN",
+                "title": "DESIGN MIT CHARAKTER",
+                "description": "Wir gestalten den visuellen Auftritt, die Struktur und das Nutzererlebnis, bevor die Entwicklung beginnt.",
+                "introduction": "Eine klare Vision vor der Entwicklung.",
+                "expandedDescription": "Wir erarbeiten eine visuelle Richtung und einen interaktiven Prototyp, damit Sie das Nutzererlebnis erkunden und vor der Entwicklung Feedback geben können.",
+                "features": ["Visuelles Designkonzept", "Interaktiver Prototyp", "Responsive Layouts", "UI/UX für verschiedene Geräte"],
+                "deliverable": "Ein freigegebenes Design, bereit für die Entwicklung."
+            },
+            {
+                "id": "development",
+                "identifier": "03 / ENTWICKLUNG",
+                "title": "AUF LEISTUNG AUSGELEGT",
+                "description": "Wir verwandeln freigegebene Designs in funktionierende digitale Produkte und testen und verfeinern sie während der Umsetzung.",
+                "introduction": "Aus Ihren Ideen wird ein funktionierendes Produkt.",
+                "expandedDescription": "Wir entwickeln die Kernfunktionen, verbinden die benötigten Systeme und testen das Produkt auf den unterstützten Geräten.",
+                "features": ["Funktionale Umsetzung", "Responsive Entwicklung", "Benötigte Integrationen", "Tests und Optimierung"],
+                "deliverable": "Ein getestetes Produkt, bereit für die Launch-Vorbereitung."
+            },
+            {
+                "id": "launch",
+                "identifier": "04 / LAUNCH & WACHSTUM",
+                "title": "BEREIT FÜR DIE WELT",
+                "description": "Wir bereiten Ihr Produkt auf den Launch vor und unterstützen Sie auf Wunsch bei Verbesserungen und der Weiterentwicklung.",
+                "introduction": "Der Launch ist erst der Anfang.",
+                "expandedDescription": "Wir bereiten die finale Version vor, begleiten den Onlinegang und können Ihr Produkt gemeinsam mit Ihrem Unternehmen weiterentwickeln.",
+                "features": ["Launch-Vorbereitung", "Deployment-Support", "Abschließende Prüfungen", "Optionale Weiterentwicklung"],
+                "deliverable": "Ein veröffentlichtes digitales Produkt, bereit für Ihre Zielgruppe."
+            }
+        ]
+    },
+    "mobileNeural": {
+        "eyebrow": "03 / UNSERE EXPERTISE",
+        "titleLine1": "DAS NEURONALE",
+        "titleLine2": "SYSTEM",
+        "description": "Ein Kreativstudio. Unbegrenzte digitale Möglichkeiten. Wir gestalten und entwickeln Websites, Anwendungen und intelligente Lösungen, die Unternehmen beim Wachsen unterstützen.",
+        "coreEyebrow": "KREATIVER KERN",
+        "coreTitle": "PIXARDIA",
+        "coreSubtitle": "DESIGN. CODE. INNOVATION.",
+        "coreStatus": "BEREIT FÜR IHR PROJEKT",
+        "whatWeBuild": "WAS WIR ENTWICKELN",
+        "technologies": "TECHNOLOGIEN",
+        "ctaHeading": "SIE HABEN EINE PROJEKTIDEE?",
+        "ctaDescription": "Verwandeln wir Ihre Idee in Realität.",
+        "ctaButton": "KONTAKT AUFNEHMEN →",
+        "services": [
+            {
+                "id": "web",
+                "identifier": "01 // WEB_DEVELOPMENT",
+                "title": "WEBSITES & WEB-APPS",
+                "description": "Individuelle Websites, Landingpages und interaktive Webanwendungen für Leistung, Benutzerfreundlichkeit und Wachstum.",
+                "introduction": "Von der ersten Idee bis zum voll funktionsfähigen digitalen Produkt.",
+                "expandedDescription": "Wir erstellen moderne, responsive Websites und Webanwendungen, die zu Ihrem Unternehmen passen und durchdachtes Design mit zuverlässiger Entwicklung verbinden.",
+                "builds": ["Landingpages", "Unternehmenswebsites", "E-Commerce", "Webanwendungen", "Admin-Dashboards", "Buchungssysteme"],
+                "technologies": ["Next.js", "React", "TypeScript", "Node.js", "Tailwind CSS", "PostgreSQL"]
+            },
+            {
+                "id": "apps",
+                "identifier": "02 // APP_DEVELOPMENT",
+                "title": "MOBILE & DESKTOP-APPS",
+                "description": "Digitale Anwendungen für Ihr Unternehmen – von Kundenerlebnissen bis zu internen Verwaltungstools.",
+                "introduction": "Anwendungen, die sich an Ihren Geschäftsabläufen orientieren.",
+                "expandedDescription": "Wir entwickeln praktische digitale Werkzeuge, mit denen Unternehmen Abläufe steuern, Teams organisieren und ihren Kunden bessere Erlebnisse bieten.",
+                "builds": ["Mobile Anwendungen", "Desktop-Anwendungen", "Mitarbeiterportale", "Aufgabenverwaltung", "Interne Unternehmenstools", "Individuelle Dashboards"]
+            },
+            {
+                "id": "automation",
+                "identifier": "03 // AI_AUTOMATION",
+                "title": "KI & AUTOMATISIERUNG",
+                "description": "Intelligente Assistenten, Telegram-Bots und automatisierte Arbeitsabläufe, die Aufgaben vereinfachen und wertvolle Zeit sparen.",
+                "introduction": "Weniger Routinearbeit. Mehr Zeit für das Wesentliche.",
+                "expandedDescription": "Wir integrieren intelligente Werkzeuge und Automatisierung in alltägliche Geschäftsprozesse und machen Routineaufgaben einfacher und effizienter.",
+                "builds": ["KI-Assistenten", "Telegram-Bots", "Workflow-Automatisierung", "API-Integrationen", "Intelligenter Kundensupport", "Individuelle Automatisierungen"]
+            },
+            {
+                "id": "experiences",
+                "identifier": "04 // CREATIVE_EXPERIENCES",
+                "title": "INTERAKTIVE ERLEBNISSE",
+                "description": "Scrollbasiertes Storytelling, Motion Design und immersive visuelle Erlebnisse, die digitale Produkte hervorheben.",
+                "introduction": "Digitale Erlebnisse, die in Erinnerung bleiben.",
+                "expandedDescription": "Wir verbinden Design, Bewegung und interaktive Technologien zu digitalen Erlebnissen, die Besucher begeistern und in Erinnerung bleiben.",
+                "builds": ["Scroll-Animationen", "Motion Design", "Interaktive Oberflächen", "Visuelles Storytelling", "GSAP-Animationen", "3D-Erlebnisse"],
+                "technologies": ["GSAP", "ScrollTrigger", "CSS Animations", "React"]
+            }
+        ]
+    },
     "ui": {
         "05 / SELECTED DIGITAL WORK": "05 / AUSGEWÄHLTE PROJEKTE",
         "Project Archive": "Projektarchiv",

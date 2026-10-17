@@ -1,4 +1,114 @@
 const en = {
+    "mobileProduct": {
+        "eyebrow": "04 / HOW WE WORK",
+        "titleLine1": "PRODUCT",
+        "titleLine2": "LIFECYCLE",
+        "description": "From the first conversation to launch and beyond. A clear, collaborative process built around your goals.",
+        "whatYouGet": "WHAT YOU GET",
+        "deliverable": "DELIVERABLE",
+        "ctaLabel": "04 / 04 COMPLETE",
+        "ctaTitleLine1": "FROM CONCEPT",
+        "ctaTitleLine2": "TO LAUNCH.",
+        "ctaDescription": "One creative partner. Every step of the journey.",
+        "ctaButton": "START YOUR PROJECT →",
+        "stages": [
+            {
+                "id": "discovery",
+                "identifier": "01 / DISCOVERY",
+                "title": "YOUR IDEA, OUR STRATEGY",
+                "description": "We explore your goals, understand your audience, and turn your ideas into a clear project plan.",
+                "introduction": "Every great product starts with understanding.",
+                "expandedDescription": "We discuss your vision, define your priorities, and identify the features your project actually needs.",
+                "features": ["Initial consultation", "Business goals", "Target audience", "Project requirements"],
+                "deliverable": "Clear project direction and development plan."
+            },
+            {
+                "id": "design",
+                "identifier": "02 / DESIGN",
+                "title": "DESIGNED TO STAND OUT",
+                "description": "We shape the visual identity, structure, and user experience before development begins.",
+                "introduction": "A clear vision before development.",
+                "expandedDescription": "We create a visual direction and interactive prototype so you can explore the experience and give feedback before development starts.",
+                "features": ["Visual design concept", "Interactive prototype", "Responsive screen layouts", "UI/UX for different devices"],
+                "deliverable": "Approved design ready for development."
+            },
+            {
+                "id": "development",
+                "identifier": "03 / DEVELOPMENT",
+                "title": "BUILT TO PERFORM",
+                "description": "We transform approved designs into functional digital products, testing and refining along the way.",
+                "introduction": "Your ideas become a working product.",
+                "expandedDescription": "We build the core functionality, connect the necessary systems, and test the product across supported devices.",
+                "features": ["Functional implementation", "Responsive development", "Required integrations", "Testing and refinements"],
+                "deliverable": "Tested product ready for launch preparation."
+            },
+            {
+                "id": "launch",
+                "identifier": "04 / LAUNCH & GROWTH",
+                "title": "READY FOR THE WORLD",
+                "description": "We prepare your product for launch and can help with improvements and future development.",
+                "introduction": "Launch is just the beginning.",
+                "expandedDescription": "We prepare the final release, help bring your product online, and can continue improving it as your business evolves.",
+                "features": ["Launch preparation", "Deployment support", "Final checks", "Optional future improvements"],
+                "deliverable": "Live digital product ready for your audience."
+            }
+        ]
+    },
+    "mobileNeural": {
+        "eyebrow": "03 / OUR EXPERTISE",
+        "titleLine1": "THE NEURAL",
+        "titleLine2": "SYSTEM",
+        "description": "One creative studio. Endless digital possibilities. We design and develop websites, applications, and intelligent solutions that help businesses grow.",
+        "coreEyebrow": "CREATIVE CORE",
+        "coreTitle": "PIXARDIA",
+        "coreSubtitle": "DESIGN. CODE. INNOVATION.",
+        "coreStatus": "READY TO BUILD",
+        "whatWeBuild": "WHAT WE BUILD",
+        "technologies": "TECHNOLOGIES",
+        "ctaHeading": "HAVE A PROJECT IN MIND?",
+        "ctaDescription": "Let's turn your idea into reality.",
+        "ctaButton": "GET IN TOUCH →",
+        "services": [
+            {
+                "id": "web",
+                "identifier": "01 // WEB_DEVELOPMENT",
+                "title": "WEBSITES & WEB APPS",
+                "description": "Custom websites, landing pages, and interactive web applications built for performance, usability, and growth.",
+                "introduction": "From your first idea to a fully functional digital product.",
+                "expandedDescription": "We create modern, responsive websites and web applications tailored to your business, combining thoughtful design with reliable development.",
+                "builds": ["Landing Pages", "Business Websites", "E-Commerce", "Web Applications", "Admin Dashboards", "Booking Systems"],
+                "technologies": ["Next.js", "React", "TypeScript", "Node.js", "Tailwind CSS", "PostgreSQL"]
+            },
+            {
+                "id": "apps",
+                "identifier": "02 // APP_DEVELOPMENT",
+                "title": "MOBILE & DESKTOP APPS",
+                "description": "Digital applications tailored to your business, from customer-facing experiences to internal management tools.",
+                "introduction": "Applications designed around the way your business works.",
+                "expandedDescription": "We develop practical digital tools that help businesses manage operations, organize teams, and create better experiences for their customers.",
+                "builds": ["Mobile Applications", "Desktop Applications", "Staff Portals", "Task Management", "Internal Business Tools", "Custom Dashboards"]
+            },
+            {
+                "id": "automation",
+                "identifier": "03 // AI_AUTOMATION",
+                "title": "AI & AUTOMATION",
+                "description": "Smart assistants, Telegram bots, and workflow automation designed to simplify tasks and save valuable time.",
+                "introduction": "Less repetitive work. More time for what matters.",
+                "expandedDescription": "We connect intelligent tools and automation to everyday business processes, making routine tasks simpler and more efficient.",
+                "builds": ["AI Assistants", "Telegram Bots", "Workflow Automation", "API Integrations", "Smart Customer Support", "Custom Automations"]
+            },
+            {
+                "id": "experiences",
+                "identifier": "04 // CREATIVE_EXPERIENCES",
+                "title": "INTERACTIVE EXPERIENCES",
+                "description": "Scroll-driven storytelling, motion design, and immersive visual experiences that make digital products stand out.",
+                "introduction": "Digital experiences people remember.",
+                "expandedDescription": "We combine design, motion, and interactive technologies to create memorable digital experiences that engage visitors.",
+                "builds": ["Scroll Animations", "Motion Design", "Interactive Interfaces", "Visual Storytelling", "GSAP Animations", "3D Experiences"],
+                "technologies": ["GSAP", "ScrollTrigger", "CSS Animations", "React"]
+            }
+        ]
+    },
     "ui": {
         "05 / SELECTED DIGITAL WORK": "05 / SELECTED DIGITAL WORK",
         "Project Archive": "Project Archive",
