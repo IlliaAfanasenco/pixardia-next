@@ -3,6 +3,7 @@ import { publicPath } from "@/i18n/navigation";
 import { useI18n } from "@/i18n/LocaleProvider";
 
 import LanguageSwitcher from "./LanguageSwitcher";
+import { MobileMenu } from "@/components/mobile/MobileHeader";
 import { isLocaleHome } from "@/i18n/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -150,7 +151,9 @@ export default function Header() {
                         </span>
                 </Link>
 
-                <div className="flex shrink-0 items-center justify-end gap-3 sm:gap-4 lg:gap-6">
+                <MobileMenu />
+
+                <div className="hidden shrink-0 items-center justify-end gap-3 md:flex sm:gap-4 lg:gap-6">
                     <LanguageSwitcher />
                     <Image
                         ref={starRef}

@@ -156,7 +156,7 @@ export default function MobileCraftingSection() {
                 </div>
 
                 {/* Stats stay above the animation. */}
-                <div className="absolute bottom-7 left-0 z-30 grid w-full grid-cols-4 px-5">
+                <div className="absolute bottom-20 left-0 z-30 grid w-full grid-cols-4 px-5">
                     <Stat value="50+" label="Projects" />
                     <Stat value="99.9%" label="Uptime" />
                     <Stat value="30+" label="Clients" />
