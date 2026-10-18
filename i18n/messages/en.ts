@@ -1,4 +1,25 @@
 const en = {
+    "mobileContact": {
+        "eyebrow": "04 / LET'S TALK",
+        "titleLine1": "LET'S",
+        "titleLine2": "BUILD",
+        "titleLine3": "TOGETHER",
+        "description": "Have an idea? Tell us a little about your project. We'll help you find the right way to bring it to life.",
+        "namePlaceholder": "How should we call you?",
+        "emailPlaceholder": "you@example.com",
+        "projectTypeLabel": "What would you like to build?",
+        "messageLabel": "Tell us about your project",
+        "messagePlaceholder": "What do you have in mind?",
+        "privacyNote": "Your information will only be used to respond to your enquiry. We respect your privacy.",
+        "submit": "SEND MESSAGE",
+        "submitting": "SENDING MESSAGE…",
+        "projectTypes": {
+            "web": "Website / Web App",
+            "apps": "Mobile / Desktop App",
+            "automation": "AI / Automation",
+            "other": "Something else / Not sure yet"
+        }
+    },
     "mobileProduct": {
         "eyebrow": "04 / HOW WE WORK",
         "titleLine1": "PRODUCT",
@@ -112,6 +133,8 @@ const en = {
     "ui": {
         "05 / SELECTED DIGITAL WORK": "05 / SELECTED DIGITAL WORK",
         "Project Archive": "Project Archive",
+        "Archive": "Archive",
+        "Show more": "SHOW MORE",
         "A selection of digital products shaped through strategy, design and engineering.": "A selection of digital products shaped through strategy, design and engineering.",
         "View all work": "View all work",
         "Explore case →": "Explore case →",

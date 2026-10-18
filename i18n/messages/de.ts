@@ -1,5 +1,26 @@
 import type { Dictionary } from "./en";
 const de = {
+    "mobileContact": {
+        "eyebrow": "04 / LASS UNS SPRECHEN",
+        "titleLine1": "LASS UNS",
+        "titleLine2": "GEMEINSAM",
+        "titleLine3": "BAUEN",
+        "description": "Sie haben eine Idee? Erzählen Sie uns von Ihrem Projekt. Wir helfen Ihnen, den passenden Weg zur Umsetzung zu finden.",
+        "namePlaceholder": "Wie dürfen wir Sie nennen?",
+        "emailPlaceholder": "sie@beispiel.de",
+        "projectTypeLabel": "Was möchten Sie entwickeln?",
+        "messageLabel": "Erzählen Sie uns von Ihrem Projekt",
+        "messagePlaceholder": "Was haben Sie vor?",
+        "privacyNote": "Wir verwenden Ihre Angaben ausschließlich, um Ihre Anfrage zu beantworten. Ihre Privatsphäre ist uns wichtig.",
+        "submit": "NACHRICHT SENDEN",
+        "submitting": "WIRD GESENDET…",
+        "projectTypes": {
+            "web": "Website / Web-App",
+            "apps": "Mobile / Desktop-App",
+            "automation": "KI / Automatisierung",
+            "other": "Etwas anderes / Noch unsicher"
+        }
+    },
     "mobileProduct": {
         "eyebrow": "04 / SO ARBEITEN WIR",
         "titleLine1": "PRODUKT",
@@ -113,6 +134,8 @@ const de = {
     "ui": {
         "05 / SELECTED DIGITAL WORK": "05 / AUSGEWÄHLTE PROJEKTE",
         "Project Archive": "Projektarchiv",
+        "Archive": "Archiv",
+        "Show more": "MEHR ANZEIGEN",
         "A selection of digital products shaped through strategy, design and engineering.": "Ausgewählte digitale Produkte, die durch Strategie, Design und Entwicklung entstehen.",
         "View all work": "Alle Projekte ansehen",
         "Explore case →": "Projekt ansehen →",

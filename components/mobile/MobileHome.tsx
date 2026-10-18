@@ -1,5 +1,4 @@
 import MobileHeader from "./MobileHeader";
-import MobileFooter from "./MobileFooter";
 
 import MobileHeroSection from "./sections/MobileHeroSection";
 import MobileCraftingSection from "./sections/MobileCraftingSection";
@@ -27,7 +26,6 @@ export default function MobileHome() {
             <MobileArchiveSection />
             <MobileContactSection />
 
-            <MobileFooter />
         </div>
     );
 }

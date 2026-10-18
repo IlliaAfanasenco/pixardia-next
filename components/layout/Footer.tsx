@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { siteConfig } from "@/config/site";
+import styles from "./footer.module.css";
 
 type FooterLink = {
     label: string;
@@ -118,12 +119,12 @@ const legalLinks: FooterLink[] = [
     },
 ];
 
-export default function Footer({ locale }: { locale: SiteLocale }) {
+export default function Footer({ locale, backToTopHref = "#top", variant = "responsive" }: { locale: SiteLocale; backToTopHref?: string; variant?: "responsive" | "mobile" }) {
     const t = translator(locale);
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="w-full overflow-visible py-5 md:py-5" data-site-footer="">
+        <footer className={`${styles.footer} ${variant === "mobile" ? styles.mobile : ""} w-full overflow-visible py-5 md:py-5`} data-site-footer="">
             <div className="site-container">
                 <div className="grid grid-cols-1 justify-items-center gap-10 text-center md:grid-cols-2 md:items-start md:gap-x-8 md:gap-y-12 xl:grid-cols-[1.5fr_0.8fr_0.8fr_1.2fr] xl:justify-items-stretch xl:gap-20 xl:text-left" data-footer-grid="">
                     <div className="flex w-full max-w-[280px] flex-col items-center md:max-w-[300px] xl:min-h-[230px] xl:max-w-none xl:items-start" data-footer-brand="">
@@ -147,7 +148,7 @@ export default function Footer({ locale }: { locale: SiteLocale }) {
 
                         <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row xl:mt-auto xl:gap-10">
                             <Link
-                                href="#top"
+                                href={backToTopHref}
                                 aria-label={t("Back to top")}
                                 className="flex h-11 w-full items-center justify-center border border-[#1E1E1E] text-xl leading-none text-[#1E1E1E] no-underline transition duration-300 hover:bg-[#1E1E1E] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5E56E7] active:translate-y-px sm:w-[50px]"
                             >
@@ -184,6 +185,12 @@ export default function Footer({ locale }: { locale: SiteLocale }) {
                                     key={item.label}
                                     className="group flex h-[46px] min-w-0 flex-col justify-center gap-0.5 border border-[#1E1E1E] px-1.5 py-1 text-center transition duration-300 hover:border-[#5E56E7] sm:h-[48px] md:h-[50px] lg:h-[52px] xl:h-[58px] xl:gap-1 xl:px-2 xl:py-[7px]"
                                 >
+                                    <svg className={styles.contactIcon} aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                                        {item.isStatus ? <circle cx="12" cy="12" r="5" fill="#49B934" stroke="none" />
+                                            : item.label === "E-mail" ? <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 6 9 7 9-7" /></>
+                                            : item.label === "Location" ? <><path d="M19 10c0 6-7 12-7 12S5 16 5 10a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2.5" /></>
+                                            : <><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M12 17v4M8 21h8" /></>}
+                                    </svg>
                                     <span className="text-[11px] font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA] transition-colors duration-300 group-hover:text-[#8E89E8] sm:text-xs xl:text-sm">
                                         {t(item.label)}
                                     </span>
