@@ -1,4 +1,53 @@
 const en = {
+    "servicesPage": {
+        "eyebrow": "SERVICES",
+        "titleLine1": "WHAT",
+        "titleLine2": "WE BUILD",
+        "description": "Websites, web applications and digital products that help your business grow. Strategy, design and engineering — all in one team.",
+        "startProject": "START A PROJECT →",
+        "gridHeading": "EXPLORE OUR CAPABILITIES",
+        "gridDescription": "From modern websites to complex web applications. We create digital solutions tailored to your goals.",
+        "exploreService": "EXPLORE SERVICE →",
+        "closingEyebrow": "LET'S WORK TOGETHER",
+        "closingTitleLine1": "YOUR IDEA.",
+        "closingTitleLine2": "OUR NEXT PROJECT.",
+        "closingDescription": "Tell us about your project and we'll find the best way to bring it to life.",
+        "getInTouch": "GET IN TOUCH →",
+        "services": {
+            "BUSINESS_WEBSITE": {
+                "title": "WEBSITE",
+                "description": "Modern, high-performance websites that present your business and attract clients."
+            },
+            "LANDING_PAGE": {
+                "title": "LANDING PAGE",
+                "description": "Focused pages for marketing campaigns, product launches and lead generation."
+            },
+            "WEB_APPLICATION": {
+                "title": "WEB APPLICATION",
+                "description": "Custom web applications, dashboards and business platforms."
+            },
+            "ECOMMERCE": {
+                "title": "E-COMMERCE",
+                "description": "Online stores with a smooth shopping experience and powerful management tools."
+            },
+            "WEBSITE_REDESIGN": {
+                "title": "WEBSITE REDESIGN",
+                "description": "Redesign and improvement of existing websites for better results and modern standards."
+            },
+            "UI_UX_DESIGN": {
+                "title": "UX & UI DESIGN",
+                "description": "User-centered design that makes your product simple, intuitive and effective."
+            },
+            "AI_AUTOMATION": {
+                "title": "AI & AUTOMATION",
+                "description": "Smart solutions and automations to save time and increase efficiency."
+            },
+            "MAINTENANCE_SUPPORT": {
+                "title": "MAINTENANCE & SUPPORT",
+                "description": "Ongoing support, updates and further development after launch."
+            }
+        }
+    },
     "mobileContact": {
         "eyebrow": "04 / LET'S TALK",
         "titleLine1": "LET'S",

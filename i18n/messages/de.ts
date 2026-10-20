@@ -1,5 +1,54 @@
 import type { Dictionary } from "./en";
 const de = {
+    "servicesPage": {
+        "eyebrow": "LEISTUNGEN",
+        "titleLine1": "WAS",
+        "titleLine2": "WIR BAUEN",
+        "description": "Websites, Webanwendungen und digitale Produkte, die Ihr Unternehmen beim Wachsen unterstützen. Strategie, Design und Entwicklung – alles aus einem Team.",
+        "startProject": "PROJEKT STARTEN →",
+        "gridHeading": "UNSERE LEISTUNGEN ENTDECKEN",
+        "gridDescription": "Von modernen Websites bis zu komplexen Webanwendungen. Wir entwickeln digitale Lösungen, die zu Ihren Zielen passen.",
+        "exploreService": "LEISTUNG ENTDECKEN →",
+        "closingEyebrow": "LASSEN SIE UNS ZUSAMMENARBEITEN",
+        "closingTitleLine1": "IHRE IDEE.",
+        "closingTitleLine2": "UNSER NÄCHSTES PROJEKT.",
+        "closingDescription": "Erzählen Sie uns von Ihrem Projekt. Gemeinsam finden wir den besten Weg, Ihre Idee umzusetzen.",
+        "getInTouch": "KONTAKT AUFNEHMEN →",
+        "services": {
+            "BUSINESS_WEBSITE": {
+                "title": "WEBSITE",
+                "description": "Moderne, leistungsstarke Websites, die Ihr Unternehmen präsentieren und Kunden gewinnen."
+            },
+            "LANDING_PAGE": {
+                "title": "LANDINGPAGE",
+                "description": "Zielgerichtete Seiten für Marketingkampagnen, Produkteinführungen und die Gewinnung neuer Anfragen."
+            },
+            "WEB_APPLICATION": {
+                "title": "WEBANWENDUNG",
+                "description": "Individuelle Webanwendungen, Dashboards und Unternehmensplattformen."
+            },
+            "ECOMMERCE": {
+                "title": "E-COMMERCE",
+                "description": "Onlineshops mit einem reibungslosen Einkaufserlebnis und leistungsstarken Verwaltungstools."
+            },
+            "WEBSITE_REDESIGN": {
+                "title": "WEBSITE-REDESIGN",
+                "description": "Neugestaltung und Verbesserung bestehender Websites für bessere Ergebnisse und zeitgemäße Standards."
+            },
+            "UI_UX_DESIGN": {
+                "title": "UX- & UI-DESIGN",
+                "description": "Nutzerorientiertes Design, das Ihr Produkt einfach, intuitiv und effektiv macht."
+            },
+            "AI_AUTOMATION": {
+                "title": "KI & AUTOMATISIERUNG",
+                "description": "Intelligente Lösungen und Automatisierungen, die Zeit sparen und die Effizienz steigern."
+            },
+            "MAINTENANCE_SUPPORT": {
+                "title": "WARTUNG & SUPPORT",
+                "description": "Laufender Support, Updates und Weiterentwicklung nach dem Launch."
+            }
+        }
+    },
     "mobileContact": {
         "eyebrow": "04 / LASS UNS SPRECHEN",
         "titleLine1": "LASS UNS",

@@ -630,7 +630,7 @@ type NarrativePanelProps = {
     children: ReactNode;
 };
 
-function NarrativePanel({ locale,
+function NarrativePanel({
                             eyebrow,
                             title,
                             children,
@@ -660,7 +660,7 @@ type SectionTitleProps = {
     dark?: boolean;
 };
 
-function SectionTitle({ locale,
+function SectionTitle({
                           id,
                           eyebrow,
                           children,

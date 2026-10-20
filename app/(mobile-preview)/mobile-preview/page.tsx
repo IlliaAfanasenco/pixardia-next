@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import MobileFooter from "@/components/mobile/MobileFooter";
-import MobileHeader from "@/components/mobile/MobileHeader";
 import MobileHome from "@/components/mobile/MobileHome";
 
 export const metadata: Metadata = {

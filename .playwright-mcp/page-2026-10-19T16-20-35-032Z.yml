@@ -1,0 +1,193 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Skip to main content" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "Pixardia home" [ref=e6] [cursor=pointer]:
+          - /url: /en#hero
+          - generic [ref=e7]: PIXARDIA
+          - generic [ref=e8]: digital studio
+        - text: /
+        - generic [ref=e9]:
+          - navigation "Language" [ref=e10]:
+            - link "Switch language to English" [ref=e11] [cursor=pointer]:
+              - /url: /en/services
+              - text: EN
+            - link "Switch language to German" [ref=e12] [cursor=pointer]:
+              - /url: /de/services
+              - text: DE
+          - link "start project" [ref=e15] [cursor=pointer]:
+            - /url: /en/contact
+    - main [ref=e16]:
+      - generic [ref=e17]:
+        - region [ref=e18]:
+          - generic [ref=e19]:
+            - paragraph [ref=e20]: SERVICES
+            - heading "WHAT WE BUILD" [level=1] [ref=e21]:
+              - generic [ref=e22]: WHAT
+              - generic [ref=e23]: WE BUILD
+            - paragraph [ref=e24]: Websites, web applications and digital products that help your business grow. Strategy, design and engineering — all in one team.
+            - link "START A PROJECT →" [ref=e25] [cursor=pointer]:
+              - /url: /en/contact
+        - region [ref=e51]:
+          - generic [ref=e52]:
+            - heading "EXPLORE OUR CAPABILITIES" [level=2] [ref=e53]
+            - paragraph [ref=e54]: From modern websites to complex web applications. We create digital solutions tailored to your goals.
+          - generic [ref=e55]:
+            - article [ref=e56]:
+              - generic [ref=e57]:
+                - generic [ref=e58]: "01"
+                - heading "WEBSITE" [level=3] [ref=e59]
+              - paragraph [ref=e82]: Modern, high-performance websites that present your business and attract clients.
+              - link "EXPLORE SERVICE → WEBSITE" [ref=e83] [cursor=pointer]:
+                - /url: /en/services/business-website
+                - generic [ref=e84]: EXPLORE SERVICE →
+            - article [ref=e85]:
+              - generic [ref=e86]:
+                - generic [ref=e87]: "02"
+                - heading "LANDING PAGE" [level=3] [ref=e88]
+              - paragraph [ref=e104]: Focused pages for marketing campaigns, product launches and lead generation.
+              - link "EXPLORE SERVICE → LANDING PAGE" [ref=e105] [cursor=pointer]:
+                - /url: /en/services/landing-page
+                - generic [ref=e106]: EXPLORE SERVICE →
+            - article [ref=e107]:
+              - generic [ref=e108]:
+                - generic [ref=e109]: "03"
+                - heading "WEB APPLICATION" [level=3] [ref=e110]
+              - paragraph [ref=e135]: Custom web applications, dashboards and business platforms.
+              - link "EXPLORE SERVICE → WEB APPLICATION" [ref=e136] [cursor=pointer]:
+                - /url: /en/services/web-application
+                - generic [ref=e137]: EXPLORE SERVICE →
+            - article [ref=e138]:
+              - generic [ref=e139]:
+                - generic [ref=e140]: "04"
+                - heading "E-COMMERCE" [level=3] [ref=e141]
+              - paragraph [ref=e167]: Online stores with a smooth shopping experience and powerful management tools.
+              - link "EXPLORE SERVICE → E-COMMERCE" [ref=e168] [cursor=pointer]:
+                - /url: /en/services/ecommerce
+                - generic [ref=e169]: EXPLORE SERVICE →
+            - article [ref=e170]:
+              - generic [ref=e171]:
+                - generic [ref=e172]: "05"
+                - heading "WEBSITE REDESIGN" [level=3] [ref=e173]
+              - paragraph [ref=e191]: Redesign and improvement of existing websites for better results and modern standards.
+              - link "EXPLORE SERVICE → WEBSITE REDESIGN" [ref=e192] [cursor=pointer]:
+                - /url: /en/services/website-redesign
+                - generic [ref=e193]: EXPLORE SERVICE →
+            - article [ref=e194]:
+              - generic [ref=e195]:
+                - generic [ref=e196]: "06"
+                - heading "UX & UI DESIGN" [level=3] [ref=e197]
+              - paragraph [ref=e218]: User-centered design that makes your product simple, intuitive and effective.
+              - link "EXPLORE SERVICE → UX & UI DESIGN" [ref=e219] [cursor=pointer]:
+                - /url: /en/services/ui-ux-design
+                - generic [ref=e220]: EXPLORE SERVICE →
+            - article [ref=e221]:
+              - generic [ref=e222]:
+                - generic [ref=e223]: "07"
+                - heading "AI & AUTOMATION" [level=3] [ref=e224]
+              - paragraph [ref=e247]: Smart solutions and automations to save time and increase efficiency.
+              - link "EXPLORE SERVICE → AI & AUTOMATION" [ref=e248] [cursor=pointer]:
+                - /url: /en/services/ai-automation
+                - generic [ref=e249]: EXPLORE SERVICE →
+            - article [ref=e250]:
+              - generic [ref=e251]:
+                - generic [ref=e252]: "08"
+                - heading "MAINTENANCE & SUPPORT" [level=3] [ref=e253]
+              - paragraph [ref=e266]: Ongoing support, updates and further development after launch.
+              - link "EXPLORE SERVICE → MAINTENANCE & SUPPORT" [ref=e267] [cursor=pointer]:
+                - /url: /en/services/maintenance-support
+                - generic [ref=e268]: EXPLORE SERVICE →
+        - region [ref=e269]:
+          - generic [ref=e271]:
+            - paragraph [ref=e272]: LET'S WORK TOGETHER
+            - heading "YOUR IDEA. OUR NEXT PROJECT." [level=2] [ref=e273]:
+              - generic [ref=e274]: YOUR IDEA.
+              - generic [ref=e275]: OUR NEXT PROJECT.
+            - paragraph [ref=e276]: Tell us about your project and we'll find the best way to bring it to life.
+            - link "GET IN TOUCH →" [ref=e277] [cursor=pointer]:
+              - /url: /en/contact
+    - contentinfo [ref=e278]:
+      - generic [ref=e279]:
+        - generic [ref=e280]:
+          - generic [ref=e281]:
+            - link "Pixardia home" [ref=e282] [cursor=pointer]:
+              - /url: /en
+              - img "Pixardia logo" [ref=e283]
+            - paragraph [ref=e284]: We create digital products that combine strategy, distinctive design and reliable engineering.
+            - generic [ref=e285]:
+              - link "Back to top" [ref=e286] [cursor=pointer]:
+                - /url: "#top"
+                - text: ↑
+              - link "Start a project" [ref=e287] [cursor=pointer]:
+                - /url: /en/contact
+          - navigation "Explore" [ref=e288]:
+            - paragraph [ref=e289]: Explore
+            - list [ref=e290]:
+              - listitem [ref=e291]:
+                - link "Services" [ref=e292] [cursor=pointer]:
+                  - /url: /en/services
+              - listitem [ref=e293]:
+                - link "Process" [ref=e294] [cursor=pointer]:
+                  - /url: /en#crafting-structure
+              - listitem [ref=e295]:
+                - link "Expertise" [ref=e296] [cursor=pointer]:
+                  - /url: /en#neural-system
+              - listitem [ref=e297]:
+                - link "Work" [ref=e298] [cursor=pointer]:
+                  - /url: /en#projects
+              - listitem [ref=e299]:
+                - link "Contact" [ref=e300] [cursor=pointer]:
+                  - /url: /en/contact
+          - navigation "Capabilities" [ref=e301]:
+            - paragraph [ref=e302]: Capabilities
+            - list [ref=e303]:
+              - listitem [ref=e304]:
+                - link "Websites" [ref=e305] [cursor=pointer]:
+                  - /url: /en/services/business-website
+              - listitem [ref=e306]:
+                - link "Web applications" [ref=e307] [cursor=pointer]:
+                  - /url: /en/services/web-application
+              - listitem [ref=e308]:
+                - link "E-commerce" [ref=e309] [cursor=pointer]:
+                  - /url: /en/services/ecommerce
+              - listitem [ref=e310]:
+                - link "AI & automation" [ref=e311] [cursor=pointer]:
+                  - /url: /en/services/ai-automation
+              - listitem [ref=e312]:
+                - link "Support" [ref=e313] [cursor=pointer]:
+                  - /url: /en/services/maintenance-support
+          - generic [ref=e314]:
+            - paragraph [ref=e315]: Have a project in mind?
+            - generic [ref=e316]:
+              - generic [ref=e317]:
+                - generic [ref=e318]: E-mail
+                - link "hello@pixardia.com" [ref=e319] [cursor=pointer]:
+                  - /url: mailto:hello@pixardia.com
+              - generic [ref=e320]:
+                - generic [ref=e321]: Website
+                - link "localhost" [ref=e322] [cursor=pointer]:
+                  - /url: http://localhost:3000
+              - generic [ref=e323]:
+                - generic [ref=e324]: Location
+                - strong [ref=e325]: Germany / Worldwide
+              - generic [ref=e326]:
+                - generic [ref=e327]: Status
+                - strong [ref=e328]: Available for selected projects
+        - generic [ref=e330]:
+          - paragraph [ref=e331]: Clear scope. Controlled delivery. // Production-ready results.
+          - generic [ref=e332]:
+            - navigation "Legal links" [ref=e333]:
+              - link "Privacy" [ref=e334] [cursor=pointer]:
+                - /url: /privacy
+              - link "Imprint" [ref=e335] [cursor=pointer]:
+                - /url: /imprint
+            - paragraph [ref=e336]: © 2026 Pixardia. All rights reserved.
+        - link "Pixardia home" [ref=e338] [cursor=pointer]:
+          - /url: /en
+          - text: Pixardia
+        - generic [ref=e339]:
+          - paragraph [ref=e340]: Full-cycle digital studio
+          - paragraph [ref=e341]: Available for selected projects
+  - button "Open Next.js Dev Tools" [ref=e347] [cursor=pointer]
