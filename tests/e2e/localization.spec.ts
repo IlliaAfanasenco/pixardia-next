@@ -46,9 +46,13 @@ for (const locale of siteLocales) {
             expect(sitemap).not.toContain("/api/");
         });
 
-        test("switches equivalent routes and preserves query and hash", async ({ page }) => {
+        test("switches equivalent routes and preserves query and hash", async ({ page }, testInfo) => {
             for (const path of ["", "/services", "/services/business-website", "/projects/nexus-finance", "/contact"]) {
                 await page.goto(`/${locale}${path}?source=switch#main-content`);
+                if (testInfo.project.name === "chromium-mobile") {
+                    await page.locator('header[data-site-header] button[aria-controls="pixardia-mobile-menu"]').click();
+                    await expect(page.locator("#pixardia-mobile-menu")).toBeVisible();
+                }
                 const switcher = page.getByRole("navigation", { name: copy.ui.Language, exact: true });
                 await expect(switcher.locator(`[lang="${locale}"]`)).toHaveAttribute("aria-current", "page");
                 await switcher.locator(`[lang="${other}"]`).focus();

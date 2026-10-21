@@ -12,10 +12,12 @@ test.describe(
         test(
             "uses cinematic navigation on desktop and document flow on mobile",
             async ({ page }, testInfo) => {
-                await page.setViewportSize({
-                    width: 1440,
-                    height: 900,
-                });
+                if (!testInfo.project.name.includes("mobile")) {
+                    await page.setViewportSize({
+                        width: 1440,
+                        height: 900,
+                    });
+                }
 
                 await page.goto("/en");
 
@@ -137,10 +139,12 @@ test.describe(
         test(
             "opens project as intercepted modal and restores homepage position",
             async ({ page }, testInfo) => {
-                await page.setViewportSize({
-                    width: 1440,
-                    height: 900,
-                });
+                if (!testInfo.project.name.includes("mobile")) {
+                    await page.setViewportSize({
+                        width: 1440,
+                        height: 900,
+                    });
+                }
 
                 await page.goto("/en");
 
@@ -294,19 +298,26 @@ test.describe(
                     projectLink,
                 ).toBeVisible();
 
-                const afterClose =
-                    await page.evaluate(
-                        () => window.scrollY,
-                    );
+                await expect
+                    .poll(
+                        async () => {
+                            const afterClose =
+                                await page.evaluate(
+                                    () => window.scrollY,
+                                );
 
-                expect(
-                    Math.abs(
-                        afterClose -
-                        beforeOpen,
-                    ),
-                ).toBeLessThan(
-                    180,
-                );
+                            return Math.abs(
+                                afterClose -
+                                beforeOpen,
+                            );
+                        },
+                        {
+                            timeout: 3_000,
+                        },
+                    )
+                    .toBeLessThan(
+                        180,
+                    );
 
                 await expect(
                     projectLink,
@@ -682,9 +693,9 @@ test.describe(
                                         element as HTMLElement
                                     ).tabIndex,
                                     role:
-                                    element.getAttribute(
-                                        "role",
-                                    ),
+                                        element.getAttribute(
+                                            "role",
+                                        ),
                                 }),
                             ),
                     );
