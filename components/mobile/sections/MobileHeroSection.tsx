@@ -146,7 +146,7 @@ export default function MobileHeroSection() {
             <div data-hero-characters className="pointer-events-none absolute left-0 top-[-40px] z-10 w-full opacity-85">
                 <span data-hero-glow aria-hidden="true" className="absolute inset-x-[10%] top-[18%] -z-10 h-[55%] rounded-full opacity-0" style={{ background: "radial-gradient(ellipse, rgba(88,72,255,0.09), rgba(88,72,255,0.035) 40%, transparent 72%)" }} />
                 <Image
-                    src="/images/astronautAlienMobileHero.png"
+                    src="/images/AstronautAlienMobileHero.png"
                     alt=""
                     width={430}
                     height={470}
