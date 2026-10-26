@@ -194,3 +194,471 @@
         padding-top: 6px;
     }
 }
+
+/* Case studies with product content retain the archive columns and can grow vertically. */
+.productPanel {
+    overflow-wrap: anywhere;
+}
+
+.capabilities li {
+    font-size: 12px;
+}
+
+@media (min-width: 1024px) {
+    .productPanel {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(12px, 2dvh, 22px);
+        overflow-y: auto !important;
+        overscroll-behavior: contain;
+    }
+
+    .productPanel > * {
+        flex-shrink: 0;
+    }
+
+    .productPanel .galleryFrame {
+        height: min(34dvh, 25vw);
+    }
+
+    .productPanel .capabilities {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 16px;
+    }
+
+    .productNarrative p {
+        font-size: 12px;
+        line-height: 1.45;
+    }
+}
+
+@media (min-width: 1024px) and (max-height: 800px) {
+    .productPanel {
+        gap: 8px;
+    }
+
+    .productNarrative {
+        gap: 14px;
+    }
+}
+
+/*
+ * Typed galleries: a full-width widescreen frame. The inline aspect-ratio comes from the asset
+ * metadata (contract-checked to be identical for every view), so each image fills the frame edge
+ * to edge without cropping or stretching. 16 / 9 is the default when no ratio is supplied.
+ */
+.galleryFigure {
+    min-width: 0;
+}
+
+.ratioFrame {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+.featureGroups li {
+    overflow-wrap: normal;
+}
+
+.productDna {
+    min-width: 0;
+}
+
+@media (min-width: 1024px) {
+    .productPanel {
+        gap: clamp(10px, 1.6dvh, 18px);
+    }
+
+    /* Overrides the legacy fixed-height desktop frame: height follows the ratio. */
+    .productPanel .ratioFrame {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+    }
+
+    .productPanel .productNarrative {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 20px;
+    }
+
+    .productPanel .productNarrative h2 + p {
+        margin-top: 4px;
+    }
+
+    .productPanel .technologyGrid {
+        grid-template-columns: repeat(auto-fit, minmax(74px, 1fr));
+        gap: 6px;
+    }
+
+    .productPanel .technologyTag {
+        min-height: 30px;
+        padding-inline: 4px;
+        font-size: 9px;
+        overflow-wrap: normal;
+        word-break: keep-all;
+    }
+
+    .productPanel .colorList {
+        gap: 4px;
+    }
+
+    .productPanel .colorSwatch {
+        height: 22px;
+    }
+
+    .productOverview {
+        font-size: 12.5px;
+        line-height: 1.45;
+    }
+}
+
+@media (min-width: 1024px) and (max-height: 800px) {
+    .productPanel {
+        gap: 8px;
+    }
+}
+
+/* NORDMARKT detail view only: readability, spacing and balance. */
+[data-case-layout="gallery"] .productOverview,
+[data-case-layout="gallery"] .productNarrative p {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: #4a4b4f;
+}
+
+[data-case-layout="gallery"] .featureGroups li {
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: #4a4b4f;
+}
+
+[data-case-layout="gallery"] .featureGroups h3,
+[data-case-layout="gallery"] .productNarrative h2,
+[data-case-layout="gallery"] .scopeBlock h2 {
+    font-size: 11.5px;
+}
+
+[data-case-layout="gallery"] .conceptNote,
+[data-case-layout="gallery"] .productPanel p[class*="text-[11px]"] {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #5f6064;
+}
+
+[data-case-layout="gallery"] .scopeBlock li {
+    font-size: 11.5px;
+    color: #3a3a3d;
+}
+
+@media (min-width: 1024px) {
+    [data-case-layout="gallery"] .rightPanel.productPanel {
+        justify-content: space-between;
+        gap: clamp(14px, 2.4dvh, 28px);
+    }
+
+    [data-case-layout="gallery"] .productNarrative {
+        row-gap: 14px;
+    }
+
+    [data-case-layout="gallery"] .productPanel .technologyTag {
+        font-size: 10.5px;
+        min-height: 34px;
+    }
+}
+
+/* NORDMARKT: fit the right column to the viewport height without internal scrolling. */
+@media (min-width: 1024px) {
+    [data-case-layout="gallery"] .rightPanel.productPanel {
+        overflow-y: visible !important;
+        gap: clamp(5px, 1.1dvh, 28px);
+        padding-top: clamp(10px, 1.8dvh, 22px);
+        padding-bottom: clamp(16px, 2.8dvh, 32px) !important;
+        padding-inline: clamp(20px, 2.2vw, 46px);
+    }
+
+    [data-case-layout="gallery"] .rightPanel.productPanel > * {
+        margin-top: 0 !important;
+    }
+
+    [data-case-layout="gallery"] .productOverview,
+    [data-case-layout="gallery"] .productNarrative p {
+        font-size: clamp(12.5px, 0.6vw + 0.75dvh, 14.5px);
+        line-height: 1.38;
+    }
+
+    [data-case-layout="gallery"] .featureGroups li {
+        font-size: clamp(12px, 0.5vw + 0.65dvh, 13.5px);
+        line-height: 1.25;
+        padding-bottom: clamp(1px, 0.4dvh, 8px);
+    }
+
+    [data-case-layout="gallery"] .featureGroups ul {
+        margin-top: clamp(4px, 0.8dvh, 12px);
+    }
+
+    [data-case-layout="gallery"] .featureGroups ul > li {
+        margin-top: clamp(1px, 0.35dvh, 8px) !important;
+    }
+
+    [data-case-layout="gallery"] .featureGroups {
+        row-gap: clamp(8px, 1.5dvh, 16px);
+    }
+
+    [data-case-layout="gallery"] .productPanel .systemLabel {
+        min-height: clamp(28px, 4dvh, 34px);
+        padding-block: clamp(5px, 1dvh, 9px);
+    }
+
+    [data-case-layout="gallery"] .archiveFooter {
+        padding-top: clamp(6px, 1.2dvh, 16px);
+    }
+
+    [data-case-layout="gallery"] .productPanel .technologyGrid {
+        margin-top: clamp(4px, 1dvh, 16px) !important;
+    }
+
+    [data-case-layout="gallery"] .productNarrative {
+        row-gap: clamp(6px, 1.2dvh, 14px);
+    }
+
+    [data-case-layout="gallery"] .productPanel .technologyTag {
+        min-height: clamp(28px, 3.8dvh, 34px);
+    }
+}
+
+@media (min-width: 1024px) and (max-height: 860px) {
+    [data-case-layout="gallery"] .rightPanel.productPanel {
+        gap: 4px;
+    }
+
+    [data-case-layout="gallery"] .productOverview,
+    [data-case-layout="gallery"] .productNarrative p {
+        font-size: 12.5px;
+        line-height: 1.34;
+    }
+
+    [data-case-layout="gallery"] .featureGroups li {
+        font-size: 12px;
+        line-height: 1.2;
+    }
+
+    [data-case-layout="gallery"] .productPanel .systemLabel {
+        min-height: 26px;
+    }
+
+    [data-case-layout="gallery"] .productPanel .technologyTag {
+        min-height: 26px;
+    }
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+    [data-case-layout="gallery"] .rightPanel.productPanel {
+        gap: 3px;
+        padding-top: 8px;
+    }
+
+    [data-case-layout="gallery"] .productOverview,
+    [data-case-layout="gallery"] .productNarrative p {
+        font-size: 12px;
+        line-height: 1.3;
+    }
+
+    [data-case-layout="gallery"] .featureGroups li {
+        font-size: 11.5px;
+        line-height: 1.15;
+    }
+
+    [data-case-layout="gallery"] .featureGroups ul > li {
+        margin-top: 0 !important;
+    }
+
+    [data-case-layout="gallery"] .productPanel .systemLabel,
+    [data-case-layout="gallery"] .productPanel .technologyTag {
+        min-height: 24px;
+    }
+
+    [data-case-layout="gallery"] .productPanel .technologyTag {
+        font-size: 9.5px;
+    }
+
+    [data-case-layout="gallery"] .productPanel .colorSwatch {
+        height: 16px;
+    }
+}
+
+/* NORDMARKT motion: capability rows, gallery crossfade, Visual DNA fill, CTA. */
+[data-case-layout="gallery"] .featureGroups li {
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+[data-case-layout="gallery"] .productDna .dnaBar {
+    transform-origin: left center;
+    animation: dnaFill 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.9s backwards;
+}
+
+[data-case-layout="gallery"] .productDna div:nth-child(2) > .dnaBar {
+    animation-delay: 1.05s;
+}
+
+[data-case-layout="gallery"] .productDna div:nth-child(3) > .dnaBar {
+    animation-delay: 1.2s;
+}
+
+[data-case-layout="gallery"] .ratioFrame img {
+    animation: galleryIn 0.45s ease-out;
+}
+
+[data-case-layout="gallery"] .productPanel [data-project-commercial-cta] {
+    position: relative;
+    overflow: hidden;
+}
+
+[data-case-layout="gallery"] .productPanel [data-project-commercial-cta] [data-cta-arrow] {
+    display: inline-block;
+    margin-left: 0.25em;
+    transition: transform 0.25s ease;
+}
+
+[data-case-layout="gallery"] .productPanel [data-project-commercial-cta]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.16) 50%, transparent 65%);
+    transform: translateX(-120%);
+    pointer-events: none;
+}
+
+@media (hover: hover) {
+    [data-case-layout="gallery"] .featureGroups li:hover {
+        background-color: rgba(217, 139, 77, 0.07);
+        box-shadow: inset 2px 0 0 var(--case-accent, #D98B4D);
+    }
+
+    [data-case-layout="gallery"] .productPanel [data-project-commercial-cta]:hover [data-cta-arrow] {
+        transform: translate(2px, -2px);
+    }
+
+    [data-case-layout="gallery"] .productPanel [data-project-commercial-cta]:hover::after {
+        transform: translateX(120%);
+        transition: transform 0.7s ease;
+    }
+}
+
+@keyframes dnaFill {
+    from { transform: scaleX(0); }
+}
+
+@keyframes galleryIn {
+    from { opacity: 0; transform: scale(1.015); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-case-layout="gallery"] .productDna .dnaBar,
+    [data-case-layout="gallery"] .ratioFrame img {
+        animation: none;
+    }
+
+    [data-case-layout="gallery"] .featureGroups li,
+    [data-case-layout="gallery"] .productPanel [data-project-commercial-cta] [data-cta-arrow],
+    [data-case-layout="gallery"] .productPanel [data-project-commercial-cta]::after {
+        transition: none;
+    }
+}
+
+/* NORDMARKT cursor: arrow on static content, pointer only on real controls. */
+[data-case-layout="gallery"] .leftPanel,
+[data-case-layout="gallery"] .rightPanel {
+    cursor: default;
+}
+
+[data-case-layout="gallery"] .leftPanel a[href],
+[data-case-layout="gallery"] .leftPanel button,
+[data-case-layout="gallery"] .leftPanel [role="button"],
+[data-case-layout="gallery"] .rightPanel a[href],
+[data-case-layout="gallery"] .rightPanel button,
+[data-case-layout="gallery"] .rightPanel [role="button"] {
+    cursor: pointer;
+}
+
+/* NORDMARKT hover refinements: colour, border and background only; no size or layout change. */
+[data-case-layout="gallery"] .modalTitle span,
+[data-case-layout="gallery"] .productOverview,
+[data-case-layout="gallery"] .productNarrative > div,
+[data-case-layout="gallery"] .productNarrative p,
+[data-case-layout="gallery"] .productNarrative h2,
+[data-case-layout="gallery"] .scopeBlock li,
+[data-case-layout="gallery"] .productPanel .technologyTag,
+[data-case-layout="gallery"] .productDna .dnaBar,
+[data-case-layout="gallery"] .metaGrid p {
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease,
+        box-shadow 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+}
+
+[data-case-layout="gallery"] .productNarrative > div {
+    box-shadow: inset 0 0 0 0 transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    /* Heading: very subtle tone shift on the lead line. */
+    [data-case-layout="gallery"] .modalTitle:hover span:first-child {
+        color: #2c2c30;
+    }
+
+    /* Project Overview: text deepens slightly. */
+    [data-case-layout="gallery"] .productOverview:hover {
+        color: #1e1e22;
+    }
+
+    /* Challenge / Solution: soft tint plus thin orange accent line. */
+    [data-case-layout="gallery"] .productNarrative > div:hover {
+        background-color: rgba(217, 139, 77, 0.05);
+        box-shadow: inset 2px 0 0 var(--case-accent, #D98B4D);
+    }
+
+    [data-case-layout="gallery"] .productNarrative > div:hover p {
+        color: #4a4b4f;
+    }
+
+    /* Project Scope: tag border and background. */
+    [data-case-layout="gallery"] .scopeBlock li:hover {
+        border-color: #8f8f95;
+        background-color: rgba(30, 30, 34, 0.045);
+        color: #1e1e22;
+    }
+
+    /* Proposed Stack: badge inverts gently to a neutral tint. */
+    [data-case-layout="gallery"] .productPanel .technologyTag:hover {
+        background-color: rgba(30, 30, 34, 0.06);
+        border-color: #000;
+        box-shadow: inset 0 -2px 0 var(--case-accent, #D98B4D);
+    }
+
+    /* Visual DNA: swatch brightens and gains an outline; size unchanged. */
+    [data-case-layout="gallery"] .productDna .dnaBar:hover {
+        filter: brightness(1.12) saturate(1.1);
+        box-shadow: 0 0 0 1px #fff, 0 0 0 2px #1e1e22;
+    }
+
+    /* Role / Engagement: label darkens, value gains contrast. */
+    [data-case-layout="gallery"] .metaGrid > div:hover p:first-child {
+        color: #000;
+    }
+
+    [data-case-layout="gallery"] .metaGrid > div:hover p:last-child {
+        color: #77787d;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-case-layout="gallery"] .modalTitle span,
+    [data-case-layout="gallery"] .productOverview,
+    [data-case-layout="gallery"] .productNarrative > div,
+    [data-case-layout="gallery"] .productNarrative p,
+    [data-case-layout="gallery"] .productNarrative h2,
+    [data-case-layout="gallery"] .scopeBlock li,
+    [data-case-layout="gallery"] .productPanel .technologyTag,
+    [data-case-layout="gallery"] .productDna .dnaBar,
+    [data-case-layout="gallery"] .metaGrid p {
+        transition: none;
+    }
+}

@@ -19,7 +19,7 @@ export default function ArchiveCard({ project, variant, locale, index, animatedP
                 aria-label={t("Open {title} case study", { title: project.title })}
                 className={styles.cardLink}
             >
-                <ArchiveSystemPreview projectId={project.caseStudy.identifier} variant={variant} technologies={project.technologies} locale={locale} coverImage={animatedPreview ? undefined : project.coverImage} />
+                <ArchiveSystemPreview projectId={project.caseStudy.identifier} variant={variant} technologies={project.technologies} locale={locale} coverImage={animatedPreview ? undefined : project.archivePreview?.image} />
                 <ArchiveProjectInfo project={project} locale={locale} />
             </Link>
         </article>

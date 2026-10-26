@@ -6,9 +6,9 @@ export type ArchiveProject = { project: Project; variant: ArchivePreviewVariant 
 
 const previewBySlug: Readonly<Record<string, ArchivePreviewVariant | undefined>> = {
     "pixardia-digital-studio": "pixardia",
-    "nexus-finance": "nexus",
+    "moneta-finance-analytics": "nexus",
     "nordmarkt-commerce": "nordmarkt",
-    "coreflow-ai-workspace": "coreflow",
+    "synapse-ai-workspace": "coreflow",
 };
 
 export function getArchiveProjects(): ArchiveProject[] {

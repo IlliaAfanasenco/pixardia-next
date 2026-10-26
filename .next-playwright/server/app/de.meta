@@ -7,9 +7,9 @@
   "segmentPaths": [
     "/_tree",
     "/_full",
-    "/$d$locale/__PAGE__",
     "/$d$locale/@projectModal/!KF9fU0xPVF9fKQ/__PAGE__",
     "/$d$locale/@projectModal/!KF9fU0xPVF9fKQ",
+    "/$d$locale/__PAGE__",
     "/$d$locale",
     "/_index",
     "/_head"

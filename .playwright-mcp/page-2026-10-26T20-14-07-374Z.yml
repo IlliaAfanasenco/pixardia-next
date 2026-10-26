@@ -1,0 +1,500 @@
+- generic [active] [ref=f8e1]:
+  - generic [ref=f8e2]:
+    - link "Skip to main content" [ref=f8e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - banner [ref=f8e4]:
+      - generic [ref=f8e5]:
+        - link "Pixardia home" [ref=f8e6] [cursor=pointer]:
+          - /url: /en#hero
+          - generic [ref=f8e7]: PIXARDIA
+          - generic [ref=f8e8]: digital studio
+        - text: /
+        - generic [ref=f8e9]:
+          - navigation "Language" [ref=f8e10]:
+            - link "Switch language to English" [ref=f8e11] [cursor=pointer]:
+              - /url: /en
+              - text: EN
+            - link "Switch language to German" [ref=f8e12] [cursor=pointer]:
+              - /url: /de
+              - text: DE
+          - link "start project" [ref=f8e15] [cursor=pointer]:
+            - /url: /en/contact
+    - main [ref=f8e16]:
+      - region [ref=f8e20]:
+        - generic [ref=f8e21]:
+          - paragraph [ref=f8e22]: creative digital studio / ai augmented
+          - heading "Digital Agency" [level=1] [ref=f8e23]:
+            - generic [ref=f8e24]: Digital
+            - generic [ref=f8e26]: Agency
+          - paragraph [ref=f8e27]: We design, build and scale digital products that move businesses forward.
+          - link "explore services" [ref=f8e28] [cursor=pointer]:
+            - /url: /en/services
+          - generic [ref=f8e31]:
+            - paragraph [ref=f8e33]: scroll to explore
+            - generic [ref=f8e36]:
+              - paragraph [ref=f8e37]: "project intake: open"
+              - paragraph [ref=f8e38]: Germany / Europe / Worldwide
+      - navigation "Homepage presentation scenes" [ref=f8e43]:
+        - generic [aria-hidden] [ref=f8e44]:
+          - generic [ref=f8e45]: Index
+          - generic [ref=f8e46]: 01—06
+        - list:
+          - listitem:
+            - button "Go to Agency" [ref=f8e47] [cursor=pointer]:
+              - generic [ref=f8e48]: "01"
+              - generic [ref=f8e50]: Agency
+          - listitem:
+            - button "Go to Process" [ref=f8e51] [cursor=pointer]:
+              - generic [ref=f8e52]: "02"
+              - generic [ref=f8e54]: Process
+          - listitem:
+            - button "Go to Expertise" [ref=f8e55] [cursor=pointer]:
+              - generic [ref=f8e56]: "03"
+              - generic [ref=f8e58]: Expertise
+          - listitem:
+            - button "Go to Products" [ref=f8e59] [cursor=pointer]:
+              - generic [ref=f8e60]: "04"
+              - generic [ref=f8e62]: Products
+          - listitem:
+            - button "Go to Work" [ref=f8e63] [cursor=pointer]:
+              - generic [ref=f8e64]: "05"
+              - generic [ref=f8e66]: Work
+          - listitem:
+            - button "Go to Contact" [ref=f8e67] [cursor=pointer]:
+              - generic [ref=f8e68]: "06"
+              - generic [ref=f8e70]: Contact
+      - region [ref=f8e71]:
+        - generic [ref=f8e72]:
+          - generic [ref=f8e73]:
+            - paragraph [ref=f8e74]: 05 / SELECTED DIGITAL WORK
+            - generic [ref=f8e75]:
+              - heading "Project Archive" [level=2] [ref=f8e76]
+              - paragraph [ref=f8e77]: A selection of digital products shaped through strategy, design and engineering.
+          - generic [ref=f8e78]:
+            - article [ref=f8e79]:
+              - link "Open Pixardia case study" [ref=f8e80] [cursor=pointer]:
+                - /url: /en/projects/pixardia-digital-studio
+                - generic [ref=f8e81]:
+                  - generic [aria-hidden] [ref=f8e82]:
+                    - generic [ref=f8e83]: PX-2026-001
+                    - generic [ref=f8e85]: System preview
+                  - img [aria-hidden] [ref=f8e87]:
+                    - generic [ref=f8e114]:
+                      - generic [ref=f8e119]: Data layer
+                      - generic [ref=f8e120]: Content & services
+                    - generic [ref=f8e121]:
+                      - generic [ref=f8e126]: Application layer
+                      - generic [ref=f8e127]: Business logic
+                    - generic [ref=f8e128]:
+                      - generic [ref=f8e133]: Integration layer
+                      - generic [ref=f8e134]: External systems
+                    - generic [ref=f8e135]:
+                      - generic [ref=f8e139]: Experience layer
+                      - generic [ref=f8e140]: Web & interfaces
+                    - generic [ref=f8e141]:
+                      - generic [ref=f8e146]: Analytics layer
+                      - generic [ref=f8e147]: Insights & metrics
+                    - generic [ref=f8e148]:
+                      - generic [ref=f8e152]: Delivery layer
+                      - generic [ref=f8e153]: Projects & enquiry
+                    - generic [ref=f8e154]:
+                      - generic [ref=f8e156]: Pixardia core
+                      - generic [ref=f8e157]: Digital experience
+                  - list "Stack" [ref=f8e170]:
+                    - listitem [ref=f8e171]:
+                      - img "Next.js" [ref=f8e172]
+                      - generic [ref=f8e173]: Next.js
+                    - listitem [ref=f8e174]:
+                      - img "React" [ref=f8e175]
+                      - generic [ref=f8e176]: React
+                    - listitem [ref=f8e177]:
+                      - img "TypeScript" [ref=f8e178]
+                      - generic [ref=f8e179]: TypeScript
+                    - listitem [ref=f8e180]:
+                      - img "Tailwind CSS" [ref=f8e181]
+                      - generic [ref=f8e182]: Tailwind CSS
+                    - listitem [ref=f8e183]:
+                      - img "PostgreSQL" [ref=f8e184]
+                      - generic [ref=f8e185]: PostgreSQL
+                    - listitem [ref=f8e186]:
+                      - img "Prisma" [ref=f8e187]
+                      - generic [ref=f8e188]: Prisma
+                    - listitem [ref=f8e189]:
+                      - img "Upstash Redis" [ref=f8e190]
+                      - generic [ref=f8e191]: Upstash Redis
+                    - listitem [ref=f8e192]:
+                      - img "DeepSeek" [ref=f8e193]
+                      - generic [ref=f8e194]: DeepSeek
+                  - generic [aria-hidden] [ref=f8e195]:
+                    - generic [ref=f8e196]: PX-2026-001
+                    - generic [ref=f8e198]: Explore case →
+                - generic [ref=f8e199]:
+                  - generic [ref=f8e200]:
+                    - generic [ref=f8e201]: Digital studio platform
+                    - generic [ref=f8e202]: "2026"
+                  - heading "Pixardia" [level=3] [ref=f8e203]
+                  - paragraph [ref=f8e204]: An AI-augmented digital studio website presenting web and software services through interactive storytelling and a clear project enquiry path.
+                  - generic [ref=f8e205]:
+                    - generic [ref=f8e206]:
+                      - generic [ref=f8e207]: Status
+                      - strong [ref=f8e208]: In progress
+                    - generic [ref=f8e209]:
+                      - generic [ref=f8e210]: System
+                      - generic [ref=f8e211]: Explore Pixardia case →
+                    - generic [ref=f8e212]:
+                      - generic [ref=f8e213]: Stack
+                      - list "Stack" [ref=f8e214]:
+                        - listitem [ref=f8e215]:
+                          - img "Next.js" [ref=f8e216]
+                        - listitem [ref=f8e217]:
+                          - img "React" [ref=f8e218]
+                        - listitem [ref=f8e219]:
+                          - img "TypeScript" [ref=f8e220]
+                        - listitem [ref=f8e221]:
+                          - img "Tailwind CSS" [ref=f8e222]
+                        - listitem [ref=f8e223]:
+                          - img "PostgreSQL" [ref=f8e224]
+                        - listitem [ref=f8e225]:
+                          - img "Prisma" [ref=f8e226]
+                        - listitem [ref=f8e227]:
+                          - img "Upstash Redis" [ref=f8e228]
+                        - listitem [ref=f8e229]:
+                          - img "DeepSeek" [ref=f8e230]
+            - article [ref=f8e231]:
+              - link "Open Moneta case study" [ref=f8e232] [cursor=pointer]:
+                - /url: /en/projects/moneta-finance-analytics
+                - generic [ref=f8e233]:
+                  - generic [aria-hidden] [ref=f8e234]:
+                    - generic [ref=f8e235]: MN-2026-002
+                    - generic [ref=f8e237]: System preview
+                  - img [aria-hidden] [ref=f8e239]:
+                    - generic [ref=f8e241]: Account activity
+                    - generic [ref=f8e250]: Accounts
+                    - generic [ref=f8e253]: Transactions
+                    - generic [ref=f8e256]: Budgets
+                  - list "Stack" [ref=f8e259]:
+                    - listitem [ref=f8e260]:
+                      - img "Next.js" [ref=f8e261]
+                      - generic [ref=f8e262]: Next.js
+                    - listitem [ref=f8e263]:
+                      - img "React" [ref=f8e264]
+                      - generic [ref=f8e265]: React
+                    - listitem [ref=f8e266]:
+                      - img "TypeScript" [ref=f8e267]
+                      - generic [ref=f8e268]: TypeScript
+                    - listitem [ref=f8e269]:
+                      - img "PostgreSQL" [ref=f8e270]
+                      - generic [ref=f8e271]: PostgreSQL
+                    - listitem [ref=f8e272]:
+                      - img "Prisma" [ref=f8e273]
+                      - generic [ref=f8e274]: Prisma
+                    - listitem [ref=f8e275]:
+                      - img "Redis" [ref=f8e276]
+                      - generic [ref=f8e277]: Redis
+                    - listitem [ref=f8e278]:
+                      - img "Docker" [ref=f8e279]
+                      - generic [ref=f8e280]: Docker
+                  - generic [aria-hidden] [ref=f8e281]:
+                    - generic [ref=f8e282]: MN-2026-002
+                    - generic [ref=f8e284]: Explore case →
+                - generic [ref=f8e285]:
+                  - generic [ref=f8e286]:
+                    - generic [ref=f8e287]: Studio initiative
+                    - generic [ref=f8e288]: "2026"
+                  - heading "Moneta" [level=3] [ref=f8e289]
+                  - paragraph [ref=f8e290]: A premium finance platform connecting accounts, transactions, payments and analytics in one clear workspace.
+                  - generic [ref=f8e291]:
+                    - generic [ref=f8e292]:
+                      - generic [ref=f8e293]: Status
+                      - strong [ref=f8e294]: Planned
+                    - generic [ref=f8e295]:
+                      - generic [ref=f8e296]: System
+                      - generic [ref=f8e297]: Inspect finance system →
+                    - generic [ref=f8e298]:
+                      - generic [ref=f8e299]: Stack
+                      - list "Stack" [ref=f8e300]:
+                        - listitem [ref=f8e301]:
+                          - img "Next.js" [ref=f8e302]
+                        - listitem [ref=f8e303]:
+                          - img "React" [ref=f8e304]
+                        - listitem [ref=f8e305]:
+                          - img "TypeScript" [ref=f8e306]
+                        - listitem [ref=f8e307]:
+                          - img "PostgreSQL" [ref=f8e308]
+                        - listitem [ref=f8e309]:
+                          - img "Prisma" [ref=f8e310]
+                        - listitem [ref=f8e311]:
+                          - img "Redis" [ref=f8e312]
+                        - listitem [ref=f8e313]:
+                          - img "Docker" [ref=f8e314]
+            - article [ref=f8e315]:
+              - link "Open Nordmarkt Commerce case study" [ref=f8e316] [cursor=pointer]:
+                - /url: /en/projects/nordmarkt-commerce
+                - generic [ref=f8e317]:
+                  - generic [aria-hidden] [ref=f8e318]:
+                    - generic [ref=f8e319]: NM-2026-003
+                    - generic [ref=f8e321]: System preview
+                  - img [aria-hidden] [ref=f8e323]:
+                    - generic [ref=f8e324]: Item 01
+                    - generic [ref=f8e331]: Item 02
+                    - generic [ref=f8e338]: Item 03
+                    - generic [ref=f8e345]: Item 04
+                    - generic [ref=f8e353]: Purchase flow
+                    - generic [ref=f8e354]: Catalogue
+                    - generic [ref=f8e358]: Product
+                    - generic [ref=f8e363]: Checkout
+                  - list "Stack" [ref=f8e368]:
+                    - listitem [ref=f8e369]:
+                      - img "Next.js" [ref=f8e370]
+                      - generic [ref=f8e371]: Next.js
+                    - listitem [ref=f8e372]:
+                      - img "React" [ref=f8e373]
+                      - generic [ref=f8e374]: React
+                    - listitem [ref=f8e375]:
+                      - img "TypeScript" [ref=f8e376]
+                      - generic [ref=f8e377]: TypeScript
+                    - listitem [ref=f8e378]:
+                      - img "PostgreSQL" [ref=f8e379]
+                      - generic [ref=f8e380]: PostgreSQL
+                    - listitem [ref=f8e381]:
+                      - img "Prisma" [ref=f8e382]
+                      - generic [ref=f8e383]: Prisma
+                    - listitem [ref=f8e384]:
+                      - img "Stripe" [ref=f8e385]
+                      - generic [ref=f8e386]: Stripe
+                  - generic [aria-hidden] [ref=f8e387]:
+                    - generic [ref=f8e388]: NM-2026-003
+                    - generic [ref=f8e390]: Explore case →
+                - generic [ref=f8e391]:
+                  - generic [ref=f8e392]:
+                    - generic [ref=f8e393]: Studio initiative
+                    - generic [ref=f8e394]: "2026"
+                  - heading "Nordmarkt Commerce" [level=3] [ref=f8e395]
+                  - paragraph [ref=f8e396]: A scalable commerce platform connecting product discovery, catalogue management and a focused purchasing journey.
+                  - generic [ref=f8e397]:
+                    - generic [ref=f8e398]:
+                      - generic [ref=f8e399]: Status
+                      - strong [ref=f8e400]: Planned
+                    - generic [ref=f8e401]:
+                      - generic [ref=f8e402]: System
+                      - generic [ref=f8e403]: Open commerce record →
+                    - generic [ref=f8e404]:
+                      - generic [ref=f8e405]: Stack
+                      - list "Stack" [ref=f8e406]:
+                        - listitem [ref=f8e407]:
+                          - img "Next.js" [ref=f8e408]
+                        - listitem [ref=f8e409]:
+                          - img "React" [ref=f8e410]
+                        - listitem [ref=f8e411]:
+                          - img "TypeScript" [ref=f8e412]
+                        - listitem [ref=f8e413]:
+                          - img "PostgreSQL" [ref=f8e414]
+                        - listitem [ref=f8e415]:
+                          - img "Prisma" [ref=f8e416]
+                        - listitem [ref=f8e417]:
+                          - img "Stripe" [ref=f8e418]
+            - article [ref=f8e419]:
+              - link "Open Synapse AI case study" [ref=f8e420] [cursor=pointer]:
+                - /url: /en/projects/synapse-ai-workspace
+                - generic [ref=f8e421]:
+                  - generic [aria-hidden] [ref=f8e422]:
+                    - generic [ref=f8e423]: SY-2026-004
+                    - generic [ref=f8e425]: System preview
+                  - img [aria-hidden] [ref=f8e427]:
+                    - generic [ref=f8e448]: Requests
+                    - generic [ref=f8e451]: Knowledge
+                    - generic [ref=f8e454]: Validation
+                    - generic [ref=f8e457]: Human review
+                    - generic [ref=f8e460]: AI Core
+                  - list "Stack" [ref=f8e469]:
+                    - listitem [ref=f8e470]:
+                      - img "Next.js" [ref=f8e471]
+                      - generic [ref=f8e472]: Next.js
+                    - listitem [ref=f8e473]:
+                      - img "React" [ref=f8e474]
+                      - generic [ref=f8e475]: React
+                    - listitem [ref=f8e476]:
+                      - img "TypeScript" [ref=f8e477]
+                      - generic [ref=f8e478]: TypeScript
+                    - listitem [ref=f8e479]:
+                      - img "Node.js" [ref=f8e480]
+                      - generic [ref=f8e481]: Node.js
+                    - listitem [ref=f8e482]:
+                      - img "PostgreSQL" [ref=f8e483]
+                      - generic [ref=f8e484]: PostgreSQL
+                    - listitem [ref=f8e485]:
+                      - img "Prisma" [ref=f8e486]
+                      - generic [ref=f8e487]: Prisma
+                    - listitem [ref=f8e488]:
+                      - img "DeepSeek" [ref=f8e489]
+                      - generic [ref=f8e490]: DeepSeek
+                  - generic [aria-hidden] [ref=f8e491]:
+                    - generic [ref=f8e492]: SY-2026-004
+                    - generic [ref=f8e494]: Explore case →
+                - generic [ref=f8e495]:
+                  - generic [ref=f8e496]:
+                    - generic [ref=f8e497]: Studio initiative
+                    - generic [ref=f8e498]: "2026"
+                  - heading "Synapse AI" [level=3] [ref=f8e499]
+                  - paragraph [ref=f8e500]: An AI-assisted workspace connecting tasks, knowledge, documents and controlled business automation.
+                  - generic [ref=f8e501]:
+                    - generic [ref=f8e502]:
+                      - generic [ref=f8e503]: Status
+                      - strong [ref=f8e504]: Planned
+                    - generic [ref=f8e505]:
+                      - generic [ref=f8e506]: System
+                      - generic [ref=f8e507]: Inspect workflow record →
+                    - generic [ref=f8e508]:
+                      - generic [ref=f8e509]: Stack
+                      - list "Stack" [ref=f8e510]:
+                        - listitem [ref=f8e511]:
+                          - img "Next.js" [ref=f8e512]
+                        - listitem [ref=f8e513]:
+                          - img "React" [ref=f8e514]
+                        - listitem [ref=f8e515]:
+                          - img "TypeScript" [ref=f8e516]
+                        - listitem [ref=f8e517]:
+                          - img "Node.js" [ref=f8e518]
+                        - listitem [ref=f8e519]:
+                          - img "PostgreSQL" [ref=f8e520]
+                        - listitem [ref=f8e521]:
+                          - img "Prisma" [ref=f8e522]
+                        - listitem [ref=f8e523]:
+                          - img "DeepSeek" [ref=f8e524]
+          - link "View all work" [ref=f8e526] [cursor=pointer]:
+            - /url: /en/projects
+      - region [ref=f8e527]:
+        - generic [ref=f8e528]:
+          - paragraph [ref=f8e531]: 06 / START A PROJECT
+          - heading "Let’s Build What’s Next" [level=2] [ref=f8e533]
+          - generic [ref=f8e536]:
+            - generic [ref=f8e537]:
+              - paragraph [ref=f8e538]: Tell us about your business, your challenge and the product you want to create. We will turn it into a clear project direction, then manage delivery from the first conversation through launch and support.
+              - generic [ref=f8e539]:
+                - paragraph [ref=f8e540]: Based in Germany / Working worldwide
+                - paragraph [ref=f8e541]: Direct project response
+                - paragraph [ref=f8e542]: "Project intake: open"
+              - paragraph [ref=f8e543]: Direct project channels
+              - link "Email" [ref=f8e545] [cursor=pointer]:
+                - /url: mailto:hello@pixardia.com
+              - generic [ref=f8e546]:
+                - img "Pixardia Studio"
+                - generic [ref=f8e547]:
+                  - paragraph [ref=f8e548]: Pixardia Studio
+                  - paragraph [ref=f8e549]: full-cycle delivery
+              - paragraph [ref=f8e551]: © 2026 Pixardia. All rights reserved.
+            - generic [ref=f8e553]:
+              - generic [ref=f8e554]:
+                - generic [ref=f8e555]:
+                  - generic [ref=f8e556]: Your name
+                  - textbox "Your name" [ref=f8e557]
+                - generic [ref=f8e558]:
+                  - generic [ref=f8e559]: Email address
+                  - textbox "Email address" [ref=f8e560]:
+                    - /placeholder: you@company.com
+              - generic [ref=f8e561]:
+                - generic [ref=f8e562]: Project type
+                - combobox "Project type" [ref=f8e563]:
+                  - option "Business Website" [selected]
+                  - option "Landing Page"
+                  - option "Web Application"
+                  - option "E-commerce"
+                  - option "Website Redesign"
+                  - option "UX & UI Design"
+                  - option "AI & Automation"
+                  - option "Maintenance & Support"
+              - generic [ref=f8e564]:
+                - generic [ref=f8e565]: Project details
+                - textbox "Project details" [ref=f8e566]:
+                  - /placeholder: Describe your business goals, required functionality and current project stage...
+              - generic [ref=f8e568] [cursor=pointer]:
+                - checkbox "I agree to the privacy policy Open privacy policy" [ref=f8e569]
+                - generic [ref=f8e570]:
+                  - text: I agree to the privacy policy
+                  - link "Open privacy policy" [ref=f8e571]:
+                    - /url: /privacy
+                    - text: ↗
+              - button "Send project request" [ref=f8e572]
+    - contentinfo [ref=f8e574]:
+      - generic [ref=f8e575]:
+        - generic [ref=f8e576]:
+          - generic [ref=f8e577]:
+            - link "Pixardia home" [ref=f8e578] [cursor=pointer]:
+              - /url: /en
+              - img "Pixardia logo" [ref=f8e579]
+            - paragraph [ref=f8e580]: We create digital products that combine strategy, distinctive design and reliable engineering.
+            - generic [ref=f8e581]:
+              - link "Back to top" [ref=f8e582] [cursor=pointer]:
+                - /url: "#top"
+                - text: ↑
+              - link "Start a project" [ref=f8e583] [cursor=pointer]:
+                - /url: /en/contact
+          - navigation "Explore" [ref=f8e584]:
+            - paragraph [ref=f8e585]: Explore
+            - list [ref=f8e586]:
+              - listitem [ref=f8e587]:
+                - link "Services" [ref=f8e588] [cursor=pointer]:
+                  - /url: /en/services
+              - listitem [ref=f8e589]:
+                - link "Process" [ref=f8e590] [cursor=pointer]:
+                  - /url: /en#crafting-structure
+              - listitem [ref=f8e591]:
+                - link "Expertise" [ref=f8e592] [cursor=pointer]:
+                  - /url: /en#neural-system
+              - listitem [ref=f8e593]:
+                - link "Work" [ref=f8e594] [cursor=pointer]:
+                  - /url: /en#projects
+              - listitem [ref=f8e595]:
+                - link "Contact" [ref=f8e596] [cursor=pointer]:
+                  - /url: /en/contact
+          - navigation "Capabilities" [ref=f8e597]:
+            - paragraph [ref=f8e598]: Capabilities
+            - list [ref=f8e599]:
+              - listitem [ref=f8e600]:
+                - link "Websites" [ref=f8e601] [cursor=pointer]:
+                  - /url: /en/services/business-website
+              - listitem [ref=f8e602]:
+                - link "Web applications" [ref=f8e603] [cursor=pointer]:
+                  - /url: /en/services/web-application
+              - listitem [ref=f8e604]:
+                - link "E-commerce" [ref=f8e605] [cursor=pointer]:
+                  - /url: /en/services/ecommerce
+              - listitem [ref=f8e606]:
+                - link "AI & automation" [ref=f8e607] [cursor=pointer]:
+                  - /url: /en/services/ai-automation
+              - listitem [ref=f8e608]:
+                - link "Support" [ref=f8e609] [cursor=pointer]:
+                  - /url: /en/services/maintenance-support
+          - generic [ref=f8e610]:
+            - paragraph [ref=f8e611]: Have a project in mind?
+            - generic [ref=f8e612]:
+              - generic [ref=f8e613]:
+                - generic [ref=f8e614]: E-mail
+                - link "hello@pixardia.com" [ref=f8e615] [cursor=pointer]:
+                  - /url: mailto:hello@pixardia.com
+              - generic [ref=f8e616]:
+                - generic [ref=f8e617]: Website
+                - link "localhost" [ref=f8e618] [cursor=pointer]:
+                  - /url: http://localhost:3000
+              - generic [ref=f8e619]:
+                - generic [ref=f8e620]: Location
+                - strong [ref=f8e621]: Germany / Worldwide
+              - generic [ref=f8e622]:
+                - generic [ref=f8e623]: Status
+                - strong [ref=f8e624]: Available for selected projects
+        - generic [ref=f8e626]:
+          - paragraph [ref=f8e627]: Clear scope. Controlled delivery. // Production-ready results.
+          - generic [ref=f8e628]:
+            - navigation "Legal links" [ref=f8e629]:
+              - link "Privacy" [ref=f8e630] [cursor=pointer]:
+                - /url: /privacy
+              - link "Imprint" [ref=f8e631] [cursor=pointer]:
+                - /url: /imprint
+            - paragraph [ref=f8e632]: © 2026 Pixardia. All rights reserved.
+        - link "Pixardia home" [ref=f8e634] [cursor=pointer]:
+          - /url: /en
+          - text: Pixardia
+        - generic [ref=f8e635]:
+          - paragraph [ref=f8e636]: Full-cycle digital studio
+          - paragraph [ref=f8e637]: Available for selected projects
+  - alert [ref=f8e638]

@@ -9,6 +9,9 @@ import { Archivo } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import {useRef} from "react";
 import { gsap, useGSAP } from "@/lib/motion/gsap";
+import HeroFrameAnimation from "@/components/HeroFrameAnimation";
+import { useHeroScrollScene } from "@/components/useHeroScrollScene";
+import styles from "./HeroSection.module.css";
 
 const archivo = Archivo({
     subsets: ["latin"],
@@ -20,8 +23,11 @@ export default function HeroSection() {
     const { t, locale } = useI18n();
     const orbitRef = useRef<HTMLDivElement>(null);
     const rotatingElementRef = useRef<HTMLImageElement>(null);
-    const charactersRef = useRef<HTMLImageElement>(null);
+    const charactersRef = useRef<HTMLCanvasElement>(null);
     const scrollProgressRef = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLElement>(null);
+
+    useHeroScrollScene(sectionRef);
 
 
     useGSAP(() => {
@@ -103,6 +109,7 @@ export default function HeroSection() {
     });
     return (
         <section
+            ref={sectionRef}
             id="hero"
             className={`${archivo.variable} relative overflow-hidden py-4 sm:py-6 lg:py-8`}
             aria-labelledby="hero-title"
@@ -230,17 +237,13 @@ export default function HeroSection() {
                             <text x="414" y="390">X / 000</text>
                         </svg>
                     </div>
-                    <Image
-                        ref={charactersRef}
-                        src="/images/AlienExtraterrestrial.png"
-                        alt=""
-                        aria-hidden="true"
-                        width={697}
-                        height={694}
-                        priority
-                        sizes="(max-width: 767px) 44vw, (max-width: 1279px) 48vw, (min-width: 1800px) and (min-height: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) min(74svh, 744px), (min-width: 1280px) and (min-height: 800px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) min(42vw, 64svh, 620px), min(42vw, 697px)"
-                        className="h-auto w-[min(86vw,340px)] max-w-full object-contain sm:w-[clamp(340px,44vw,470px)] min-[1280px]:w-[clamp(320px,42vw,697px)]"
-                    />
+                    <div className={styles.visual} data-hero-visual="">
+                        <span className={styles.contactGlow} data-hero-contact-glow="" aria-hidden="true" />
+                        <HeroFrameAnimation
+                            canvasRef={charactersRef}
+                            className="h-auto w-[min(86vw,340px)] max-w-full object-contain sm:w-[clamp(340px,44vw,470px)] min-[1280px]:w-[clamp(320px,42vw,697px)]"
+                        />
+                    </div>
                 </div>
             </div>
         </section>

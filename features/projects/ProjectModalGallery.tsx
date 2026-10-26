@@ -17,6 +17,11 @@ import type {
     ProjectMediaAsset,
 } from "@/types/services";
 
+export type ProjectModalGalleryCaption = {
+    title: string;
+    description: string;
+};
+
 type ProjectModalGalleryProps = {
     projectKey: string;
     projectTitle: string;
@@ -26,6 +31,10 @@ type ProjectModalGalleryProps = {
     accentColor: string;
     surfaceColor: string;
     className?: string;
+    /** Per-image context, rendered below the frame and kept in sync with the active image. */
+    captions?: readonly ProjectModalGalleryCaption[];
+    captionClassName?: string;
+    frameStyle?: CSSProperties;
 };
 
 export default function ProjectModalGallery({
@@ -37,6 +46,9 @@ export default function ProjectModalGallery({
                                                 accentColor,
                                                 surfaceColor,
                                                 className = "",
+                                                captions,
+                                                captionClassName = "",
+                                                frameStyle,
                                             }: ProjectModalGalleryProps) {
     const { t, locale } = useI18n();
     const [currentIndex, setCurrentIndex] =
@@ -56,6 +68,7 @@ export default function ProjectModalGallery({
 
     const hasNavigation = media.length > 1;
     const currentMedia = media[currentIndex];
+    const currentCaption = captions?.[currentIndex];
 
     useEffect(
         () => () => {
@@ -167,10 +180,11 @@ export default function ProjectModalGallery({
         );
     }
 
-    return (
+    const frame = (
         <div
             className={`relative overflow-hidden border border-[#696A6D] bg-[#EFF0F3] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${className}`}
             style={{
+                ...frameStyle,
                 outlineColor: accentColor,
             }}
             role="group"
@@ -313,6 +327,40 @@ export default function ProjectModalGallery({
                         </button>
                     </div>
                 </>
+            ) : null}
+        </div>
+    );
+
+    if (!captions?.length) {
+        return frame;
+    }
+
+    return (
+        <div className={`min-w-0 ${captionClassName}`} data-project-gallery-figure="">
+            {frame}
+
+            {currentCaption ? (
+                <div
+                    className={`mt-3 grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-3 gap-y-1 transition-opacity duration-150 motion-reduce:transition-none ${
+                        isChanging
+                            ? "opacity-25"
+                            : "opacity-100"
+                    }`}
+                    aria-live="polite"
+                    data-project-gallery-caption=""
+                >
+                    <span className="font-mono text-[10px] font-black tracking-[0.05em] text-[#9A9BA0]">
+                        {String(currentIndex + 1).padStart(2, "0")}
+                    </span>
+
+                    <p className="text-[11px] font-black uppercase leading-none tracking-[0.04em] text-[#1E1E1E]">
+                        {currentCaption.title}
+                    </p>
+
+                    <p className="col-start-2 text-[12px] font-medium leading-[1.45] text-[#737377]">
+                        {currentCaption.description}
+                    </p>
+                </div>
             ) : null}
         </div>
     );

@@ -92,20 +92,76 @@ export type ProjectMediaAsset = {
     caption?: LocalizedText;
 };
 
+export const projectClassifications = [
+    "real_project",
+    "studio_concept",
+] as const;
+
+/** Real Project = delivered for an identifiable client; Studio Concept = proposed product, nothing deployed or measured. */
+export type ProjectClassification =
+    (typeof projectClassifications)[number];
+
+/** One gallery view with the context shown beside it while it is active. */
+export type ProjectGallerySlide = {
+    media: ProjectMediaAsset;
+    title: LocalizedText;
+    description: LocalizedText;
+};
+
+/** A titled list of features for one audience, e.g. customers or store administrators. */
+export type ProjectFeatureGroup = {
+    label: LocalizedText;
+    items: readonly LocalizedText[];
+};
+
+export type ProjectClientProfile = {
+    name: string;
+    industry?: LocalizedText;
+    region?: LocalizedText;
+    website?: string;
+};
+
+/** A measured outcome. Only for real projects; the content contract rejects results on concepts. */
+export type ProjectResult = {
+    label: LocalizedText;
+    value: LocalizedText;
+    source?: LocalizedText;
+};
+
+export type ProjectLink = {
+    label: LocalizedText;
+    href: string;
+};
+
 export type ProjectCaseStudy = {
     identifier: string;
     subtitle: LocalizedText;
-    role: LocalizedText;
-    client: string | null;
-    engagement: LocalizedText;
-    architecture: LocalizedText;
-    facts: readonly ProjectFact[];
-    technologyGroups: readonly ProjectTechnologyGroup[];
+    category?: LocalizedText;
+    classification?: ProjectClassification;
+    role?: LocalizedText;
+    client?: string | null;
+    clientProfile?: ProjectClientProfile;
+    engagement?: LocalizedText;
+    architecture?: LocalizedText;
+    facts?: readonly ProjectFact[];
+    technologyGroups?: readonly ProjectTechnologyGroup[];
+    /** Modal/page gallery with per-view descriptions. Takes precedence over coverImage + images. */
+    gallery?: readonly ProjectGallerySlide[];
+    capabilities?: readonly LocalizedText[];
+    capabilitiesNote?: LocalizedText;
+    featureGroups?: readonly ProjectFeatureGroup[];
+    scope?: readonly LocalizedText[];
+    results?: readonly ProjectResult[];
+    links?: readonly ProjectLink[];
+    commercialCta?: {
+        label: LocalizedText;
+        href: string;
+    };
     visualSystem: {
         colors: readonly ProjectColorToken[];
         typeface: string;
     };
-    qualitySignals: readonly ProjectQualitySignal[];
+    qualitySignals?: readonly ProjectQualitySignal[];
     presentation: {
         desktopDirection: ProjectPanelDirection;
         centerLabel: LocalizedText;
@@ -119,13 +175,20 @@ export type Project = {
     status: ProjectStatus;
     summary: LocalizedText;
     description: LocalizedText;
-    challenge: LocalizedText;
-    solution: LocalizedText;
+    challenge?: LocalizedText;
+    solution?: LocalizedText;
     serviceCodes: readonly ServiceCode[];
     technologies: readonly string[];
     year: number;
     coverImage: ProjectMediaAsset | null;
     images: readonly ProjectMediaAsset[];
+    /**
+     * Homepage archive card. The card renders its designed system diagram unless an image is
+     * set here explicitly; gallery and cover changes never reach the archive thumbnail.
+     */
+    archivePreview?: {
+        image?: ProjectMediaAsset;
+    };
     liveUrl: string | null;
     repositoryUrl: string | null;
     featured: boolean;

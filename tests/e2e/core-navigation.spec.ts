@@ -396,7 +396,7 @@ test.describe(
 
                 const nexusLink =
                     page.locator(
-                        'a[href="/en/projects/nexus-finance"]',
+                        'a[href="/en/projects/moneta-finance-analytics"]',
                     ).first();
 
                 await nexusLink
@@ -409,7 +409,7 @@ test.describe(
                 await nexusLink.click();
 
                 await expect(page).toHaveURL(
-                    /\/projects\/nexus-finance$/,
+                    /\/projects\/moneta-finance-analytics$/,
                 );
 
                 const dialog =
@@ -420,7 +420,7 @@ test.describe(
                         "heading",
                         {
                             level: 1,
-                            name: /nexus finance/i,
+                            name: /moneta/i,
                         },
                     ),
                 ).toBeVisible();
@@ -639,7 +639,7 @@ test.describe(
                 await page.goto("/en");
 
                 await page.locator(
-                    'a[href="/en/projects/nexus-finance"]',
+                    'a[href="/en/projects/moneta-finance-analytics"]',
                 ).first().click();
 
                 const tags = page

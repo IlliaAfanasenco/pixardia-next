@@ -7,12 +7,12 @@
   "segmentPaths": [
     "/_tree",
     "/_full",
-    "/$d$locale/projects/$d$slug/__PAGE__",
-    "/$d$locale/projects/$d$slug",
-    "/$d$locale/projects",
     "/$d$locale/@projectModal/!KF9fU0xPVF9fKQ/$c$catchAll/__PAGE__",
     "/$d$locale/@projectModal/!KF9fU0xPVF9fKQ/$c$catchAll",
     "/$d$locale/@projectModal/!KF9fU0xPVF9fKQ",
+    "/$d$locale/projects/$d$slug/__PAGE__",
+    "/$d$locale/projects/$d$slug",
+    "/$d$locale/projects",
     "/$d$locale",
     "/_index",
     "/_head"

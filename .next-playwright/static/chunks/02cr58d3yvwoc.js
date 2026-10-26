@@ -1,1 +1,0 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,60881,t=>{"use strict";t.s(["localized",0,function(t,o){return t[o]}])}]);

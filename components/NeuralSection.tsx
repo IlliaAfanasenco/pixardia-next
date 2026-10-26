@@ -187,40 +187,6 @@ export default function NeuralSystemSection({
                     className="relative w-full py-12 sm:py-16"
                     data-neural-layer=""
                 >
-                    <svg
-                        className="pointer-events-none absolute inset-0 z-0 hidden size-full overflow-visible min-[1280px]:block"
-                        viewBox="0 0 1814 1252"
-                        preserveAspectRatio="none"
-                        aria-hidden="true"
-                        data-neural-network=""
-                        data-cinematic-element="neural-network"
-                    >
-                        <path
-                            d="M915 625 C1040 520 1132 356 1280 290"
-                            data-neural-network-path=""
-                            pathLength="1"
-                        />
-                        <path
-                            d="M888 656 C700 690 600 870 465 968"
-                            data-neural-network-path=""
-                            pathLength="1"
-                        />
-                        <path
-                            d="M865 620 C676 575 560 588 370 650"
-                            data-neural-network-path=""
-                            pathLength="1"
-                        />
-                        <path
-                            d="M930 672 C1080 756 1168 914 1270 990"
-                            data-neural-network-path=""
-                            pathLength="1"
-                        />
-                        <path
-                            d="M960 622 C1160 600 1340 610 1480 682"
-                            data-neural-network-path=""
-                            pathLength="1"
-                        />
-                    </svg>
                     <header
                         className="relative z-10 min-w-0"
                         data-neural-header=""
@@ -253,86 +219,122 @@ export default function NeuralSystemSection({
                         </h2>
                     </header>
 
-                    <div
-                        className="neural-core relative z-10 mx-auto mt-10 aspect-square w-full max-w-[340px] rounded-full border-[1.5px] border-[#2472ef] p-[clamp(10px,1vw,18px)] md:mt-12 md:max-w-[520px]"
-                        data-neural-core=""
-                        data-cinematic-element="neural-core"
-                    >
-                    <span
-                        className="neural-core__orbit neural-core__orbit--outer"
-                        aria-hidden="true"
-                    />
-
+                    <div className="contents" data-neural-composition="">
+                        <svg
+                            className="pointer-events-none absolute inset-0 z-0 hidden size-full overflow-visible min-[1280px]:block"
+                            viewBox="0 0 1814 1252"
+                            preserveAspectRatio="none"
+                            aria-hidden="true"
+                            data-neural-network=""
+                            data-cinematic-element="neural-network"
+                        >
+                            <path
+                                d="M915 625 C1040 520 1132 356 1280 290"
+                                data-neural-network-path=""
+                                pathLength="1"
+                            />
+                            <path
+                                d="M888 656 C700 690 600 870 465 968"
+                                data-neural-network-path=""
+                                pathLength="1"
+                            />
+                            <path
+                                d="M865 620 C676 575 560 588 370 650"
+                                data-neural-network-path=""
+                                pathLength="1"
+                            />
+                            <path
+                                d="M930 672 C1080 756 1168 914 1270 990"
+                                data-neural-network-path=""
+                                pathLength="1"
+                            />
+                            <path
+                                d="M960 622 C1160 600 1340 610 1480 682"
+                                data-neural-network-path=""
+                                pathLength="1"
+                            />
+                        </svg>
+                        <div
+                            className="neural-core relative z-10 mx-auto mt-10 aspect-square w-full max-w-[340px] rounded-full border-[1.5px] border-[#2472ef] p-[clamp(10px,1vw,18px)] md:mt-12 md:max-w-[520px]"
+                            data-neural-core=""
+                            data-cinematic-element="neural-core"
+                        >
                         <span
-                            className="neural-core__orbit neural-core__orbit--inner"
+                            className="neural-core__orbit neural-core__orbit--outer"
                             aria-hidden="true"
                         />
 
-                        <div
-                            className="flex size-full items-center justify-center rounded-full border-[1.5px] border-[#2472ef] bg-white p-[clamp(8px,0.75vw,14px)]"
-                            data-neural-core-disc=""
-                        >
-                            <div className="relative size-full overflow-hidden rounded-full bg-[#181818]">
-                                <p className="absolute left-1/2 top-[11%] z-10 -translate-x-1/2 whitespace-nowrap text-[clamp(11px,0.82vw,15px)] font-extrabold uppercase tracking-[-0.02em] text-[#5f5f5f]">
-                                    {t("Connected_System")}
-                                </p>
-                                <p className="absolute left-1/2 top-[20%] z-10 -translate-x-1/2 whitespace-nowrap text-[clamp(30px,2.55vw,46px)] font-black uppercase leading-none tracking-[0.02em] text-[#f4f4f4]">
-                                    Pixardia
-                                </p>
-                                <Image
-                                    src={alienImageSrc}
-                                    alt={t("Pixardia system core")}
-                                    width={500}
-                                    height={500}
-                                    sizes="(min-width: 1280px) 440px, (min-width: 768px) clamp(240px, 26vw, 320px), 220px"
-                                    className="absolute inset-0 size-full object-cover opacity-90"
-                                    data-neural-character=""
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="mt-10 grid items-stretch gap-6 md:mt-12 md:grid-cols-2 md:gap-8" data-neural-nodes="">
-                        {nodes.map((node) => (
-                            <NodeCard
-                                key={node.id}
-                                node={node}
-                                active={activeNode === node.id}
-                                onSelect={() => setActiveNode(node.id)}
+                            <span
+                                className="neural-core__orbit neural-core__orbit--inner"
+                                aria-hidden="true"
                             />
-                        ))}
-                    </div>
 
-                    <aside
-                        className="relative z-10 mx-auto mt-10 min-h-[320px] w-full max-w-[468px] md:mt-12 md:min-h-[330px]"
-                        data-neural-insight=""
-                        data-cinematic-element="neural-insight"
-                    >
-                    <span
-                        aria-hidden="true"
-                        className="absolute inset-0 translate-x-[1%] translate-y-[2%] bg-[#4a83dd]"
-                    />
-                        <div className="absolute bottom-[4%] right-[3%] top-0 flex w-[97%] min-w-0 flex-col border-2 border-[#5274a7] bg-white p-[clamp(22px,1.8vw,32px)]" data-neural-insight-card="">
-                            <div className="flex items-center gap-3">
-                                <span className="size-[clamp(8px,0.62vw,11px)] shrink-0 border border-[#1853b4] bg-[#246ae5]" />
-                                <h3 className="text-[clamp(15px,1.1vw,20px)] font-extrabold uppercase leading-none text-[#686868]">
-                                    {t("System Insight")}
-                                </h3>
-                            </div>
-
-                            <p className="mt-[clamp(22px,2vw,36px)] text-[clamp(14px,1vw,18px)] font-bold leading-[1.5] text-[#969696]">
-                                {t("Strategy, design and engineering work as one connected system around your product goals.")}
-                            </p>
-
-                            <button
-                                type="button"
-                                onClick={() => onDeepAnalysis?.(activeNode)}
-                                className="mt-auto flex min-h-[clamp(46px,3vw,54px)] w-full items-center justify-center bg-black px-5 py-3 text-[clamp(14px,1vw,18px)] font-extrabold uppercase leading-none text-white transition-colors hover:bg-[#246ae5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#246ae5]"
+                            <div
+                                className="flex size-full items-center justify-center rounded-full border-[1.5px] border-[#2472ef] bg-white p-[clamp(8px,0.75vw,14px)]"
+                                data-neural-core-disc=""
                             >
-                                {t("Explore Capability")}
-                            </button>
+                                <div className="relative size-full overflow-hidden rounded-full bg-[#181818]">
+                                    <p className="absolute left-1/2 top-[11%] z-10 -translate-x-1/2 whitespace-nowrap text-[clamp(11px,0.82vw,15px)] font-extrabold uppercase tracking-[-0.02em] text-[#5f5f5f]">
+                                        {t("Connected_System")}
+                                    </p>
+                                    <p className="absolute left-1/2 top-[20%] z-10 -translate-x-1/2 whitespace-nowrap text-[clamp(30px,2.55vw,46px)] font-black uppercase leading-none tracking-[0.02em] text-[#f4f4f4]">
+                                        Pixardia
+                                    </p>
+                                    <Image
+                                        src={alienImageSrc}
+                                        alt={t("Pixardia system core")}
+                                        width={500}
+                                        height={500}
+                                        sizes="(min-width: 1280px) 440px, (min-width: 768px) clamp(240px, 26vw, 320px), 220px"
+                                        className="absolute inset-0 size-full object-cover opacity-90"
+                                        data-neural-character=""
+                                    />
+                                </div>
+                            </div>
                         </div>
-                    </aside>
+
+                        <div className="mt-10 grid items-stretch gap-6 md:mt-12 md:grid-cols-2 md:gap-8" data-neural-nodes="">
+                            {nodes.map((node) => (
+                                <NodeCard
+                                    key={node.id}
+                                    node={node}
+                                    active={activeNode === node.id}
+                                    onSelect={() => setActiveNode(node.id)}
+                                />
+                            ))}
+                        </div>
+
+                        <aside
+                            className="relative z-10 mx-auto mt-10 min-h-[320px] w-full max-w-[468px] md:mt-12 md:min-h-[330px]"
+                            data-neural-insight=""
+                            data-cinematic-element="neural-insight"
+                        >
+                        <span
+                            aria-hidden="true"
+                            className="absolute inset-0 translate-x-[1%] translate-y-[2%] bg-[#4a83dd]"
+                        />
+                            <div className="absolute bottom-[4%] right-[3%] top-0 flex w-[97%] min-w-0 flex-col border-2 border-[#5274a7] bg-white p-[clamp(22px,1.8vw,32px)]" data-neural-insight-card="">
+                                <div className="flex items-center gap-3">
+                                    <span className="size-[clamp(8px,0.62vw,11px)] shrink-0 border border-[#1853b4] bg-[#246ae5]" />
+                                    <h3 className="text-[clamp(15px,1.1vw,20px)] font-extrabold uppercase leading-none text-[#686868]">
+                                        {t("System Insight")}
+                                    </h3>
+                                </div>
+
+                                <p className="mt-[clamp(22px,2vw,36px)] text-[clamp(14px,1vw,18px)] font-bold leading-[1.5] text-[#969696]">
+                                    {t("Strategy, design and engineering work as one connected system around your product goals.")}
+                                </p>
+
+                                <button
+                                    type="button"
+                                    onClick={() => onDeepAnalysis?.(activeNode)}
+                                    className="mt-auto flex min-h-[clamp(46px,3vw,54px)] w-full items-center justify-center bg-black px-5 py-3 text-[clamp(14px,1vw,18px)] font-extrabold uppercase leading-none text-white transition-colors hover:bg-[#246ae5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#246ae5]"
+                                >
+                                    {t("Explore Capability")}
+                                </button>
+                            </div>
+                        </aside>
+                    </div>
 
                     <div
                         className="relative z-10 mt-10 grid grid-cols-2 items-start gap-8 md:mt-12 md:flex md:flex-wrap md:gap-10"

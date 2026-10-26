@@ -979,19 +979,33 @@
     [data-cinematic-scene="neural"]
     [data-neural-layer] {
         container-type: inline-size;
-        width: min(
-                100%,
+        --neural-composition-width: min(
+                100cqw,
                 calc((100svh - var(--cinematic-compact-header-offset) - 1rem) * 1.449),
                 var(--site-container-max)
         );
+        display: grid;
+        justify-items: center;
+        width: 100%;
         max-inline-size: 100%;
         min-height: 0;
-        aspect-ratio: 1814 / 1252;
+        aspect-ratio: auto;
         padding: 0;
         overflow: visible;
         contain: layout style;
         backface-visibility: hidden;
         transform: translateZ(0);
+    }
+
+    /* Center the existing coordinate system independently of the left-aligned text. */
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-neural-composition] {
+        position: relative;
+        display: block;
+        container-type: inline-size;
+        width: var(--neural-composition-width);
+        max-width: 100%;
+        min-height: 0;
+        aspect-ratio: 1814 / 1252;
     }
 
     .cinematic-stage[data-cinematic-mode="desktop"] [data-neural-header],
@@ -1008,13 +1022,13 @@
 
     .cinematic-stage[data-cinematic-mode="desktop"] [data-neural-header] {
         top: 1%;
-        left: 1.2%;
-        width: 55%;
+        left: 0;
+        width: calc(var(--neural-composition-width) * 0.55);
     }
 
     .cinematic-stage[data-cinematic-mode="desktop"] [data-neural-header] h2 {
-        margin-top: clamp(10px, 1.2cqw, 20px);
-        font-size: clamp(4rem, 7.15cqw, 8rem);
+        margin-top: clamp(10px, calc(var(--neural-composition-width) * 0.012), 20px);
+        font-size: clamp(4rem, calc(var(--neural-composition-width) * 0.0715), 8rem);
     }
 
     .cinematic-stage[data-cinematic-mode="desktop"] [data-neural-core] {
@@ -1117,7 +1131,7 @@
 
     .cinematic-stage[data-cinematic-mode="desktop"] [data-neural-stats] {
         bottom: 3.5%;
-        left: 1.25%;
+        left: 0;
     }
 
     .cinematic-stage[data-cinematic-mode="desktop"] [data-neural-network] {
@@ -1203,11 +1217,17 @@
     .cinematic-stage[data-cinematic-mode="desktop"]
     [data-cinematic-scene="neural"]
     [data-neural-layer] {
+        --neural-composition-width: 100cqw;
         width: 100%;
         height: min(
                 calc(100svh - var(--cinematic-compact-header-offset) - clamp(3rem, 6svh, 6rem)),
                 1100px
         );
+        aspect-ratio: auto;
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-neural-composition] {
+        height: 100%;
         aspect-ratio: auto;
     }
 

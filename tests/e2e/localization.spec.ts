@@ -5,7 +5,7 @@ import { projects } from "../../content/projects";
 import { services } from "../../content/services";
 
 test("redirects root and legacy public routes without duplicating English pages", async ({ request }) => {
-    for (const path of ["/", "/services", "/services/business-website", "/projects", "/projects/nexus-finance", "/contact"]) {
+    for (const path of ["/", "/services", "/services/business-website", "/projects", "/projects/moneta-finance-analytics", "/contact"]) {
         const response = await request.get(`${path}?source=legacy`, { maxRedirects: 0 });
         expect(response.status()).toBe(308);
         expect(new URL(response.headers().location, "http://localhost:3100").pathname).toBe(path === "/" ? "/en" : `/en${path}`);
@@ -14,7 +14,7 @@ test("redirects root and legacy public routes without duplicating English pages"
 });
 
 test("rejects unknown locales and keeps APIs outside locale routes", async ({ request }) => {
-    for (const path of ["/fr", "/fr/services", "/fr/projects/nexus-finance", "/de/api/leads", "/en/api/terminal"]) {
+    for (const path of ["/fr", "/fr/services", "/fr/projects/moneta-finance-analytics", "/de/api/leads", "/en/api/terminal"]) {
         const response = await request.get(path);
         expect(response.status()).toBe(404);
         expect(await response.text()).not.toContain('id="hero-title"');
@@ -29,7 +29,7 @@ for (const locale of siteLocales) {
     const copy = getDictionary(locale);
     test.describe(locale, () => {
         test("server HTML, content, metadata and sitemap are localized", async ({ request, page }) => {
-            for (const path of ["", "/services", "/services/business-website", "/projects", "/projects/nexus-finance", "/contact"]) {
+            for (const path of ["", "/services", "/services/business-website", "/projects", "/projects/moneta-finance-analytics", "/contact"]) {
                 const response = await request.get(`/${locale}${path}`);
                 expect(response.status()).toBe(200);
                 const html = await response.text();
@@ -47,7 +47,7 @@ for (const locale of siteLocales) {
         });
 
         test("switches equivalent routes and preserves query and hash", async ({ page }, testInfo) => {
-            for (const path of ["", "/services", "/services/business-website", "/projects/nexus-finance", "/contact"]) {
+            for (const path of ["", "/services", "/services/business-website", "/projects/moneta-finance-analytics", "/contact"]) {
                 await page.goto(`/${locale}${path}?source=switch#main-content`);
                 if (testInfo.project.name === "chromium-mobile") {
                     await page.locator('header[data-site-header] button[aria-controls="pixardia-mobile-menu"]').click();
@@ -69,8 +69,8 @@ for (const locale of siteLocales) {
             await page.goto(`/${locale}/services/business-website`);
             await expect(page.locator("#service-page-title")).toHaveText(services[0].title[locale]);
             await expect(page.locator("main")).toContainText(services[0].description[locale]);
-            const project = projects.find(p => p.slug === "nexus-finance")!;
-            await page.goto(`/${locale}/projects/nexus-finance`);
+            const project = projects.find(p => p.slug === "moneta-finance-analytics")!;
+            await page.goto(`/${locale}/projects/moneta-finance-analytics`);
             await expect(page.getByRole("dialog")).toHaveCount(0);
             await expect(page.locator("#project-page-summary")).toHaveText(project.caseStudy.subtitle[locale]);
             await expect(page.locator("main")).toContainText(project.challenge[locale]);
@@ -79,13 +79,13 @@ for (const locale of siteLocales) {
 
         test("preserves modal history, focus and gallery reset", async ({ page }) => {
             await page.goto(`/${locale}`);
-            const trigger = page.locator('#project-modal-trigger-nexus-finance');
+            const trigger = page.locator('#project-modal-trigger-moneta-finance-analytics');
             await trigger.scrollIntoViewIfNeeded();
             await trigger.click();
-            await expect(page).toHaveURL(`http://localhost:3100/${locale}/projects/nexus-finance`);
+            await expect(page).toHaveURL(`http://localhost:3100/${locale}/projects/moneta-finance-analytics`);
             const dialog = page.getByRole("dialog");
             await expect(dialog).toBeVisible();
-            await expect(dialog).toContainText(projects.find(p => p.slug === "nexus-finance")!.summary[locale]);
+            await expect(dialog).toContainText(projects.find(p => p.slug === "moneta-finance-analytics")!.summary[locale]);
             const gallery = dialog.locator("[data-project-gallery]");
             await expect(gallery).toHaveAttribute("data-gallery-index", "0");
             await dialog.getByRole("button", { name: copy.ui["Show next project image"] }).click();

@@ -1,5 +1,6 @@
 1:"$Sreact.fragment"
-2:I[83925,["/_next/static/chunks/149jqut7u14bg.js","/_next/static/chunks/0z~qglkhn5it5.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[null,null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"N7Smwktkr-AWhOtBJ8Aud"}
-4:null
+2:I[7245,["7245","static/chunks/7245-b375ee8b48618eb9.js","9492","static/chunks/app/_not-found/page-37be439c13a1c4b9.js"],""]
+3:I[4793,[],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","html",null,{"lang":"en","children":["$","body",null,{"children":["$","main",null,{"className":"container-custom py-16","children":[["$","h1",null,{"children":"404 — Page not found"}],["$","p",null,{"lang":"de","children":"Seite nicht gefunden"}],["$","nav",null,{"aria-label":"Choose language / Sprache wählen","children":[["$","$L2",null,{"href":"/en","lang":"en","children":"English — Pixardia"}]," / ",["$","$L2",null,{"href":"/de","lang":"de","children":"Deutsch — Pixardia"}]]}]]}]}]}],null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"Z_fF5_LATKJ6JBKEF_HIM"}
+5:null

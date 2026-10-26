@@ -98,7 +98,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/de/projects/coreflow-ai-workspace": {
+    "/de/projects/moneta-finance-analytics": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -112,31 +112,7 @@
       ],
       "initialRevalidateSeconds": false,
       "srcRoute": "/[locale]/projects/[slug]",
-      "dataRoute": "/de/projects/coreflow-ai-workspace.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/de/projects/nexus-finance": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/[locale]/projects/[slug]",
-      "dataRoute": "/de/projects/nexus-finance.rsc",
+      "dataRoute": "/de/projects/moneta-finance-analytics.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -185,6 +161,30 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/[locale]/projects/[slug]",
       "dataRoute": "/de/projects/pixardia-digital-studio.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/de/projects/synapse-ai-workspace": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/[locale]/projects/[slug]",
+      "dataRoute": "/de/projects/synapse-ai-workspace.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -458,7 +458,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/en/projects/coreflow-ai-workspace": {
+    "/en/projects/moneta-finance-analytics": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -472,31 +472,7 @@
       ],
       "initialRevalidateSeconds": false,
       "srcRoute": "/[locale]/projects/[slug]",
-      "dataRoute": "/en/projects/coreflow-ai-workspace.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/en/projects/nexus-finance": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/[locale]/projects/[slug]",
-      "dataRoute": "/en/projects/nexus-finance.rsc",
+      "dataRoute": "/en/projects/moneta-finance-analytics.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -545,6 +521,30 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/[locale]/projects/[slug]",
       "dataRoute": "/en/projects/pixardia-digital-studio.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/en/projects/synapse-ai-workspace": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/[locale]/projects/[slug]",
+      "dataRoute": "/en/projects/synapse-ai-workspace.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -799,6 +799,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/mobile-preview": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/mobile-preview",
+      "dataRoute": "/mobile-preview.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/robots.txt": {
       "initialHeaders": {
         "cache-control": "public, max-age=0, must-revalidate",
@@ -1002,8 +1026,8 @@
   },
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "abcc3a8781b7d63183d0fd01972daf39",
-    "previewModeSigningKey": "4b1e34d49d1911cf3d4299db8a33cddceb46f0e7bee2d57b8c0391ff560fa553",
-    "previewModeEncryptionKey": "d59c2e132453b105100c6996bf8482c2fe9abe523697a9cc35069b6a63e68782"
+    "previewModeId": "f45dbb59115254f2b000d1d0bf85a05f",
+    "previewModeSigningKey": "4f3ac04d589fab910d4aa84e8ec9cd91acd7dca547d5f58b58292eee22cf7030",
+    "previewModeEncryptionKey": "56363b0961ac1beb7e42ce0ba8c81df1b687e5c71fb6951285a52fc7ff181989"
   }
 }

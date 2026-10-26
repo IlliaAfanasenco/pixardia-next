@@ -1,0 +1,81 @@
+.visual {
+    position: relative;
+    flex: 0 1 auto;
+    min-width: 0;
+    transform-origin: center bottom;
+}
+
+.contactGlow {
+    position: absolute;
+    z-index: 1;
+    left: 52%;
+    top: 58%;
+    width: 16%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    translate: -50% -50%;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(circle, rgb(88 72 255 / 20%), rgb(88 72 255 / 8%) 35%, transparent 72%);
+}
+
+/* The pin origin includes the Header's flow slot. Only Hero reserves that slot
+   internally, so the other cinematic scenes retain their viewport geometry. */
+.pinShell {
+    margin-block-start: calc(-1 * var(--hero-header-flow));
+    overflow-anchor: none;
+}
+
+.pinShell :global([data-cinematic-element="hero-character"]) {
+    /* The existing zero-inset clip would crop the new visual-only zoom. */
+    clip-path: none !important;
+}
+
+.pinShell :global(.cinematic-stage[data-cinematic-mode="desktop"] > [data-cinematic-scene="hero"]) {
+    block-size: 100svh;
+    min-block-size: 100svh;
+    min-height: 100svh;
+    padding-block-start: var(--hero-header-clearance);
+}
+
+.flowScene {
+    /* ScrollTrigger caches pin dimensions inline. Keep responsive padding live
+       so layoutTop(canvas) continues to track the Header's original flow slot. */
+    height: auto !important;
+    max-height: none !important;
+    padding-block-start: calc(var(--hero-header-flow) + 1rem) !important;
+    margin-block-end: var(--hero-header-delta);
+    /* The compensated content occupies the spacer's reserved Header delta. */
+    overflow: visible;
+}
+
+.flowScene > :global([data-cinematic-layer]) {
+    translate: 0 var(--hero-header-delta);
+}
+
+.flowScene :global(.hero-orbital-field) {
+    /* The tablet orbit may extend into the gutter, but never past the viewport. */
+    max-width: calc(100% + 2 * var(--site-container-gutter));
+}
+
+@media (min-width: 640px) {
+    .flowScene { padding-block-start: calc(var(--hero-header-flow) + 1.5rem) !important; }
+}
+
+@media (min-width: 1024px) {
+    .flowScene { padding-block-start: calc(var(--hero-header-flow) + 2rem) !important; }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+    /* Retain the existing tablet.css composition. */
+    .flowScene { padding-block-start: calc(var(--hero-header-flow) + 36px) !important; }
+}
+
+/* Preserve the existing illustration sizing and tablet grid tracks. */
+@media (max-width: 1279px) {
+    .visual { width: 100%; }
+}
+
+@media (min-width: 1600px) and (min-height: 900px) and (hover: hover) and (pointer: fine) {
+    :global(.cinematic-stage[data-cinematic-mode="desktop"]) .visual { width: 100%; }
+}

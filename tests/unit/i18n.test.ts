@@ -26,10 +26,10 @@ describe("locale contracts", () => {
         expect(paths(getDictionary("de"))).toEqual(paths(getDictionary("en")));
         for (const copy of Object.values(getDictionary("de").ui)) expect(copy.trim()).not.toBe("");
         expect(getDictionary("de").contact.intro).not.toBe(getDictionary("en").contact.intro);
-        expect(translator("de")("Open {title} case study", { title: "Nexus Finance" })).toBe("Projekt Nexus Finance ansehen");
+        expect(translator("de")("Open {title} case study", { title: "Moneta" })).toBe("Projekt Moneta ansehen");
     });
 
-    it.each(["/", "/services", "/services/business-website", "/projects", "/projects/nexus-finance", "/contact"])("preserves the equivalent route for %s", (path) => {
+    it.each(["/", "/services", "/services/business-website", "/projects", "/projects/moneta-finance-analytics", "/contact"])("preserves the equivalent route for %s", (path) => {
         expect(switchLocale(localePath("en", path), "de")).toBe(localePath("de", path));
         expect(switchLocale(`${localePath("de", path)}?source=test#hero`, "en")).toBe(`${localePath("en", path)}?source=test#hero`);
     });

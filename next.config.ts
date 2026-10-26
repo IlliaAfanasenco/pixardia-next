@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+    allowedDevOrigins: ['192.168.0.201'],
     distDir:
         process.env.PLAYWRIGHT_E2E === "1"
             ? ".next-playwright"

@@ -105,6 +105,9 @@ self.__SERVER_FILES_MANIFEST={
       }
     },
     "outputFileTracingRoot": "/Users/iliaafanasenco/Documents/IT/pixardia",
+    "allowedDevOrigins": [
+      "192.168.0.201"
+    ],
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -340,6 +343,8 @@ self.__SERVER_FILES_MANIFEST={
     ".next-playwright/server/functions-config-manifest.json",
     ".next-playwright/server/middleware-manifest.json",
     ".next-playwright/server/middleware-build-manifest.js",
+    ".next-playwright/server/middleware-react-loadable-manifest.js",
+    ".next-playwright/react-loadable-manifest.json",
     ".next-playwright/server/app-paths-manifest.json",
     ".next-playwright/app-path-routes-manifest.json",
     ".next-playwright/server/server-reference-manifest.js",

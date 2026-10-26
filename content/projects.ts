@@ -1,6 +1,7 @@
 import {
     type LocalizedText,
     type Project,
+    type ProjectClassification,
     type ProjectStatus,
     type ProjectType,
     type ServiceCode,
@@ -50,6 +51,17 @@ export const projectStatusLabels = {
     ),
 } satisfies Record<ProjectStatus, LocalizedText>;
 
+export const projectClassificationLabels = {
+    real_project: text(
+        "Real Project",
+        "Realisiertes Projekt",
+    ),
+    studio_concept: text(
+        "Studio Concept",
+        "Studio-Konzept",
+    ),
+} satisfies Record<ProjectClassification, LocalizedText>;
+
 export const projects = [
     {
         slug: "pixardia-digital-studio",
@@ -57,19 +69,19 @@ export const projects = [
         type: "internal",
         status: "in_progress",
         summary: text(
-            "A custom digital experience presenting complex services through bold visual storytelling and a clear path to project enquiry.",
+            "An AI-augmented digital studio website presenting web and software services through interactive storytelling and a clear project enquiry path.",
             "Eine mehrsprachige Portfolio- und Leadgenerierungsplattform für ein modernes Digitalstudio.",
         ),
         description: text(
-            "Pixardia is a full-cycle digital studio platform that connects service positioning, selected work, project consultation and qualified lead intake in one coherent experience.",
+            "Pixardia is the studio's own platform: an interactive site that shows how it designs and builds, from a scroll-driven hero and a connected capability map to a project archive and a structured enquiry form.",
             "Pixardia präsentiert die Dienstleistungen, technischen Kompetenzen und ausgewählte Arbeiten des Studios durch ein klares visuelles System, mehrsprachige Inhalte und praktische Möglichkeiten für Projektanfragen.",
         ),
         challenge: text(
-            "A broad range of strategy, design, engineering and automation capabilities needed to feel connected, credible and easy to navigate without reducing the studio to a generic service list.",
+            "Present a wide range of services credibly without a generic agency template: distinctive, motion-rich storytelling that still stays readable, fast to navigate and usable on phones and tablets.",
             "Der ursprüngliche Prototyp hatte eine starke visuelle Richtung, enthielt jedoch unverbundene Bereiche, Platzhalterinhalte, inkonsistente Servicedaten sowie unfertige Kontakt- und KI-Funktionen.",
         ),
         solution: text(
-            "The platform combines a structured service system, distinctive visual storytelling, accessible interaction, production-ready lead processing and an AI-assisted project consultation flow.",
+            "A typed content model, an original character-led visual system, dedicated desktop, tablet and mobile treatments, reduced-motion handling and a validated server-side enquiry flow.",
             "Die Plattform wird auf Basis eines einheitlichen Inhaltsmodells, einer produktionsreifen Lead-Verarbeitung, barrierearmer Oberflächen, mehrsprachiger SEO und eines KI-gestützten Beratungsablaufs neu aufgebaut.",
         ),
         serviceCodes: [
@@ -90,35 +102,7 @@ export const projects = [
         ],
         year: 2026,
         coverImage: null,
-        images: [
-            {
-                src: "/images/product11.PNG",
-                alt: text(
-                    "Pixardia astronaut and alien visual composition",
-                    "Pixardia-Bildkomposition mit Astronaut und Alien",
-                ),
-                width: 494,
-                height: 318,
-            },
-            {
-                src: "/images/product12.PNG",
-                alt: text(
-                    "Pixardia technical terminal interface background",
-                    "Technischer Terminal-Hintergrund von Pixardia",
-                ),
-                width: 547,
-                height: 662,
-            },
-            {
-                src: "/images/product13.PNG",
-                alt: text(
-                    "Pixardia extraterrestrial character artwork",
-                    "Pixardia-Figurengrafik eines Außerirdischen",
-                ),
-                width: 1024,
-                height: 1024,
-            },
-        ],
+        images: [],
         liveUrl: null,
         repositoryUrl: null,
         featured: true,
@@ -126,8 +110,12 @@ export const projects = [
         caseStudy: {
             identifier: "PX-2026-001",
             subtitle: text(
-                "A full-cycle studio platform built around clear capabilities, reliable project intake and an AI-assisted consultation flow.",
-                "Eine produktionsorientierte Studio-Plattform mit klaren Dienstleistungen, zuverlässiger Lead-Erfassung und einem KI-gestützten Beratungsablauf.",
+                "A digital studio, built as its own best case.",
+                "Ein Digitalstudio – als eigener bester Fall gebaut.",
+            ),
+            category: text(
+                "Digital Studio Platform",
+                "Digitalstudio-Plattform",
             ),
             role: text(
                 "Product strategy, UX architecture, frontend, backend and platform hardening.",
@@ -135,11 +123,11 @@ export const projects = [
             ),
             client: null,
             engagement: text(
-                "Pixardia studio platform",
-                "Internes Studioprodukt",
+                "Studio-owned platform",
+                "Studio-eigene Plattform",
             ),
             architecture: text(
-                "A Next.js App Router application with typed content, server-side API routes, PostgreSQL and Prisma lead handling, and optional Redis-backed rate limiting.",
+                "A Next.js App Router application with typed content, GSAP and Lenis driven scroll scenes, server-side API routes, PostgreSQL and Prisma lead handling, and optional Redis-backed rate limiting.",
                 "Eine Next.js-App-Router-Anwendung mit typisierten Inhalten, serverseitigen API-Routen, Lead-Verarbeitung mit PostgreSQL und Prisma sowie optionalem Redis-basiertem Rate Limiting.",
             ),
             facts: [
@@ -149,8 +137,8 @@ export const projects = [
                         "Projektphase",
                     ),
                     value: text(
-                        "Production delivery",
-                        "Produktionshärtung",
+                        "Active development",
+                        "In aktiver Entwicklung",
                     ),
                 },
                 {
@@ -174,6 +162,131 @@ export const projects = [
                     ),
                 },
             ],
+            gallery: [
+                {
+                    media: {
+                        src: "/images/projects/pixardia/16x9/01-hero-experience.webp",
+                        alt: text(
+                            "Pixardia hero with the Digital Agency headline, astronaut and alien characters on laptop and mobile screens",
+                            "Pixardia-Hero mit der Headline Digital Agency sowie Astronaut und Alien auf Laptop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Hero experience", "Hero-Erlebnis"),
+                    description: text(
+                        "Editorial typography, the astronaut and alien characters and a scroll-driven hero scene, with a dedicated mobile composition.",
+                        "Editoriale Typografie, Astronaut- und Alien-Figuren und eine scrollgesteuerte Hero-Szene mit eigener Mobile-Komposition.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/pixardia/16x9/02-neural-system.webp",
+                        alt: text(
+                            "Pixardia neural system interface connecting strategy, UX, engineering and security capabilities around a central core",
+                            "Pixardia-Neural-System-Oberfläche, die Strategie, UX, Engineering und Security um einen zentralen Kern verbindet",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Neural system", "Neural System"),
+                    description: text(
+                        "Studio capabilities shown as one connected system: strategy, UI/UX, engineering and security around a central node, driven by motion.",
+                        "Studio-Kompetenzen als vernetztes System: Strategie, UI/UX, Engineering und Security um einen zentralen Knoten, bewegungsgesteuert.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/pixardia/16x9/03-project-archive.webp",
+                        alt: text(
+                            "Pixardia project archive with technical schematic previews and an open case-study view with a gallery",
+                            "Pixardia-Projektarchiv mit technischen Schema-Vorschauen und geöffneter Fallstudie mit Galerie",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Project archive", "Projektarchiv"),
+                    description: text(
+                        "Schematic card previews for each project, opening into an interactive case study with a gallery and structured project data.",
+                        "Schematische Kartenvorschauen je Projekt, die sich zu einer interaktiven Fallstudie mit Galerie und strukturierten Projektdaten öffnen.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/pixardia/16x9/04-responsive-experience.webp",
+                        alt: text(
+                            "Pixardia interface shown on a laptop, a tablet and a phone",
+                            "Pixardia-Oberfläche auf Laptop, Tablet und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Responsive experience", "Responsive Erlebnis"),
+                    description: text(
+                        "Separate desktop, tablet and mobile treatments rather than one scaled layout, with motion adapted per device class.",
+                        "Getrennte Desktop-, Tablet- und Mobile-Umsetzungen statt eines skalierten Layouts, mit je Gerät angepasster Bewegung.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/pixardia/16x9/05-project-enquiry.webp",
+                        alt: text(
+                            "Pixardia contact page with a project enquiry form showing name, email, project type and project details",
+                            "Pixardia-Kontaktseite mit Projektanfrage-Formular für Name, E-Mail, Projekttyp und Projektdetails",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Project enquiry", "Projektanfrage"),
+                    description: text(
+                        "A structured enquiry form: name, email, project type and details with a privacy consent, posted to a validated server-side lead endpoint.",
+                        "Strukturiertes Anfrageformular: Name, E-Mail, Projekttyp und Details mit Datenschutz-Einwilligung, gesendet an einen validierten Server-Endpunkt.",
+                    ),
+                },
+            ],
+            featureGroups: [
+                {
+                    label: text("Experience", "Erlebnis"),
+                    items: [
+                        text("Scroll-driven hero scene", "Scrollgesteuerte Hero-Szene"),
+                        text("Frame-sequence animation", "Frame-Sequenz-Animation"),
+                        text("Neural system visualisation", "Neural-System-Visualisierung"),
+                        text("Technical project archive", "Technisches Projektarchiv"),
+                        text("Interactive case studies", "Interaktive Fallstudien"),
+                        text("EN / DE localisation", "Lokalisierung EN / DE"),
+                    ],
+                },
+                {
+                    label: text("Engineering", "Engineering"),
+                    items: [
+                        text("Dedicated mobile & tablet views", "Eigene Mobile- & Tablet-Ansichten"),
+                        text("Reduced-motion handling", "Berücksichtigung von Reduced Motion"),
+                        text("Typed content model", "Typisiertes Inhaltsmodell"),
+                        text("Validated project enquiry API", "Validierte Projektanfrage-API"),
+                        text("Optional Redis rate limiting", "Optionales Redis-Rate-Limiting"),
+                        text("AI-assisted terminal (DeepSeek)", "KI-gestütztes Terminal (DeepSeek)"),
+                    ],
+                },
+            ],
+            scope: [
+                text("Brand & visual identity", "Marke & visuelle Identität"),
+                text("UX architecture & storytelling", "UX-Architektur & Storytelling"),
+                text("Scroll & motion engineering", "Scroll- & Motion-Engineering"),
+                text("Desktop, tablet & mobile", "Desktop, Tablet & Mobile"),
+                text("Lead intake & API", "Lead-Erfassung & API"),
+                text("EN / DE content", "Inhalte EN / DE"),
+            ],
+            capabilitiesNote: text(
+                "A real, actively developed studio project — not a client engagement. Features listed are in the current code; no traffic or business results are claimed.",
+                "Ein reales, aktiv weiterentwickeltes Studioprojekt – kein Kundenauftrag. Aufgeführte Funktionen sind im aktuellen Code enthalten; keine Reichweiten- oder Geschäftsergebnisse behauptet.",
+            ),
+            commercialCta: {
+                label: text(
+                    "Build something similar ↗",
+                    "Ähnliches Projekt starten ↗",
+                ),
+                href: "/contact?project=pixardia-digital-studio",
+            },
             technologyGroups: [
                 {
                     label: text(
@@ -227,41 +340,6 @@ export const projects = [
                 typeface:
                     "REM / Archivo / system sans",
             },
-            qualitySignals: [
-                {
-                    label: text(
-                        "Build verification",
-                        "Build-Verifizierung",
-                    ),
-                    value: text(
-                        "Verified locally",
-                        "Lokal verifiziert",
-                    ),
-                    evidence: "verified",
-                },
-                {
-                    label: text(
-                        "API runtime checks",
-                        "API-Laufzeitprüfungen",
-                    ),
-                    value: text(
-                        "Verified locally",
-                        "Lokal verifiziert",
-                    ),
-                    evidence: "verified",
-                },
-                {
-                    label: text(
-                        "Production telemetry",
-                        "Produktions-Telemetrie",
-                    ),
-                    value: text(
-                        "Pending deployment",
-                        "Ausstehend bis zur Bereitstellung",
-                    ),
-                    evidence: "not_measured",
-                },
-            ],
             presentation: {
                 desktopDirection: "left",
                 centerLabel: text(
@@ -272,30 +350,29 @@ export const projects = [
         },
     },
     {
-        slug: "nexus-finance",
-        title: "Nexus Finance",
+        slug: "moneta-finance-analytics",
+        title: "Moneta",
         type: "concept",
-        status: "in_progress",
+        status: "planned",
         summary: text(
-            "A structured finance platform connecting account activity, transaction control and clear operational analytics.",
-            "Eine Finanzmanagement-Plattform mit Kontoanalysen, Transaktionsüberwachung und verständlicher Datenvisualisierung.",
+            "A premium finance platform connecting accounts, transactions, payments and analytics in one clear workspace.",
+            "Eine Premium-Finanzplattform, die Konten, Transaktionen, Zahlungen und Analysen in einem klaren Arbeitsbereich verbindet.",
         ),
         description: text(
-            "Nexus Finance turns interconnected financial data into a focused workspace for balances, transactions, budgets and account activity across desktop and mobile.",
-            "Nexus Finance zeigt, wie ein komplexes Finanzprodukt auf Desktop- und Mobilgeräten strukturiert, verständlich und einfach bedienbar bleiben kann.",
+            "A studio concept for a finance and analytics SaaS: one product for everyday account management, payments, spending insight and operational oversight across desktop and mobile.",
+            "Studio-Konzept für eine Finanz- und Analyse-SaaS: ein Produkt für Kontoverwaltung, Zahlungen, Ausgabenanalyse und operative Übersicht auf Desktop und Mobilgerät.",
         ),
         challenge: text(
-            "Financial platforms often display large amounts of sensitive and interconnected data, which can make everyday actions difficult to understand and increase the risk of user mistakes.",
-            "Finanzplattformen zeigen häufig große Mengen sensibler und miteinander verbundener Daten, wodurch alltägliche Aktionen schwer verständlich werden und das Risiko von Bedienfehlern steigt.",
+            "Finance tools bury balances, payments and reports in separate screens, so users lose context, misread figures and hesitate before moving money.",
+            "Finanz-Tools verteilen Kontostände, Zahlungen und Berichte auf getrennte Ansichten – Nutzer verlieren den Überblick, deuten Zahlen falsch und zögern bei Überweisungen.",
         ),
         solution: text(
-            "The interface separates essential actions from secondary analytics, uses consistent visual hierarchy and provides focused views for balances, transactions, budgets and account activity.",
-            "Die Benutzeroberfläche trennt wichtige Aktionen von ergänzenden Analysen, nutzt eine konsistente visuelle Hierarchie und bietet fokussierte Ansichten für Kontostände, Transaktionen, Budgets und Kontoaktivitäten.",
+            "One calm interface: a financial overview, per-account detail, a guided payment flow, spending insights and an operations view, all built on the same data model and visual hierarchy.",
+            "Eine ruhige Oberfläche: Finanzübersicht, Kontodetails, geführter Zahlungsablauf, Ausgabenanalyse und Operations-Ansicht – auf demselben Datenmodell und derselben visuellen Hierarchie.",
         ),
         serviceCodes: [
             "WEB_APPLICATION",
             "UI_UX_DESIGN",
-            "AI_AUTOMATION",
         ],
         technologies: [
             "Next.js",
@@ -308,57 +385,34 @@ export const projects = [
         ],
         year: 2026,
         coverImage: null,
-        images: [
-            {
-                src: "/images/product11.PNG",
-                alt: text(
-                    "Pixardia astronaut and alien visual composition",
-                    "Pixardia-Bildkomposition mit Astronaut und Alien",
-                ),
-                width: 494,
-                height: 318,
-            },
-            {
-                src: "/images/product12.PNG",
-                alt: text(
-                    "Pixardia technical terminal interface background",
-                    "Technischer Terminal-Hintergrund von Pixardia",
-                ),
-                width: 547,
-                height: 662,
-            },
-            {
-                src: "/images/product13.PNG",
-                alt: text(
-                    "Pixardia extraterrestrial character artwork",
-                    "Pixardia-Figurengrafik eines Außerirdischen",
-                ),
-                width: 1024,
-                height: 1024,
-            },
-        ],
+        images: [],
         liveUrl: null,
         repositoryUrl: null,
         featured: true,
         order: 2,
         caseStudy: {
-            identifier: "NX-2026-002",
+            identifier: "MN-2026-002",
             subtitle: text(
-                "A structured finance workspace that makes balances, transactions and operational analytics easier to understand and control.",
-                "Ein strukturierter Finanzarbeitsbereich, der Kontostände, Transaktionen und Analysen leichter verständlich macht.",
+                "Finance, made legible.",
+                "Finanzen, klar dargestellt.",
             ),
+            category: text(
+                "Finance & Analytics Platform",
+                "Finanz- & Analyseplattform",
+            ),
+            classification: "studio_concept",
             role: text(
-                "Product strategy, UX architecture and interface system.",
-                "Produktkonzept, UX-Architektur und Interface-System.",
+                "Product strategy, UX architecture, data-visualisation design and interface system.",
+                "Produktstrategie, UX-Architektur, Datenvisualisierung und Interface-System.",
             ),
             client: null,
             engagement: text(
-                "Digital finance product",
-                "Unabhängige Konzeptstudie",
+                "Self-initiated studio concept",
+                "Eigeninitiiertes Studio-Konzept",
             ),
             architecture: text(
-                "A modular finance dashboard that separates account data, transaction workflows, budgets and analytical views into focused product areas.",
-                "Ein modulares Finanz-Dashboard-Konzept, das Kontodaten, Transaktionsabläufe, Budgets und analytische Ansichten in klar abgegrenzte Produktbereiche aufteilt.",
+                "A planned modular finance application separating accounts, transactions, payments, analytics and operations into focused areas on one shared data layer.",
+                "Eine geplante modulare Finanzanwendung, die Konten, Transaktionen, Zahlungen, Analysen und Operations in klar getrennte Bereiche auf einer gemeinsamen Datenschicht gliedert.",
             ),
             facts: [
                 {
@@ -367,8 +421,8 @@ export const projects = [
                         "Produktphase",
                     ),
                     value: text(
-                        "Product architecture",
-                        "Konzeptentwicklung",
+                        "Platform definition",
+                        "Geplantes Konzept",
                     ),
                 },
                 {
@@ -377,8 +431,8 @@ export const projects = [
                         "Bereich",
                     ),
                     value: text(
-                        "Finance management",
-                        "Finanzmanagement",
+                        "Finance & analytics SaaS",
+                        "Finanz- & Analyse-SaaS",
                     ),
                 },
                 {
@@ -387,7 +441,7 @@ export const projects = [
                         "Nachweisstatus",
                     ),
                     value: text(
-                        "Delivery scope defined",
+                        "No client, no production deployment",
                         "Kein öffentlicher Kunde und keine Produktionsbereitstellung",
                     ),
                 },
@@ -417,6 +471,131 @@ export const projects = [
                     ],
                 },
             ],
+            gallery: [
+                {
+                    media: {
+                        src: "/images/projects/moneta/16x9/01-financial-overview.webp",
+                        alt: text(
+                            "Moneta financial overview concept with total balance, accounts and recent transactions on laptop and mobile screens",
+                            "Moneta-Konzept einer Finanzübersicht mit Gesamtsaldo, Konten und letzten Transaktionen auf Laptop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Financial overview", "Finanzübersicht"),
+                    description: text(
+                        "Total balance, a balance trend, monthly spending and recent transactions on one screen, with the same structure on mobile.",
+                        "Gesamtsaldo, Saldenverlauf, Monatsausgaben und letzte Transaktionen auf einem Screen – mit gleicher Struktur auf dem Smartphone.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/moneta/16x9/02-accounts.webp",
+                        alt: text(
+                            "Moneta accounts concept with account list, cash flow and recent activity on desktop and mobile",
+                            "Moneta-Kontenkonzept mit Kontoliste, Cashflow und letzter Aktivität auf Desktop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Accounts", "Konten"),
+                    description: text(
+                        "Checking, savings, investment and credit accounts with balances, cash-flow bars and an account-health summary beside recent activity.",
+                        "Giro-, Spar-, Anlage- und Kreditkonten mit Salden, Cashflow-Balken und Kontostatus neben der letzten Aktivität.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/moneta/16x9/03-payments.webp",
+                        alt: text(
+                            "Moneta payments concept with a send-money form, recipients and scheduled payments on desktop and mobile",
+                            "Moneta-Zahlungskonzept mit Überweisungsformular, Empfängern und geplanten Zahlungen auf Desktop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Payments", "Zahlungen"),
+                    description: text(
+                        "A guided send-money form: recipient, amount, source account and schedule in one view, with bills and scheduled payments alongside.",
+                        "Geführtes Überweisungsformular: Empfänger, Betrag, Quellkonto und Termin in einer Ansicht, daneben Rechnungen und geplante Zahlungen.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/moneta/16x9/04-spending-insights.webp",
+                        alt: text(
+                            "Moneta spending insights concept with category breakdown, monthly budgets and a spending trend on desktop and mobile",
+                            "Moneta-Konzept zur Ausgabenanalyse mit Kategorien, Monatsbudgets und Ausgabenverlauf auf Desktop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Spending insights", "Ausgabenanalyse"),
+                    description: text(
+                        "Category breakdown, spending trend, monthly budgets and savings goals, with suggestions framed as proposed guidance. All figures are illustrative.",
+                        "Kategorien, Ausgabenverlauf, Monatsbudgets und Sparziele mit Hinweisen als vorgeschlagene Orientierung. Alle Zahlen sind beispielhaft.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/moneta/16x9/05-operations-dashboard.webp",
+                        alt: text(
+                            "Moneta operations dashboard concept with transaction monitoring, flagged activity and support tickets on desktop and mobile",
+                            "Moneta-Operations-Dashboard-Konzept mit Transaktionsüberwachung, markierter Aktivität und Support-Tickets auf Desktop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Operations dashboard", "Operations-Dashboard"),
+                    description: text(
+                        "Transaction monitoring with status filters, flagged activity, support tickets and card controls for the team behind the product. Figures are illustrative.",
+                        "Transaktionsüberwachung mit Statusfiltern, markierter Aktivität, Support-Tickets und Kartenkontrollen für das Team hinter dem Produkt. Zahlen sind beispielhaft.",
+                    ),
+                },
+            ],
+            featureGroups: [
+                {
+                    label: text("Customer experience", "Kundenerlebnis"),
+                    items: [
+                        text("Balance & trend overview", "Saldo- & Verlaufsübersicht"),
+                        text("Multi-account management", "Verwaltung mehrerer Konten"),
+                        text("Transaction history & search", "Transaktionshistorie & Suche"),
+                        text("Guided send-money flow", "Geführter Überweisungsablauf"),
+                        text("Scheduled payments", "Geplante Zahlungen"),
+                        text("Budgets & savings goals", "Budgets & Sparziele"),
+                    ],
+                },
+                {
+                    label: text("Insight & operations", "Analyse & Betrieb"),
+                    items: [
+                        text("Spending by category", "Ausgaben nach Kategorie"),
+                        text("Cash-flow reporting", "Cashflow-Berichte"),
+                        text("Transaction monitoring", "Transaktionsüberwachung"),
+                        text("Flagged-activity review", "Prüfung markierter Aktivität"),
+                        text("Support ticket overview", "Support-Ticket-Übersicht"),
+                        text("Card controls", "Kartenkontrollen"),
+                    ],
+                },
+            ],
+            scope: [
+                text("UX architecture & flows", "UX-Architektur & Flows"),
+                text("Dashboard & account UI", "Dashboard- & Konten-UI"),
+                text("Payment flow", "Zahlungsablauf"),
+                text("Data-visualisation system", "Datenvisualisierungs-System"),
+                text("Responsive desktop & mobile", "Responsiv: Desktop & Mobile"),
+                text("Design tokens", "Design-Tokens"),
+            ],
+            capabilitiesNote: text(
+                "Studio concept — proposed features, not a live financial product. No integrations are implemented; all figures are illustrative.",
+                "Studio-Konzept – vorgeschlagene Funktionen, kein laufendes Finanzprodukt. Keine Integrationen umgesetzt; alle Zahlen sind beispielhaft.",
+            ),
+            commercialCta: {
+                label: text(
+                    "Build something similar ↗",
+                    "Ähnliches Projekt starten ↗",
+                ),
+                href: "/contact?project=moneta-finance-analytics",
+            },
             visualSystem: {
                 colors: [
                     {
@@ -424,61 +603,26 @@ export const projects = [
                             "Primary",
                             "Primärfarbe",
                         ),
-                        value: "#0B1020",
+                        value: "#123D2E",
                     },
                     {
                         label: text(
                             "Accent",
                             "Akzentfarbe",
                         ),
-                        value: "#6C63FF",
+                        value: "#3F9B6B",
                     },
                     {
                         label: text(
                             "Surface",
                             "Fläche",
                         ),
-                        value: "#F5F7FB",
+                        value: "#F6F5F1",
                     },
                 ],
                 typeface:
-                    "Inter Tight / JetBrains Mono",
+                    "Inter / system sans",
             },
-            qualitySignals: [
-                {
-                    label: text(
-                        "Performance evidence",
-                        "Performance-Nachweis",
-                    ),
-                    value: text(
-                        "Not measured",
-                        "Nicht gemessen",
-                    ),
-                    evidence: "not_measured",
-                },
-                {
-                    label: text(
-                        "Accessibility",
-                        "Barrierefreiheit",
-                    ),
-                    value: text(
-                        "Design target defined",
-                        "Designziel definiert",
-                    ),
-                    evidence: "target",
-                },
-                {
-                    label: text(
-                        "Responsive validation",
-                        "Responsive Validierung",
-                    ),
-                    value: text(
-                        "Implementation pending",
-                        "Implementierung ausstehend",
-                    ),
-                    evidence: "target",
-                },
-            ],
             presentation: {
                 desktopDirection: "right",
                 centerLabel: text(
@@ -498,16 +642,16 @@ export const projects = [
             "Eine moderne E-Commerce-Plattform mit einfacher Produktsuche und einem reibungslosen Einkaufserlebnis.",
         ),
         description: text(
-            "Nordmarkt Commerce gives a growing European brand one dependable system for product presentation, catalogue operations and customer purchasing journeys.",
-            "Nordmarkt Commerce ist als skalierbarer Onlineshop für eine wachsende europäische Marke konzipiert und verbindet Produktpräsentation, Katalogverwaltung und einen klaren Kaufprozess.",
+            "A studio concept for a premium sneaker brand: one platform that takes shoppers from first impression to order and gives the merchant one place for catalogue, orders and stock.",
+            "Studio-Konzept für eine Premium-Sneaker-Marke: eine Plattform vom ersten Eindruck bis zur Bestellung – und für den Händler ein Ort für Katalog, Bestellungen und Lager.",
         ),
         challenge: text(
-            "Large product catalogues can quickly become difficult to browse, especially when filtering, mobile navigation and checkout are treated as separate parts of the experience.",
-            "Große Produktkataloge können schnell unübersichtlich werden, insbesondere wenn Filterung, mobile Navigation und Checkout als getrennte Bestandteile betrachtet werden.",
+            "Template stores stop scaling: large catalogues get hard to browse, product pages hide sizing and delivery, and stock and orders live in separate tools.",
+            "Template-Shops stoßen an Grenzen: Große Kataloge werden unübersichtlich, Größen und Lieferinfos sind versteckt, Lager und Bestellungen liegen in getrennten Tools.",
         ),
         solution: text(
-            "The platform combines structured categories, fast search, useful filters, responsive product pages and a focused checkout flow within one consistent interface.",
-            "Die geplante Plattform verbindet strukturierte Kategorien, schnelle Suche, hilfreiche Filter, responsive Produktseiten und einen fokussierten Checkout in einer einheitlichen Benutzeroberfläche.",
+            "One design system from storefront to admin: structured filters, decision-ready product pages, a four-step checkout and a dashboard on the same data.",
+            "Ein Designsystem von der Storefront bis zur Verwaltung: klare Filter, entscheidungsreife Produktseiten, Checkout in vier Schritten und ein Dashboard auf denselben Daten.",
         ),
         serviceCodes: [
             "ECOMMERCE",
@@ -523,6 +667,8 @@ export const projects = [
             "Stripe",
         ],
         year: 2026,
+        // Archive thumbnails come from the designed system preview; the case-study
+        // gallery lives in caseStudy.gallery so it can change independently.
         coverImage: null,
         images: [],
         liveUrl: null,
@@ -532,17 +678,22 @@ export const projects = [
         caseStudy: {
             identifier: "NM-2026-003",
             subtitle: text(
-                "A commerce platform connecting product discovery, catalogue structure and checkout within one consistent experience.",
-                "Ein Commerce-Konzept, das Produktsuche, Katalogstruktur und Checkout in einem konsistenten Erlebnis verbindet.",
+                "Commerce, designed to convert.",
+                "Commerce, der zum Kauf führt.",
             ),
+            category: text(
+                "E-Commerce Platform",
+                "E-Commerce-Plattform",
+            ),
+            classification: "studio_concept",
             role: text(
-                "Commerce strategy, user-flow design and scalable interface architecture.",
-                "Commerce-Strategie, User-Flow-Design und skalierbare Interface-Architektur.",
+                "Commerce strategy, user-flow design and interface system.",
+                "Commerce-Strategie, User-Flow-Design und Interface-System.",
             ),
             client: null,
             engagement: text(
-                "Commerce product system",
-                "Unabhängiges Commerce-Konzept",
+                "Self-initiated studio concept",
+                "Eigeninitiiertes Studio-Konzept",
             ),
             architecture: text(
                 "A planned storefront architecture with structured catalogue data, search and filtering, responsive product pages and an isolated checkout flow.",
@@ -575,7 +726,7 @@ export const projects = [
                         "Nachweisstatus",
                     ),
                     value: text(
-                        "Delivery scope defined",
+                        "No client, no production deployment",
                         "Kein öffentlicher Kunde und keine Produktionsbereitstellung",
                     ),
                 },
@@ -604,6 +755,131 @@ export const projects = [
                     ],
                 },
             ],
+            gallery: [
+                {
+                    media: {
+                        src: "/images/projects/nordmarkt/16x9/01-storefront.webp",
+                        alt: text(
+                            "NORDMARKT storefront concept with a premium sneaker hero on laptop and mobile screens",
+                            "NORDMARKT-Storefront-Konzept mit einem Premium-Sneaker im Hero auf Laptop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Storefront", "Storefront"),
+                    description: text(
+                        "Editorial hero, product-first imagery and one clear call to action. Navigation, search and cart stay one tap away on every device.",
+                        "Editorialer Hero, produktzentrierte Bilder und ein klarer Call-to-Action. Navigation, Suche und Warenkorb bleiben auf jedem Gerät erreichbar.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/nordmarkt/16x9/02-catalogue.webp",
+                        alt: text(
+                            "NORDMARKT catalogue concept with sneaker product cards, categories and filters on desktop and mobile",
+                            "NORDMARKT-Katalogkonzept mit Sneaker-Produktkarten, Kategorien und Filtern auf Desktop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Product catalogue", "Produktkatalog"),
+                    description: text(
+                        "Categories with item counts, filters for size, colour and brand, plus sorting and a grid view. Cards show price and colourways at a glance.",
+                        "Kategorien mit Artikelzahl, Filter für Größe, Farbe und Marke plus Sortierung und Rasteransicht. Karten zeigen Preis und Farbvarianten.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/nordmarkt/16x9/03-product-detail.webp",
+                        alt: text(
+                            "NORDMARKT sneaker product detail concept with an image gallery, colour choices and size selection",
+                            "NORDMARKT-Konzept einer Sneaker-Produktseite mit Bildergalerie, Farbauswahl und Größenauswahl",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Product detail", "Produktdetail"),
+                    description: text(
+                        "Multi-angle gallery, colour variants and a size grid beside Add to cart. Shipping, returns, warranty and product details sit in the same view.",
+                        "Mehrere Ansichten, Farbvarianten und Größenraster direkt am Warenkorb. Versand, Rückgabe, Garantie und Produktdetails in derselben Ansicht.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/nordmarkt/16x9/04-checkout.webp",
+                        alt: text(
+                            "NORDMARKT checkout concept with shipping information and an order summary on desktop and mobile",
+                            "NORDMARKT-Checkout-Konzept mit Versandinformationen und Bestellübersicht auf Desktop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Checkout", "Checkout"),
+                    description: text(
+                        "A proposed four-step flow: cart, shipping, payment, review. The order summary with quantities, shipping and tax stays visible throughout.",
+                        "Vorgeschlagener Ablauf in vier Schritten: Warenkorb, Versand, Zahlung, Prüfung. Die Übersicht mit Mengen, Versand und Steuern bleibt sichtbar.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/nordmarkt/16x9/05-store-dashboard.webp",
+                        alt: text(
+                            "NORDMARKT store dashboard concept with illustrative analytics, orders and inventory on desktop and mobile",
+                            "NORDMARKT-Konzept eines Shop-Dashboards mit beispielhaften Analysen, Bestellungen und Lagerbeständen auf Desktop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Store dashboard", "Shop-Dashboard"),
+                    description: text(
+                        "Sales, orders, conversion and order value with top products, recent orders and stock status. All figures shown are illustrative, not measured.",
+                        "Umsatz, Bestellungen, Conversion und Bestellwert mit Top-Produkten und Lagerstatus. Alle gezeigten Zahlen sind beispielhaft, keine Messwerte.",
+                    ),
+                },
+            ],
+            featureGroups: [
+                {
+                    label: text("Customer experience", "Kundenerlebnis"),
+                    items: [
+                        text("Category navigation & search", "Kategorienavigation & Suche"),
+                        text("Size, colour & price filters", "Filter für Größe, Farbe & Preis"),
+                        text("Variant and size selection", "Varianten- & Größenauswahl"),
+                        text("Cart with editable quantities", "Warenkorb mit Mengenänderung"),
+                        text("Four-step guided checkout", "Geführter Checkout in 4 Schritten"),
+                        text("Accounts & order history", "Kundenkonto & Bestellhistorie"),
+                    ],
+                },
+                {
+                    label: text("Merchant operations", "Händlerverwaltung"),
+                    items: [
+                        text("Product & variant management", "Produkt- & Variantenpflege"),
+                        text("Stock levels per product", "Lagerbestand pro Produkt"),
+                        text("Orders with fulfilment status", "Bestellungen mit Versandstatus"),
+                        text("Sales & conversion overview", "Umsatz- & Conversion-Übersicht"),
+                        text("Top-product reporting", "Auswertung der Top-Produkte"),
+                        text("Customer records", "Kundendaten"),
+                    ],
+                },
+            ],
+            scope: [
+                text("UX architecture & flows", "UX-Architektur & Flows"),
+                text("Storefront & product UI", "Storefront- & Produkt-UI"),
+                text("Checkout flow", "Checkout-Ablauf"),
+                text("Merchant dashboard", "Händler-Dashboard"),
+                text("Responsive desktop & mobile", "Responsiv: Desktop & Mobile"),
+                text("Design tokens", "Design-Tokens"),
+            ],
+            capabilitiesNote: text(
+                "Studio concept — proposed features, not a live store. Dashboard figures are illustrative, not business results.",
+                "Studio-Konzept – vorgeschlagene Funktionen, kein laufender Shop. Dashboard-Zahlen sind beispielhaft, keine Geschäftsergebnisse.",
+            ),
+            commercialCta: {
+                label: text(
+                    "Build something similar ↗",
+                    "Ähnliches Projekt starten ↗",
+                ),
+                href: "/contact?project=nordmarkt-commerce",
+            },
             visualSystem: {
                 colors: [
                     {
@@ -631,41 +907,6 @@ export const projects = [
                 typeface:
                     "Manrope / system sans",
             },
-            qualitySignals: [
-                {
-                    label: text(
-                        "Catalogue performance",
-                        "Katalog-Performance",
-                    ),
-                    value: text(
-                        "Target defined",
-                        "Ziel definiert",
-                    ),
-                    evidence: "target",
-                },
-                {
-                    label: text(
-                        "Checkout validation",
-                        "Checkout-Validierung",
-                    ),
-                    value: text(
-                        "Implementation pending",
-                        "Implementierung ausstehend",
-                    ),
-                    evidence: "target",
-                },
-                {
-                    label: text(
-                        "Production metrics",
-                        "Produktionsmetriken",
-                    ),
-                    value: text(
-                        "Not measured",
-                        "Nicht gemessen",
-                    ),
-                    evidence: "not_measured",
-                },
-            ],
             presentation: {
                 desktopDirection: "left",
                 centerLabel: text(
@@ -676,25 +917,25 @@ export const projects = [
         },
     },
     {
-        slug: "coreflow-ai-workspace",
-        title: "CoreFlow AI Workspace",
-        type: "educational",
+        slug: "synapse-ai-workspace",
+        title: "Synapse AI",
+        type: "concept",
         status: "planned",
         summary: text(
-            "An AI-assisted workspace connecting structured requests, internal knowledge and controlled business automation.",
-            "Ein KI-gestützter Arbeitsbereich zur Organisation von Anfragen, internem Wissen und wiederkehrenden Geschäftsprozessen.",
+            "An AI-assisted workspace connecting tasks, knowledge, documents and controlled business automation.",
+            "Ein KI-gestützter Arbeitsbereich, der Aufgaben, Wissen, Dokumente und kontrollierte Geschäftsautomatisierung verbindet.",
         ),
         description: text(
-            "CoreFlow centralises incoming requests, searchable internal knowledge and routine actions while keeping validation and human oversight explicit.",
-            "CoreFlow untersucht einen praktischen KI-Arbeitsbereich, in dem Teams eingehende Anfragen bearbeiten, interne Informationen durchsuchen und Routineaufgaben automatisieren können, ohne die menschliche Kontrolle zu verlieren.",
+            "A studio concept for an intelligent business workspace: requests, internal knowledge and team collaboration in one place, with AI proposing work and people approving it.",
+            "Studio-Konzept für einen intelligenten Business-Arbeitsbereich: Anfragen, internes Wissen und Teamarbeit an einem Ort – die KI schlägt vor, Menschen entscheiden.",
         ),
         challenge: text(
-            "Business information is often spread across messages, documents and separate tools, while repetitive requests consume time and produce inconsistent responses.",
-            "Geschäftsinformationen sind häufig über Nachrichten, Dokumente und verschiedene Tools verteilt, während wiederkehrende Anfragen Zeit kosten und zu uneinheitlichen Antworten führen.",
+            "Requests arrive by message, documents live in separate tools and routine work is repeated by hand, so answers are slow, inconsistent and hard to trace.",
+            "Anfragen kommen per Nachricht, Dokumente liegen in getrennten Tools und Routinearbeit wird manuell wiederholt – Antworten sind langsam, uneinheitlich und schwer nachvollziehbar.",
         ),
         solution: text(
-            "The workspace combines structured requests, searchable knowledge, AI-assisted responses, validation rules and clear escalation to a responsible team member.",
-            "Der geplante Arbeitsbereich verbindet strukturierte Anfragen, durchsuchbares Wissen, KI-gestützte Antworten, Validierungsregeln und eine klare Weiterleitung an verantwortliche Teammitglieder.",
+            "A shared workspace with a structured request queue, searchable knowledge, AI-drafted outputs and an explicit human review step before anything is approved or sent.",
+            "Ein gemeinsamer Arbeitsbereich mit strukturierter Anfrage-Queue, durchsuchbarem Wissen, KI-Entwürfen und einem festen Prüfschritt durch Menschen vor jeder Freigabe.",
         ),
         serviceCodes: [
             "WEB_APPLICATION",
@@ -718,23 +959,28 @@ export const projects = [
         featured: true,
         order: 4,
         caseStudy: {
-            identifier: "CF-2026-004",
+            identifier: "SY-2026-004",
             subtitle: text(
-                "An AI operations workspace built around structured requests, searchable knowledge and human-controlled automation.",
-                "Ein edukatives KI-Workspace-Konzept für strukturierte Anfragen, durchsuchbares Wissen und menschlich kontrollierte Automatisierung.",
+                "AI that proposes. People that decide.",
+                "KI schlägt vor. Menschen entscheiden.",
             ),
+            category: text(
+                "Intelligent Business Workspace",
+                "Intelligenter Business-Arbeitsbereich",
+            ),
+            classification: "studio_concept",
             role: text(
                 "Workflow research, AI interaction design and application architecture.",
                 "Workflow-Research, KI-Interaktionsdesign und Anwendungsarchitektur.",
             ),
             client: null,
             engagement: text(
-                "AI operations product",
-                "Edukatives Prototyp-Konzept",
+                "Self-initiated studio concept",
+                "Eigeninitiiertes Studio-Konzept",
             ),
             architecture: text(
-                "A planned human-in-the-loop workspace with structured request intake, searchable knowledge, validated AI responses and explicit escalation paths.",
-                "Ein geplanter Human-in-the-Loop-Arbeitsbereich mit strukturierter Anfrageerfassung, durchsuchbarem Wissen, validierten KI-Antworten und eindeutigen Eskalationswegen.",
+                "A planned human-in-the-loop workspace: structured request intake, a searchable knowledge layer, AI-drafted outputs, review and approval steps, and an audit trail.",
+                "Ein geplanter Human-in-the-Loop-Arbeitsbereich: strukturierte Anfrageerfassung, durchsuchbare Wissensebene, KI-Entwürfe, Prüf- und Freigabeschritte sowie ein Prüfprotokoll.",
             ),
             facts: [
                 {
@@ -743,8 +989,8 @@ export const projects = [
                         "Produktphase",
                     ),
                     value: text(
-                        "Product definition",
-                        "Edukative Planung",
+                        "Platform definition",
+                        "Geplantes Konzept",
                     ),
                 },
                 {
@@ -793,6 +1039,115 @@ export const projects = [
                     ],
                 },
             ],
+            gallery: [
+                {
+                    media: {
+                        src: "/images/projects/synapse-ai/16x9/01-ai-workspace.webp",
+                        alt: text(
+                            "Synapse AI workspace concept with a home view, request summary, knowledge library and human review panel on laptop and mobile screens",
+                            "Synapse-AI-Arbeitsbereichskonzept mit Startansicht, Anfragen, Wissensbibliothek und Prüfbereich auf Laptop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("AI workspace", "KI-Arbeitsbereich"),
+                    description: text(
+                        "A home view that gathers open requests, knowledge and items waiting for human review, with the same overview on mobile.",
+                        "Eine Startansicht mit offenen Anfragen, Wissen und Elementen zur menschlichen Prüfung – mit gleicher Übersicht auf dem Smartphone.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/synapse-ai/16x9/02-requests-queue.webp",
+                        alt: text(
+                            "Synapse AI requests queue concept with filters, statuses, priorities and owners on desktop and mobile",
+                            "Synapse-AI-Konzept einer Anfrage-Queue mit Filtern, Status, Prioritäten und Zuständigen auf Desktop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Requests queue", "Anfrage-Queue"),
+                    description: text(
+                        "A structured queue with status, priority, owner and due date, plus saved views and filters to triage incoming work.",
+                        "Strukturierte Queue mit Status, Priorität, Zuständigkeit und Fälligkeit sowie gespeicherten Ansichten und Filtern zur Priorisierung.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/synapse-ai/16x9/04-human-review.webp",
+                        alt: text(
+                            "Synapse AI human review concept with an AI draft, review steps, comments and approval actions on desktop and mobile",
+                            "Synapse-AI-Konzept der menschlichen Prüfung mit KI-Entwurf, Prüfschritten, Kommentaren und Freigabe auf Desktop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("Human review", "Menschliche Prüfung"),
+                    description: text(
+                        "An AI-drafted output with review steps, comments, version history and explicit approve or request-changes actions before anything is final.",
+                        "Ein KI-Entwurf mit Prüfschritten, Kommentaren, Versionsverlauf und ausdrücklicher Freigabe oder Änderungsanforderung vor dem Abschluss.",
+                    ),
+                },
+                {
+                    media: {
+                        src: "/images/projects/synapse-ai/16x9/05-ai-analytics.webp",
+                        alt: text(
+                            "Synapse AI analytics concept with request volume, agent performance and usage by team on desktop and mobile",
+                            "Synapse-AI-Analysekonzept mit Anfragevolumen, Agentenleistung und Nutzung nach Team auf Desktop und Smartphone",
+                        ),
+                        width: 1672,
+                        height: 941,
+                    },
+                    title: text("AI analytics", "KI-Analysen"),
+                    description: text(
+                        "Request volume, usage by team and agent performance to monitor how automation behaves. All figures shown are illustrative, not measured.",
+                        "Anfragevolumen, Nutzung nach Team und Agentenleistung zur Beobachtung der Automatisierung. Alle gezeigten Zahlen sind beispielhaft, keine Messwerte.",
+                    ),
+                },
+            ],
+            featureGroups: [
+                {
+                    label: text("Work & knowledge", "Arbeit & Wissen"),
+                    items: [
+                        text("Structured request intake", "Strukturierte Anfrageerfassung"),
+                        text("Task status, owners & due dates", "Status, Zuständige & Fristen"),
+                        text("Saved views & filters", "Gespeicherte Ansichten & Filter"),
+                        text("Searchable knowledge library", "Durchsuchbare Wissensbibliothek"),
+                        text("Document handling", "Dokumentenverwaltung"),
+                        text("Team comments & collaboration", "Kommentare & Zusammenarbeit"),
+                    ],
+                },
+                {
+                    label: text("AI & control", "KI & Kontrolle"),
+                    items: [
+                        text("AI-drafted responses", "KI-Entwürfe für Antworten"),
+                        text("Human review & approval", "Prüfung & Freigabe durch Menschen"),
+                        text("Version history", "Versionsverlauf"),
+                        text("Rule-based automation", "Regelbasierte Automatisierung"),
+                        text("Escalation to a team member", "Eskalation an Teammitglieder"),
+                        text("Usage & performance analytics", "Nutzungs- & Leistungsanalysen"),
+                    ],
+                },
+            ],
+            scope: [
+                text("Workflow research & flows", "Workflow-Research & Flows"),
+                text("Workspace & queue UI", "Workspace- & Queue-UI"),
+                text("Review & approval flow", "Prüf- & Freigabeablauf"),
+                text("AI interaction design", "KI-Interaktionsdesign"),
+                text("Responsive desktop & mobile", "Responsiv: Desktop & Mobile"),
+                text("Design tokens", "Design-Tokens"),
+            ],
+            capabilitiesNote: text(
+                "Studio concept — proposed features, not a live product. AI behaviour is not implemented or evaluated; analytics figures are illustrative.",
+                "Studio-Konzept – vorgeschlagene Funktionen, kein laufendes Produkt. KI-Verhalten ist weder umgesetzt noch evaluiert; Analysezahlen sind beispielhaft.",
+            ),
+            commercialCta: {
+                label: text(
+                    "Build something similar ↗",
+                    "Ähnliches Projekt starten ↗",
+                ),
+                href: "/contact?project=synapse-ai-workspace",
+            },
             visualSystem: {
                 colors: [
                     {
@@ -800,61 +1155,26 @@ export const projects = [
                             "Primary",
                             "Primärfarbe",
                         ),
-                        value: "#111827",
+                        value: "#1E1B4B",
                     },
                     {
                         label: text(
                             "Accent",
                             "Akzentfarbe",
                         ),
-                        value: "#22C55E",
+                        value: "#5B5BF0",
                     },
                     {
                         label: text(
                             "Surface",
                             "Fläche",
                         ),
-                        value: "#F8FAFC",
+                        value: "#F6F7FC",
                     },
                 ],
                 typeface:
-                    "IBM Plex Sans / JetBrains Mono",
+                    "Inter / system sans",
             },
-            qualitySignals: [
-                {
-                    label: text(
-                        "AI evaluation",
-                        "KI-Evaluierung",
-                    ),
-                    value: text(
-                        "Evaluation plan required",
-                        "Evaluierungsplan erforderlich",
-                    ),
-                    evidence: "target",
-                },
-                {
-                    label: text(
-                        "Human oversight",
-                        "Menschliche Kontrolle",
-                    ),
-                    value: text(
-                        "Required by design",
-                        "Im Design vorgeschrieben",
-                    ),
-                    evidence: "target",
-                },
-                {
-                    label: text(
-                        "Production evidence",
-                        "Produktionsnachweis",
-                    ),
-                    value: text(
-                        "Not measured",
-                        "Nicht gemessen",
-                    ),
-                    evidence: "not_measured",
-                },
-            ],
             presentation: {
                 desktopDirection: "right",
                 centerLabel: text(
@@ -928,26 +1248,17 @@ function assertProjectContract(
         orders.add(project.order);
 
         if (
-            project.type === "client" &&
-            !project.caseStudy.client
+            project.caseStudy.client != null &&
+            !project.caseStudy.client.trim()
         ) {
             throw new Error(
-                `Client project ${project.slug} requires a client name.`,
-            );
-        }
-
-        if (
-            project.caseStudy.technologyGroups.length ===
-            0
-        ) {
-            throw new Error(
-                `Project ${project.slug} requires technology groups.`,
+                `Project ${project.slug} contains an empty client name.`,
             );
         }
 
         for (
             const group of
-            project.caseStudy.technologyGroups
+            project.caseStudy.technologyGroups ?? []
             ) {
             if (group.items.length === 0) {
                 throw new Error(
@@ -988,12 +1299,59 @@ function assertProjectContract(
             }
         }
 
+        const caseStudy = project.caseStudy;
+        const isConcept =
+            project.type === "concept" ||
+            caseStudy.classification === "studio_concept";
+
         if (
-            project.caseStudy.qualitySignals.length ===
-            0
+            caseStudy.classification === "real_project" &&
+            project.type !== "client"
         ) {
             throw new Error(
-                `Project ${project.slug} requires quality signals.`,
+                `Project ${project.slug} is classified as a real project but is not client work.`,
+            );
+        }
+
+        if (isConcept && caseStudy.results?.length) {
+            throw new Error(
+                `Concept ${project.slug} cannot declare verified results.`,
+            );
+        }
+
+        for (const group of caseStudy.featureGroups ?? []) {
+            if (group.items.length === 0) {
+                throw new Error(
+                    `Project ${project.slug} contains an empty feature group.`,
+                );
+            }
+        }
+
+        const gallery = caseStudy.gallery ?? [];
+
+        for (const slide of gallery) {
+            for (const copy of [slide.title, slide.description]) {
+                if (!copy.en.trim() || !copy.de.trim()) {
+                    throw new Error(
+                        `Gallery slide ${slide.media.src} in ${project.slug} requires English and German copy.`,
+                    );
+                }
+            }
+        }
+
+        // One frame ratio per gallery keeps every view edge to edge without cropping.
+        const galleryRatios = gallery.map(
+            ({ media }) => media.width / media.height,
+        );
+
+        if (
+            galleryRatios.some(
+                (ratio) =>
+                    Math.abs(ratio - galleryRatios[0]) > 0.01,
+            )
+        ) {
+            throw new Error(
+                `Gallery images in ${project.slug} must share one aspect ratio.`,
             );
         }
 
@@ -1002,7 +1360,12 @@ function assertProjectContract(
                 ? [project.coverImage]
                 : []),
             ...project.images,
+            ...gallery.map((slide) => slide.media),
+            ...(project.archivePreview?.image
+                ? [project.archivePreview.image]
+                : []),
         ];
+        const mediaSources = new Set<string>();
 
         for (const asset of media) {
             if (!asset.src.startsWith("/")) {
@@ -1010,6 +1373,14 @@ function assertProjectContract(
                     `Project media path must start with /: ${asset.src}`,
                 );
             }
+
+            if (mediaSources.has(asset.src)) {
+                throw new Error(
+                    `Duplicate project media in ${project.slug}: ${asset.src}`,
+                );
+            }
+
+            mediaSources.add(asset.src);
 
             if (
                 asset.width <= 0 ||
