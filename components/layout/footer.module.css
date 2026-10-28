@@ -4,8 +4,13 @@
     .footer { container: pixardia-footer / inline-size; margin-top: 16px; padding: 32px 0 20px; background: #fff; color: #111; }
 }
 
-.footer.mobile { container: pixardia-footer / inline-size; max-width: 430px; margin: 16px auto 0; padding: 32px 0 20px; background: #fff; color: #111; }
+.footer.mobile { container: pixardia-footer / inline-size; max-width: 430px; margin: 16px auto 0; padding: 32px 0 20px; background: linear-gradient(to bottom, #fff 0%, #f5f3ff 55%, #f5f3ff 100%); color: #111; }
 .footer.mobile > div { padding-inline: 20px; }
+.footer.mobile [data-footer-brand] > p,
+.footer.mobile [data-footer-nav] > p,
+.footer.mobile [data-footer-contact] > p,
+.footer.mobile [data-footer-contact] span,
+.footer.mobile [data-footer-legal] > div > p { color: #6f6a7b; }
 
 @container pixardia-footer (width < 768px) {
     .footer > div { max-width: 720px; margin-inline: auto; container-type: inline-size; }

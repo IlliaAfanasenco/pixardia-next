@@ -1,3 +1,21 @@
+.mobileArchive {
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #f2efff, #fff);
+    background-repeat: no-repeat;
+    background-size: 100% clamp(12rem, 60vw, 18rem);
+}
+/* Paint behind Product's rounded bottom corners without creating a stacking context. */
+.mobileArchive::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset-inline: 0;
+    inset-block-end: 100%;
+    block-size: 10%;
+    background: #f2efff;
+    pointer-events: none;
+}
+
 .card {
     container: archive-card / inline-size;
     display: flex;
@@ -141,6 +159,24 @@
     .compactDiagram .core .nodeSubtitle { display: none; }
 }
 @media (width < 768px) {
+    .mobileArchive .card { --archive-radius: 12px; --archive-preview-background: #0c0e16; border-radius: var(--archive-radius); background-color: var(--archive-preview-background); }
+    .mobileArchive .cardLink { border-radius: calc(var(--archive-radius) - 1px); overflow: hidden; background-color: var(--archive-preview-background); }
+    .mobileArchive .cardLink:focus-visible { outline-offset: 0; }
+    .mobileArchive .preview { border-radius: inherit; }
+    .mobileArchive .preview::before { border-radius: calc(var(--archive-radius) - 1px - 4px); }
+    .mobileArchive .technologyBadge, .mobileArchive .category, .mobileArchive .year, .mobileArchive .status { border-radius: 6px; }
+    .mobileArchive .card[data-archive-card-index="0"] { position: relative; }
+    .mobileArchive .card[data-archive-card-index="0"]::after {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        right: clamp(8px, 3vw, 16px);
+        bottom: 100%;
+        width: clamp(72px, 22vw, 96px);
+        aspect-ratio: 390 / 417;
+        background: url("/images/alienAr.png") center / contain no-repeat;
+        pointer-events: none;
+    }
     .mobileArchive .preview { height: auto; min-height: 270px; aspect-ratio: auto; grid-template-rows: 14px minmax(112px, 1fr) auto 16px; gap: 6px; padding: 8px; }
     .mobileArchive .diagram { height: clamp(112px, 36cqw, 136px); }
     .mobileArchive .technologyBadges { grid-template-rows: none; grid-auto-rows: 22px; gap: 4px; }

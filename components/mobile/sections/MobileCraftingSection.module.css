@@ -1,0 +1,108 @@
+    .section {
+        position: relative;
+        width: 100%;
+    }
+
+    /* Keep the scrub distance below the viewport while the stage is sticky. */
+    .section::after {
+        content: "";
+        display: block;
+        height: 65svh;
+    }
+
+    .stage {
+        position: sticky;
+        top: max(0px, calc(100svh - var(--stage-height, 100svh)));
+        display: grid;
+        grid-template-rows: auto auto;
+        gap: 16px;
+        padding-bottom: 24px;
+        overflow: visible;
+        clip-path: inset(-40px 0 0);
+        container-type: inline-size;
+    }
+
+    .scene {
+        /* The 496 × 864 artwork ends near 70% of its height. Keep the canvas
+           viewport-sized and trim only the empty area below the hands. */
+        min-height: calc(50svh + min(20svh, 35cqi));
+        translate: 0 max(0px, calc(64px + env(safe-area-inset-top, 0px) - max(0px, calc(100svh - var(--stage-height, 100svh)))));
+    }
+
+    .canvas {
+        height: 100svh;
+    }
+
+    .marquee {
+        position: relative;
+        z-index: 30;
+        grid-row: 2;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .marquee:focus-visible {
+        outline: 2px solid #5848ff;
+        outline-offset: -2px;
+    }
+
+    .track {
+        display: flex;
+        width: max-content;
+        animation: stats-marquee 20s linear infinite;
+    }
+
+    .statsGroup {
+        display: flex;
+        flex-shrink: 0;
+        gap: 24px;
+        padding-inline-end: 24px;
+    }
+
+    .stat {
+        flex: 0 0 auto;
+        min-width: 120px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .marquee:focus-within .track,
+    .marquee:active .track,
+    .marquee[data-pressed="true"] .track {
+        animation-play-state: paused;
+    }
+
+    @media (hover: hover) {
+        .marquee:hover .track {
+            animation-play-state: paused;
+        }
+    }
+
+    @keyframes stats-marquee {
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .track {
+            width: 100%;
+            animation: none;
+        }
+
+        .statsGroup {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            width: 100%;
+            gap: 0;
+            padding-inline: 12px;
+        }
+
+        .statsGroup[aria-hidden="true"] {
+            display: none;
+        }
+
+        .stat {
+            min-width: 0;
+        }
+    }

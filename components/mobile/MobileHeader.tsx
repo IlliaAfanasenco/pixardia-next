@@ -177,9 +177,16 @@ export function MobileMenu({ mobileOnly = true }: { mobileOnly?: boolean }) {
 }
 
 export default function MobileHeader() {
+    const { t } = useI18n();
+
     return (
-        <header data-mobile-header className="flex h-[92px] w-full items-center justify-between px-5">
-            <div className="text-[28px] font-black text-[#3f3f3f]">PIXARDIA</div>
+        <header data-mobile-header className="grid h-[92px] w-full grid-cols-[minmax(0,1fr)_auto] content-center items-start gap-4 px-5">
+            <div className="grid min-w-0 gap-0.1">
+                <div className="text-[28px] font-black text-[#3f3f3f]">PIXARDIA</div>
+                <p className="max-w-full text-[clamp(8px,2.2vw,10px)] font-bold uppercase leading-[1.6] tracking-[0.16em] text-[#929296]">
+                    {t("creative digital studio / ai augmented")}
+                </p>
+            </div>
             <MobileMenu mobileOnly={false} />
         </header>
     );

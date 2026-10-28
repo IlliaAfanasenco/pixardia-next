@@ -3,6 +3,7 @@ import { localized } from "@/i18n/localized";
 import { useI18n } from "@/i18n/LocaleProvider";
 
 import Image from "next/image";
+import mobileStyles from "./ProjectModalGallery.module.css";
 import {
     type CSSProperties,
     type KeyboardEvent,
@@ -35,6 +36,8 @@ type ProjectModalGalleryProps = {
     captions?: readonly ProjectModalGalleryCaption[];
     captionClassName?: string;
     frameStyle?: CSSProperties;
+    /** Dedicated mobile archive layout; the desktop gallery remains the default. */
+    presentation?: "mobile";
 };
 
 export default function ProjectModalGallery({
@@ -49,6 +52,7 @@ export default function ProjectModalGallery({
                                                 captions,
                                                 captionClassName = "",
                                                 frameStyle,
+                                                presentation,
                                             }: ProjectModalGalleryProps) {
     const { t, locale } = useI18n();
     const [currentIndex, setCurrentIndex] =
@@ -60,6 +64,7 @@ export default function ProjectModalGallery({
     const touchStartX = useRef<number | null>(
         null,
     );
+    const touchStartY = useRef<number | null>(null);
 
     const transitionTimer =
         useRef<ReturnType<typeof setTimeout> | null>(
@@ -147,6 +152,11 @@ export default function ProjectModalGallery({
     ): void {
         touchStartX.current =
             event.touches[0]?.clientX ?? null;
+        touchStartY.current =
+            event.touches.length === 1 ? event.touches[0]?.clientY ?? null : null;
+        if (presentation === "mobile" && event.touches.length !== 1) {
+            touchStartX.current = null;
+        }
     }
 
     function handleTouchEnd(
@@ -168,15 +178,95 @@ export default function ProjectModalGallery({
 
         const distance =
             touchEndX - touchStartX.current;
+        const verticalDistance = event.changedTouches[0].clientY - (touchStartY.current ?? event.changedTouches[0].clientY);
 
         touchStartX.current = null;
+        touchStartY.current = null;
 
-        if (Math.abs(distance) < 42) {
+        if (Math.abs(distance) < 42 || (presentation === "mobile" && Math.abs(distance) < Math.abs(verticalDistance) * 1.2)) {
             return;
         }
 
         selectImage(
             currentIndex + (distance < 0 ? 1 : -1),
+        );
+    }
+
+    if (presentation === "mobile") {
+        return (
+            <div className={`${mobileStyles.figure} ${captionClassName}`} data-project-gallery-figure="">
+                <div
+                    className={`${mobileStyles.frame} ${className}`}
+                    style={{ aspectRatio: currentMedia ? `${currentMedia.width} / ${currentMedia.height}` : "16 / 9" }}
+                    role="group"
+                    aria-label={t("{title} project gallery", { title: projectTitle })}
+                    tabIndex={hasNavigation ? 0 : -1}
+                    onKeyDown={handleKeyDown}
+                    onTouchStart={handleTouchStart}
+                    onTouchEnd={handleTouchEnd}
+                    onTouchCancel={() => {
+                        touchStartX.current = null;
+                        touchStartY.current = null;
+                    }}
+                    data-project-gallery=""
+                    data-gallery-project={projectKey}
+                    data-gallery-index={currentIndex}
+                    data-gallery-count={media.length}
+                    data-changing={isChanging || undefined}
+                >
+                    {currentMedia ? (
+                        <Image
+                            key={currentMedia.src}
+                            src={currentMedia.src}
+                            alt={localized(currentMedia.alt, locale)}
+                            fill
+                            loading="eager"
+                            sizes="(max-width: 767px) 100vw, 768px"
+                            draggable={false}
+                            className={mobileStyles.image}
+                        />
+                    ) : <span className={mobileStyles.empty}>{projectTitle}</span>}
+                </div>
+
+                <div className={mobileStyles.navigation} role="group" aria-label={imageLabel}>
+                    <div className={mobileStyles.controls}>
+                        <button
+                            type="button"
+                            aria-label={t("Show previous project image")}
+                            disabled={!hasNavigation}
+                            onClick={() => selectImage(currentIndex - 1)}
+                        >
+                            <span aria-hidden="true">←</span>
+                        </button>
+                        <span className={mobileStyles.progress} aria-hidden="true">
+                            <span style={{ width: `${media.length ? ((currentIndex + 1) / media.length) * 100 : 0}%` }} />
+                        </span>
+                        <span className={mobileStyles.counter} aria-live="polite" aria-atomic="true">
+                            {String(media.length ? currentIndex + 1 : 0).padStart(2, "0")}
+                            <span aria-hidden="true"> / </span>
+                            {String(media.length).padStart(2, "0")}
+                        </span>
+                        <button
+                            type="button"
+                            aria-label={t("Show next project image")}
+                            disabled={!hasNavigation}
+                            onClick={() => selectImage(currentIndex + 1)}
+                        >
+                            <span aria-hidden="true">→</span>
+                        </button>
+                    </div>
+                </div>
+
+                {currentCaption ? (
+                    <div className={mobileStyles.caption} aria-live="polite" aria-atomic="true" data-project-gallery-caption="" data-changing={isChanging || undefined}>
+                        <span className={mobileStyles.captionIndex} aria-hidden="true">{String(currentIndex + 1).padStart(2, "0")}</span>
+                        <p className={mobileStyles.captionTitle}>{currentCaption.title}</p>
+                        <p className={mobileStyles.captionDescription}>{currentCaption.description}</p>
+                    </div>
+                ) : currentMedia?.caption ? (
+                    <p className={mobileStyles.assetCaption} data-project-gallery-caption="">{localized(currentMedia.caption, locale)}</p>
+                ) : null}
+            </div>
         );
     }
 

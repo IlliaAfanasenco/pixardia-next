@@ -1,0 +1,119 @@
+.dialog {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100vh;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    color: #f9f9fa;
+    background: #111111;
+    color-scheme: dark;
+    animation: enter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.dialog::backdrop {
+    background: #111111;
+    animation: backdropIn 440ms ease-out both;
+}
+
+.dialog[data-state="closing"] {
+    pointer-events: none;
+    animation: leave 360ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+.dialog[data-state="closing"]::backdrop {
+    animation: backdropIn 360ms ease-in reverse both;
+}
+
+.scroll {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #5e56e7 #111;
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+    scroll-padding-top: calc(70px + env(safe-area-inset-top));
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-height: calc(66px + env(safe-area-inset-top));
+    padding: env(safe-area-inset-top) 20px 0;
+    border-bottom: 1px solid rgb(255 255 255 / 15%);
+    background: #111111;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: clamp(9px, 2.5vw, 11px);
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+}
+
+.label strong { font-weight: 900; }
+.label > span { color: #8b8b96; }
+
+.close {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    min-height: 48px;
+    margin-right: -6px;
+    padding: 6px;
+    background: transparent;
+    border: 0;
+    color: #e3e3e9;
+    cursor: pointer;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    transition: color 160ms ease;
+}
+
+.cross { font-family: Arial, sans-serif; font-size: 29px; line-height: 1; font-weight: 200; }
+.close:hover { color: #aaa4ff; }
+.close:focus-visible { outline: 2px solid #aaa4ff; outline-offset: 1px; }
+
+@media (width < 768px) {
+    .close { border-radius: 6px; }
+}
+
+@keyframes enter {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes leave {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(16px); }
+}
+
+@keyframes backdropIn { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+    .dialog, .dialog::backdrop, .dialog[data-state="closing"], .dialog[data-state="closing"]::backdrop { animation: none; }
+    .close { transition: none; }
+}

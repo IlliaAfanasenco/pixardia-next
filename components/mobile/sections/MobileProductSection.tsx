@@ -23,6 +23,7 @@ export default function MobileProductSection() {
             aria-labelledby={`${sectionId}-title`}
             className={styles.section}
         >
+            <div aria-hidden="true" className={styles.astronaut} />
             <p className={styles.eyebrow}>{copy.eyebrow}</p>
             <h2 id={`${sectionId}-title`} className={styles.title}>
                 <span>{copy.titleLine1}</span>
@@ -51,7 +52,6 @@ export default function MobileProductSection() {
                     <span>{copy.ctaTitleLine1}</span>
                     <span>{copy.ctaTitleLine2}</span>
                 </h3>
-                <p className={styles.ctaDescription}>{copy.ctaDescription}</p>
                 <Link
                     href={publicPath(locale, siteConfig.links.contact)}
                     aria-label={copy.ctaButton}

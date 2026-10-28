@@ -1,0 +1,22 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    overflow: hidden;
+    background: #fff;
+    overscroll-behavior: none;
+    touch-action: none;
+}
+
+.label {
+    position: absolute;
+    inset-inline: 16px;
+    top: 25%;
+    margin: 0;
+    color: #5848ff;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.6;
+    letter-spacing: 0.16em;
+    text-align: center;
+}

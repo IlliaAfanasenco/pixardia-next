@@ -1,10 +1,12 @@
 "use client";
 
-import { useId, useState, useSyncExternalStore } from "react";
+import { useCallback, useId, useState, useSyncExternalStore } from "react";
 import ArchiveCard from "@/components/archive/ArchiveCard";
 import { getArchiveProjects } from "@/components/archive/archive-projects";
 import { useI18n } from "@/i18n/LocaleProvider";
 import styles from "@/components/archive/archive.module.css";
+import MobileProjectModal from "@/components/mobile/projects/MobileProjectModal";
+import type { Project } from "@/types/services";
 
 const projects = getArchiveProjects();
 const wideLayoutQuery = "(min-width: 768px)";
@@ -26,6 +28,8 @@ function getServerSnapshot() {
 export default function MobileArchiveSection() {
     const { locale, t } = useI18n();
     const [visibleCount, setVisibleCount] = useState(1);
+    const [activeCase, setActiveCase] = useState<{ project: Project; trigger: HTMLElement } | null>(null);
+    const closeCase = useCallback(() => setActiveCase(null), []);
     const isWideLayout = useSyncExternalStore(subscribeToWideLayout, getWideLayoutSnapshot, getServerSnapshot);
     const listId = useId();
     const shownCount = isWideLayout ? projects.length : visibleCount;
@@ -56,6 +60,7 @@ export default function MobileArchiveSection() {
                         locale={locale}
                         index={index}
                         animatedPreview
+                        onOpen={(trigger) => setActiveCase({ project: entry.project, trigger })}
                     />
                 ))}
             </div>
@@ -73,6 +78,7 @@ export default function MobileArchiveSection() {
                     <span aria-hidden="true" className="shrink-0 text-[32px] font-light leading-none text-[#9488ff]">→</span>
                 </button>
             )}
+            {activeCase && <MobileProjectModal key={activeCase.project.slug} {...activeCase} onClose={closeCase} />}
         </section>
     );
 }
