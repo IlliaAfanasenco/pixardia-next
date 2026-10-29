@@ -7,12 +7,13 @@
     .section::after {
         content: "";
         display: block;
-        height: 65svh;
+        height: 40svh;
     }
 
     .stage {
         position: sticky;
-        top: max(0px, calc(100svh - var(--stage-height, 100svh)));
+        top: calc(64px + env(safe-area-inset-top, 0px));
+        min-height: calc(100svh - 64px - env(safe-area-inset-top, 0px));
         display: grid;
         grid-template-rows: auto auto;
         gap: 16px;
@@ -26,7 +27,7 @@
         /* The 496 × 864 artwork ends near 70% of its height. Keep the canvas
            viewport-sized and trim only the empty area below the hands. */
         min-height: calc(50svh + min(20svh, 35cqi));
-        translate: 0 max(0px, calc(64px + env(safe-area-inset-top, 0px) - max(0px, calc(100svh - var(--stage-height, 100svh)))));
+        translate: none;
     }
 
     .canvas {
