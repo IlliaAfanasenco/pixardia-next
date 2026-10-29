@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import { usePathname, useRouter } from "next/navigation";
 import { gsap } from "gsap";
 import { siteConfig } from "@/config/site";
@@ -10,12 +11,23 @@ import { useI18n } from "@/i18n/LocaleProvider";
 import { publicPath } from "@/i18n/navigation";
 import LanguageSwitcher from "@/components/layout/LanguageSwitcher";
 
+const previewTargets: Record<string, string> = {
+    "/#hero": "hero",
+    "/#crafting-structure": "crafting",
+    "/services": "neural",
+    "/projects": "projects",
+    "/contact": "contact",
+};
+
 export function MobileMenu({ mobileOnly = true }: { mobileOnly?: boolean }) {
     const { locale, t } = useI18n();
     const pathname = usePathname();
+    const isPreview = pathname === "/mobile-preview";
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const [activeHash, setActiveHash] = useState("");
+    const [portalReady, setPortalReady] = useState(false);
+    useEffect(() => { setPortalReady(true); }, []);
     const dialogRef = useRef<HTMLDialogElement>(null);
     const animationRef = useRef<gsap.core.Timeline | null>(null);
     const afterCloseRef = useRef<(() => void) | null>(null);
@@ -27,9 +39,11 @@ export function MobileMenu({ mobileOnly = true }: { mobileOnly?: boolean }) {
         { label: "Projects", path: siteConfig.links.projects },
         { label: "Contact", path: siteConfig.links.contact },
     ];
-    const activeItem = items.findIndex((item) => item.path.startsWith("/#")
-        ? activeHash === item.path.slice(1)
-        : pathname.startsWith(publicPath(locale, item.path)));
+    const activeItem = items.findIndex((item) => isPreview
+        ? activeHash === `#${previewTargets[item.path]}`
+        : item.path.startsWith("/#")
+            ? activeHash === item.path.slice(1)
+            : pathname.startsWith(publicPath(locale, item.path)));
 
     function closeMenu(afterClose?: () => void) {
         afterCloseRef.current = afterClose ?? null;
@@ -81,28 +95,52 @@ export function MobileMenu({ mobileOnly = true }: { mobileOnly?: boolean }) {
 
     function navigate(path: string) {
         closeMenu(() => {
+            if (isPreview) {
+                const targetId = previewTargets[path];
+                if (targetId) {
+                    // The dialog cleanup restores the original scroll first.
+                    requestAnimationFrame(() => {
+                        const target = document.getElementById(targetId);
+                        if (!target) return;
+                        window.history.replaceState(null, "", `#${targetId}`);
+                        target.scrollIntoView({
+                            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                                ? "instant" : "smooth",
+                            block: "start",
+                        });
+                    });
+                    return;
+                }
+            }
+
             const href = publicPath(locale, path);
             router.push(href);
-            // Also handle selecting an anchor already present in the URL.
             if (pathname === href.split("#")[0] && href.includes("#")) {
                 document.getElementById(href.split("#")[1])?.scrollIntoView();
             }
         });
     }
 
+    const menuTrigger = (
+        <button
+            type="button"
+            aria-label={t("Open menu")}
+            aria-expanded={isOpen}
+            aria-controls={menuId}
+            aria-haspopup="dialog"
+            onClick={() => { setActiveHash(window.location.hash); setIsOpen(true); }}
+            className={`flex h-11 w-11 flex-col items-center justify-center gap-[6px] rounded-full bg-[#5848ff]/10 shadow-md backdrop-blur-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5848ff] ${mobileOnly ? "md:hidden" : "fixed top-5 z-[9999]"}`}
+            style={!mobileOnly ? {
+                right: "max(20px, calc(50vw - 195px))",
+            } : undefined}
+        >
+            {[0, 1, 2].map((line) => <span key={line} className="h-[2px] w-6 rounded-full bg-[#3f3f3f]" />)}
+        </button>
+    );
+
     return (
         <>
-            <button
-                type="button"
-                aria-label={t("Open menu")}
-                aria-expanded={isOpen}
-                aria-controls={menuId}
-                aria-haspopup="dialog"
-                onClick={() => { setActiveHash(window.location.hash); setIsOpen(true); }}
-                className={`flex h-11 w-11 flex-col items-center justify-center gap-[6px] rounded-full bg-[#5848ff]/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5848ff] ${mobileOnly ? "md:hidden" : ""}`}
-            >
-                {[0, 1, 2].map((line) => <span key={line} className="h-[2px] w-6 rounded-full bg-[#3f3f3f]" />)}
-            </button>
+            {mobileOnly || !portalReady ? menuTrigger : createPortal(menuTrigger, document.body)}
 
             <dialog
                 ref={dialogRef}
@@ -117,7 +155,7 @@ export function MobileMenu({ mobileOnly = true }: { mobileOnly?: boolean }) {
                     style={{ paddingTop: "max(16px, env(safe-area-inset-top))", paddingBottom: "max(16px, env(safe-area-inset-bottom))", paddingLeft: "max(20px, env(safe-area-inset-left))", paddingRight: "max(20px, env(safe-area-inset-right))" }}
                 >
                     <div className="flex min-h-[52px] shrink-0 items-center justify-between">
-                        <Link href={publicPath(locale, "/#hero")} onNavigate={(event) => { event.preventDefault(); navigate("/#hero"); }} aria-label={t("Pixardia home")} className="text-[28px] font-black leading-none tracking-[-0.04em] no-underline focus-visible:outline-2 focus-visible:outline-[#5848ff]">
+                        <Link href={isPreview ? "#hero" : publicPath(locale, "/#hero")} onNavigate={(event) => { event.preventDefault(); navigate("/#hero"); }} aria-label={t("Pixardia home")} className="text-[28px] font-black leading-none tracking-[-0.04em] no-underline focus-visible:outline-2 focus-visible:outline-[#5848ff]">
                             PIXARDIA
                         </Link>
                         <button type="button" autoFocus aria-label={t("Close menu")} onClick={() => closeMenu()} className="flex size-11 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-[#5848ff]">
@@ -135,7 +173,7 @@ export function MobileMenu({ mobileOnly = true }: { mobileOnly?: boolean }) {
                             return (
                                 <Link
                                     key={item.path}
-                                    href={publicPath(locale, item.path)}
+                                    href={isPreview ? `#${previewTargets[item.path]}` : publicPath(locale, item.path)}
                                     onNavigate={(event) => { event.preventDefault(); navigate(item.path); }}
                                     aria-current={active ? (item.path.includes("#") ? "location" : "page") : undefined}
                                     data-menu-link=""
@@ -164,7 +202,7 @@ export function MobileMenu({ mobileOnly = true }: { mobileOnly?: boolean }) {
                         <Image data-menu-alien="" src="/images/alienAr.png" alt="" width={390} height={417} sizes="260px" className="absolute -bottom-5 right-0 h-full max-h-[310px] w-auto origin-bottom rotate-[-9deg] object-contain" />
                     </div>
 
-                    <Link href={publicPath(locale, siteConfig.links.contact)} onNavigate={(event) => { event.preventDefault(); navigate(siteConfig.links.contact); }} className="group/menu-cta relative flex min-h-[88px] shrink-0 items-center justify-between gap-3 rounded-[16px] bg-[#181818] px-5 py-4 text-white no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5848ff]">
+                    <Link href={isPreview ? "#contact" : publicPath(locale, siteConfig.links.contact)} onNavigate={(event) => { event.preventDefault(); navigate(siteConfig.links.contact); }} className="group/menu-cta relative flex min-h-[88px] shrink-0 items-center justify-between gap-3 rounded-[16px] bg-[#181818] px-5 py-4 text-white no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5848ff]">
                         <span className="max-w-[17ch] text-[16px] font-bold uppercase leading-[1.3]">{t("LET'S BUILD SOMETHING GREAT")}</span>
                         <span aria-hidden="true" className="flex size-[50px] shrink-0 items-center justify-center rounded-full border-[1.5px] border-white text-[32px] font-light">
                             <span className="inline-flex size-8 origin-center items-center justify-center transition-transform duration-700 ease-in-out motion-reduce:transition-none motion-safe:[@media(hover:hover)_and_(pointer:fine)]:group-hover/menu-cta:rotate-[360deg]">→</span>

@@ -59,7 +59,7 @@ export default function MobileHeroSection() {
     }, { scope: sectionRef });
 
     return (
-        <section ref={sectionRef} data-mobile-section="hero" className={styles.hero}>
+        <section ref={sectionRef} id="hero" data-mobile-section="hero" className={styles.hero}>
             <div data-hero-content className={styles.content}>
                 <h1 aria-label="DIGITAL AGENCY" className={styles.title}>
                     <span data-hero-digital>DIGITAL</span>

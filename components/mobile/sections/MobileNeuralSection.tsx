@@ -21,7 +21,7 @@ export default function MobileNeuralSection() {
 
     return (
         <section
-            data-mobile-section="neural"
+            id="neural" data-mobile-section="neural"
             aria-labelledby={`${sectionId}-title`}
             className={styles.section}
         >
@@ -208,7 +208,7 @@ function ModuleIcon({
     return (
         <svg
             aria-hidden="true"
-                viewBox="0 0 48 48"
+            viewBox="0 0 48 48"
             className={styles.serviceIcon}
             fill="none"
             stroke="currentColor"

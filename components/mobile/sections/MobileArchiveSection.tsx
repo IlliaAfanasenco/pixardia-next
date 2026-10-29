@@ -36,7 +36,7 @@ export default function MobileArchiveSection() {
 
     return (
         <section
-            data-mobile-section="archive"
+            id="projects" data-mobile-section="archive"
             className={`${styles.mobileArchive} relative w-full px-5 pb-7 pt-5`}
         >
             <p className="text-[9px] font-medium uppercase">
