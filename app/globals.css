@@ -1177,37 +1177,6 @@
     }
 
     .cinematic-stage[data-cinematic-mode="desktop"]
-    [data-cinematic-element="crafting-copy"]
-    h2 {
-        margin-top: clamp(1.75rem, 2.5svh, 2.5rem);
-        font-size: clamp(6.5rem, 8.2svh, 7.75rem);
-    }
-
-    .cinematic-stage[data-cinematic-mode="desktop"]
-    [data-cinematic-element="crafting-copy"]
-    > p:nth-of-type(2) {
-        margin-top: clamp(1.75rem, 2.6svh, 2.5rem);
-        font-size: clamp(1.5rem, 2.1svh, 1.75rem);
-    }
-
-    .cinematic-stage[data-cinematic-mode="desktop"]
-    [data-cinematic-element="crafting-card"] {
-        max-width: 560px;
-        margin-top: clamp(2.25rem, 3.5svh, 3.25rem);
-    }
-
-    .cinematic-stage[data-cinematic-mode="desktop"]
-    [data-cinematic-element="crafting-terminal"]
-    > div {
-        max-width: 880px;
-    }
-
-    .cinematic-stage[data-cinematic-mode="desktop"]
-    [data-ai-terminal-body] {
-        min-height: clamp(660px, 56svh, 780px);
-    }
-
-    .cinematic-stage[data-cinematic-mode="desktop"]
     > [data-cinematic-scene="neural"] {
         align-items: center;
         padding-block-start: calc(var(--cinematic-compact-header-offset) + clamp(1rem, 2svh, 2rem));
@@ -1375,71 +1344,6 @@
         padding-block: clamp(2.5rem, 6vw, 4rem);
     }
 
-    [data-cinematic-scene="crafting"] [data-cinematic-layer] {
-        grid-template-columns: minmax(0, 1fr);
-        gap: clamp(2rem, 4vw, 3rem);
-    }
-
-    [data-cinematic-element="crafting-copy"] {
-        width: 100%;
-        max-width: 760px;
-        margin-inline: auto;
-    }
-
-    [data-cinematic-element="crafting-copy"] h2 {
-        margin-top: 1.5rem;
-        font-size: clamp(2.75rem, 8vw, 5.5rem);
-        max-width: 100%;
-        overflow-wrap: anywhere;
-    }
-
-    [data-cinematic-element="crafting-copy"] > p:nth-of-type(2) {
-        margin-top: 1.5rem;
-        max-width: 36ch;
-        font-size: clamp(1rem, 2.2vw, 1.375rem);
-        line-height: 1.3;
-    }
-
-    .crafting-metrics {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-        width: 100%;
-        max-width: 500px;
-        gap: clamp(1rem, 3vw, 2rem);
-        margin-top: 1.5rem;
-        overflow-wrap: anywhere;
-    }
-
-    .crafting-metrics > div > p:first-child {
-        font-size: clamp(1.5rem, 3.5vw, 2rem);
-    }
-
-    [data-cinematic-element="crafting-card"] {
-        max-width: 640px;
-        margin-top: 1.75rem;
-    }
-
-    [data-cinematic-element="crafting-card"] input,
-    [data-cinematic-element="crafting-card"] button {
-        min-height: 44px;
-    }
-
-    [data-cinematic-element="crafting-terminal"] > div {
-        max-width: 960px;
-    }
-
-    .crafting-terminal-tags {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.5rem;
-        margin-top: 1rem;
-        overflow-wrap: anywhere;
-    }
-
-    .crafting-terminal-tags > div {
-        min-width: 0;
-        padding-inline: 0.5rem;
-    }
-
     [data-cinematic-scene="neural"] [data-neural-layer] {
         --neural-flow-gap: 1.5rem;
         --neural-flow-line: rgb(36 106 229 / 28%);
@@ -1581,28 +1485,6 @@
     [data-cinematic-scene="neural"] [data-neural-node-card] {
         min-height: 212px;
         padding: 1.25rem;
-    }
-}
-
-@media (min-width: 1024px) and (max-width: 1279px) {
-    /* Expand the introduction, while the terminal keeps its own full-width row. */
-    [data-cinematic-element="crafting-copy"] {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
-        align-items: start;
-        column-gap: 2.5rem;
-        max-width: 960px;
-    }
-
-    [data-cinematic-element="crafting-copy"] > :not([data-cinematic-element="crafting-card"]) {
-        grid-column: 1;
-    }
-
-    [data-cinematic-element="crafting-card"] {
-        grid-column: 2;
-        grid-row: 1 / 5;
-        align-self: center;
-        margin-top: 0;
     }
 }
 
@@ -2093,4 +1975,100 @@
 
 @media (min-width: 2048px) {
     .contact-project-notes { writing-mode: horizontal-tb; flex-direction: column; align-items: flex-end; gap: 12px; }
+}
+
+/*
+ * Crafting / project conversation scene (pinned desktop mode only).
+ *
+ * Root cause of the large white bands: every pinned scene is a flex box that is
+ * 100svh tall and centres its layer (`align-items: center`). This layer was only
+ * as tall as its content (~580px), so a 1080px viewport left ~220px of nothing
+ * above and below it. Here the scene instead reserves a fixed header lane plus a
+ * small viewport-relative gap and lets the layer stretch to the remaining height.
+ * The layer keeps the shared site container edges (logo on the left, container
+ * edge on the right; the fixed section index is positioned independently). Wide
+ * screens scale it with `zoom`, compensating max-width and gutters so the
+ * container edges never move.
+ */
+@media (min-width: 1280px) and (min-height: 800px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    > [data-cinematic-scene="crafting"] {
+        --crafting-gap: clamp(2.25rem, 5svh, 4rem);
+        align-items: stretch;
+        padding-block-start: calc(var(--cinematic-compact-header-offset) + 4px + var(--crafting-gap));
+        padding-block-end: var(--crafting-gap);
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-cinematic-scene="crafting"]
+    [data-cinematic-layer] {
+        --cz-w: 1;
+        --cz-h: 1;
+        --cz: min(var(--cz-w), var(--cz-h));
+        align-items: stretch;
+        min-height: 0;
+        zoom: var(--cz);
+        /* Same container as the Header and other sections (.site-container): zoom scales
+           max-width and gutters too, so divide them by the zoom to keep identical edges. */
+        max-width: calc(var(--site-container-max) / var(--cz));
+        padding-inline: calc(var(--site-container-gutter) / var(--cz));
+    }
+
+    .cinematic-stage[data-cinematic-mode="desktop"]
+    [data-cinematic-element="crafting-copy"] {
+        min-height: 0;
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 1800px) and (min-height: 800px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="crafting"] [data-cinematic-layer] { --cz-w: 1.1; }
+}
+
+@media (min-width: 2200px) and (min-height: 800px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="crafting"] [data-cinematic-layer] { --cz-w: 1.3; }
+}
+
+@media (min-width: 2500px) and (min-height: 800px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="crafting"] [data-cinematic-layer] { --cz-w: 1.5; }
+}
+
+@media (min-width: 1280px) and (min-height: 1000px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="crafting"] [data-cinematic-layer] { --cz-h: 1.45; }
+}
+
+@media (min-width: 1280px) and (min-height: 1300px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="crafting"] [data-cinematic-layer] { --cz-h: 1.9; }
+}
+
+@media (min-width: 1280px) and (min-height: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="crafting"] [data-cinematic-layer] { --vk: 1.1; }
+}
+
+@media (min-width: 1280px) and (min-height: 1000px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="crafting"] [data-cinematic-layer] { --vk: 1.35; }
+}
+
+@media (min-width: 1280px) and (min-height: 1300px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cinematic-stage[data-cinematic-mode="desktop"] [data-cinematic-scene="crafting"] [data-cinematic-layer] { --vk: 1.4; }
+}
+
+/*
+ * German copy runs longer than English. Secondary text in German keeps its size and weight but
+ * gets a readable contrast (the pale #DBDADA / #A9AAAE greys are below 3:1 on white).
+ */
+:lang(de) [data-footer-legal] > p,
+:lang(de) [data-footer-legal] p,
+:lang(de) [data-footer-bottom] p {
+    color: #737378;
+}
+
+:lang(de) [data-archive-intro] {
+    color: #6F7075;
+}
+
+/* THE FIRST HANDSHAKE owns the screen: no scrolling, and no layout shift when the scrollbar returns. */
+html[data-desktop-intro] {
+    overflow: hidden;
+    scrollbar-gutter: stable;
 }

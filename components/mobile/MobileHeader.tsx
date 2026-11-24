@@ -8,7 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { gsap } from "gsap";
 import { siteConfig } from "@/config/site";
 import { useI18n } from "@/i18n/LocaleProvider";
-import { publicPath } from "@/i18n/navigation";
+import { parseMobilePreviewPath, publicPath } from "@/i18n/navigation";
 import LanguageSwitcher from "@/components/layout/LanguageSwitcher";
 
 const previewTargets: Record<string, string> = {
@@ -22,7 +22,7 @@ const previewTargets: Record<string, string> = {
 export function MobileMenu({ mobileOnly = true }: { mobileOnly?: boolean }) {
     const { locale, t } = useI18n();
     const pathname = usePathname();
-    const isPreview = pathname === "/mobile-preview";
+    const isPreview = parseMobilePreviewPath(pathname) !== null;
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const [activeHash, setActiveHash] = useState("");

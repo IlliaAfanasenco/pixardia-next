@@ -1,321 +1,153 @@
 "use client";
-import { publicPath } from "@/i18n/navigation";
 import { useI18n } from "@/i18n/LocaleProvider";
 
 import Image from "next/image";
-import Link from "next/link";
-import {
-    type FormEvent,
-} from "react";
+import { useEffect, useRef, useState } from "react";
 
-import AiTerminal from "@/features/ai-terminal/AiTerminal";
-import { useAiTerminal } from "@/features/ai-terminal/useAiTerminal";
+import ProcessAdvisorChat from "@/features/process-advisor/ProcessAdvisorChat";
+import SuggestionCard, { SuggestionIcons } from "@/features/process-advisor/SuggestionCard";
+import { useProjectDesk } from "@/features/process-advisor/useProjectDesk";
 
-const tags = [
-    {
-        top: "scope",
-        bottom: "Defined",
-    },
-    {
-        top: "delivery",
-        bottom: "Controlled",
-    },
-    {
-        top: "support",
-        bottom: "Continuous",
-    },
-];
+/* Divided by the scene zoom (--cz) so the mascot keeps its size when the layer is scaled up. */
+const MASCOT_WIDTH = "calc(clamp(90px,8.8vw,127px) / var(--cz, 1))";
+
+function Mascot({ front = false }: { front?: boolean }) {
+    return (
+        <div
+            aria-hidden="true"
+            style={{ "--mascot-w": MASCOT_WIDTH } as React.CSSProperties}
+            className={`pointer-events-none absolute right-8 ${
+                front
+                    ? "z-20 max-lg:hidden"
+                    : "z-0 bottom-full h-[58px] w-[58px] overflow-hidden"
+            } lg:bottom-auto lg:right-full lg:top-[12%] lg:h-auto lg:w-[var(--mascot-w)] lg:overflow-visible lg:[margin-right:calc(var(--mascot-w)*-0.236)]`}
+        >
+            <Image
+                src="/images/alienPeek.png"
+                alt=""
+                width={127}
+                height={246}
+                sizes="(min-width: 1024px) 127px, 76px"
+                className={`absolute left-0 top-[-20px] h-auto w-[76px] max-w-none -scale-x-100 select-none lg:static lg:w-full ${
+                    front ? "[clip-path:inset(56%_10%_24%_74%)]" : ""
+                }`}
+            />
+        </div>
+    );
+}
 
 export default function CraftingStructureSection() {
-    const { t, locale } = useI18n();
-    const {
-        input,
-        setInput,
-        messages,
-        error,
-        isSubmitting,
-        shouldLeadToContact,
-        submit,
-        reset,
-    } = useAiTerminal(locale);
+    const { t } = useI18n();
+    const desk = useProjectDesk(t);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [highlighted, setHighlighted] = useState(false);
+    const highlightTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    function handleSubmit(
-        event: FormEvent<HTMLFormElement>,
-    ): void {
-        event.preventDefault();
+    useEffect(() => () => {
+        if (highlightTimer.current) clearTimeout(highlightTimer.current);
+    }, []);
 
-        void submit();
+    function focusChat() {
+        inputRef.current?.focus();
+        setHighlighted(true);
+        if (highlightTimer.current) clearTimeout(highlightTimer.current);
+        highlightTimer.current = setTimeout(() => setHighlighted(false), 1400);
+    }
+
+    function startGuided(mode: "new" | "improve") {
+        desk.begin(mode);
+        focusChat();
     }
 
     return (
         <section
             id="crafting-structure"
-            className="relative overflow-x-clip py-10 sm:py-14 lg:py-20"
+            className="relative overflow-x-clip bg-white py-6 sm:py-8 lg:py-8"
             data-story-section="crafting-structure"
             data-story-step="2"
             data-cinematic-scene="crafting"
             data-motion="fade-up"
             data-motion-state="pending"
         >
-            <div className="crafting-wide-decor" aria-hidden="true">
-                <svg
-                    className="crafting-orbital-field"
-                    viewBox="0 0 1000 1000"
-                    fill="none"
-                    focusable="false"
-                >
-                    <g className="crafting-orbit crafting-orbit--outer">
-                        <circle cx="500" cy="500" r="480" />
-                        <path d="M500 12v16M972 500h16M500 972v16M12 500h16" />
-                        <circle className="crafting-decor__lime" cx="116" cy="212" r="3.5" />
-                        <circle className="crafting-decor__satellite" cx="20" cy="500" r="2" />
-                    </g>
-                    <g className="crafting-orbit crafting-orbit--inner">
-                        <circle cx="500" cy="500" r="404" />
-                        <circle className="crafting-decor__violet" cx="823.2" cy="257.6" r="3" />
-                        <circle className="crafting-decor__satellite" cx="500" cy="904" r="2" />
-                    </g>
-                    <g className="crafting-orbit crafting-orbit--dotted">
-                        <circle cx="500" cy="500" r="450" strokeDasharray="1 9" strokeLinecap="round" />
-                        <circle className="crafting-decor__lime" cx="140" cy="770" r="2.5" />
-                        <circle className="crafting-decor__satellite" cx="770" cy="140" r="2" />
-                    </g>
-                    <g className="crafting-structural-paths">
-                        <path d="M64 188h84l72 72M790 780l72 72h98" />
-                        <path d="M142 182v12M78 858h16M86 850v16M856 846v12" />
-                        <circle cx="220" cy="260" r="2" />
-                        <circle cx="790" cy="780" r="2" />
-                        <text x="66" y="174">X / 002</text>
-                        <text x="868" y="875">Y / 006</text>
-                    </g>
-                </svg>
-
-                <div className="crafting-editorial-rail">
-                    <span>02 / 06</span>
-                    <span className="crafting-editorial-rail__line" />
-                    <span className="crafting-editorial-rail__vertical">CREATIVITY × TECHNOLOGY</span>
-                    <span className="crafting-editorial-rail__indicator" />
-                    <span className="crafting-editorial-rail__coordinate">+ &nbsp; SYS / 02</span>
-                </div>
-
-                <div className="crafting-process-notes">
-                    <span className="crafting-process-notes__index">ORBIT / 02</span>
-                    <span>PROCESS</span>
-                    <span>STRATEGY</span>
-                    <span>TECHNOLOGY</span>
-                    <span>DESIGN</span>
-                </div>
-            </div>
-            {/* Extend the reveal mask for the action row without changing the grid's layout footprint. */}
             <div
-                className="site-container grid gap-12 xl:-mb-20 xl:pb-20 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:items-start xl:gap-[clamp(40px,6vw,92px)]"
+                className="site-container grid gap-10 lg:grid-cols-[minmax(0,46fr)_minmax(0,54fr)] lg:items-stretch lg:gap-[clamp(48px,7vw,100px)]"
                 data-cinematic-layer=""
             >
                 <div
-                    className="flex min-w-0 flex-col items-start"
+                    className="@container flex min-w-0 flex-col items-start lg:min-h-[clamp(500px,54svh,640px)] lg:self-stretch"
                     data-cinematic-element="crafting-copy"
                 >
-                    <p className="text-xs font-bold uppercase tracking-[0.03em] text-[#C5C6C8]">
-                        {t("02 / END-TO-END DELIVERY SYSTEM")}
-                    </p>
+                    <div className="flex w-full flex-col items-start">
+                        <p className="text-[calc(12px*var(--vk,1))] font-bold uppercase tracking-[0.03em] text-[#C5C6C8]">
+                            {t("02 / YOUR IDEAS. OUR EXPERTISE.")}
+                        </p>
 
-                    <h2 className="mt-7 flex flex-col items-start text-[clamp(44px,7.5vw,104px)] font-black uppercase leading-[0.86] tracking-[-0.045em]">
-                        <span className="text-[#1E1E1E]">
-                            {t("crafting")}
-                            </span>
+                        <h2 className="mt-4 flex w-full flex-col items-start text-[clamp(2.4rem,10.8cqw,6.5rem)] font-black uppercase leading-[0.88] tracking-[-0.045em]">
+                            <span className="whitespace-nowrap text-[#1E1E1E]">{t("GREAT PROJECTS")}</span>
+                            <span className="whitespace-nowrap text-[#1E1E1E]">{t("START WITH A")}</span>
+                            <span className="whitespace-nowrap text-[#C5C6C8]">{t("CONVERSATION.")}</span>
+                        </h2>
 
-                        <span className="text-[#C5C6C8]">
-                            {t("structure")}
-                            </span>
-                    </h2>
+                    </div>
 
-                    <p className="mt-7 max-w-[620px] text-left text-lg font-bold uppercase leading-[1.2] tracking-[-0.03em] text-[#1E1E1E] md:text-[clamp(18px,2vw,24px)]">
-                        {t("Every successful product starts with a clear strategy, a strong system and a controlled delivery process.")}
-                    </p>
-
-                    <div className="crafting-metrics mt-8 flex items-center gap-6 text-left sm:gap-10">
-                        <div>
-                            <p className="text-[32px] font-black uppercase leading-none tracking-[0.03em] md:text-4xl">
-                                {t("clear")}
-                            </p>
-
-                            <p className="mt-1 text-sm font-bold uppercase leading-[1.2] tracking-[0.1em] text-[#C5C6C8] md:text-base">
-                                {t("project scope")}
-                            </p>
-                        </div>
-
-                        <div className="h-14 w-px shrink-0 bg-[#C5C6C8]" />
-
-                        <div>
-                            <p className="text-[32px] font-black uppercase leading-none tracking-[0.03em] md:text-4xl">
-                                {t("managed")}
-                            </p>
-
-                            <p className="mt-1 text-sm font-bold uppercase leading-[1.2] tracking-[0.1em] text-[#C5C6C8] md:text-base">
-                                {t("controlled delivery")}
-                            </p>
-                        </div>
+                    <div className="mt-4 max-w-[520px] lg:mt-[clamp(16px,2.2svh,30px)] font-bold tracking-[-0.02em]">
+                        <p className="text-[calc(clamp(18px,1.7vw,22px)*var(--vk,1))] leading-[1.2] text-[#1E1E1E]">
+                            {t("Have something in mind?")}
+                        </p>
+                        <p className="mt-1.5 text-[calc(15px*var(--vk,1))] leading-[1.35] text-[#969696] md:text-[calc(16px*var(--vk,1))]">
+                            {t("Tell us what you’re planning. We’ll ask a few simple questions and help you figure out the next step.")}
+                        </p>
                     </div>
 
                     <div
-                        className="mt-9 w-full max-w-[500px] border-b-4 border-r-4 border-[#1B1B1B] bg-white text-left"
+                        className="mt-6 w-full max-w-[560px] lg:max-w-[calc(560px*var(--vk,1))] lg:pt-5"
                         data-cinematic-element="crafting-card"
                     >
-                        <div className="relative p-4 sm:p-[18px_20px_20px]">
-                            <div className="flex items-center justify-between gap-4">
-                                <div className="flex min-w-0 items-center gap-4">
-                                    <Image
-                                        src="/icons/starCS.svg"
-                                        alt=""
-                                        width={21}
-                                        height={21}
-                                        className="shrink-0"
-                                    />
+                        <p className="text-[calc(12px*var(--vk,1))] font-bold uppercase tracking-[0.03em] text-[#686868]">
+                            {t("WHAT WOULD YOU LIKE TO DO?")}
+                        </p>
 
-                                    <p className="truncate text-sm font-bold uppercase leading-[1.2] tracking-[0.01em] text-[#3D5FB5]">
-                                        {t("project architect")}
-                                    </p>
-                                </div>
-
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F7F7F7]">
-                                    <span
-                                        className={`h-2 w-2 rounded-full ${
-                                            isSubmitting
-                                                ? "animate-pulse bg-[#E9C46A]"
-                                                : "bg-[#30D13B]"
-                                        }`}
-                                    />
-                                </div>
-                            </div>
-
-                            <p className="mt-6 text-sm font-bold leading-[1.3] tracking-[0.01em] text-[#C5C6C8]">
-                                {t("Describe your business goals, target users and required functionality. We will map the strongest delivery route.")}
-                            </p>
-
-                            <form
-                                className="mt-5"
-                                onSubmit={handleSubmit}
-                            >
-                                <label
-                                    htmlFor="ai-project-signal"
-                                    className="sr-only"
-                                >
-                                    {t("Describe your project")}
-                                </label>
-
-                                <input
-                                    id="ai-project-signal"
-                                    type="text"
-                                    value={input}
-                                    onChange={(event) => {
-                                        setInput(
-                                            event.target.value,
-                                        );
-                                    }}
-                                    maxLength={800}
-                                    placeholder={t("Describe your goals, users and required functionality.")}
-                                    className="h-11 w-full bg-[#F3F4F6] px-4 text-sm font-bold leading-[1.2] tracking-[0.01em] text-[#1E1E1E] outline-none placeholder:text-[#C5C6C8] focus:ring-2 focus:ring-[#3D5FB5] md:h-10"
-                                    disabled={isSubmitting}
-                                    aria-invalid={Boolean(
-                                        error,
-                                    )}
-                                    aria-controls="pixardia-ai-terminal-log"
-                                    autoComplete="off"
-                                />
-
-                                {error && (
-                                    <p
-                                        role="alert"
-                                        className="mt-2 text-xs font-bold leading-5 text-red-600"
-                                    >
-                                        {error}
-                                    </p>
-                                )}
-
-                                <button
-                                    type="submit"
-                                    className="mt-[15px] flex h-11 w-full items-center justify-center bg-[#1E1E1E] transition hover:bg-[#2A2A2A] disabled:cursor-not-allowed disabled:opacity-60 md:h-10"
-                                    disabled={isSubmitting}
-                                >
-                                    <span className="text-sm font-bold uppercase leading-[1.2] tracking-[0.03em] text-[#EDEDED]">
-                                        {isSubmitting
-                                            ? t("analysing...")
-                                            : t("build project route →")}
-                                    </span>
-                                </button>
-                            </form>
-
-                            {(shouldLeadToContact ||
-                                messages.length > 0) && (
-                                <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:absolute xl:inset-x-5 xl:top-full">
-                                    {shouldLeadToContact && (
-                                        <Link
-                                            href={publicPath(locale, "/contact")}
-                                            className="border border-[#3D5FB5] px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.03em] text-[#3D5FB5] transition hover:bg-[#3D5FB5] hover:text-white"
-                                        >
-                                            {t("start a project →")}
-                                        </Link>
-                                    )}
-
-                                    {messages.length > 0 && (
-                                        <button
-                                            type="button"
-                                            onClick={reset}
-                                            className={`border border-[#C9C9CB] px-3 py-3 text-xs font-bold uppercase tracking-[0.03em] text-[#909094] transition hover:border-black hover:text-black ${
-                                                shouldLeadToContact
-                                                    ? ""
-                                                    : "sm:col-span-2"
-                                            }`}
-                                        >
-                                            {t("reset analysis")}
-                                        </button>
-                                    )}
-                                </div>
-                            )}
+                        <div className="mt-2.5 grid gap-2.5">
+                            <SuggestionCard
+                                title={t("Build something new")}
+                                description={t("I have an idea for a website, app or digital product.")}
+                                icon={SuggestionIcons.build}
+                                onSelect={() => startGuided("new")}
+                            />
+                            <SuggestionCard
+                                title={t("Improve what I already have")}
+                                description={t("I want to upgrade an existing website or product.")}
+                                icon={SuggestionIcons.improve}
+                                onSelect={() => startGuided("improve")}
+                            />
                         </div>
+
+                        <button
+                            type="button"
+                            onClick={focusChat}
+                            className="group mt-2.5 flex min-h-[calc(52px*var(--vk,1))] w-full items-center justify-between gap-6 bg-black px-5 text-[calc(14px*var(--vk,1))] font-bold uppercase tracking-[0.03em] text-white transition-colors duration-300 hover:bg-[#2A2A2A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                        >
+                            {t("START A CONVERSATION")}
+                            <span
+                                aria-hidden="true"
+                                className="text-lg leading-none text-white transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+                            >
+                                →
+                            </span>
+                        </button>
                     </div>
                 </div>
 
                 <div
-                    className="min-w-0"
+                    className="relative min-w-0 max-lg:mt-5 lg:self-stretch"
                     data-cinematic-element="crafting-terminal"
                 >
-                    <div className="relative mx-auto w-full max-w-[760px]">
-                        <div className="relative min-[1800px]:pl-28">
-                            <AiTerminal
-                                messages={messages}
-                                isSubmitting={
-                                    isSubmitting
-                                }
-                                error={error}
-                            />
-
-                            <Image
-                                src="/images/alienCS.png"
-                                alt=""
-                                aria-hidden="true"
-                                width={104}
-                                height={104}
-                                className="pointer-events-none absolute left-6 top-[58%] z-20 hidden h-auto w-[104px] -translate-y-1/2 object-contain min-[1800px]:block"
-                            />
-                        </div>
-
-                        <div className="crafting-terminal-tags mt-6 grid w-full gap-3 sm:grid-cols-3 sm:gap-4 min-[1800px]:pl-28">
-                            {tags.map((tag) => (
-                                <div
-                                    key={`${tag.top}-${tag.bottom}`}
-                                    className="flex min-h-16 flex-col items-center justify-center border-b-2 border-r-2 border-[#BDBDBD] px-3 text-center"
-                                >
-                                    <span className="text-xs font-bold uppercase leading-[1.2] tracking-[0.03em] text-[#C5C6C8] sm:text-sm">
-                                        {t(tag.top)}
-                                    </span>
-
-                                    <span className="mt-1.5 text-sm font-bold leading-[1.2] tracking-[0.03em] text-[#1E1E1E] sm:text-base">
-                                        {t(tag.bottom)}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
+                    {/* Decorative mascot. Back layer sits under the terminal; the front layer repeats only the
+                        gripping fingers above the frame so the hand reads as holding the edge. */}
+                    <Mascot />
+                    <Mascot front />
+                    <div className="relative z-10 lg:absolute lg:inset-0">
+                        <ProcessAdvisorChat inputRef={inputRef} desk={desk} highlighted={highlighted} />
                     </div>
                 </div>
             </div>

@@ -123,7 +123,6 @@ export default function ProjectModal({
 
         navigationCommittedRef.current = true;
 
-        releaseEnvironmentRef.current?.();
 
         const modalRoot = modalRootRef.current;
 

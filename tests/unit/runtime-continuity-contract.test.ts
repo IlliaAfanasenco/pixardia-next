@@ -91,7 +91,7 @@ describe("runtime continuity contract", () => {
     it("uses one six-chapter narrative", () => {
         expect(
             read("components/CraftingStructureSection.tsx"),
-        ).toContain("02 / END-TO-END DELIVERY SYSTEM");
+        ).toContain("02 / YOUR IDEAS. OUR EXPERTISE.");
 
         expect(
             read("components/NeuralSection.tsx"),

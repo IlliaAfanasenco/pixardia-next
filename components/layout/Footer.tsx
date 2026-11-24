@@ -233,7 +233,8 @@ export default function Footer({ locale, backToTopHref = "#top", variant = "resp
 
                 <div className="mt-6 flex flex-col items-center gap-6 text-center xl:flex-row xl:items-start xl:justify-between xl:gap-10 xl:text-left" data-footer-legal="">
                     <p className="text-sm font-medium uppercase leading-[1.2] tracking-[0.03em] text-[#DBDADA] md:text-base">
-                        {t("Clear scope. Controlled delivery.")}{" // "}
+                        {t("Clear scope. Controlled delivery.")}
+                        {locale === "de" ? " " : " // "}
                         {t("Production-ready results.")}
                     </p>
 
@@ -246,7 +247,7 @@ export default function Footer({ locale, backToTopHref = "#top", variant = "resp
                                 <Link
                                     key={item.href}
                                     href={publicPath(locale, item.href)}
-                                    className="text-inherit no-underline transition duration-300 hover:text-[#5E56E7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5E56E7]"
+                                    className="whitespace-nowrap text-inherit no-underline transition duration-300 hover:text-[#5E56E7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5E56E7]"
                                 >
                                     {t(item.label)}
                                 </Link>

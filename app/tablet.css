@@ -113,44 +113,7 @@
         isolation: isolate;
     }
 
-    [data-cinematic-element="crafting-copy"] {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
-        column-gap: clamp(24px, 4vw, 48px);
-        max-width: none;
-        align-items: start;
-    }
-    [data-cinematic-element="crafting-copy"] > :not([data-cinematic-element="crafting-card"]) { grid-column: 1; }
-    [data-cinematic-element="crafting-copy"] h2 { font-size: clamp(52px, 7.1vw, 88px); margin-top: 24px; }
-    [data-cinematic-element="crafting-copy"] > p:first-child { font-size: 10px; letter-spacing: 0.04em; }
-    [data-cinematic-element="crafting-copy"] > p:nth-of-type(2) { font-size: clamp(16px, 1.8vw, 21px); }
-    .crafting-metrics { gap: 16px; }
-    .crafting-metrics > div > p:first-child { font-size: clamp(22px, 2.8vw, 32px); }
-    .crafting-metrics > div > p:nth-child(2) { font-size: 11px; letter-spacing: 0.05em; }
-
-    [data-cinematic-element="crafting-card"] {
-        grid-column: 2;
-        grid-row: 1 / 5;
-        align-self: center;
-        margin: 0;
-        box-shadow: 12px 12px 0 rgb(197 198 200 / 12%);
-    }
-    [data-cinematic-element="crafting-card"] input { font-size: 16px; }
-
     [data-cinematic-scene="crafting"] [data-cinematic-layer] { position: relative; z-index: 1; gap: 44px; }
-    [data-cinematic-element="crafting-terminal"] { width: 94%; justify-self: end; }
-    [data-cinematic-element="crafting-terminal"] > div { max-width: none; }
-    [data-cinematic-element="crafting-terminal"] img[src*="alienCS"] {
-        display: block;
-        left: -64px;
-        top: 42%;
-        width: 88px;
-        filter: drop-shadow(0 10px 16px rgb(30 30 30 / 12%));
-    }
-    [data-cinematic-scene="crafting"] [data-ai-terminal-body] { min-height: 0; padding: 24px; }
-    .crafting-terminal-tags { gap: 16px; margin-top: 24px; }
-    .crafting-terminal-tags > div { border-color: #d7d7d8; }
-
     .crafting-wide-decor { display: block; position: absolute; inset: 0; z-index: 0; overflow: clip; }
     .crafting-orbital-field {
         position: absolute;
@@ -219,14 +182,7 @@
     .hero-meta { margin-top: 24px; }
     .hero-studio-signature { top: 32px; flex-direction: row; align-items: center; }
     .hero-studio-signature__coordinate { display: none; }
-    [data-cinematic-scene="crafting"] [data-cinematic-layer] { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); align-items: center; gap: 40px; }
-    [data-cinematic-element="crafting-copy"] { display: flex; }
-    [data-cinematic-element="crafting-copy"] h2 { font-size: clamp(64px, 6.5vw, 80px); }
-    [data-cinematic-element="crafting-card"] { margin-top: 32px; align-self: stretch; }
-    [data-cinematic-element="crafting-terminal"] { width: 100%; }
-    [data-cinematic-element="crafting-terminal"] img[src*="alienCS"] { left: -38px; top: auto; bottom: 72px; width: 76px; }
-    [data-cinematic-scene="crafting"] [data-ai-terminal-body] { padding: 20px; font-size: 11px; }
-    .crafting-metrics > div > p:nth-child(2) { font-size: 12px; }
+    [data-cinematic-scene="crafting"] [data-cinematic-layer] { grid-template-columns: minmax(0, 46fr) minmax(0, 54fr); align-items: center; gap: 32px; }
     .crafting-orbital-field { width: 85%; right: -16%; bottom: -20%; }
 
     /* A grid-based constellation echoes the desktop scene without pinning it. */

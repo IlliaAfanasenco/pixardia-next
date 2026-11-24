@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useI18n } from "@/i18n/LocaleProvider";
 import styles from "./MobileCraftingSection.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,6 +17,7 @@ const STATS = [
 ];
 
 export default function MobileCraftingSection() {
+    const { t } = useI18n();
     const sectionRef = useRef<HTMLElement>(null);
     const stageRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -142,17 +144,17 @@ export default function MobileCraftingSection() {
                     </p>
                     <h2 className="mt-2 uppercase leading-[0.9] tracking-[-0.055em]">
                 <span className="block text-[clamp(29px,10vw,43px)] font-black text-[#5848ff]">
-                  A PARTNER
+                  {t("A PARTNER")}
                 </span>
                         <span className="block text-[clamp(25px,8.65vw,37px)] font-black text-[#c4c4c6]">
-                  YOU CAN TRUST
+                  {t("YOU CAN TRUST")}
                 </span>
                     </h2>
                     <p className="mx-auto mt-4 max-w-[310px] text-[15px] font-semibold uppercase leading-[1.15] text-[#c4c4c6]">
-                        We create websites that<br />
-                        don&apos;t just look good — they<br />
-                        work, convert and grow<br />
-                        your business
+                        {t("We create websites that")}<br />
+                        {t("don't just look good — they")}<br />
+                        {t("work, convert and grow")}<br />
+                        {t("your business")}
                     </p>
                 </div>
 
@@ -173,7 +175,7 @@ export default function MobileCraftingSection() {
                     className={styles.marquee}
                     tabIndex={0}
                     role="group"
-                    aria-label="Partner statistics"
+                    aria-label={t("Partner statistics")}
                     onPointerDown={(event) => {
                         event.currentTarget.dataset.pressed = "true";
                     }}
@@ -197,7 +199,7 @@ export default function MobileCraftingSection() {
                                 className={styles.statsGroup}
                                 aria-hidden={duplicate ? true : undefined}
                             >
-                                {STATS.map((stat) => <Stat key={stat.label} {...stat} />)}
+                                {STATS.map((stat) => <Stat key={stat.label} value={stat.value} label={t(stat.label)} />)}
                             </div>
                         ))}
                     </div>

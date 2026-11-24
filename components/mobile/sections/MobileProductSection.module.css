@@ -99,6 +99,11 @@
     color: var(--chapter-accent);
 }
 
+/* "LEBENSZYKLUS" is much longer than "LIFECYCLE": keep it clear of the astronaut. */
+:global(:lang(de)) .title span:last-child {
+    font-size: clamp(26px, 8.2vw, 36px);
+}
+
 .description {
     margin-top: 18px;
     color: var(--chapter-text);

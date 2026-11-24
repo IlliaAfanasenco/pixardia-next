@@ -47,10 +47,10 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 }
 
 
-// Validate ../../app/(mobile-preview)/mobile-preview/page.tsx
+// Validate ../../app/(mobile-preview)/mobile-preview/[[...lang]]/page.tsx
 {
-  type __IsExpected<Specific extends AppPageConfig<"/mobile-preview">> = Specific
-  const handler = {} as typeof import("../../app/(mobile-preview)/mobile-preview/page.js")
+  type __IsExpected<Specific extends AppPageConfig<"/mobile-preview/[[...lang]]">> = Specific
+  const handler = {} as typeof import("../../app/(mobile-preview)/mobile-preview/[[...lang]]/page.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
@@ -168,10 +168,10 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 
 
 
-// Validate ../../app/(mobile-preview)/layout.tsx
+// Validate ../../app/(mobile-preview)/mobile-preview/[[...lang]]/layout.tsx
 {
-  type __IsExpected<Specific extends LayoutConfig<"/">> = Specific
-  const handler = {} as typeof import("../../app/(mobile-preview)/layout.js")
+  type __IsExpected<Specific extends LayoutConfig<"/mobile-preview/[[...lang]]">> = Specific
+  const handler = {} as typeof import("../../app/(mobile-preview)/mobile-preview/[[...lang]]/layout.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

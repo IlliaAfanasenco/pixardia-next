@@ -1,4 +1,5 @@
 import MobileHeader from "./MobileHeader";
+import MobilePreviewNavigation from "./MobilePreviewNavigation";
 
 import MobileHeroSection from "./sections/MobileHeroSection";
 import MobileCraftingSection from "./sections/MobileCraftingSection";
@@ -14,6 +15,7 @@ export default function MobileHome() {
             data-mobile-home
             className="mx-auto w-full max-w-[430px] overflow-x-clip"
         >
+            <MobilePreviewNavigation />
             <div
             >
                 <MobileHeader />

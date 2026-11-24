@@ -48,7 +48,7 @@ export default async function RootLayout({
     const locale = await routeLocale(params);
     const t = translator(locale);
     return (
-        <html lang={locale}>
+        <html lang={locale} suppressHydrationWarning>
         <body>
         <LocaleProvider locale={locale}>
         <div

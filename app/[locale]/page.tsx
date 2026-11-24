@@ -5,6 +5,8 @@ import ArchiveSection from "@/components/ArchiveSection";
 import ContactSection from "@/components/ContactSection";
 import CraftingStructureSection from "@/components/CraftingStructureSection";
 import HeroSection from "@/components/HeroSection";
+import DesktopIntro from "@/features/desktop-intro/DesktopIntro";
+import { desktopIntroBootstrap } from "@/features/desktop-intro/config";
 import NeuralSystemSection from "@/components/NeuralSection";
 import CinematicRuntime from "@/components/presentation/CinematicRuntime";
 import TabletMotionRuntime from "@/components/presentation/TabletMotionRuntime";
@@ -30,6 +32,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     const locale = await routeLocale(params);
     return (
         <>
+            {/* Runs before first paint: the loader is on screen before the Hero can flash. */}
+            <script dangerouslySetInnerHTML={{ __html: desktopIntroBootstrap }} />
+            <DesktopIntro />
             <div data-cinematic-pin-shell="">
                 <div
                     className="cinematic-stage"
